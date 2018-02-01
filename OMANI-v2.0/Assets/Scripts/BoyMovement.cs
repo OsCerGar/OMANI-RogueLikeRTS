@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BoyMovimiento : MonoBehaviour
+public class BoyMovement : MonoBehaviour
 {
 
     #region Variables
+    public Transform mirada;
 
     //Surface Hitted
     public RaycastHit hittedground;
@@ -24,15 +25,15 @@ public class BoyMovimiento : MonoBehaviour
     public Ragdoll ragdll;
     public Collider coll;
 
-    //Vector3 that keeps track of the mouse position
-    private Vector3 mousePosition;
+    //Vector3 that keeps track of the LookPositions
+    private Vector3 mousePosition, direction, tpoint, miradaposition;
 
     //Speed for the animation
     private float AnimSpeed;
     //Time for the animation blend
     private float t, t2;
     [SerializeField]
-    private Transform BookLeft,BookRight;
+    private Transform BookLeft, BookRight;
     #endregion
 
     #region Ragdollvariables
@@ -151,6 +152,7 @@ public class BoyMovimiento : MonoBehaviour
         // It has no Movement if its been shot by a guard.
         if (grabbed == false)
         {
+            #region Inputs
             // This stores the input in both vertical and horizontal axis. 
             float h = Input.GetAxis("Horizontal");
             float v = Input.GetAxis("Vertical");
@@ -158,6 +160,48 @@ public class BoyMovimiento : MonoBehaviour
             // This stores the input in both vertical and horizontal axis donde by the left joystick. 
             float hj = Input.GetAxis("HorizontalJoystick");
             float vj = Input.GetAxis("VerticalJoystick");
+
+            //RightJoystick
+            float hrj = Input.GetAxis("HorizontalRightJoystick");
+            float vrj = Input.GetAxis("VerticalRightJoystick");
+
+            #endregion
+
+
+            #region LookInput
+            /*// Mouse
+            //Sends a ray to where the mouse is pointing at.
+            Ray cursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            //Saves the information of the hit.
+            RaycastHit hit;
+            if (Physics.Raycast(cursorRay, out hit))
+            {
+                //Player is not taken into account due to weird behaviours.
+                if (hit.transform.tag != "Player")
+                {
+                    mousePosition = hit.point;
+
+                    tpoint = (hit.point - transform.position).normalized * 6f;
+                    tpoint.y = 0;
+
+                    Debug.Log(tpoint);
+                }
+            }
+            */
+            if (hrj != 0 || vrj != 0)
+            {
+                Vector3 tdirection = new Vector3(hrj, 0, vrj);
+                miradaposition.y = this.transform.position.y;
+                mirada.position = this.transform.position + tdirection.normalized * 6;
+
+                #endregion
+            }
+
+            else {
+                miradaposition.y = miradaposition.y + 100;
+                mirada.position = miradaposition;
+            }
 
             //This function controls the movement.
             MovementController(h, v, hj, vj);
@@ -246,23 +290,8 @@ public class BoyMovimiento : MonoBehaviour
         #endregion
 
 
-        #region mouseposition
-        //Sends a ray to where the mouse is pointing at.
-        Ray cursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        //Saves the information of the hit.
-        RaycastHit hit;
-        if (Physics.Raycast(cursorRay, out hit))
-        {
-            //Player is not taken into account due to weird behaviours.
-            if (hit.transform.tag != "Player")
-            {
 
-                //3f Offset so that the character doesn't look to the ground.
-                mousePosition = hit.point + 3f * Vector3.up;
-            }
-        }
-        #endregion
     }
 
     //LookAt
@@ -291,13 +320,14 @@ public class BoyMovimiento : MonoBehaviour
     //Function in charge of the Main Character movement. Sends commands to the animator and allows the character to rotate.
     void MovementController(float horizontal, float vertical, float horizontalJoystick, float verticalJoystick)
     {
-        // If the axis has any sort of input on WASD.
-        if (horizontal != 0f || vertical != 0f)
+        //If the get up animation is not playing and ragdolled is false
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
         {
-
-            //If the get up animation is not playing and ragdolled is false
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
+            // If the axis has any sort of input on WASD.
+            if (horizontal != 0f || vertical != 0f)
             {
+
+
                 stopRagdoll();
                 AnimSpeed = Mathf.Lerp(0, 4.5f, t);
                 t += 0.8f * Time.deltaTime;
@@ -306,14 +336,11 @@ public class BoyMovimiento : MonoBehaviour
                 anim.SetFloat("AnimSpeed", AnimSpeed);
 
             }
-        }
-        // If the axis has any sort of input on Joystick.
-        if (horizontalJoystick != 0f || verticalJoystick != 0f)
-        {
 
-            //If the get up animation is not playing and ragdolled is false
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
+            // If the axis has any sort of input on Joystick.
+            else if (horizontalJoystick != 0f || verticalJoystick != 0f)
             {
+
                 stopRagdoll();
                 AnimSpeed = Mathf.Clamp(Mathf.Abs(horizontalJoystick) + Mathf.Abs(verticalJoystick), 0, 1) * 4.5f;
                 // Calls the Rotate function, which makes the rotation of the character look good.
@@ -321,14 +348,15 @@ public class BoyMovimiento : MonoBehaviour
                 anim.SetFloat("AnimSpeed", AnimSpeed);
 
             }
-        }
-        // If the axis doesn't have any sort of input.
-        else
-        {
-            t = 0.2f;
-            AnimSpeed = Mathf.Lerp(AnimSpeed, 0, t);
-            t2 -= 0.4f * Time.deltaTime;
-            anim.SetFloat("AnimSpeed", AnimSpeed);
+            // If the axis doesn't have any sort of input.
+            else
+            {
+                t = 0.2f;
+                AnimSpeed = Mathf.Lerp(AnimSpeed, 0, t);
+                t2 -= 0.4f * Time.deltaTime;
+                anim.SetFloat("AnimSpeed", AnimSpeed);
+            }
+
         }
     }
 
@@ -352,56 +380,59 @@ public class BoyMovimiento : MonoBehaviour
         rigid.MoveRotation(smoothedRotation);
     }
 
-/*
-//Used by the animation events to play the steps.
-void rightStep()
-{
-    if (Physics.Raycast(transform.position, Vector3.down, out hittedground))
+    
+    //Used by the animation events to play the steps.
+    void rightStep()
     {
-        if (hittedground.collider.gameObject.tag == "Cemento")
+        /*
+        if (Physics.Raycast(transform.position, Vector3.down, out hittedground))
         {
-            AudioManager.instance.PlayAtPosition("Paso Cemento Derecho", hittedground.transform.position);
-        }
+            if (hittedground.collider.gameObject.tag == "Cemento")
+            {
+                AudioManager.instance.PlayAtPosition("Paso Cemento Derecho", hittedground.transform.position);
+            }
 
-        else if (hittedground.collider.gameObject.tag == "Cesped")
-        {
-            AudioManager.instance.PlayAtPosition("Paso Cesped 1", hittedground.transform.position);
+            else if (hittedground.collider.gameObject.tag == "Cesped")
+            {
+                AudioManager.instance.PlayAtPosition("Paso Cesped 1", hittedground.transform.position);
+            }
         }
+        */
     }
-}
-void leftStep()
-{
-    if (Physics.Raycast(transform.position, Vector3.down, out hittedground))
+    void leftStep()
     {
-        if (hittedground.collider.gameObject.tag == "Cemento")
+        /*
+        if (Physics.Raycast(transform.position, Vector3.down, out hittedground))
         {
-            AudioManager.instance.PlayAtPosition("Paso Cemento Izquierdo", hittedground.transform.position);
+            if (hittedground.collider.gameObject.tag == "Cemento")
+            {
+                AudioManager.instance.PlayAtPosition("Paso Cemento Izquierdo", hittedground.transform.position);
+            }
+            else if (hittedground.collider.gameObject.tag == "Cesped")
+            {
+                AudioManager.instance.PlayAtPosition("Paso Cesped 2", hittedground.transform.position);
+            }
         }
-        else if (hittedground.collider.gameObject.tag == "Cesped")
-        {
-            AudioManager.instance.PlayAtPosition("Paso Cesped 2", hittedground.transform.position);
-        }
+        */
     }
 
-}
-*/
 
-public void startRagdoll()
-{
-    ragdolled = true;
-    coll.enabled = false;
-    rigid.isKinematic = true;
-    ragdollTimer = 0;
-}
-public void stopRagdoll()
-{
-    ragdolled = false;
-    coll.enabled = true;
-    rigid.isKinematic = false;
+    public void startRagdoll()
+    {
+        ragdolled = true;
+        coll.enabled = false;
+        rigid.isKinematic = true;
+        ragdollTimer = 0;
+    }
+    public void stopRagdoll()
+    {
+        ragdolled = false;
+        coll.enabled = true;
+        rigid.isKinematic = false;
 
-}
+    }
     //Used in first scene
 
-  
+
 }
 
