@@ -1,0 +1,28 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MeleAttack : MonoBehaviour {
+    [SerializeField] string TagToAttack;
+    // Use this for initialization
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == TagToAttack)
+        {
+            var EnemyNPC = other.GetComponent<NPC>();
+            EnemyNPC.Life -= transform.parent.GetComponent<NPC>().Damage;
+            other.GetComponent<Rigidbody>().AddForce((other.transform.position - transform.position) * 10,ForceMode.Impulse);
+        }
+    }
+    private void OnEnable()
+    {
+        Debug.Log("funciona");
+        StartCoroutine(WaitandDisable());
+    }
+    IEnumerator WaitandDisable()
+    {
+        
+        yield return new WaitForSeconds(0.1f);
+        transform.gameObject.SetActive(false);
+    }
+}

@@ -78,16 +78,22 @@ public class NPC : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (life <= 0)
+        {
+            //provisional :D
+            Destroy(this.gameObject);
+        }
 	}
 
     public void Follow(GameObject player) {
+        AI.EnableBehavior();
         AI_SetState("Follow");
         AI_SetTarget(player);
     }
 
     public void Order(GameObject attackPosition)
     {
+        AI.EnableBehavior();
         AI_SetState("Attack");
         AI_SetTarget(attackPosition);
     }
