@@ -18,7 +18,7 @@ public class BoyMovement : MonoBehaviour
     //Vector3 that keeps track of the LookPositions
     private Vector3 mousePosition, direction, tpoint, miradaposition;
 
-    public Transform mirada;
+    private Transform mirada;
     float visibleCursorTimer = 10.0f, timeLeft;
     float cursorPosition;
     bool catchCursor = true;
@@ -139,6 +139,7 @@ public class BoyMovement : MonoBehaviour
     // Sets all the references for the script
     void SetInitialReferences()
     {
+        mirada = FindObjectOfType<lookatTEMPORALSOLUTION>().gameObject.transform.parent;
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
         animation = GetComponent<Animation>();

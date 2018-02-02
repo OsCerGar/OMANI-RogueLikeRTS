@@ -191,23 +191,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1468495218312348
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4234024183849634}
-  - component: {fileID: 114985422151491356}
-  - component: {fileID: 114793817435490340}
-  m_Layer: 13
-  m_Name: Entity
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1524297392882952
 GameObject:
   m_ObjectHideFlags: 1
@@ -287,9 +270,7 @@ GameObject:
   - component: {fileID: 54712977489581194}
   - component: {fileID: 136736811022824666}
   - component: {fileID: 114690117997290608}
-  - component: {fileID: 114518786955278362}
-  - component: {fileID: 81943985476416654}
-  - component: {fileID: 114739937166592590}
+  - component: {fileID: 114422656249203568}
   m_Layer: 13
   m_Name: BarroBoy
   m_TagString: Player
@@ -501,20 +482,6 @@ Transform:
   m_Father: {fileID: 4311916095497756}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4234024183849634
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1468495218312348}
-  m_LocalRotation: {x: 0.000000059604638, y: 0.000000029802319, z: 3.5527133e-15,
-    w: 1}
-  m_LocalPosition: {x: 0, y: 3.2187004, z: -0.0018665995}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_Children: []
-  m_Father: {fileID: 4719418383564094}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4234594383118534
 Transform:
   m_ObjectHideFlags: 1
@@ -528,7 +495,7 @@ Transform:
   - {fileID: 4443898787062196}
   - {fileID: 4525910966700256}
   m_Father: {fileID: 4719418383564094}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 94.234, z: 30.000002}
 --- !u!4 &4311916095497756
 Transform:
@@ -719,13 +686,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1698733065903106}
   m_LocalRotation: {x: 0.0004780404, y: -0.03742577, z: -0.00012174508, w: 0.99929935}
-  m_LocalPosition: {x: 150.34, y: 1.69, z: -42.08}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.50000006, y: 0.50000006, z: 0.5000002}
   m_Children:
   - {fileID: 4511786562655768}
-  - {fileID: 4791163780103444}
   - {fileID: 4924787048416328}
-  - {fileID: 4234024183849634}
+  - {fileID: 4791163780103444}
   - {fileID: 4234594383118534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -783,7 +749,7 @@ Transform:
   m_LocalScale: {x: 99.99999, y: 100.00001, z: 99.99999}
   m_Children: []
   m_Father: {fileID: 4719418383564094}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4864118096415106
 Transform:
@@ -810,7 +776,7 @@ Transform:
   m_LocalScale: {x: 55.002552, y: 55.00256, z: 55.00256}
   m_Children: []
   m_Father: {fileID: 4719418383564094}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23271276066770890
 MeshRenderer:
@@ -826,7 +792,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 96b9103c6e9ca894daa009af5c45f824, type: 2}
+  - {fileID: 2100000, guid: 75d83a4d0f06acf45bfaf6fe6586a055, type: 2}
   - {fileID: 2100000, guid: 003a1aa94fd120446984357926138628, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -1058,13 +1024,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.01099866, y: 0.0100079, z: 0.01092146}
   m_Center: {x: -0.00027290639, y: 0.0049180863, z: 0.0002423739}
---- !u!81 &81943985476416654
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1698733065903106}
-  m_Enabled: 1
 --- !u!95 &95565299396557282
 Animator:
   serializedVersion: 3
@@ -1097,7 +1056,7 @@ MonoBehaviour:
   colliders: []
   boxcolliders: []
   startRagdoll: 0
---- !u!114 &114518786955278362
+--- !u!114 &114422656249203568
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1105,9 +1064,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1698733065903106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04b82ca89e5e90240ad2c9cafc612ed7, type: 3}
+  m_Script: {fileID: 11500000, guid: 91fd3ed4d6ea01042b78cb41aaeff6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swordsmans: []
+  archers: []
+  musketeers: []
+  shieldmans: []
+  rogues: []
 --- !u!114 &114690117997290608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1119,10 +1083,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a72cafec96562834da9b762a5388926e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smooth: 15
-  anim: {fileID: 0}
-  ragdll: {fileID: 0}
-  coll: {fileID: 0}
   BookLeft: {fileID: 4443898787062196}
   BookRight: {fileID: 4525910966700256}
   ragdolledHipPosition: {x: 0, y: 0, z: 0}
@@ -1130,77 +1090,6 @@ MonoBehaviour:
   ragdolledFeetPosition: {x: 0, y: 0, z: 0}
   ragdollToMecanimBlendTime: 0.5
   grabbed: 0
---- !u!114 &114739937166592590
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1698733065903106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04b82ca89e5e90240ad2c9cafc612ed7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114793817435490340
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1468495218312348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1728340906, guid: 9fa2ecd1ff2ad394281dd3bf72c5b76e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dataSerializer:
-    _preferredSerialization: 2
-    _serializedData: 
-    _serializedMetaData: <meta></meta>
-    _serializedGameObjects: []
-    _serializedCustomData: []
-  _serializer:
-    _preferredSerialization: 1
-    _includeCustomData: 0
-    _serializedDocument: <component version="1.8" type="RAIN.Navigation.Targets.NavigationTargetRig"
-      reference="0" includecustomdata="False"><_visualMode>AlwaysOn</_visualMode><_target
-      reference="1"><_targetName>Entity</_targetName><_targetColor>0,1,0,1</_targetColor><_outlineColorOffset>-0.5</_outlineColorOffset><_selectionColorOffset>0.4</_selectionColorOffset><_mountPoint
-      sceneobject="babaa037-7748-4c9e-bb4a-7c21f5c65d3e" component="0"></_mountPoint><_positionOffset>0,0,0</_positionOffset><_angleOffset>0,0,0</_angleOffset><_range>0.5</_range></_target></component>
-    _serializedMetaDocument: <meta></meta>
-    _serializedObjects: []
-    _serializedCustomData: []
---- !u!114 &114985422151491356
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1468495218312348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 220721487, guid: 9fa2ecd1ff2ad394281dd3bf72c5b76e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dataSerializer:
-    _preferredSerialization: 2
-    _serializedData: 
-    _serializedMetaData: <meta></meta>
-    _serializedGameObjects: []
-    _serializedCustomData: []
-  _serializer:
-    _preferredSerialization: 1
-    _includeCustomData: 0
-    _serializedDocument: <component version="1.8" type="RAIN.Entities.EntityRig" reference="0"
-      includecustomdata="False"><_visualMode>OnWhenSelected</_visualMode><_useUnityMessages>True</_useUnityMessages><_entity
-      reference="1"><_entityName>BarroBoy</_entityName><_isActive>True</_isActive><_form
-      sceneobject="11db084b-fa80-41a0-b034-02d9ab9d705e"></_form><_aspects><element0
-      type="RAIN.Entities.Aspects.VisualAspect" reference="2"><_showVisual>True</_showVisual><_aspectName>player</_aspectName><_isActive>True</_isActive><_aspectColor>0.6,0.5529412,0.009411765,1</_aspectColor><_outlineColorOffset>-0.5</_outlineColorOffset><_selectionColorOffset>0.4</_selectionColorOffset><_visualSize>1.85</_visualSize><_mountPoint
-      sceneobject="11db084b-fa80-41a0-b034-02d9ab9d705e" component="0"></_mountPoint><_positionOffset>-9.640078E-06,2.603197,4.397868E-06</_positionOffset><_angleOffset>0,0,0</_angleOffset></element0><element1
-      type="RAIN.Entities.Aspects.VisualAspect" reference="3"><_showVisual>True</_showVisual><_aspectName>Malo</_aspectName><_isActive>True</_isActive><_aspectColor>0.6,0.6,0.6,1</_aspectColor><_outlineColorOffset>-0.5</_outlineColorOffset><_selectionColorOffset>0.4</_selectionColorOffset><_visualSize>2.35</_visualSize><_mountPoint
-      sceneobject="11db084b-fa80-41a0-b034-02d9ab9d705e" component="0"></_mountPoint><_positionOffset>0,2.69,0</_positionOffset><_angleOffset>0,0,0</_angleOffset></element1><element2
-      type="RAIN.Entities.Aspects.VisualAspect" reference="4"><_showVisual>True</_showVisual><_aspectName>Persona</_aspectName><_isActive>True</_isActive><_aspectColor>0.6,0.6,0.6,1</_aspectColor><_outlineColorOffset>-0.5</_outlineColorOffset><_selectionColorOffset>0.4</_selectionColorOffset><_visualSize>1.85</_visualSize><_mountPoint
-      sceneobject="11db084b-fa80-41a0-b034-02d9ab9d705e" component="0"></_mountPoint><_positionOffset>-9.640078E-06,2.603197,4.397868E-06</_positionOffset><_angleOffset>0,0,0</_angleOffset></element2></_aspects></_entity></component>
-    _serializedMetaDocument: <meta></meta>
-    _serializedObjects: []
-    _serializedCustomData: []
 --- !u!135 &135721649030968890
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1460,7 +1349,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.00000018683895, y: 0.035293218, z: -0.00088975683}
+  m_ConnectedAnchor: {x: 0.000000002044183, y: 0.03529322, z: -0.0008897418}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1504,7 +1393,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.00000018975709, y: 0.012884811, z: 0.000000018626467}
+  m_ConnectedAnchor: {x: -0.000000003259631, y: 0.012884745, z: -0.0000000065192634}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1548,7 +1437,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0051696836, y: -0.0019166672, z: 0.0011860353}
+  m_ConnectedAnchor: {x: 0.0051697535, y: -0.0019166669, z: 0.0011860139}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1592,7 +1481,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.007772096, y: 0.01585095, z: 0.00009777787}
+  m_ConnectedAnchor: {x: -0.0077722366, y: 0.015850952, z: 0.00009779108}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1636,7 +1525,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000000104773775, y: 0.015217301, z: -0.00000004959292}
+  m_ConnectedAnchor: {x: 0.0000000055879346, y: 0.01521719, z: 0.000000001513399}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1680,7 +1569,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0072263004, y: 0.015405004, z: 0.0003661376}
+  m_ConnectedAnchor: {x: 0.0072264103, y: 0.0154050095, z: 0.00036617334}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1724,7 +1613,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.00000022421582, y: 0.013245847, z: 0.000000014901139}
+  m_ConnectedAnchor: {x: 0.0000000013969834, y: 0.013245858, z: -0.0000000065192483}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1768,7 +1657,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.00000013038516, y: 0.013443021, z: 0.000000048079528}
+  m_ConnectedAnchor: {x: -0.0000000013969839, y: 0.013443158, z: 0.0000000037252903}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1812,7 +1701,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0047081, y: -0.0020858692, z: 0.00120215}
+  m_ConnectedAnchor: {x: -0.004707963, y: -0.0020858725, z: 0.0012021179}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1856,7 +1745,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.000000106590555, y: 0.011922037, z: 0.00000005029142}
+  m_ConnectedAnchor: {x: 1.6785101e-11, y: 0.011922031, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
