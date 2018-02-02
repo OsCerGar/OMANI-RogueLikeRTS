@@ -7,33 +7,46 @@ public class BoyMovement : MonoBehaviour
 {
 
     #region Variables
-    public Transform mirada;
+
+
 
     //Surface Hitted
     public RaycastHit hittedground;
 
-    //Smoothing variables for turning the character
-    public float smooth = 15f;
-    //Timer to remove input from the player while in ragdoll.
-    private float ragdollTimer = 0;
-
-
-    //Reference Variables
-    public Animator anim;
-    private Animation animation;
-    private Rigidbody rigid;
-    public Ragdoll ragdll;
-    public Collider coll;
-
+    //Movement Related
+    //Look variables
     //Vector3 that keeps track of the LookPositions
     private Vector3 mousePosition, direction, tpoint, miradaposition;
 
+    public Transform mirada;
+    float visibleCursorTimer = 10.0f, timeLeft;
+    float cursorPosition;
+    bool catchCursor = true;
+    //Smoothing variables for turning the character
+    private float smooth = 15f;
+    //Timer to remove input from the player while in ragdoll.
+    private float ragdollTimer = 0;
     //Speed for the animation
     private float AnimSpeed;
     //Time for the animation blend
     private float t, t2;
+
+
+
+    //Reference Variables
+    private Animator anim;
+    private Animation animation;
+    private Rigidbody rigid;
+    private Ragdoll ragdll;
+    private Collider coll;
+
+
+
     [SerializeField]
     private Transform BookLeft, BookRight;
+
+
+
     #endregion
 
     #region Ragdollvariables
@@ -149,28 +162,59 @@ public class BoyMovement : MonoBehaviour
     {
         // MOVEMENT
 
-        // It has no Movement if its been shot by a guard.
-        if (grabbed == false)
+        #region Inputs
+        // This stores the input in both vertical and horizontal axis. 
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        // This stores the input in both vertical and horizontal axis donde by the left joystick. 
+        float hj = Input.GetAxis("HorizontalJoystick");
+        float vj = Input.GetAxis("VerticalJoystick");
+
+        //RightJoystick
+        float hrj = Input.GetAxis("HorizontalRightJoystick");
+        float vrj = Input.GetAxis("VerticalRightJoystick");
+
+        #endregion
+
+        if (catchCursor)
         {
-            #region Inputs
-            // This stores the input in both vertical and horizontal axis. 
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
+            catchCursor = false;
+            cursorPosition = Input.GetAxis("Mouse X");
+        }
+        if (Input.GetAxis("Mouse X") == cursorPosition)
+        {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft < 0)
+            {
+                timeLeft = visibleCursorTimer;
+                Cursor.visible = false;
+                catchCursor = true;
+            }
 
-            // This stores the input in both vertical and horizontal axis donde by the left joystick. 
-            float hj = Input.GetAxis("HorizontalJoystick");
-            float vj = Input.GetAxis("VerticalJoystick");
+            if (hrj != 0 || vrj != 0)
+            {
+                Vector3 tdirection = new Vector3(hrj, 0, vrj);
+                miradaposition.y = this.transform.position.y;
+                mirada.position = this.transform.position + tdirection.normalized * 6;
 
-            //RightJoystick
-            float hrj = Input.GetAxis("HorizontalRightJoystick");
-            float vrj = Input.GetAxis("VerticalRightJoystick");
+            }
 
-            #endregion
-
+            /*else
+            {
+                miradaposition.y = 100;
+                mirada.position = miradaposition;
+            }*/
+        }
+        else
+        {
+            timeLeft = visibleCursorTimer;
+            Cursor.visible = true;
 
             #region LookInput
-            /*// Mouse
+            //Mouse
             //Sends a ray to where the mouse is pointing at.
+
             Ray cursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             //Saves the information of the hit.
@@ -184,28 +228,19 @@ public class BoyMovement : MonoBehaviour
 
                     tpoint = (hit.point - transform.position).normalized * 6f;
                     tpoint.y = 0;
-
-                    Debug.Log(tpoint);
+                    mirada.position = this.transform.position + tpoint;
                 }
             }
-            */
-            if (hrj != 0 || vrj != 0)
-            {
-                Vector3 tdirection = new Vector3(hrj, 0, vrj);
-                miradaposition.y = this.transform.position.y;
-                mirada.position = this.transform.position + tdirection.normalized * 6;
 
-                #endregion
-            }
-
-            else {
-                miradaposition.y = miradaposition.y + 100;
-                mirada.position = miradaposition;
-            }
-
-            //This function controls the movement.
-            MovementController(h, v, hj, vj);
         }
+
+
+        #endregion
+
+
+        //This function controls the movement.
+        MovementController(h, v, hj, vj);
+
 
     }
 
@@ -289,9 +324,6 @@ public class BoyMovement : MonoBehaviour
         }
         #endregion
 
-
-
-
     }
 
     //LookAt
@@ -306,10 +338,10 @@ public class BoyMovement : MonoBehaviour
          Global weight(multiplier for all the others), bodyWeight, headWeight, eyesWeight and clampWeight(0 means the character is unrestained in motion).
          */
 
-        anim.SetLookAtWeight(1f, 0.05f, 0.2f, 0.1f, 1f);
+        anim.SetLookAtWeight(1f, 0.2f, 0.2f, 0.1f, 1f);
 
         //Position too look at.
-        anim.SetLookAtPosition(mousePosition);
+        anim.SetLookAtPosition(mirada.position);
 
         anim.SetIKPosition(AvatarIKGoal.RightHand, BookRight.position);
         anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
@@ -326,7 +358,6 @@ public class BoyMovement : MonoBehaviour
             // If the axis has any sort of input on WASD.
             if (horizontal != 0f || vertical != 0f)
             {
-
 
                 stopRagdoll();
                 AnimSpeed = Mathf.Lerp(0, 4.5f, t);
@@ -380,7 +411,7 @@ public class BoyMovement : MonoBehaviour
         rigid.MoveRotation(smoothedRotation);
     }
 
-    
+
     //Used by the animation events to play the steps.
     void rightStep()
     {

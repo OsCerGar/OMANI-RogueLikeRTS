@@ -2,28 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lookatTEMPORALSOLUTION : MonoBehaviour {
+public class lookatTEMPORALSOLUTION : MonoBehaviour
+{
 
-    public GameObject barroboy;
+    public Army commander;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        this.transform.LookAt(barroboy.transform);
+    public string selectedType = "Swordsman";
 
-	}
+    // Use this for initialization
+    void Start()
+    {
+        commander = FindObjectOfType<Army>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        this.transform.LookAt(commander.transform);
+
+        //En un futuro, R2/L2
+        if (Input.GetKey("joystick button 5") || Input.GetMouseButtonDown(1))
+        {
+            commander.Order(selectedType, this.gameObject);
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
         //En un futuro, R2/L2
-        if (other.tag =="People" && Input.GetKey("joystick button 4"))
+        if (Input.GetKey("joystick button 4") || Input.GetMouseButtonDown(0))
         {
-            barroboy.GetComponent<Army>().Reclute(other.GetComponent<NPC>());
-            Debug.Log("L1");
+            if (other.tag == "People")
+            {
+                commander.Reclute(other.GetComponent<NPC>());
+            }
         }
     }
 }
