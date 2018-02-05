@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime;
+using UnityEngine.AI;
 
 public class NPC : MonoBehaviour {
 
@@ -15,6 +16,10 @@ public class NPC : MonoBehaviour {
 
     [SerializeField]
     int life, damage;
+
+    //Required for run animations synced with NevMesh
+    Animator anim;
+    NavMeshAgent Nav;
 
     private BehaviorTree AI;
 
@@ -74,15 +79,22 @@ public class NPC : MonoBehaviour {
     // Use this for initialization
     void Start () {
         AI = this.gameObject.GetComponent<BehaviorTree>();
+        anim = this.gameObject.GetComponent<Animator>();
+        Nav = this.gameObject.GetComponent<NavMeshAgent>();
     }
 	
 	// Update is called once per frame
 	void Update () {
+        //He dies if life lowers 
+        //TODO : Make this an animation, and make it so that it swaps his layer and tag to something neutral
 		if (life <= 0)
         {
             //provisional :D
             Destroy(this.gameObject);
         }
+        //Animspeed conected to navmesh speed 
+        anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
+
 	}
 
     public void Follow(GameObject player) {
