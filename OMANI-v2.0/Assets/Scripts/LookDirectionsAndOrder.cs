@@ -142,9 +142,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
 
-                if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
-                {
-                    closestTarget = col.gameObject;
+                // This needs a fix
+                if (col.gameObject.GetComponent<NPC>().AI_GetState() != "Follow") {
+
+                    if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
+                    {
+                        closestTarget = col.gameObject;
+                    }
                 }
 
                 /*if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask)) {
@@ -200,6 +204,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
             transform.LookAt(mousePosition + Vector3.up * transform.position.y);
         }
+
         this.transform.position = commander.transform.position;
 
     }
