@@ -25,7 +25,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public Army commander;
     public GameObject closestTarget;
     public LayerMask targetMask;
-
     public string selectedType = "Swordsman";
 
 
@@ -109,7 +108,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //En un futuro, R2/L2
         if (Input.GetKey("joystick button 5") || Input.GetMouseButtonDown(1))
         {
-            commander.Order(selectedType, this.transform.TransformDirection(Vector3.forward).normalized * 15);
+            commander.Order(selectedType, this.transform.TransformDirection(Vector3.forward).normalized * viewRadius);
         }
 
         if (Input.GetKey("joystick button 4") || Input.GetMouseButtonDown(0))
