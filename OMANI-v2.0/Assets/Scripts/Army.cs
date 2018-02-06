@@ -49,11 +49,11 @@ public class Army : MonoBehaviour
 
     }
 
-    public void Order(string type, GameObject orderPosition)
+    public void Order(string type, Vector3 orderPosition)
     {
         NPC barroBoy = null;
         GameObject orderPositionVar = new GameObject("orderPositionVar");
-        orderPositionVar.transform.position = orderPosition.transform.position;
+        orderPositionVar.transform.position = orderPosition;
 
         switch (type)
         {

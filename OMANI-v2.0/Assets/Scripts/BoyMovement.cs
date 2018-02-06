@@ -14,14 +14,6 @@ public class BoyMovement : MonoBehaviour
     public RaycastHit hittedground;
 
     //Movement Related
-    //Look variables
-    //Vector3 that keeps track of the LookPositions
-    private Vector3 mousePosition, direction, tpoint, miradaposition;
-
-    private Transform mirada;
-    float visibleCursorTimer = 10.0f, timeLeft;
-    float cursorPosition;
-    bool catchCursor = true;
     //Smoothing variables for turning the character
     private float smooth = 15f;
     //Timer to remove input from the player while in ragdoll.
@@ -39,7 +31,6 @@ public class BoyMovement : MonoBehaviour
     private Rigidbody rigid;
     private Ragdoll ragdll;
     private Collider coll;
-
 
 
     [SerializeField]
@@ -139,7 +130,6 @@ public class BoyMovement : MonoBehaviour
     // Sets all the references for the script
     void SetInitialReferences()
     {
-        mirada = FindObjectOfType<lookatTEMPORALSOLUTION>().gameObject.transform.parent;
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
         animation = GetComponent<Animation>();
@@ -152,6 +142,29 @@ public class BoyMovement : MonoBehaviour
 
         ragdll = GetComponentInChildren<Ragdoll>();
 
+    }
+
+    //LookAt
+    void OnAnimatorIK()
+    {
+
+        //LOOK AT MOUSE
+        //This function tells the Inverse Kinematics where to look at and stablishes its parameters.
+        //LookAtWeight
+        /*
+         Parameters in order : 
+         Global weight(multiplier for all the others), bodyWeight, headWeight, eyesWeight and clampWeight(0 means the character is unrestained in motion).
+         */
+
+        anim.SetLookAtWeight(1f, 0.2f, 0.2f, 0.1f, 1f);
+
+        //Position too look at.
+        //anim.SetLookAtPosition(mirada.position);
+
+        anim.SetIKPosition(AvatarIKGoal.RightHand, BookRight.position);
+        anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+        anim.SetIKPosition(AvatarIKGoal.LeftHand, BookLeft.position);
+        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
     }
 
     private void Start()
@@ -171,73 +184,7 @@ public class BoyMovement : MonoBehaviour
         // This stores the input in both vertical and horizontal axis donde by the left joystick. 
         float hj = Input.GetAxis("HorizontalJoystick");
         float vj = Input.GetAxis("VerticalJoystick");
-
-        //RightJoystick
-        float hrj = Input.GetAxis("HorizontalRightJoystick");
-        float vrj = Input.GetAxis("VerticalRightJoystick");
-
         #endregion
-
-        if (catchCursor)
-        {
-            catchCursor = false;
-            cursorPosition = Input.GetAxis("Mouse X");
-        }
-        if (Input.GetAxis("Mouse X") == cursorPosition)
-        {
-            timeLeft -= Time.deltaTime;
-            if (timeLeft < 0)
-            {
-                timeLeft = visibleCursorTimer;
-                Cursor.visible = false;
-                catchCursor = true;
-            }
-
-            if (hrj != 0 || vrj != 0)
-            {
-                Vector3 tdirection = new Vector3(hrj, 0, vrj);
-                miradaposition.y = this.transform.position.y;
-                mirada.position = this.transform.position + tdirection.normalized * 6;
-
-            }
-
-            /*else
-            {
-                miradaposition.y = 100;
-                mirada.position = miradaposition;
-            }*/
-        }
-        else
-        {
-            timeLeft = visibleCursorTimer;
-            Cursor.visible = true;
-
-            #region LookInput
-            //Mouse
-            //Sends a ray to where the mouse is pointing at.
-
-            Ray cursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            //Saves the information of the hit.
-            RaycastHit hit;
-            if (Physics.Raycast(cursorRay, out hit))
-            {
-                //Player is not taken into account due to weird behaviours.
-                if (hit.transform.tag != "Player")
-                {
-                    mousePosition = hit.point;
-
-                    tpoint = (hit.point - transform.position).normalized * 6f;
-                    tpoint.y = 0;
-                    mirada.position = this.transform.position + tpoint;
-                }
-            }
-
-        }
-
-
-        #endregion
-
 
         //This function controls the movement.
         MovementController(h, v, hj, vj);
@@ -327,28 +274,7 @@ public class BoyMovement : MonoBehaviour
 
     }
 
-    //LookAt
-    void OnAnimatorIK()
-    {
 
-        //LOOK AT MOUSE
-        //This function tells the Inverse Kinematics where to look at and stablishes its parameters.
-        //LookAtWeight
-        /*
-         Parameters in order : 
-         Global weight(multiplier for all the others), bodyWeight, headWeight, eyesWeight and clampWeight(0 means the character is unrestained in motion).
-         */
-
-        anim.SetLookAtWeight(1f, 0.2f, 0.2f, 0.1f, 1f);
-
-        //Position too look at.
-        anim.SetLookAtPosition(mirada.position);
-
-        anim.SetIKPosition(AvatarIKGoal.RightHand, BookRight.position);
-        anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
-        anim.SetIKPosition(AvatarIKGoal.LeftHand, BookLeft.position);
-        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
-    }
 
     //Function in charge of the Main Character movement. Sends commands to the animator and allows the character to rotate.
     void MovementController(float horizontal, float vertical, float horizontalJoystick, float verticalJoystick)
