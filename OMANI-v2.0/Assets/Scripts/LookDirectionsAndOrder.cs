@@ -97,9 +97,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
                 //}
 
-                /*if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask)) {
-
-                }*/
             }
         }
     }

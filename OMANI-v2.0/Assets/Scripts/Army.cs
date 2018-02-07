@@ -8,6 +8,9 @@ public class Army : MonoBehaviour
     [SerializeField]
     private List<NPC> swordsmans, archers, musketeers, shieldmans, rogues = new List<NPC>();
 
+    [SerializeField]
+    private GameObject OrderPositionObject;
+
     // Use this for initialization
     void Start()
     {
@@ -52,7 +55,7 @@ public class Army : MonoBehaviour
     public void Order(string type, Vector3 orderPosition)
     {
         NPC barroBoy = null;
-        GameObject orderPositionVar = new GameObject("orderPositionVar");
+        GameObject orderPositionVar = Instantiate(OrderPositionObject);
         orderPositionVar.transform.position = orderPosition;
 
         switch (type)
@@ -60,10 +63,12 @@ public class Army : MonoBehaviour
             case "Swordsman":
                 barroBoy = swordsmans[swordsmans.Count - 1];
                 swordsmans.Remove(barroBoy);
+
                 break;
             case "Archer":
                 barroBoy = archers[archers.Count - 1];
                 archers.Remove(barroBoy);
+
                 break;
             case "Musketeer":
                 barroBoy = musketeers[musketeers.Count - 1];
@@ -78,7 +83,7 @@ public class Army : MonoBehaviour
                 rogues.Remove(barroBoy);
                 break;
         }
-
+        orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
         barroBoy.Order(orderPositionVar);
 
     }
