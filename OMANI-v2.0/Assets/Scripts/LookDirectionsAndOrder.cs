@@ -143,13 +143,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
 
                 // This needs a fix
-                if (col.gameObject.GetComponent<NPC>().AI_GetState() != "Follow") {
+                //if (col.gameObject.GetComponent<NPC>().AI_GetState() != "Follow") {
 
                     if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
                     {
                         closestTarget = col.gameObject;
                     }
-                }
+                //}
 
                 /*if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask)) {
 
