@@ -48,68 +48,16 @@ public class LookDirectionsAndOrder : MonoBehaviour
         float hrj = Input.GetAxis("HorizontalRightJoystick");
         float vrj = Input.GetAxis("VerticalRightJoystick");
         #endregion
-        /*
-        if (catchCursor)
-        {
-            catchCursor = false;
-            cursorPosition = Input.GetAxis("Mouse X");
-        if (Input.GetAxis("Mouse X") == cursorPosition)
-        {
-            timeLeft -= Time.deltaTime;
-            if (timeLeft < 0)
-            {
-                timeLeft = visibleCursorTimer;
-                Cursor.visible = false;
-                catchCursor = true;
-            }
-
-            if (hrj != 0 || vrj != 0)
-            {
-                Vector3 tdirection = new Vector3(hrj, 0, vrj);
-                miradaposition.y = this.transform.position.y;
-                this.transform.position = this.transform.position + tdirection.normalized * 6;
-
-            }
-        }       
-        else
-        {
-            timeLeft = visibleCursorTimer;
-            Cursor.visible = true;
-
-            #region LookInput
-            //Mouse
-            //Sends a ray to where the mouse is pointing at.
-
-            Ray cursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            //Saves the information of the hit.
-            RaycastHit hit;
-            if (Physics.Raycast(cursorRay, out hit))
-            {
-                //Player is not taken into account due to weird behaviours.
-                if (hit.transform.tag != "Player")
-                {
-                    mousePosition = hit.point;
-
-                    tpoint = (hit.point - transform.position).normalized * 6f;
-                    tpoint.y = 0;
-                    this.transform.position = this.transform.position + tpoint;
-                }
-            }
-
-        }
-#endregion*/
-        #endregion
 
         LookAt(hrj, vrj);
 
         //En un futuro, R2/L2
-        if (Input.GetKey("joystick button 5") || Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
         {
             commander.Order(selectedType, this.transform.position + (this.transform.forward * viewRadius));
         }
 
-        if (Input.GetKey("joystick button 4") || Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown("joystick button 4") || Input.GetMouseButtonDown(0))
         {
             if (closestTarget != null) { 
             commander.Reclute(closestTarget.GetComponent<NPC>());
@@ -141,11 +89,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
 
                 // This needs a fix
+                //if (col.gameObject.GetComponent<NPC>().AI_GetState() != "Follow") {
 
                     if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
                     {
                         closestTarget = col.gameObject;
                     }
+                //}
 
                 /*if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask)) {
 
