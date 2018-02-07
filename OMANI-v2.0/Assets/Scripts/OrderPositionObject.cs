@@ -6,35 +6,44 @@ public class OrderPositionObject : MonoBehaviour
 {
 
     public GameObject NPC;
-    public LayerMask targetMask;
+
+    int layermask1 = 1 << 9;
+    int layermask2 = 1 << 11;
 
     private void Start()
     {
-        //Self destroys after 100 seconds.
+        //Self destroys after 10 seconds. It shouldn't autodestroy like this.
         Destroy(this.gameObject, 10f);
     }
 
     void FixedUpdate()
     {
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, 0.3f, targetMask, QueryTriggerInteraction.UseGlobal);
-        if (targetsInViewRadius.Length > 0)
+        Collider[] targetsInViewRadius = null;
+        targetsInViewRadius = Physics.OverlapSphere(transform.position, 1.5f, layermask2, QueryTriggerInteraction.UseGlobal);
+        if (targetsInViewRadius.Length > 1)
         {
-            Vector3 oposite = (this.transform.position - targetsInViewRadius[0].transform.position).normalized;
-            this.transform.position += oposite * 2;
-            Debug.Log("Movido" + oposite * 2);
+            Vector3 oposite = (this.transform.position - targetsInViewRadius[0].transform.position).normalized * 2;
+            Vector3 position = this.transform.position;
+            position.x += oposite.x;
+            position.z += oposite.z;
+            this.transform.position = position;
         }
-    }
 
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == NPC)
         {
             //Self destroys after 100 seconds.
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 1f);
         }
     }
 
-
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(this.transform.position, 1.5f);
+    }
 
 }
