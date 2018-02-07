@@ -29,6 +29,17 @@ public class OrderPositionObject : MonoBehaviour
             this.transform.position = position;
         }
 
+        Collider[] PeopleInViewRadius = null;
+        PeopleInViewRadius = Physics.OverlapSphere(transform.position, 1f, layermask1);
+        if (PeopleInViewRadius.Length > 0 && PeopleInViewRadius[0].gameObject != NPC)
+        {
+            Vector3 oposite = (this.transform.position - PeopleInViewRadius[0].transform.position).normalized * 2;
+            Vector3 position = this.transform.position;
+            position.x += oposite.x;
+            position.z += oposite.z;
+            this.transform.position = position;
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,7 +54,7 @@ public class OrderPositionObject : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(this.transform.position, 1.5f);
+        Gizmos.DrawSphere(this.transform.position, 0.5f);
     }
 
 }
