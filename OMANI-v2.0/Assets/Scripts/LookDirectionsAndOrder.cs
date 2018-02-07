@@ -8,9 +8,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
     //Movement Related
     //Look variables
     //Vector3 that keeps track of the LookPositions
-    private Vector3 mousePosition, direction, tpoint, miradaposition;
+    private Vector3 mousePosition, direction, tpoint;
+    public Vector3 miradaposition;
     float visibleCursorTimer = 10.0f, timeLeft;
-
     float cursorPosition;
     bool catchCursor = true;
     private Animator anim;
@@ -108,7 +108,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //En un futuro, R2/L2
         if (Input.GetKey("joystick button 5") || Input.GetMouseButtonDown(1))
         {
-            commander.Order(selectedType, this.transform.TransformDirection(Vector3.forward).normalized * viewRadius);
+            commander.Order(selectedType, this.transform.position + (this.transform.forward * viewRadius));
         }
 
         if (Input.GetKey("joystick button 4") || Input.GetMouseButtonDown(0))
@@ -179,7 +179,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (_hrj != 0 || _vrj != 0)
             {
                 Vector3 tdirection = new Vector3(_hrj, 0, _vrj);
-                transform.LookAt(tdirection + Vector3.up * transform.position.y);
+                miradaposition = this.transform.position + (tdirection + Vector3.up * transform.position.y);
+                transform.LookAt(miradaposition);
             }
         }
         else
@@ -201,8 +202,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     mousePosition = hit.point;
                 }
             }
-
-            transform.LookAt(mousePosition + Vector3.up * transform.position.y);
+            miradaposition = mousePosition + Vector3.up * transform.position.y;
+            transform.LookAt(miradaposition);
         }
 
         this.transform.position = commander.transform.position;

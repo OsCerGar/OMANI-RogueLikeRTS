@@ -31,11 +31,10 @@ public class BoyMovement : MonoBehaviour
     private Rigidbody rigid;
     private Ragdoll ragdll;
     private Collider coll;
-
+    private LookDirectionsAndOrder LookDirection;
 
     [SerializeField]
     private Transform BookLeft, BookRight;
-
 
 
     #endregion
@@ -134,6 +133,7 @@ public class BoyMovement : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         animation = GetComponent<Animation>();
         coll = GetComponent<CapsuleCollider>();
+        LookDirection = FindObjectOfType<LookDirectionsAndOrder>();
         //Gets the component of the children of the main character, which is "ProtaInterior".
         /*
          * Ragdoll searches for the components in children in charge of the Ragdoll system 
@@ -142,29 +142,6 @@ public class BoyMovement : MonoBehaviour
 
         ragdll = GetComponentInChildren<Ragdoll>();
 
-    }
-
-    //LookAt
-    void OnAnimatorIK()
-    {
-
-        //LOOK AT MOUSE
-        //This function tells the Inverse Kinematics where to look at and stablishes its parameters.
-        //LookAtWeight
-        /*
-         Parameters in order : 
-         Global weight(multiplier for all the others), bodyWeight, headWeight, eyesWeight and clampWeight(0 means the character is unrestained in motion).
-         */
-
-        anim.SetLookAtWeight(1f, 0.2f, 0.2f, 0.1f, 1f);
-
-        //Position too look at.
-        //anim.SetLookAtPosition(mirada.position);
-
-        anim.SetIKPosition(AvatarIKGoal.RightHand, BookRight.position);
-        anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
-        anim.SetIKPosition(AvatarIKGoal.LeftHand, BookLeft.position);
-        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
     }
 
     private void Start()
@@ -389,8 +366,29 @@ public class BoyMovement : MonoBehaviour
         rigid.isKinematic = false;
 
     }
-    //Used in first scene
 
+    //LookAt
+    void OnAnimatorIK()
+    {
+
+        //LOOK AT MOUSE
+        //This function tells the Inverse Kinematics where to look at and stablishes its parameters.
+        //LookAtWeight
+        /*
+         Parameters in order : 
+         Global weight(multiplier for all the others), bodyWeight, headWeight, eyesWeight and clampWeight(0 means the character is unrestained in motion).
+         */
+
+        anim.SetLookAtWeight(1f, 0.2f, 0.2f, 0.1f, 1f);
+
+        //Position too look at.
+        anim.SetLookAtPosition(LookDirection.miradaposition);
+
+        anim.SetIKPosition(AvatarIKGoal.RightHand, BookRight.position);
+        anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+        anim.SetIKPosition(AvatarIKGoal.LeftHand, BookLeft.position);
+        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+    }
 
 }
 
