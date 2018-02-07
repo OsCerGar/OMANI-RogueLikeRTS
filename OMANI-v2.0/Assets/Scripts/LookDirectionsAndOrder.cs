@@ -48,13 +48,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
         float hrj = Input.GetAxis("HorizontalRightJoystick");
         float vrj = Input.GetAxis("VerticalRightJoystick");
         #endregion
-        #region before
         /*
         if (catchCursor)
         {
             catchCursor = false;
             cursorPosition = Input.GetAxis("Mouse X");
-        }
         if (Input.GetAxis("Mouse X") == cursorPosition)
         {
             timeLeft -= Time.deltaTime;
