@@ -14,7 +14,8 @@ public class Task_ScreamWarn : Action
         //Creates a Sphere around himself and makes the target of every Ally the same as his
         var thisTarget = (SharedGameObject)transform.gameObject.GetComponent<BehaviorTree>().GetVariable("Target");
 
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 20);
+        
         int i = 0;
         while (i < hitColliders.Length)
         {
