@@ -11,7 +11,6 @@ public class MeleAttack : MonoBehaviour {
         {
             var EnemyNPC = other.GetComponent<NPC>();
             EnemyNPC.Life -= transform.parent.GetComponent<NPC>().Damage;
-            other.GetComponent<Rigidbody>().AddForce((other.transform.position - transform.position) * 10,ForceMode.Impulse);
         }
     }
     private void OnEnable()
