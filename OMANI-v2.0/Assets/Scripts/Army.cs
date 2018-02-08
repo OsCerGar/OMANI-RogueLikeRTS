@@ -85,7 +85,56 @@ public class Army : MonoBehaviour
         }
         orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
         barroBoy.Order(orderPositionVar);
+    }
 
+    public NPC GetBoyArmy(string type)
+    {
+        NPC barroBoy = null;
+        switch (type)
+        {
+            case "Swordsman":
+                barroBoy = swordsmans[swordsmans.Count - 1];
+                break;
+            case "Archer":
+                barroBoy = archers[archers.Count - 1];
+                break;
+            case "Musketeer":
+                barroBoy = musketeers[musketeers.Count - 1];
+                break;
+            case "Shieldman":
+                barroBoy = shieldmans[shieldmans.Count - 1];
+                break;
+            case "Rogue":
+                barroBoy = rogues[rogues.Count - 1];
+                break;
+        }
+
+        return barroBoy;
+    }
+
+    public void RemoveFromList(NPC barroBoy)
+    {
+
+        switch (barroBoy.BoyType)
+        {
+            case "Swordsman":
+                swordsmans.Remove(barroBoy);
+
+                break;
+            case "Archer":
+                archers.Remove(barroBoy);
+
+                break;
+            case "Musketeer":
+                musketeers.Remove(barroBoy);
+                break;
+            case "Shieldman":
+                shieldmans.Remove(barroBoy);
+                break;
+            case "Rogue":
+                rogues.Remove(barroBoy);
+                break;
+        }
     }
 
 }

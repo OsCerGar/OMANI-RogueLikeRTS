@@ -33,7 +33,12 @@ public class NPC : MonoBehaviour {
 
         set
         {
+            if (value < life)
+            {
+                anim.SetTrigger("Hit");
+            }
             life = value;
+
         }
     }
 
@@ -110,12 +115,16 @@ public class NPC : MonoBehaviour {
         anim.SetTrigger("Die");
         this.gameObject.GetComponent<Collider>().enabled = false;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        this.gameObject.tag = "Untagged";
+        this.gameObject.layer = 0;
+        //cambiar tag y layer
     }
 
     public void Follow(GameObject player) {
         AI.EnableBehavior();
         AI_SetState("Follow");
         AI_SetTarget(player);
+        anim.SetBool("SpecialAttack",false);
     }
 
     public void Order(GameObject attackPosition)
@@ -123,6 +132,23 @@ public class NPC : MonoBehaviour {
         AI.EnableBehavior();
         AI_SetState("Attack");
         AI_SetTarget(attackPosition);
+    }
+
+    public void ChargedOrder(GameObject attackPosition)
+    {
+        AI.EnableBehavior();
+        AI_SetState("SpecialAttack");
+        AI_SetTarget(attackPosition);
+    }
+
+    public void ChargedOrderFullfilled(GameObject attackPosition)
+    {
+        AI.EnableBehavior();
+
+        var stateVariable = (SharedBool)AI.GetVariable("Go");
+        stateVariable.Value = true;
+        AI_SetTarget(attackPosition);
+        
     }
 
     public void AI_SetState(string state) {

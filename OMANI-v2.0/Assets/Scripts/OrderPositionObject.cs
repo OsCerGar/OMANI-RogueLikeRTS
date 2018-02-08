@@ -30,7 +30,7 @@ public class OrderPositionObject : MonoBehaviour
         }
 
         Collider[] PeopleInViewRadius = null;
-        PeopleInViewRadius = Physics.OverlapSphere(transform.position, 1f, layermask1);
+        PeopleInViewRadius = Physics.OverlapSphere(transform.position, 1f, layermask1, QueryTriggerInteraction.Ignore);
         if (PeopleInViewRadius.Length > 0 && PeopleInViewRadius[0].gameObject != NPC)
         {
             Vector3 oposite = (this.transform.position - PeopleInViewRadius[0].transform.position).normalized * 2;
