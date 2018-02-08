@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime;
 using UnityEngine.AI;
+using System;
 
 public class NPC : MonoBehaviour {
 
@@ -87,15 +88,29 @@ public class NPC : MonoBehaviour {
 	void Update () {
         //He dies if life lowers 
         //TODO : Make this an animation, and make it so that it swaps his layer and tag to something neutral
-		if (life <= 0)
+        if (state == "Alive")
         {
-            //provisional :D
-            Destroy(this.gameObject);
+            if (life <= 0)
+            {
+                //provisional :D
+                Die();
+                state = "Dead";
+            }
         }
+		
         //Animspeed conected to navmesh speed 
         anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
 
 	}
+
+    private void Die()
+    {
+        AI.enabled = false;
+        Nav.enabled = false;
+        anim.SetTrigger("Die");
+        this.gameObject.GetComponent<Collider>().enabled = false;
+        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+    }
 
     public void Follow(GameObject player) {
         AI.EnableBehavior();
