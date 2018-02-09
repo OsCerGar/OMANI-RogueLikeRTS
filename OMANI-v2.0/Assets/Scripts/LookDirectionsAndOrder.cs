@@ -70,12 +70,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1)) {
             orderCounter += Time.deltaTime;
             if (orderCounter > 0.2f) {
-
                 boyInCharge = commander.GetBoyArmy(selectedType);
                 boyInCharge.ChargedOrder(miradaPositionObject);
                 orderInOrder = true;
             }
-            Handheld.Vibrate();
         }
         if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
         {
@@ -84,7 +82,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
             }
             else {
                 GameObject orderPositionVar = Instantiate(orderPosition);
-                orderPositionVar.transform.position = miradaposition;
+                //Encargado de saber la distancia en la que se lanzará la orden cargada.
+                orderPositionVar.transform.position = this.transform.position + (this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f));
                 orderPositionVar.GetComponent<OrderPositionObject>().NPC = boyInCharge.gameObject;
                 boyInCharge.ChargedOrderFullfilled(orderPositionVar);
                 commander.RemoveFromList(boyInCharge);
