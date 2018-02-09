@@ -31,6 +31,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private bool orderInOrder;
     private NPC boyInCharge;
     public GameObject orderPosition;
+
     // Use this for initialization
     void Start()
     {
@@ -82,8 +83,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
             }
             else {
                 GameObject orderPositionVar = Instantiate(orderPosition);
+
                 //Encargado de saber la distancia en la que se lanzará la orden cargada.
                 orderPositionVar.transform.position = this.transform.position + (this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f));
+
                 orderPositionVar.GetComponent<OrderPositionObject>().NPC = boyInCharge.gameObject;
                 boyInCharge.ChargedOrderFullfilled(orderPositionVar);
                 commander.RemoveFromList(boyInCharge);
@@ -243,7 +246,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     }
 
-
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
 
@@ -254,6 +256,5 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
-
 
 }

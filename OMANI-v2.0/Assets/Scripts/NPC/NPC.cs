@@ -7,23 +7,25 @@ using System;
 
 public class NPC : MonoBehaviour {
 
+    #region Variables
     //Type of NPC
     [SerializeField]
-    string boyType = "Swordsman";
+    string boyType;
 
     //State on NPC, not to get confused with Behaviour Tree State.  
     [SerializeField]
-    string state = "Alive";
+    string state;
 
     [SerializeField]
     int life, damage;
-
     //Required for run animations synced with NevMesh
     Animator anim;
     NavMeshAgent Nav;
 
     private BehaviorTree AI;
+    #endregion
 
+    #region GETTERSETTERS
     public int Life
     {
         get
@@ -80,7 +82,7 @@ public class NPC : MonoBehaviour {
             state = value;
         }
     }
-
+#endregion
 
     // Use this for initialization
     void Start () {

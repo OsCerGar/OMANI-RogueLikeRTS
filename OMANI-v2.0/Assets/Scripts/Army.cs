@@ -55,36 +55,82 @@ public class Army : MonoBehaviour
     public void Order(string type, Vector3 orderPosition)
     {
         NPC barroBoy = null;
-        GameObject orderPositionVar = Instantiate(OrderPositionObject);
-        orderPositionVar.transform.position = orderPosition;
 
         switch (type)
         {
             case "Swordsman":
-                barroBoy = swordsmans[swordsmans.Count - 1];
-                swordsmans.Remove(barroBoy);
+                if (swordsmans.Count > 0)
+                {
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = orderPosition;
+
+                    barroBoy = swordsmans[swordsmans.Count - 1];
+                    swordsmans.Remove(barroBoy);
+
+                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
+                    barroBoy.Order(orderPositionVar);
+                }
 
                 break;
             case "Archer":
-                barroBoy = archers[archers.Count - 1];
-                archers.Remove(barroBoy);
+                if (archers.Count > 0)
+                {
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = orderPosition;
 
+                    barroBoy = archers[archers.Count - 1];
+                    archers.Remove(barroBoy);
+
+                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
+                    barroBoy.Order(orderPositionVar);
+
+                }
                 break;
             case "Musketeer":
-                barroBoy = musketeers[musketeers.Count - 1];
-                musketeers.Remove(barroBoy);
+                if (musketeers.Count > 0)
+                {
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = orderPosition;
+
+                    barroBoy = musketeers[musketeers.Count - 1];
+                    musketeers.Remove(barroBoy);
+
+                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
+                    barroBoy.Order(orderPositionVar);
+
+                }
                 break;
             case "Shieldman":
-                barroBoy = shieldmans[shieldmans.Count - 1];
-                shieldmans.Remove(barroBoy);
+
+                if (shieldmans.Count > 0)
+                {
+
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = orderPosition;
+
+                    barroBoy = shieldmans[shieldmans.Count - 1];
+                    shieldmans.Remove(barroBoy);
+
+                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
+                    barroBoy.Order(orderPositionVar);
+
+                }
                 break;
             case "Rogue":
-                barroBoy = rogues[rogues.Count - 1];
-                rogues.Remove(barroBoy);
+                if (rogues.Count > 0)
+                {
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = orderPosition;
+
+                    barroBoy = rogues[rogues.Count - 1];
+                    rogues.Remove(barroBoy);
+
+                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
+                    barroBoy.Order(orderPositionVar);
+
+                }
                 break;
         }
-        orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
-        barroBoy.Order(orderPositionVar);
     }
 
     public NPC GetBoyArmy(string type)
