@@ -173,13 +173,15 @@ public class BoyMovement : MonoBehaviour
         //ROLL 
         // If space is pressed.
         //If the get up animation is not playing and ragdolled is false
-        if (Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 5"))
+        if (Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1"))
         {
             if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
             {
-
-                onRoll = true;
-                anim.SetTrigger("Roll");
+                if (onRoll != true)
+                {
+                    onRoll = true;
+                    anim.SetTrigger("Roll");
+                }
             }
         }
     }
@@ -287,13 +289,13 @@ public class BoyMovement : MonoBehaviour
             // If the axis has any sort of input on Joystick.
             else if (horizontalJoystick != 0f || verticalJoystick != 0f)
             {
-
+                Debug.Log("UsandoMando");
                 stopRagdoll();
                 AnimSpeed = Mathf.Clamp(Mathf.Abs(horizontalJoystick) + Mathf.Abs(verticalJoystick), 0, 1) * 4.5f;
                 // Calls the Rotate function, which makes the rotation of the character look good.
                 if (onRoll != true)
                 {
-                    Rotate(horizontal, vertical);
+                    Rotate(horizontalJoystick, verticalJoystick);
                 }
                 anim.SetFloat("AnimSpeed", AnimSpeed);
 
