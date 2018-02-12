@@ -5,7 +5,7 @@ using UnityEngine;
 public class BE_Roll : StateMachineBehaviour
 {
 
-    float speed;
+    float speed = 6.5f;
     BoyMovement boy;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

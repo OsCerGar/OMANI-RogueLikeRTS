@@ -10,8 +10,11 @@ public class BoyMovement : MonoBehaviour
 
     //Surface Hitted
     public RaycastHit hittedground;
-    public bool onRoll = false;
+
     //Movement Related
+    [HideInInspector]
+    public bool onRoll = false;
+
     //Smoothing variables for turning the character
     private float smooth = 15f;
     //Timer to remove input from the player while in ragdoll.
