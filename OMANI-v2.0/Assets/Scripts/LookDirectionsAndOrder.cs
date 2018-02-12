@@ -14,13 +14,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
     float visibleCursorTimer = 10.0f, timeLeft;
     float cursorPosition;
     bool catchCursor = true;
-    private Animator anim;
 
     public float viewRadius;
     [Range(0, 360)]
     public float viewAngle;
-
-    Camera viewCamera;
 
     //Gameplay
     public Army commander;
@@ -35,8 +32,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        anim = GetComponent<Animator>();
-        viewCamera = Camera.main;
         commander = FindObjectOfType<Army>();
         miradaPositionObject = new GameObject();
 

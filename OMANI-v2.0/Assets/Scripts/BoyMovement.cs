@@ -8,11 +8,9 @@ public class BoyMovement : MonoBehaviour
 
     #region Variables
 
-
-
     //Surface Hitted
     public RaycastHit hittedground;
-
+    public bool onRoll = false;
     //Movement Related
     //Smoothing variables for turning the character
     private float smooth = 15f;
@@ -23,8 +21,6 @@ public class BoyMovement : MonoBehaviour
     //Time for the animation blend
     private float t, t2;
 
-
-
     //Reference Variables
     private Animator anim;
     private Animation animation;
@@ -32,10 +28,6 @@ public class BoyMovement : MonoBehaviour
     private Ragdoll ragdll;
     private Collider coll;
     private LookDirectionsAndOrder LookDirection;
-
-    [SerializeField]
-    private Transform BookLeft, BookRight;
-
 
     #endregion
 
@@ -174,6 +166,19 @@ public class BoyMovement : MonoBehaviour
     {
         //Timer for the character to get up from ragdoll.
         ragdollTimer += Time.deltaTime;
+
+        //ROLL 
+        // If space is pressed.
+        //If the get up animation is not playing and ragdolled is false
+        if (Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 5"))
+        {
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
+            {
+
+                onRoll = true;
+                anim.SetTrigger("Roll");
+            }
+        }
     }
 
     // LateUpdate is called after all Update functions have been called.
@@ -259,6 +264,8 @@ public class BoyMovement : MonoBehaviour
         //If the get up animation is not playing and ragdolled is false
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
         {
+            //MOVEMENT IF NOT ROLLIN
+
             // If the axis has any sort of input on WASD.
             if (horizontal != 0f || vertical != 0f)
             {
@@ -267,11 +274,13 @@ public class BoyMovement : MonoBehaviour
                 AnimSpeed = Mathf.Lerp(0, 4.5f, t);
                 t += 0.8f * Time.deltaTime;
                 // Calls the Rotate function, which makes the rotation of the character look good.
-                Rotate(horizontal, vertical);
+                if (onRoll != true)
+                {
+                    Rotate(horizontal, vertical);
+                }
                 anim.SetFloat("AnimSpeed", AnimSpeed);
 
             }
-
             // If the axis has any sort of input on Joystick.
             else if (horizontalJoystick != 0f || verticalJoystick != 0f)
             {
@@ -279,7 +288,10 @@ public class BoyMovement : MonoBehaviour
                 stopRagdoll();
                 AnimSpeed = Mathf.Clamp(Mathf.Abs(horizontalJoystick) + Mathf.Abs(verticalJoystick), 0, 1) * 4.5f;
                 // Calls the Rotate function, which makes the rotation of the character look good.
-                Rotate(horizontalJoystick, verticalJoystick);
+                if (onRoll != true)
+                {
+                    Rotate(horizontal, vertical);
+                }
                 anim.SetFloat("AnimSpeed", AnimSpeed);
 
             }
@@ -291,7 +303,6 @@ public class BoyMovement : MonoBehaviour
                 t2 -= 0.4f * Time.deltaTime;
                 anim.SetFloat("AnimSpeed", AnimSpeed);
             }
-
         }
     }
 
@@ -314,7 +325,6 @@ public class BoyMovement : MonoBehaviour
         // Uses the rigidbody function  "MoveRotation" which sets the new rotation of the Rigidbody. 
         rigid.MoveRotation(smoothedRotation);
     }
-
 
     //Used by the animation events to play the steps.
     void rightStep()
@@ -351,7 +361,6 @@ public class BoyMovement : MonoBehaviour
         */
     }
 
-
     public void startRagdoll()
     {
         ragdolled = true;
@@ -384,10 +393,6 @@ public class BoyMovement : MonoBehaviour
         //Position too look at.
         anim.SetLookAtPosition(LookDirection.miradaposition);
 
-        anim.SetIKPosition(AvatarIKGoal.RightHand, BookRight.position);
-        anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
-        anim.SetIKPosition(AvatarIKGoal.LeftHand, BookLeft.position);
-        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
     }
 
 }
