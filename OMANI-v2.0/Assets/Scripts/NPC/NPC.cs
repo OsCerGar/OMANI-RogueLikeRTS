@@ -89,6 +89,8 @@ public class NPC : MonoBehaviour {
         AI = this.gameObject.GetComponent<BehaviorTree>();
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
+
+        //Nav.updateRotation = true;
     }
 	
 	// Update is called once per frame
