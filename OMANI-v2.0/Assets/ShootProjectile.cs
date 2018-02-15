@@ -12,4 +12,11 @@ public class ShootProjectile : MonoBehaviour {
         Projectile.transform.rotation = Gun.rotation;
         Projectile.Emit(1);
     }
+
+    public void ShootStun()
+    {
+        Projectile.transform.position = Gun.position;
+        Projectile.transform.rotation = Gun.rotation;
+        Projectile.Emit(1);
+    }
 }
