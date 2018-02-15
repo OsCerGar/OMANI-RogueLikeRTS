@@ -32,6 +32,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public List<string> selectedTypeList;
     public int selectedTypeInt;
 
+    //Temporal
+    public Canvas canvas;
     #endregion
 
     // Use this for initialization
@@ -47,6 +49,20 @@ public class LookDirectionsAndOrder : MonoBehaviour
     {
         // LOOK
         miradaPositionObject.transform.position = miradaposition;
+        if (selectedTypeInt < selectedTypeList.Count)
+        {
+            if (selectedTypeList[selectedTypeInt] != null && selectedTypeList[selectedTypeInt] == "Musketeer")
+            {
+                canvas.transform.GetChild(0).gameObject.SetActive(true);
+                canvas.transform.GetChild(1).gameObject.SetActive(false);
+            }
+            else if (selectedTypeList[selectedTypeInt] == "Swordsman")
+            {
+
+                canvas.transform.GetChild(0).gameObject.SetActive(false);
+                canvas.transform.GetChild(1).gameObject.SetActive(true);
+            }
+        }
 
         #region Inputs
         //RightJoystick
@@ -69,7 +85,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     private void SelectedType()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKey("joystick button 5")) // forward
         {
             selectedTypeInt += 1;
             if (selectedTypeInt > selectedTypeList.Count - 1)
@@ -77,7 +93,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 selectedTypeInt = 0;
             }
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKey("joystick button 4")) // backwards
         {
             selectedTypeInt -= 1;
 
@@ -94,12 +110,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
     {
 
         #region Order
-        if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown("joystick button 7") || Input.GetMouseButtonDown(1))
         {
             orderCounter = 0;
         }
 
-        if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1))
+        if (Input.GetKey("joystick button 7") || Input.GetMouseButton(1))
         {
             orderCounter += Time.deltaTime;
             if (orderCounter > 0.2f)
@@ -110,7 +126,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
+        if (Input.GetKeyUp("joystick button 7") || Input.GetMouseButtonUp(1))
         {
             if (orderCounter < 0.2f)
             {
@@ -161,7 +177,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #endregion
 
         #region Reclute
-        if (Input.GetKeyDown("joystick button 4") || Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown("joystick button 6") || Input.GetMouseButtonDown(0))
         {
             if (closestTarget != null)
             {
