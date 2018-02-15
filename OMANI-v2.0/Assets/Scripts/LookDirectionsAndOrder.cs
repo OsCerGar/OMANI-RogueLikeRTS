@@ -47,22 +47,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     void Update()
     {
+
         // LOOK
         miradaPositionObject.transform.position = miradaposition;
-        if (selectedTypeInt < selectedTypeList.Count)
-        {
-            if (selectedTypeList[selectedTypeInt] != null && selectedTypeList[selectedTypeInt] == "Musketeer")
-            {
-                canvas.transform.GetChild(0).gameObject.SetActive(true);
-                canvas.transform.GetChild(1).gameObject.SetActive(false);
-            }
-            else if (selectedTypeList[selectedTypeInt] == "Swordsman")
-            {
-
-                canvas.transform.GetChild(0).gameObject.SetActive(false);
-                canvas.transform.GetChild(1).gameObject.SetActive(true);
-            }
-        }
 
         #region Inputs
         //RightJoystick
@@ -83,8 +70,38 @@ public class LookDirectionsAndOrder : MonoBehaviour
         Order();
     }
 
+    private void LateUpdate()
+    {
+        //Show an outline of the closest boy in town.
+        if (closestTarget != null)
+        {
+            closestTarget.gameObject.GetComponentInChildren<cakeslice.Outline>().eraseRenderer = false;
+        }
+    }
     private void SelectedType()
     {
+        if (selectedTypeList.Count == 0)
+        {
+            canvas.transform.GetChild(0).gameObject.SetActive(false);
+            canvas.transform.GetChild(1).gameObject.SetActive(false);
+        }
+
+        // Selected type temporal
+        if (selectedTypeInt < selectedTypeList.Count)
+        {
+            if (selectedTypeList[selectedTypeInt] != null && selectedTypeList[selectedTypeInt] == "Musketeer")
+            {
+                canvas.transform.GetChild(0).gameObject.SetActive(true);
+                canvas.transform.GetChild(1).gameObject.SetActive(false);
+            }
+
+            else if (selectedTypeList[selectedTypeInt] == "Swordsman")
+            {
+                canvas.transform.GetChild(0).gameObject.SetActive(false);
+                canvas.transform.GetChild(1).gameObject.SetActive(true);
+            }
+        }
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKey("joystick button 5")) // forward
         {
             selectedTypeInt += 1;
@@ -177,10 +194,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #endregion
 
         #region Reclute
+
+
         if (Input.GetKeyDown("joystick button 6") || Input.GetMouseButtonDown(0))
         {
             if (closestTarget != null)
             {
+
                 NPC closestTargetNPC = closestTarget.GetComponent<NPC>();
                 if (commander.ListSize(closestTargetNPC.boyType) < 1)
                 {
@@ -207,22 +227,29 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         closestTarget = null;
 
+        //Each collider hitted by the Sphere in the TargetMask
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
         foreach (Collider col in targetsInViewRadius)
         {
+            // Save the col as an NPC
             NPC colNPC;
             if (colNPC = col.gameObject.GetComponent<NPC>())
             {
+                // Disables Outline by default
+                col.gameObject.GetComponentInChildren<cakeslice.Outline>().eraseRenderer = true;
                 Transform target = col.transform;
+
+                // Check if its inside the selection angle.
                 Vector3 dirToTarget = (target.position - transform.position).normalized;
                 if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
                 {
+                    //Distance to target
                     float dstToTarget = Vector3.Distance(transform.position, target.position);
-
-                    // This needs a fix
+                    //Check if its following already.
                     if (colNPC.AI_GetState() != "Follow")
                     {
-
+                        //If the closestTarget is null he is the closest target.
+                        // If the distance is smaller than the distance to the closestTarget.
                         if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
                         {
                             closestTarget = col.gameObject;
