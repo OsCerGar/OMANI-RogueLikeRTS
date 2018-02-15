@@ -41,14 +41,14 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     void Update()
     {
-        miradaPositionObject.transform.position = miradaposition;
         // LOOK
-
+        miradaPositionObject.transform.position = miradaposition;
         #region Inputs
         //RightJoystick
         float hrj = Input.GetAxis("HorizontalRightJoystick");
         float vrj = Input.GetAxis("VerticalRightJoystick");
         #endregion
+
         if (!orderInOrder)
         {
             LookAt(hrj, vrj);
@@ -57,8 +57,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             LookAtFromTargetPoint(hrj, vrj, boyInCharge.gameObject);
         }
+        Order();
+    }
 
-        //En un futuro, R2/L2
+    private void Order()
+    {
+
         #region Order
         if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
         {
@@ -117,6 +121,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         #endregion
 
+        #region Reclute
         if (Input.GetKeyDown("joystick button 4") || Input.GetMouseButtonDown(0))
         {
             if (closestTarget != null)
@@ -124,6 +129,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 commander.Reclute(closestTarget.GetComponent<NPC>());
             }
         }
+        #endregion
     }
 
     #region FindVisibleTargets

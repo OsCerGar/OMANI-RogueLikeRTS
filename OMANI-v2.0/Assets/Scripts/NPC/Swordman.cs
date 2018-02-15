@@ -6,6 +6,6 @@ public class Swordman : NPC
 {
     void Awake()
     {
-        boyType = "Swordman";
+        boyType = "Swordsman";
     }
 }
