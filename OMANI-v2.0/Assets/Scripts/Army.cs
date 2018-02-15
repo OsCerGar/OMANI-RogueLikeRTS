@@ -158,6 +158,30 @@ public class Army : MonoBehaviour
         return barroBoy;
     }
 
+    public int ListSize(string _type) {
+        int size = 0;
+        switch (_type)
+        {
+            case "Swordsman":
+                size = swordsmans.Count;
+                break;
+            case "Archer":
+                size = archers.Count;
+                break;
+            case "Musketeer":
+                size = musketeers.Count;
+                break;
+            case "Shieldman":
+                size = shieldmans.Count;
+                break;
+            case "Rogue":
+                size = rogues.Count;
+                break;
+        }
+
+        return size;
+    }
+
     public void RemoveFromList(NPC barroBoy)
     {
 

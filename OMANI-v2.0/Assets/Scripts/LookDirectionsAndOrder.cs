@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LookDirectionsAndOrder : MonoBehaviour
 {
-
+    #region Variables
     //Movement Related
     //Look variables
     //Vector3 that keeps track of the LookPositions
@@ -23,12 +23,17 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public Army commander;
     public GameObject closestTarget;
     public LayerMask targetMask, obstacleMask;
-    public string selectedType = "Swordsman";
     private float orderCounter;
     private bool orderInOrder;
     private NPC boyInCharge;
     public GameObject orderPosition;
     private RaycastHit hit;
+
+    public List<string> selectedTypeList;
+    public int selectedTypeInt;
+    public string selectedType;
+
+    #endregion
 
     // Use this for initialization
     void Start()
@@ -41,8 +46,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     void Update()
     {
+        if (selectedTypeList.Count != 0)
+        {
+            selectedType = selectedTypeList[selectedTypeInt];
+        }
         // LOOK
         miradaPositionObject.transform.position = miradaposition;
+
         #region Inputs
         //RightJoystick
         float hrj = Input.GetAxis("HorizontalRightJoystick");
@@ -57,7 +67,32 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             LookAtFromTargetPoint(hrj, vrj, boyInCharge.gameObject);
         }
+
+        SelectedType();
         Order();
+    }
+
+    private void SelectedType()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+        {
+            selectedTypeInt += 1;
+            if (selectedTypeInt > selectedTypeList.Count - 1)
+            {
+                selectedTypeInt = 0;
+            }
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
+        {
+            selectedTypeInt -= 1;
+
+            if (selectedTypeInt < 0)
+            {
+                selectedTypeInt = selectedTypeList.Count - 1;
+            }
+
+        }
+
     }
 
     private void Order()
@@ -74,9 +109,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
             orderCounter += Time.deltaTime;
             if (orderCounter > 0.2f)
             {
-                boyInCharge = commander.GetBoyArmy(selectedType);
+                boyInCharge = commander.GetBoyArmy(selectedTypeList[selectedTypeInt]);
                 boyInCharge.ChargedOrder(miradaPositionObject);
                 orderInOrder = true;
+
             }
         }
         if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
@@ -87,11 +123,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                 if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
                 {
-                    commander.Order(selectedType, hit.point);
+                    commander.Order(selectedTypeList[selectedTypeInt], hit.point);
                 }
                 else
                 {
-                    commander.Order(selectedType, this.transform.position + (this.transform.forward * viewRadius));
+                    commander.Order(selectedTypeList[selectedTypeInt], this.transform.position + (this.transform.forward * viewRadius));
                 }
             }
             else
@@ -115,8 +151,16 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 commander.RemoveFromList(boyInCharge);
                 boyInCharge = null;
 
+
+
             }
+
             orderInOrder = false;
+
+            if (commander.ListSize(selectedTypeList[selectedTypeInt]) < 1)
+            {
+                selectedTypeList.Remove(selectedTypeList[selectedTypeInt]);
+            }
         }
 
         #endregion
@@ -126,7 +170,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             if (closestTarget != null)
             {
-                commander.Reclute(closestTarget.GetComponent<NPC>());
+                NPC closestTargetNPC = closestTarget.GetComponent<NPC>();
+                if (commander.ListSize(closestTargetNPC.boyType) < 1)
+                {
+                    selectedTypeList.Add(closestTargetNPC.boyType);
+                }
+
+                commander.Reclute(closestTargetNPC);
             }
         }
         #endregion
@@ -173,7 +223,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
     }
     #endregion
-
     void LookAt(float _hrj, float _vrj)
     {
         if (catchCursor)
@@ -274,7 +323,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         this.transform.position = _TargetPoint.transform.position;
 
     }
-
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
 
@@ -285,5 +333,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
+
 
 }
