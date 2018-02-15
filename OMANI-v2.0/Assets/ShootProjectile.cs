@@ -1,22 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ShootProjectile : MonoBehaviour {
 
-    public ParticleSystem Projectile;
+    public ParticleSystem BasicProjectile, AdvancedProjectile;
     public Transform Gun;
 	public void Shoot()
     {
-        Projectile.transform.position = Gun.position;
-        Projectile.transform.rotation = Gun.rotation;
-        Projectile.Emit(1);
+        BasicProjectile.transform.position = Gun.position;
+        BasicProjectile.transform.rotation = transform.rotation;
+        BasicProjectile.Emit(1);
     }
 
     public void ShootStun()
     {
-        Projectile.transform.position = Gun.position;
-        Projectile.transform.rotation = Gun.rotation;
-        Projectile.Emit(1);
+        AdvancedProjectile.transform.position = Gun.position;
+        AdvancedProjectile.transform.rotation = transform.rotation;
+        transform.GetComponent<NavMeshAgent>().velocity = transform.forward * -20;
+        AdvancedProjectile.Emit(1);
     }
 }
