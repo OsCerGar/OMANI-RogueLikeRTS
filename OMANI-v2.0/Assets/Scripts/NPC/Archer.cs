@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Swordman : NPC
-{
+public class Archer : NPC {
+
     void Awake()
     {
-        boyType = "Swordsman";
+        boyType = "Archer";
     }
+
 }
