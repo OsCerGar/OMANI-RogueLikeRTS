@@ -22,12 +22,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
     //Gameplay
     public Army commander;
     public GameObject closestTarget;
-    public LayerMask targetMask;
+    public LayerMask targetMask, obstacleMask;
     public string selectedType = "Swordsman";
     private float orderCounter;
     private bool orderInOrder;
     private NPC boyInCharge;
     public GameObject orderPosition;
+    private RaycastHit hit;
 
     // Use this for initialization
     void Start()
@@ -52,7 +53,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             LookAt(hrj, vrj);
         }
-        else {
+        else
+        {
             LookAtFromTargetPoint(hrj, vrj, boyInCharge.gameObject);
         }
 
@@ -63,9 +65,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
             orderCounter = 0;
         }
 
-        if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1)) {
+        if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1))
+        {
             orderCounter += Time.deltaTime;
-            if (orderCounter > 0.2f) {
+            if (orderCounter > 0.2f)
+            {
                 boyInCharge = commander.GetBoyArmy(selectedType);
                 boyInCharge.ChargedOrder(miradaPositionObject);
                 orderInOrder = true;
@@ -73,19 +77,40 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
         if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
         {
-            if (orderCounter < 0.2f) {
-                commander.Order(selectedType, this.transform.position + (this.transform.forward * viewRadius));
+            if (orderCounter < 0.2f)
+            {
+                Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
+
+                if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                {
+                    commander.Order(selectedType, hit.point);
+                }
+                else
+                {
+                    commander.Order(selectedType, this.transform.position + (this.transform.forward * viewRadius));
+                }
             }
-            else {
+            else
+            {
                 GameObject orderPositionVar = Instantiate(orderPosition);
 
-                //Encargado de saber la distancia en la que se lanzará la orden cargada.
-                orderPositionVar.transform.position = this.transform.position + (this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f));
+                Debug.DrawRay(transform.position, this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f), Color.yellow, 5f);
+
+                if (Physics.Raycast(transform.position, this.transform.forward, out hit, Mathf.Clamp(orderCounter * 5, 0.2f, 20f), obstacleMask))
+                {
+                    orderPositionVar.transform.position = hit.point;
+                }
+                else
+                {
+                    //Encargado de saber la distancia en la que se lanzará la orden cargada.
+                    orderPositionVar.transform.position = this.transform.position + (this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f));
+                }
 
                 orderPositionVar.GetComponent<OrderPositionObject>().NPC = boyInCharge.gameObject;
                 boyInCharge.ChargedOrderFullfilled(orderPositionVar);
                 commander.RemoveFromList(boyInCharge);
                 boyInCharge = null;
+
             }
             orderInOrder = false;
         }
@@ -94,8 +119,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         if (Input.GetKeyDown("joystick button 4") || Input.GetMouseButtonDown(0))
         {
-            if (closestTarget != null) { 
-            commander.Reclute(closestTarget.GetComponent<NPC>());
+            if (closestTarget != null)
+            {
+                commander.Reclute(closestTarget.GetComponent<NPC>());
             }
         }
     }
@@ -118,24 +144,26 @@ public class LookDirectionsAndOrder : MonoBehaviour
         foreach (Collider col in targetsInViewRadius)
         {
             NPC colNPC;
-            if (colNPC=col.gameObject.GetComponent<NPC>()) { 
-            Transform target = col.transform;
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+            if (colNPC = col.gameObject.GetComponent<NPC>())
             {
-                float dstToTarget = Vector3.Distance(transform.position, target.position);
+                Transform target = col.transform;
+                Vector3 dirToTarget = (target.position - transform.position).normalized;
+                if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                {
+                    float dstToTarget = Vector3.Distance(transform.position, target.position);
 
-                // This needs a fix
-                if (colNPC.AI_GetState() != "Follow") {
-
-                    if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
+                    // This needs a fix
+                    if (colNPC.AI_GetState() != "Follow")
                     {
-                        closestTarget = col.gameObject;
-                    }
-                }
 
+                        if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
+                        {
+                            closestTarget = col.gameObject;
+                        }
+                    }
+
+                }
             }
-        }
         }
     }
     #endregion
