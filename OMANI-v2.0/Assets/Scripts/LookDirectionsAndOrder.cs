@@ -31,7 +31,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     public List<string> selectedTypeList;
     public int selectedTypeInt;
-    public string selectedType;
 
     #endregion
 
@@ -46,10 +45,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     void Update()
     {
-        if (selectedTypeList.Count != 0)
-        {
-            selectedType = selectedTypeList[selectedTypeInt];
-        }
         // LOOK
         miradaPositionObject.transform.position = miradaposition;
 
