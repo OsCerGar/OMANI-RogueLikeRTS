@@ -80,13 +80,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
     private void SelectedType()
     {
+        // Selected type temporal
         if (selectedTypeList.Count == 0)
         {
             canvas.transform.GetChild(0).gameObject.SetActive(false);
             canvas.transform.GetChild(1).gameObject.SetActive(false);
         }
-
-        // Selected type temporal
         if (selectedTypeInt < selectedTypeList.Count)
         {
             if (selectedTypeList[selectedTypeInt] != null && selectedTypeList[selectedTypeInt] == "Musketeer")
