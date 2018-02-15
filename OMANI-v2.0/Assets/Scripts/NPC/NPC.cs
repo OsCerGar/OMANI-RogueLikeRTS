@@ -10,14 +10,14 @@ public class NPC : MonoBehaviour {
     #region Variables
     //Type of NPC
     [SerializeField]
-    string boyType;
+    public string boyType;
 
     //State on NPC, not to get confused with Behaviour Tree State.  
     [SerializeField]
     string state;
 
     [SerializeField]
-    int life, damage;
+    public int life, damage;
     //Required for run animations synced with NevMesh
     Animator anim;
     NavMeshAgent Nav;
