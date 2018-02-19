@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class MeleAttack : MonoBehaviour {
     [SerializeField] string TagToAttack;
+    [SerializeField] float PushBack = 0;
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
@@ -13,7 +14,7 @@ public class MeleAttack : MonoBehaviour {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             EnemyNPC.Life -= transform.parent.GetComponent<NPC>().Damage;
-            EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * 10;
+            EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;
         }
     }
     private void OnEnable()
