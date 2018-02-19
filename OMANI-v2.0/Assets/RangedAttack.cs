@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BehaviorDesigner.Runtime.Tasks;
+using BehaviorDesigner.Runtime;
 
 public class RangedAttack : MonoBehaviour {
 
@@ -16,6 +18,9 @@ public class RangedAttack : MonoBehaviour {
             var EnemyNavMesh = other.GetComponent<UnityEngine.AI.NavMeshAgent>();
             EnemyNPC.Life -= transform.parent.GetComponent<NPC>().Damage;
             EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;
+
+            var targetVariable = (SharedGameObject)other.gameObject.GetComponent<BehaviorTree>().GetVariable("Target");
+            targetVariable.Value = transform.parent.gameObject;
         }
     }
 }
