@@ -100,8 +100,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 canvas.transform.GetChild(1).gameObject.SetActive(true);
             }
         }
-
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKey("joystick button 5")) // forward
+        if (selectedTypeList.Count > 0) { 
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("joystick button 7")) // forward
         {
             selectedTypeInt += 1;
             if (selectedTypeInt > selectedTypeList.Count - 1)
@@ -109,7 +109,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 selectedTypeInt = 0;
             }
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKey("joystick button 4")) // backwards
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown("joystick button 6")) // backwards
         {
             selectedTypeInt -= 1;
 
@@ -119,19 +119,19 @@ public class LookDirectionsAndOrder : MonoBehaviour
             }
 
         }
-
+        }
     }
 
     private void Order()
     {
 
         #region Order
-        if (Input.GetKeyDown("joystick button 7") || Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
         {
             orderCounter = 0;
         }
 
-        if (Input.GetKey("joystick button 7") || Input.GetMouseButton(1))
+        if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1))
         {
             orderCounter += Time.deltaTime;
             if (orderCounter > 0.2f)
@@ -142,7 +142,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyUp("joystick button 7") || Input.GetMouseButtonUp(1))
+        if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
         {
             if (orderCounter < 0.2f)
             {
@@ -195,7 +195,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #region Reclute
 
 
-        if (Input.GetKeyDown("joystick button 6") || Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown("joystick button 4") || Input.GetMouseButtonDown(0))
         {
             if (closestTarget != null)
             {
