@@ -7,6 +7,8 @@ using BehaviorDesigner.Runtime;
 public class MeleStun : MonoBehaviour {
 
     [SerializeField] string TagToAttack;
+    [SerializeField] float PushBack;
+    [SerializeField] float Stuntime;
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
@@ -15,12 +17,13 @@ public class MeleStun : MonoBehaviour {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             EnemyNPC.Life -= transform.parent.GetComponent<NPC>().Damage;
-            EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * 10;
+            EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;
 
+            //Stablish Stun Time and make him go stunn!!
+            var time = (SharedFloat)other.gameObject.GetComponent<BehaviorTree>().GetVariable("Stuntime");
+            time.Value = Stuntime;
             var goStunned = (SharedBool)other.gameObject.GetComponent<BehaviorTree>().GetVariable("Stunned");
             goStunned.Value = true;
-            var time = (SharedFloat)other.gameObject.GetComponent<BehaviorTree>().GetVariable("Stunned");
-            time.Value = 3f;
         }
     }
     private void OnEnable()
