@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SavageCamp : MonoBehaviour {
     
-
+    
     List <GameObject> nearbyResources;
     public GameObject[] Shacks;
 
@@ -15,8 +15,13 @@ public class SavageCamp : MonoBehaviour {
     [HideInInspector]
     public int currentNumberOfShepHerd = 0;
 
+    [HideInInspector]
+    public List<GameObject> currentShepHerds = new List<GameObject>();
+
     [SerializeField]
     int AreaOfResources;
+
+    bool someoneSearching;
     // Use this for initialization
     void Start () {
 
@@ -32,8 +37,18 @@ public class SavageCamp : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+		if (!someoneSearching)
+        {
+            if (currentShepHerds.Count > 0)
+            {
+                //Here we make him go search for resources!!!
+                currentShepHerds[UnityEngine.Random.Range(0, currentShepHerds.Count - 1)].GetComponent<NPC>();
+            }
+            
+        }
 	}
+
+    //Get one of the non Active Shacks, and makes it Active.
     public void createSavageShack()
     {
         bool completed = false;
@@ -49,6 +64,7 @@ public class SavageCamp : MonoBehaviour {
             }
         }
     }
+    //looks for posible minerals in an Area around the Camp
     GameObject[] selectPosibleResources(GameObject[] allRes)
     {
         for (int i = 0; i < allRes.Length; i++)
