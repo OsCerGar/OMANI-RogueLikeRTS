@@ -14,6 +14,9 @@ public class BoyMovement : MonoBehaviour
     //Movement Related
     [HideInInspector]
     public bool onRoll = false;
+    public List<GameObject> nearObjects;
+    public GameObject grabbedObject;
+    private Transform lastParent;
 
     //Smoothing variables for turning the character
     private float smooth = 15f;
@@ -35,13 +38,13 @@ public class BoyMovement : MonoBehaviour
     #endregion
 
     #region Ragdollvariables
-
-    [SerializeField]
     //Additional vectors for storing the pose the ragdoll ended up in.
+    [HideInInspector]
     public Vector3 ragdolledHipPosition, ragdolledHeadPosition, ragdolledFeetPosition;
-
+    [HideInInspector]
     //A helper variable to store the time when we transitioned from ragdolled to blendToAnim state
     float ragdollingEndTime = -100;
+    [HideInInspector]
 
     //How long do we blend when transitioning from ragdolled to animated
     public float ragdollToMecanimBlendTime = 0.5f;
@@ -82,13 +85,12 @@ public class BoyMovement : MonoBehaviour
                     ragdolledHipPosition = anim.GetBoneTransform(HumanBodyBones.Hips).position;
                     ragdolledHipPosition.y += 0.65f;
 
-                    Debug.Log("Sragdolled2");
                     //Initiate the get up animation
-                    if (anim.GetBoneTransform(HumanBodyBones.Hips).forward.y > 0 && grabbed == false) //hip hips forward vector pointing upwards, initiate the get up from back animation
+                    if (anim.GetBoneTransform(HumanBodyBones.Hips).forward.y > 0) //hip hips forward vector pointing upwards, initiate the get up from back animation
                     {
                         anim.SetBool("GetUpFromBack", true);
                     }
-                    if (anim.GetBoneTransform(HumanBodyBones.Hips).forward.y < 0 && grabbed == false)
+                    if (anim.GetBoneTransform(HumanBodyBones.Hips).forward.y < 0)
                     {
                         anim.SetBool("GetUpFromBelly", true);
                     }
@@ -109,11 +111,6 @@ public class BoyMovement : MonoBehaviour
     //The current state
     RagdollState state = RagdollState.animated;
     #endregion
-
-    //Borderline for objects
-
-    //To know if the player has been grabbed by a guard
-    public bool grabbed = false;
 
     private void Awake()
     {
@@ -177,14 +174,50 @@ public class BoyMovement : MonoBehaviour
         {
             if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
             {
-                if (onRoll != true)
+                if (grabbedObject == null)
                 {
-                    onRoll = true;
-                    anim.SetTrigger("Roll");
+                    // Checks if there are interactible objects nearby
+                    if (nearObjects.Count<1)
+                    {
+                        if (onRoll != true)
+                        {
+                            onRoll = true;
+                            anim.SetTrigger("Roll");
+                        }
+                    }
+                    //If there are, grab the closest one.
+                    else
+                    {
+                        float minDistance = 0;
+                        GameObject closest = null;
+                        for (int i = 0; i < nearObjects.Count; i++)
+                        {
+
+                            float distance = Vector3.Distance(nearObjects[i].transform.position, this.gameObject.transform.position);
+
+                            if (minDistance == 0 || minDistance > distance)
+                            {
+                                minDistance = distance;
+                                closest = nearObjects[i].gameObject;
+
+                            }
+                        }
+                        grabbedObject = closest;
+                        lastParent = grabbedObject.transform.parent;
+                        grabbedObject.transform.SetParent(this.transform);
+                        //grabbedObject.transform.position = Vector3.zero;
+
+                    }
+                }
+                else
+                {
+                    grabbedObject.transform.SetParent(lastParent);
+                    grabbedObject = null;
                 }
             }
         }
     }
+
 
     // LateUpdate is called after all Update functions have been called.
     private void LateUpdate()
@@ -260,8 +293,6 @@ public class BoyMovement : MonoBehaviour
         #endregion
 
     }
-
-
 
     //Function in charge of the Main Character movement. Sends commands to the animator and allows the character to rotate.
     void MovementController(float horizontal, float vertical, float horizontalJoystick, float verticalJoystick)
@@ -398,7 +429,28 @@ public class BoyMovement : MonoBehaviour
         //Position too look at.
         anim.SetLookAtPosition(LookDirection.miradaposition);
 
+        if (grabbedObject != null)
+        {
+            anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.6f);
+            anim.SetIKPosition(AvatarIKGoal.LeftHand, grabbedObject.transform.position);
+        }
     }
 
+    //For interactuable objects
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Interactible"))
+        {
+            nearObjects.Add(other.gameObject);
+        }
+    }
+    //For interactuable objects
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Interactible"))
+        {
+            nearObjects.Remove(other.gameObject);
+        }
+    }
 }
 
