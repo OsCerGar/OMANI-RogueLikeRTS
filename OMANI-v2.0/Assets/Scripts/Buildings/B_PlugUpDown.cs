@@ -9,15 +9,17 @@ public class B_PlugUpDown : MonoBehaviour
     GameObject Plug;
     [SerializeField]
     Vector3 start, end;
-
+    [SerializeField]
+    float height;
     bool playerClose = false;
+
 
     // Use this for initialization
     void Start()
     {
         Plug = this.gameObject.transform.GetChild(0).gameObject;
         start = Plug.transform.position;
-        end = Plug.transform.position + new Vector3(0, 6, 0);
+        end = Plug.transform.position + new Vector3(0, height, 0);
 
     }
 
@@ -32,7 +34,6 @@ public class B_PlugUpDown : MonoBehaviour
         {
             Plug.transform.position = Vector3.Lerp(Plug.transform.position, end, 0.1f);
         }
-
     }
 
 

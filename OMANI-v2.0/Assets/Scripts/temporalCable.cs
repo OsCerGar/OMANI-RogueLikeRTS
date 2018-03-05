@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class temporalCable : MonoBehaviour
 {
-
-    Transform cableEnd, cableStart, attachment;
+    [SerializeField]
+    Transform cableEnd, cableStart;
     LineRenderer lineRenderer;
     BU_PowerPlant powerPlant;
     public bool energy;
@@ -13,9 +13,18 @@ public class temporalCable : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        cableStart = this.gameObject.transform.parent.transform;
-        cableEnd = this.gameObject.transform.GetChild(0);
+        if (cableStart == null)
+        {
+            cableStart = this.gameObject.transform.parent.transform;
+        }
+        if (cableEnd == null)
+        {
+
+            cableEnd = this.gameObject.transform.GetChild(0);
+        }
+
         lineRenderer = this.gameObject.GetComponent<LineRenderer>();
+        //Adding heigh because the elevator starts at the ground
         lineRenderer.SetPosition(0, cableStart.transform.position);
         powerPlant = FindObjectOfType<BU_PowerPlant>();
     }

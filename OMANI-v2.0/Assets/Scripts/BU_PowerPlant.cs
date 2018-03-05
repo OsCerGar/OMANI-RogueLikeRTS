@@ -6,13 +6,14 @@ public class BU_PowerPlant : MonoBehaviour
 {
     [SerializeField]
     GameObject cablePrefab;
+    [SerializeField]
     List<temporalCable> cables = new List<temporalCable>();
+    public int energy;
 
     // Use this for initialization
     void Start()
     {
-
-        foreach (temporalCable cable in this.transform.GetChild(0).GetComponentsInChildren<temporalCable>())
+        foreach (temporalCable cable in this.transform.GetChild(0).GetChild(0).GetComponentsInChildren<temporalCable>())
         {
             cables.Add(cable);
         }
@@ -24,26 +25,10 @@ public class BU_PowerPlant : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("People"))
-        {
-            addEnergy();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("People"))
-        {
-            removeEnergy();
-        }
-
-    }
-
-    void addEnergy()
+    public void addEnergy()
     {
         bool givenEnergy = false;
+        this.energy += 1;
         int i = 0;
         while (givenEnergy == false && i < cables.Count)
         {
@@ -56,9 +41,11 @@ public class BU_PowerPlant : MonoBehaviour
             i++;
         }
     }
-    void removeEnergy()
+
+    public void removeEnergy()
     {
         bool removedEnergy = false;
+        this.energy -= 1;
         int i = cables.Count - 1;
         while (removedEnergy == false && i >= 0)
         {

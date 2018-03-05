@@ -14,9 +14,10 @@ public class BoyMovement : MonoBehaviour
     //Movement Related
     [HideInInspector]
     public bool onRoll = false;
-    public List<GameObject> nearObjects;
     public GameObject grabbedObject;
     private Transform lastParent;
+    [SerializeField]
+    public GameObject hand;
 
     //Smoothing variables for turning the character
     private float smooth = 15f;
@@ -171,43 +172,82 @@ public class BoyMovement : MonoBehaviour
         // If space is pressed.
         //If the get up animation is not playing and ragdolled is false
         if (Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1"))
-        {
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
-            {
-                if (grabbedObject == null)
-                {
-                    // Checks if there are interactible objects nearby
-                    if (nearObjects.Count<1)
-                    {
-                        if (onRoll != true)
-                        {
-                            onRoll = true;
-                            anim.SetTrigger("Roll");
-                        }
-                    }
-                    //If there are, grab the closest one.
-                    else
-                    {
-                        float minDistance = 0;
-                        GameObject closest = null;
-                        for (int i = 0; i < nearObjects.Count; i++)
-                        {
+            Action();
+    }
 
-                            float distance = Vector3.Distance(nearObjects[i].transform.position, this.gameObject.transform.position);
+    private void Action()
+    {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
+        {
+            if (grabbedObject == null)
+            {
+                Collider[] objectsInArea = null;
+                objectsInArea = Physics.OverlapSphere(transform.position, 2f, 1 << 14);
+
+                // Checks if there are interactible objects nearby
+                if (objectsInArea.Length < 1)
+                {
+                    if (onRoll != true)
+                    {
+                        onRoll = true;
+                        anim.SetTrigger("Roll");
+                    }
+                }
+                //If there are, grab the closest one.
+                else
+                {
+                    float minDistance = 0;
+                    GameObject closest = null;
+                    for (int i = 0; i < objectsInArea.Length; i++)
+                    {
+                        if (objectsInArea[i].name.Equals("cable_end"))
+                        {
+                            float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
 
                             if (minDistance == 0 || minDistance > distance)
                             {
                                 minDistance = distance;
-                                closest = nearObjects[i].gameObject;
+                                closest = objectsInArea[i].gameObject;
 
                             }
                         }
-                        grabbedObject = closest;
-                        lastParent = grabbedObject.transform.parent;
-                        grabbedObject.transform.SetParent(this.transform);
-                        //grabbedObject.transform.position = Vector3.zero;
-
                     }
+                    grabbedObject = closest;
+                    //grabbedObject.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
+                    lastParent = grabbedObject.transform.parent;
+                    grabbedObject.transform.SetParent(hand.transform);
+                    grabbedObject.transform.localPosition = Vector3.zero;
+
+                }
+            }
+            else
+            {
+                Collider[] objectsInArea = null;
+                objectsInArea = Physics.OverlapSphere(transform.position, 2f, 1 << 14);
+                float minDistance = 0;
+                GameObject closest = null;
+
+                if (objectsInArea.Length > 1)
+                {
+                    for (int i = 0; i < objectsInArea.Length; i++)
+                    {
+                        if (objectsInArea[i].gameObject != grabbedObject)
+                        {
+                            float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
+
+                            if (minDistance == 0 || minDistance > distance)
+                            {
+                                minDistance = distance;
+                                closest = objectsInArea[i].gameObject;
+
+                            }
+                        }
+                    }
+
+                    grabbedObject.transform.SetParent(closest.transform);
+                    grabbedObject.transform.localPosition = Vector3.zero;
+
+                    grabbedObject = null;
                 }
                 else
                 {
@@ -433,23 +473,6 @@ public class BoyMovement : MonoBehaviour
         {
             anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.6f);
             anim.SetIKPosition(AvatarIKGoal.LeftHand, grabbedObject.transform.position);
-        }
-    }
-
-    //For interactuable objects
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Interactible"))
-        {
-            nearObjects.Add(other.gameObject);
-        }
-    }
-    //For interactuable objects
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Interactible"))
-        {
-            nearObjects.Remove(other.gameObject);
         }
     }
 }
