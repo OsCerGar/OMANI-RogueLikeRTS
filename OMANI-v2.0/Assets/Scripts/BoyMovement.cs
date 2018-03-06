@@ -202,16 +202,18 @@ public class BoyMovement : MonoBehaviour
                     {
                         if (objectsInArea[i].name.Equals("cable_end"))
                         {
+                            // if (objectsInArea[i].GetComponent<B_Cable_end>().cable.energy == true) { 
                             float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
 
                             if (minDistance == 0 || minDistance > distance)
                             {
                                 minDistance = distance;
                                 closest = objectsInArea[i].gameObject;
-
                             }
+                            // }
                         }
                     }
+
                     grabbedObject = closest;
                     //grabbedObject.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
                     lastParent = grabbedObject.transform.parent;

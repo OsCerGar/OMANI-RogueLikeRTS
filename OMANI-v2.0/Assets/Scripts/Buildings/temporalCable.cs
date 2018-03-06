@@ -9,6 +9,7 @@ public class temporalCable : MonoBehaviour
     LineRenderer lineRenderer;
     BU_PowerPlant powerPlant;
     public bool energy;
+    Color32 lineMaterial;
 
     // Use this for initialization
     void Start()
@@ -27,12 +28,25 @@ public class temporalCable : MonoBehaviour
         //Adding heigh because the elevator starts at the ground
         lineRenderer.SetPosition(0, cableStart.transform.position);
         powerPlant = FindObjectOfType<BU_PowerPlant>();
+        lineMaterial = lineRenderer.material.color;
     }
 
     // Update is called once per frame
     void Update()
     {
         DisplayRope();
+
+        if (energy)
+        {
+            lineRenderer.material.color = Color.yellow;
+
+        }
+        else
+        {
+            //lineRenderer.material = lineMaterial;
+            lineRenderer.material.color = lineMaterial;
+
+        }
     }
 
     //Display the rope with a line renderer
