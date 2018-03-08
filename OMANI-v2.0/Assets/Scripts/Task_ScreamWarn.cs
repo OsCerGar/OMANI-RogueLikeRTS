@@ -20,10 +20,15 @@ public class Task_ScreamWarn : Action
         while (i < hitColliders.Length)
         {
             if (hitColliders[i].tag == transform.tag)
+                
             {
+                if (hitColliders[i].gameObject != transform.gameObject)
+                {
 
-                var targetVariable = (SharedGameObject)hitColliders[i].gameObject.GetComponent<BehaviorTree>().GetVariable("Target");
-                targetVariable.Value = thisTarget.Value;
+                    var targetVariable = (SharedGameObject)hitColliders[i].gameObject.GetComponent<BehaviorTree>().GetVariable("Target");
+                    targetVariable.Value = thisTarget.Value;
+                }
+
             }
 
             i++;

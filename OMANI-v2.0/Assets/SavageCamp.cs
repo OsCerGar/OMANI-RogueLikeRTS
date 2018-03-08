@@ -4,16 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SavageCamp : MonoBehaviour {
-    
-    
-    List <GameObject> nearbyResources;
+
+    MapManager mManager;
     public GameObject[] Shacks;
 
     [HideInInspector]
     public int currentNumberOfShacks = 0;
-
-    [HideInInspector]
-    public int currentNumberOfShepHerd = 0;
+    
 
     [HideInInspector]
     public List<GameObject> currentShepHerds = new List<GameObject>();
@@ -21,19 +18,15 @@ public class SavageCamp : MonoBehaviour {
     [SerializeField]
     int AreaOfResources;
 
-    bool someoneSearching;
+    [HideInInspector]
+    public  bool someoneSearching = false;
     // Use this for initialization
     void Start () {
 
-        selectPosibleResources(FindObjectOfType<MapManager>().ResourcePrefab) ;
-        spawnCreeps();
-
+        mManager = transform.parent.GetComponent<MapManager>();
+        
     }
-
-    private void spawnCreeps()
-    {
-        Debug.Log("TODO: Spawn Creeps");
-    }
+    
 
     // Update is called once per frame
     void Update () {
@@ -41,8 +34,15 @@ public class SavageCamp : MonoBehaviour {
         {
             if (currentShepHerds.Count > 0)
             {
+                
                 //Here we make him go search for resources!!!
-                currentShepHerds[UnityEngine.Random.Range(0, currentShepHerds.Count - 1)].GetComponent<NPC>();
+                var resToGo = GetRandomRes();
+                if (resToGo != null)
+                {
+                    currentShepHerds[UnityEngine.Random.Range(0, currentShepHerds.Count-1)].GetComponent<ShepHerd>().SetTarget(resToGo);
+                    someoneSearching = true;
+
+                }
             }
             
         }
@@ -51,30 +51,39 @@ public class SavageCamp : MonoBehaviour {
     //Get one of the non Active Shacks, and makes it Active.
     public void createSavageShack()
     {
-        bool completed = false;
-        while (!completed)
+        for (int i = 0; i < Shacks.Length; i++)
         {
-            var CampSelection = UnityEngine.Random.Range(0, Shacks.Length);
-            Debug.Log(CampSelection);
-            if (!Shacks[CampSelection].active)
+            if (!Shacks[i].activeSelf)
             {
-                Shacks[CampSelection].SetActive(true);
-                completed = true;
+                Shacks[i].SetActive(true);
                 currentNumberOfShacks++;
+                return;
             }
         }
+        
     }
-    //looks for posible minerals in an Area around the Camp
-    GameObject[] selectPosibleResources(GameObject[] allRes)
+    
+
+    public GameObject GetRandomRes()
     {
-        for (int i = 0; i < allRes.Length; i++)
-        {
-            if (Vector3.Distance(transform.position,allRes[i].transform.position) < AreaOfResources)
+       
+       if (mManager.Res.Count > 0)
             {
-                nearbyResources.Add(allRes[i]);
-            }
-        }
-        return allRes;
+
+                for (int i = 0; i < mManager.Res.Count; i++)
+                {
+                    if (mManager.Res[i].activeSelf)
+                    {
+                    
+                        return mManager.Res[i];
+                    }
+                }
+                
+        }else
+        {
+            Debug.Log("NoRess");
+        }   
+        return null;
     }
     
 }

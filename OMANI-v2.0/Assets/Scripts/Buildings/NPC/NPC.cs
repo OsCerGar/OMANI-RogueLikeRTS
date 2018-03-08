@@ -13,16 +13,18 @@ public class NPC : MonoBehaviour {
     public string boyType;
 
     //State on NPC, not to get confused with Behaviour Tree State.  
-    [SerializeField]
-    string state;
+    public string state;
 
     [SerializeField]
     public int life, damage;
     //Required for run animations synced with NevMesh
-    Animator anim;
-    NavMeshAgent Nav;
+    [HideInInspector]
+    public Animator anim;
+    [HideInInspector]
+    public NavMeshAgent Nav;
 
-    private BehaviorTree AI;
+    [HideInInspector]
+    public  BehaviorTree AI;
     #endregion
 
     #region GETTERSETTERS
@@ -82,10 +84,10 @@ public class NPC : MonoBehaviour {
             state = value;
         }
     }
-#endregion
+    #endregion
 
     // Use this for initialization
-    void Start () {
+    public virtual void Start () {
         AI = this.gameObject.GetComponent<BehaviorTree>();
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
@@ -112,7 +114,7 @@ public class NPC : MonoBehaviour {
 
 	}
 
-    private void Die()
+    public void Die()
     {
         AI.enabled = false;
         Nav.enabled = false;

@@ -7,6 +7,7 @@ public class MapManager : MonoBehaviour {
     public GameObject[] ResourcePrefab;
     public GameObject[] POISavageCamps;
     public Transform[] ResPositions;
+    public List<GameObject> Res = new List<GameObject>();
     List<int> usedNumbers = new List<int>();
     // Use this for initialization
     void Start () {
@@ -28,7 +29,8 @@ public class MapManager : MonoBehaviour {
             {
                 usedNumbers.Add(posNumber);
                 
-                Instantiate(ResourcePrefab[Random.Range(0, ResourcePrefab.Length)],ResPositions[posNumber].position, ResPositions[posNumber].rotation);
+                var ress = Instantiate(ResourcePrefab[Random.Range(0, ResourcePrefab.Length)],ResPositions[posNumber].position, ResPositions[posNumber].rotation);
+                Res.Add(ress);
             }
             else
             {
@@ -43,7 +45,7 @@ public class MapManager : MonoBehaviour {
         {
             var CampSelection = Random.Range(0, POISavageCamps.Length );
             Debug.Log(CampSelection);
-            if (!POISavageCamps[CampSelection].active)
+            if (!POISavageCamps[CampSelection].activeSelf)
             {
                 POISavageCamps[CampSelection].SetActive(true);
                 POISavageCamps[CampSelection].GetComponent<SavageCamp>().createSavageShack();
