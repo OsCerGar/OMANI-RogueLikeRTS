@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour {
     public int numberOfCamps;
     public GameObject[] ResourcePrefab;
+
+    [SerializeField]
+    GameObject CreepPrefab;
+
     public GameObject[] POISavageCamps;
     public Transform[] ResPositions;
     public List<GameObject> Res = new List<GameObject>();
@@ -14,22 +19,47 @@ public class MapManager : MonoBehaviour {
         usedNumbers.Add(100000);
         FillResources();
         ActivateSavageCamp();
+        //I clear used numbers to recicle in SpawnCreeps()
+        usedNumbers.Clear();
+        SpawnCreeps();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void SpawnCreeps()
+    {
+        for (int i = 0; i < ResPositions.Length / 2; i++)
+        {
+            var posNumber = UnityEngine.Random.Range(0, ResPositions.Length);
+            if (!usedNumbers.Contains(posNumber) || usedNumbers == null)
+            {
+                usedNumbers.Add(posNumber);
+                for (int t = 0; t < 3; t++)
+                {
+
+                    Instantiate(CreepPrefab, ResPositions[posNumber].position, ResPositions[posNumber].rotation);
+                }
+                
+            }
+            else
+            {
+                i--;
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
     void FillResources()
     {
         for (int i = 0; i < ResPositions.Length/2; i++)
         {
-            var posNumber = Random.Range(0,ResPositions.Length );
+            var posNumber = UnityEngine.Random.Range(0,ResPositions.Length );
             if (!usedNumbers.Contains(posNumber) || usedNumbers == null)
             {
                 usedNumbers.Add(posNumber);
                 
-                var ress = Instantiate(ResourcePrefab[Random.Range(0, ResourcePrefab.Length)],ResPositions[posNumber].position, ResPositions[posNumber].rotation);
+                var ress = Instantiate(ResourcePrefab[UnityEngine.Random.Range(0, ResourcePrefab.Length)],ResPositions[posNumber].position, ResPositions[posNumber].rotation);
                 Res.Add(ress);
             }
             else
@@ -43,7 +73,7 @@ public class MapManager : MonoBehaviour {
         bool completed = false;
         while (!completed)
         {
-            var CampSelection = Random.Range(0, POISavageCamps.Length );
+            var CampSelection = UnityEngine.Random.Range(0, POISavageCamps.Length );
             Debug.Log(CampSelection);
             if (!POISavageCamps[CampSelection].activeSelf)
             {
