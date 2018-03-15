@@ -202,7 +202,7 @@ public class BoyMovement : MonoBehaviour
                     {
                         if (objectsInArea[i].name.Equals("cable_end"))
                         {
-                            if (objectsInArea[i].GetComponent<B_Cable_end>().cable.energy == true)
+                            if (objectsInArea[i].tag == "Interactible")
                             {
                                 float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
 
@@ -223,6 +223,7 @@ public class BoyMovement : MonoBehaviour
 
                 }
             }
+
             else
             {
                 Collider[] objectsInArea = null;

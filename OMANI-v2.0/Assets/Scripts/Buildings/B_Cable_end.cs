@@ -14,10 +14,14 @@ public class B_Cable_end : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (cable.energy == false) {
-            this.transform.parent = cable.transform;
+
+        if (cable.energy == true)
+        {
+            this.transform.tag = "Interactible";
         }
-        */
+        else {
+            this.transform.tag = "Untagged";
+        }
+        
     }
 }

@@ -14,13 +14,13 @@ public class B_PlugUpDown : MonoBehaviour
     bool playerClose = false;
 
 
+
     // Use this for initialization
     void Start()
     {
         Plug = this.gameObject.transform.GetChild(0).gameObject;
         start = Plug.transform.position;
         end = Plug.transform.position + new Vector3(0, height, 0);
-
     }
 
     // Update is called once per frame
@@ -55,5 +55,6 @@ public class B_PlugUpDown : MonoBehaviour
 
         }
     }
+
 
 }
