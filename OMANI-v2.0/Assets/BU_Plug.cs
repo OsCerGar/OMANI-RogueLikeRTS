@@ -26,11 +26,13 @@ public class BU_Plug : MonoBehaviour
                     mesh.material.color = Color.yellow;
                 }
             }
-        }
-        else
-        {
-            energy = false;
-            mesh.material.color = Color.white;
+
+            else
+            {
+                energy = false;
+                mesh.material.color = Color.white;
+            }
+
         }
     }
 
