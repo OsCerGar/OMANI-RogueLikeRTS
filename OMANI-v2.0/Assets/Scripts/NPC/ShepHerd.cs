@@ -66,6 +66,11 @@ public class ShepHerd : NPC
         var targ = (SharedGameObject)AI.GetVariable("Target");
         targ.Value = null;
     }
+    public void SetHome(bool state)
+    {
+        var targ = (SharedBool)AI.GetVariable("Home");
+        targ.Value = state;
+    }
 
     public void Searching()
     {

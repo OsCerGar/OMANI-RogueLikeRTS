@@ -20,6 +20,9 @@ public class SavageCamp : MonoBehaviour {
 
     [HideInInspector]
     public  bool someoneSearching = false;
+
+    private bool alarm;
+    private float alarmCounter,alarmCooldown = 20;
     // Use this for initialization
     void Start () {
 
@@ -46,6 +49,22 @@ public class SavageCamp : MonoBehaviour {
             }
             
         }
+        if (alarm)
+        {
+            
+            if (alarmCounter < alarmCooldown)
+            {
+                alarmCounter += Time.deltaTime;
+                // TODO: Represent Graphicaly
+            }
+            else
+            {
+                Alarm(null);
+                alarm = false;
+            }
+
+        }
+        
 	}
 
     //Get one of the non Active Shacks, and makes it Active.
@@ -61,6 +80,17 @@ public class SavageCamp : MonoBehaviour {
             }
         }
         
+    }
+    private void Alarm(GameObject intruder)
+    {
+        if (!alarm)
+        {
+            alarm = true;
+            for (int i = 0; i < currentShepHerds.Count; i++)
+            {
+                currentShepHerds[i].GetComponent<ShepHerd>().SetTarget(intruder);
+            }
+        }
     }
     
 
@@ -85,5 +115,30 @@ public class SavageCamp : MonoBehaviour {
         }   
         return null;
     }
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if (other.tag == "Enemy") 
+        {
+            if (other.GetComponent<ShepHerd>() != null) //If a Shepherd enters, then he's home
+            {
+                other.GetComponent<ShepHerd>().SetHome(true);
+            }
+        }
+        if (other.tag == "People") //If people enters, set alarm!!
+        {
+            Alarm(other.gameObject);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Enemy")
+        {
+            if (other.GetComponent<ShepHerd>() != null)
+            {
+                other.GetComponent<ShepHerd>().SetHome(false);
+            }
+        }
+    }
+
 }
