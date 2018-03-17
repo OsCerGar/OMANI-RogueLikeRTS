@@ -16,7 +16,7 @@ public class NPC : MonoBehaviour {
     public string state;
 
     [SerializeField]
-    public int life, damage;
+    public int startLife,life, damage;
     //Required for run animations synced with NevMesh
     [HideInInspector]
     public Animator anim;
@@ -91,7 +91,7 @@ public class NPC : MonoBehaviour {
         AI = this.gameObject.GetComponent<BehaviorTree>();
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
-
+        startLife = life;
         //Nav.updateRotation = true;
     }
 	
