@@ -9,14 +9,15 @@ public class TaskShoot : Action {
     ShootProjectile ShootScript;
     // Use this for initialization
     void Start () {
-        ShootScript = transform.gameObject.GetComponent<ShootProjectile>();
 
     }
 
     public override TaskStatus OnUpdate()
     {
+        ShootScript = transform.gameObject.GetComponent<ShootProjectile>();
         if (ShootScript != null)
         {
+            Debug.Log("Turret_Shoot");
             ShootScript.Shoot();
         }
         return TaskStatus.Success;
