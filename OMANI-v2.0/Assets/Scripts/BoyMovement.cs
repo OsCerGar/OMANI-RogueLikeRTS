@@ -14,7 +14,7 @@ public class BoyMovement : MonoBehaviour
     //Movement Related
     [HideInInspector]
     public bool onRoll = false;
-    public GameObject grabbedObject;
+    public Interactible grabbedObject;
     private Transform lastParent;
     [SerializeField]
     public GameObject hand;
@@ -184,6 +184,9 @@ public class BoyMovement : MonoBehaviour
                 Collider[] objectsInArea = null;
                 objectsInArea = Physics.OverlapSphere(transform.position, 2f, 1 << 14);
 
+                float minDistance = 0;
+                GameObject closest = null;
+
                 // Checks if there are interactible objects nearby
                 if (objectsInArea.Length < 1)
                 {
@@ -193,49 +196,13 @@ public class BoyMovement : MonoBehaviour
                         anim.SetTrigger("Roll");
                     }
                 }
-                //If there are, grab the closest one.
+
                 else
                 {
-                    float minDistance = 0;
-                    GameObject closest = null;
+                    //If there are, the closest one.
                     for (int i = 0; i < objectsInArea.Length; i++)
                     {
-                        if (objectsInArea[i].name.Equals("cable_end"))
-                        {
-                            if (objectsInArea[i].tag == "Interactible")
-                            {
-                                float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
-
-                                if (minDistance == 0 || minDistance > distance)
-                                {
-                                    minDistance = distance;
-                                    closest = objectsInArea[i].gameObject;
-                                }
-                            }
-                        }
-                    }
-
-                    grabbedObject = closest;
-                    //grabbedObject.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-                    lastParent = grabbedObject.transform.parent;
-                    grabbedObject.transform.SetParent(hand.transform);
-                    grabbedObject.transform.localPosition = Vector3.zero;
-
-                }
-            }
-
-            else
-            {
-                Collider[] objectsInArea = null;
-                objectsInArea = Physics.OverlapSphere(transform.position, 2f, 1 << 14);
-                float minDistance = 0;
-                GameObject closest = null;
-
-                if (objectsInArea.Length > 1)
-                {
-                    for (int i = 0; i < objectsInArea.Length; i++)
-                    {
-                        if (objectsInArea[i].gameObject != grabbedObject)
+                        if (objectsInArea[i].tag == "Interactible")
                         {
                             float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
 
@@ -243,22 +210,25 @@ public class BoyMovement : MonoBehaviour
                             {
                                 minDistance = distance;
                                 closest = objectsInArea[i].gameObject;
-
                             }
+
                         }
                     }
 
-                    grabbedObject.transform.SetParent(closest.transform);
-                    grabbedObject.transform.localPosition = Vector3.zero;
-
-                    grabbedObject = null;
-                }
-                else
-                {
-                    grabbedObject.transform.SetParent(lastParent);
-                    grabbedObject = null;
+                    if (closest != null)
+                    {
+                        //Does whatever Action does
+                        //Sends himself to the action manager
+                        closest.GetComponent<Interactible>().Action(this);
+                    }
                 }
             }
+
+            else
+            {
+                grabbedObject.Action(this);
+            }
+
         }
     }
 

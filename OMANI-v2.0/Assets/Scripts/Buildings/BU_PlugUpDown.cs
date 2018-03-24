@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class B_PlugUpDown : MonoBehaviour
+public class BU_PlugUpDown : MonoBehaviour
 {
 
     [SerializeField]
