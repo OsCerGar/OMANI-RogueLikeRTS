@@ -114,7 +114,7 @@ public class NPC : MonoBehaviour {
 
 	}
 
-    public void Die()
+    public virtual void Die()
     {
         AI.enabled = false;
         Nav.enabled = false;
@@ -126,28 +126,28 @@ public class NPC : MonoBehaviour {
         //cambiar tag y layer
     }
 
-    public void Follow(GameObject player) {
+    public virtual void Follow(GameObject player) {
         AI.EnableBehavior();
         AI_SetState("Follow");
         AI_SetTarget(player);
         anim.SetBool("SpecialAttack",false);
     }
 
-    public void Order(GameObject attackPosition)
+    public virtual void Order(GameObject attackPosition)
     {
         AI.EnableBehavior();
         AI_SetState("Attack");
         AI_SetTarget(attackPosition);
     }
 
-    public void ChargedOrder(GameObject attackPosition)
+    public virtual void ChargedOrder(GameObject attackPosition)
     {
         AI.EnableBehavior();
         AI_SetState("SpecialAttack");
         AI_SetTarget(attackPosition);
     }
 
-    public void ChargedOrderFullfilled(GameObject attackPosition)
+    public virtual  void ChargedOrderFullfilled(GameObject attackPosition)
     {
         AI.EnableBehavior();
 
@@ -157,27 +157,36 @@ public class NPC : MonoBehaviour {
         
     }
 
-    public void AI_SetState(string state) {
+    public virtual void AI_SetState(string state) {
         var stateVariable = (SharedString)AI.GetVariable("State");
         stateVariable.Value = state;
     }
 
-    public void AI_SetTarget(GameObject target)
+    public virtual void AI_SetTarget(GameObject target)
     {
         var targetVariable = (SharedGameObject)AI.GetVariable("Target");
         targetVariable.Value = target;
     }
 
-    public string AI_GetState()
+    public virtual string AI_GetState()
     {
         var stateVariable = (SharedString)AI.GetVariable("State");
         return stateVariable.Value;
     }
 
-    public GameObject AI_GetTarget()
+    public virtual GameObject AI_GetTarget()
     {
         var targetVariable = (SharedGameObject)AI.GetVariable("Target");
         return targetVariable.Value;
+    }
+
+
+    public virtual void Mutate(GameObject _mutation)
+    {
+        Debug.Log("Mutating");
+        GameObject mutant = Instantiate(_mutation);
+        mutant.transform.position = this.transform.position;
+        Destroy(this.gameObject);
     }
 
 }

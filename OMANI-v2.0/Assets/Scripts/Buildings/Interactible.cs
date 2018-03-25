@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Interactible : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -14,7 +14,7 @@ public class Interactible : MonoBehaviour {
 		
 	}
 
-    public virtual void Action(BoyMovement boy) {
+    public virtual void Action(BoyMovement _boy) {
         Debug.Log("Action");
     }
 }

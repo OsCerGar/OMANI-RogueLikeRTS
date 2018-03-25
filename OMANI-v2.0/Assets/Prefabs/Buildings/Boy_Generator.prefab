@@ -141,6 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4149965379338240}
   - component: {fileID: 114273428134815904}
+  - component: {fileID: 114677128073735558}
   m_Layer: 15
   m_Name: Boy_Generator
   m_TagString: Untagged
@@ -251,7 +252,7 @@ GameObject:
   - component: {fileID: 136885277173843466}
   - component: {fileID: 23811212311480368}
   - component: {fileID: 114246420672379586}
-  m_Layer: 15
+  m_Layer: 14
   m_Name: Equipment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +363,7 @@ Transform:
   - {fileID: 4610167894083638}
   - {fileID: 4598059316000114}
   m_Father: {fileID: 4149965379338240}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4149965379338240
 Transform:
@@ -375,8 +376,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4161623212331952}
-  - {fileID: 4475503389510898}
   - {fileID: 4001900141825998}
+  - {fileID: 4475503389510898}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -450,7 +451,7 @@ Transform:
   - {fileID: 4792348467155840}
   - {fileID: 4623555139963592}
   m_Father: {fileID: 4149965379338240}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4546197363121346
 Transform:
@@ -1342,6 +1343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944a324ef51fe374c89e807bbe9606e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingTypeAndBehaviour: {fileID: 0}
   totalEnergy: 0
   requiredEnergy: 0
   plugs: []
@@ -1387,6 +1389,19 @@ MonoBehaviour:
   start: {x: 0, y: 0, z: 0}
   end: {x: 0, y: 0, z: 0}
   height: 6
+--- !u!114 &114677128073735558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381571680970186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0263fcceb29a894ea3b3edd88be4482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentToSpawn: {fileID: 1615563927357688, guid: 5833e9aedf622ce42aa6787a68ec1973,
+    type: 2}
 --- !u!114 &114732771933325644
 MonoBehaviour:
   m_ObjectHideFlags: 1
