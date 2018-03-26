@@ -10,6 +10,8 @@ public class BU_PowerPlant : MonoBehaviour
     List<temporalCable> cables = new List<temporalCable>();
     public int energy;
 
+    public List<Transform> positions = new List<Transform>();
+
     // Use this for initialization
     void Start()
     {
@@ -56,5 +58,10 @@ public class BU_PowerPlant : MonoBehaviour
             }
             i--;
         }
+    }
+
+    public Transform givePosition()
+    {
+        return positions[energy];
     }
 }

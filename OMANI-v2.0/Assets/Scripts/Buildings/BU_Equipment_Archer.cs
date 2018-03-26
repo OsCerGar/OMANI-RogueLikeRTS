@@ -2,22 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BU_Type_Swordsmith : Interactible
+public class BU_Equipment_Archer : Interactible
 {
     [SerializeField]
-    GameObject buildingEquipment;
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    GameObject archer;
 
     public override void Action(BoyMovement _boy)
     {
@@ -35,10 +23,10 @@ public class BU_Type_Swordsmith : Interactible
         {
 
             Collider[] objectsInArea = null;
-            objectsInArea = Physics.OverlapSphere(transform.position, 3f, 1 << 15);
+            objectsInArea = Physics.OverlapSphere(transform.position, 2f, 1 << 9);
 
             float minDistance = 0;
-            BU_WeaponsBay closest = null;
+            Worker closest = null;
 
             //Checks if there are possible interactions.
             if (objectsInArea.Length > 1)
@@ -46,21 +34,25 @@ public class BU_Type_Swordsmith : Interactible
 
                 for (int i = 0; i < objectsInArea.Length; i++)
                 {
-                    if (objectsInArea[i].GetComponentInParent<BU_WeaponsBay>().buildingTypeAndBehaviour == null)
+                    //If you want it to work with every NPC just change the GetComponent to NPC
+                    if (objectsInArea[i].GetComponent<Worker>() != null)
                     {
+                        float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
 
-                        closest = objectsInArea[i].GetComponentInParent<BU_WeaponsBay>();
+                        if (minDistance == 0 || minDistance > distance)
+                        {
+                            minDistance = distance;
+                            closest = objectsInArea[i].GetComponent<Worker>();
+                        }
                     }
-
                 }
-                Debug.Log(closest);
+
 
                 if (closest != null)
                 {
 
-                    //Changes the Building type to whatever
-                    closest.gameObject.AddComponent(typeof(BU_Swordsmith));
-                    closest.GetComponent<BU_Swordsmith>().equipmentToSpawn = buildingEquipment;
+                    //Changes the Worker to the type of NPC this is.
+                    closest.Mutate(archer);
 
                     _boy.grabbedObject = null;
 

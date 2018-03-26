@@ -7,18 +7,6 @@ public class BU_Equipment_Swordsmith : Interactible
     [SerializeField]
     GameObject swordman;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public override void Action(BoyMovement _boy)
     {
         if (_boy.grabbedObject == null)

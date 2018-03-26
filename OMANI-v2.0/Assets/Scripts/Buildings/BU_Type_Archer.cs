@@ -2,22 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BU_Type_Swordsmith : Interactible
+public class BU_Type_Archer : Interactible
 {
     [SerializeField]
     GameObject buildingEquipment;
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public override void Action(BoyMovement _boy)
     {
@@ -35,15 +23,13 @@ public class BU_Type_Swordsmith : Interactible
         {
 
             Collider[] objectsInArea = null;
-            objectsInArea = Physics.OverlapSphere(transform.position, 3f, 1 << 15);
+            objectsInArea = Physics.OverlapSphere(transform.position, 1f, 1 << 15);
 
-            float minDistance = 0;
             BU_WeaponsBay closest = null;
 
             //Checks if there are possible interactions.
             if (objectsInArea.Length > 1)
             {
-
                 for (int i = 0; i < objectsInArea.Length; i++)
                 {
                     if (objectsInArea[i].GetComponentInParent<BU_WeaponsBay>().buildingTypeAndBehaviour == null)
@@ -59,8 +45,8 @@ public class BU_Type_Swordsmith : Interactible
                 {
 
                     //Changes the Building type to whatever
-                    closest.gameObject.AddComponent(typeof(BU_Swordsmith));
-                    closest.GetComponent<BU_Swordsmith>().equipmentToSpawn = buildingEquipment;
+                    closest.gameObject.AddComponent(typeof(BU_Archer));
+                    closest.GetComponent<BU_Archer>().equipmentToSpawn = buildingEquipment;
 
                     _boy.grabbedObject = null;
 

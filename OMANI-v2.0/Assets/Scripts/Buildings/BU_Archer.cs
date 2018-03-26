@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BU_Swordsmith : MonoBehaviour
+public class BU_Archer : MonoBehaviour
 {
 
     BU_Equipment buildingEquipmentStore;

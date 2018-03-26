@@ -13,9 +13,13 @@ public class MapManager : MonoBehaviour {
     [SerializeField]
     GameObject WorkerPrefab;
 
+    [SerializeField]
+    GameObject[] ArtifactPrefabs;
+
     public GameObject[] POISavageCamps;
     public Transform[] ResPositions;
     public Transform[] WorkerPositions;
+    public Transform[] ArtifactPositions;
     public List<GameObject> Res = new List<GameObject>();
     List<int> usedNumbers = new List<int>();
     // Use this for initialization
@@ -27,13 +31,24 @@ public class MapManager : MonoBehaviour {
         usedNumbers.Clear();
         SpawnCreeps();
         SpawnWorkers();
+        SpawnArtifacts();
+    }
+
+    private void SpawnArtifacts()
+    {
+        for (int i = 0; i < ArtifactPositions.Length ; i++)
+        {
+            
+            Instantiate(ArtifactPrefabs[UnityEngine.Random.Range(0, ArtifactPrefabs.Length)], ArtifactPositions[i].position, ArtifactPositions[i].rotation);
+               
+        }
     }
 
     private void SpawnWorkers()
     {
-        for (int i = 0; i < ResPositions.Length / 2; i++)
+        for (int i = 0; i < WorkerPositions.Length / 2; i++)
         {
-            var posNumber = UnityEngine.Random.Range(0, ResPositions.Length);
+            var posNumber = UnityEngine.Random.Range(0, WorkerPositions.Length);
             if (!usedNumbers.Contains(posNumber) || usedNumbers == null)
             {
                 usedNumbers.Add(posNumber);

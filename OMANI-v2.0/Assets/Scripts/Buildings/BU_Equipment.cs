@@ -30,5 +30,9 @@ public class BU_Equipment : Interactible
         }
 
     }
+
+    public void DestroyEquipment() {
+        equipment.Clear();
+    }
 }
 
