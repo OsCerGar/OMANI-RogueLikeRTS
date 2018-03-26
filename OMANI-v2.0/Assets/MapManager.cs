@@ -10,8 +10,12 @@ public class MapManager : MonoBehaviour {
     [SerializeField]
     GameObject CreepPrefab;
 
+    [SerializeField]
+    GameObject WorkerPrefab;
+
     public GameObject[] POISavageCamps;
     public Transform[] ResPositions;
+    public Transform[] WorkerPositions;
     public List<GameObject> Res = new List<GameObject>();
     List<int> usedNumbers = new List<int>();
     // Use this for initialization
@@ -22,6 +26,29 @@ public class MapManager : MonoBehaviour {
         //I clear used numbers to recicle in SpawnCreeps()
         usedNumbers.Clear();
         SpawnCreeps();
+        SpawnWorkers();
+    }
+
+    private void SpawnWorkers()
+    {
+        for (int i = 0; i < ResPositions.Length / 2; i++)
+        {
+            var posNumber = UnityEngine.Random.Range(0, ResPositions.Length);
+            if (!usedNumbers.Contains(posNumber) || usedNumbers == null)
+            {
+                usedNumbers.Add(posNumber);
+                for (int t = 0; t < 3; t++)
+                {
+
+                    Instantiate(WorkerPrefab, WorkerPositions[posNumber].position, WorkerPositions[posNumber].rotation);
+                }
+
+            }
+            else
+            {
+                i--;
+            }
+        }
     }
 
     private void SpawnCreeps()
