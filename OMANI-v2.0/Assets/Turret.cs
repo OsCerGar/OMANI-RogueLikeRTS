@@ -7,7 +7,7 @@ public class Turret : NPC
 
     void Awake()
     {
-        boyType = "Archer";
+        boyType = "Turret";
     }
     public override void Update()
     {
