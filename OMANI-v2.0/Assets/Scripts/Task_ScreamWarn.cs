@@ -24,9 +24,12 @@ public class Task_ScreamWarn : Action
             {
                 if (hitColliders[i].gameObject != transform.gameObject)
                 {
-
-                    var targetVariable = (SharedGameObject)hitColliders[i].gameObject.GetComponent<BehaviorTree>().GetVariable("Target");
-                    targetVariable.Value = thisTarget.Value;
+                    if (!hitColliders[i].GetComponent<Turret>())
+                    {
+                        var targetVariable = (SharedGameObject)hitColliders[i].gameObject.GetComponent<BehaviorTree>().GetVariable("Target");
+                        targetVariable.Value = thisTarget.Value;
+                    }
+                    
                 }
 
             }
