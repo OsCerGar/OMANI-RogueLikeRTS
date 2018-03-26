@@ -34,7 +34,6 @@ public class SavageShack : MonoBehaviour {
                 else
                 {
                     //instanciate Shepherd
-                    Debug.Log("Shepherd!");
                     var shepH = Instantiate(ShepherdPref,SpawnPoint);
                 //SetAltar Variable
                 var stateVariable = (SharedGameObject)shepH.GetComponent<BehaviorTree>().GetVariable("Altar");

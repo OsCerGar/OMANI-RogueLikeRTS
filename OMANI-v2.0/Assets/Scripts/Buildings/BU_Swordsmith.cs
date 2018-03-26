@@ -11,6 +11,7 @@ public class BU_Swordsmith : MonoBehaviour
     [SerializeField]
     GameObject equipmentToSpawn;
 
+    [SerializeField]
     int itemsSpawned = 0;
 
     // Use this for initialization
@@ -26,14 +27,14 @@ public class BU_Swordsmith : MonoBehaviour
 
         do
         {
-            addEquipment();
+            AddEquipment();
             yield return new WaitForSeconds(30f);
         } while (true);
 
     }
 
 
-    private void addEquipment()
+    private void AddEquipment()
     {
         buildingEquipmentStore.addEquipment(equipmentToSpawn);
         itemsSpawned++;

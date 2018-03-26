@@ -74,7 +74,6 @@ public class MapManager : MonoBehaviour {
         while (!completed)
         {
             var CampSelection = UnityEngine.Random.Range(0, POISavageCamps.Length );
-            Debug.Log(CampSelection);
             if (!POISavageCamps[CampSelection].activeSelf)
             {
                 POISavageCamps[CampSelection].SetActive(true);

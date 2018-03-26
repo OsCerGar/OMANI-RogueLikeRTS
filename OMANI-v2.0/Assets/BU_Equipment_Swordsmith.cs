@@ -21,8 +21,11 @@ public class BU_Equipment_Swordsmith : Interactible
 
     public override void Action(BoyMovement _boy)
     {
+        Debug.Log("Action");
         if (_boy.grabbedObject == null)
         {
+
+            Debug.Log("Grab");
             //Grabs
             _boy.grabbedObject = this;
             this.transform.SetParent(_boy.hand.transform);
@@ -32,6 +35,8 @@ public class BU_Equipment_Swordsmith : Interactible
         // If you presss action while there is a nearby barroboy.
         else
         {
+            Debug.Log("Nearby barroboy");
+
             Collider[] objectsInArea = null;
             objectsInArea = Physics.OverlapSphere(transform.position, 2f, 1 << 9);
 
@@ -55,9 +60,11 @@ public class BU_Equipment_Swordsmith : Interactible
                         }
                     }
                 }
-
+                Debug.Log(closest);
                 if (closest != null)
                 {
+                    Debug.Log("Mutating");
+
                     //Changes the Worker to the type of NPC this is.
                     closest.Mutate(swordman);
 
@@ -69,6 +76,7 @@ public class BU_Equipment_Swordsmith : Interactible
 
                 else
                 {
+                    Debug.Log("Getting free of my master");
                     this.transform.SetParent(null);
                     _boy.grabbedObject = null;
                 }

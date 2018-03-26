@@ -67,7 +67,7 @@ public class BU_WeaponsBay : MonoBehaviour
 
                 time += Time.deltaTime;
 
-                if (time > 10)
+                if (time > 30)
                 {
                     //DestroyBuilding();
                     Debug.Log("Destroyed");

@@ -30,9 +30,6 @@ public class ShepHerd : NPC
 
     void Awake()
     {
-
-        Debug.Log(AI);
-        Debug.Log(AI);
         boyType = "Shepherd";
     }
     void Update()
