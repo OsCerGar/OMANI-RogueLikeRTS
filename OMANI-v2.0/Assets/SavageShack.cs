@@ -18,6 +18,7 @@ public class SavageShack : MonoBehaviour {
     void Start () {
         camp = transform.parent.GetComponent<SavageCamp>();
         altar = transform.parent.transform.Find("Altar").gameObject;
+        SpawnPoint = transform.Find("SpawnPoint");
 	}
 	
 	// Update is called once per frame
@@ -34,6 +35,7 @@ public class SavageShack : MonoBehaviour {
                 else
                 {
                     //instanciate Shepherd
+                    Debug.Log("Shepherd!");
                     var shepH = Instantiate(ShepherdPref,SpawnPoint);
                 //SetAltar Variable
                 var stateVariable = (SharedGameObject)shepH.GetComponent<BehaviorTree>().GetVariable("Altar");
