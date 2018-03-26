@@ -6,7 +6,7 @@ public class BU_WeaponsBay : MonoBehaviour
 {
 
     [SerializeField]
-    Component buildingTypeAndBehaviour;
+    public Component buildingTypeAndBehaviour;
 
 
     public int totalEnergy, requiredEnergy;
@@ -67,10 +67,9 @@ public class BU_WeaponsBay : MonoBehaviour
 
                 time += Time.deltaTime;
 
-                if (time > 30)
+                if (time > 20)
                 {
-                    //DestroyBuilding();
-                    Debug.Log("Destroyed");
+                    DestroyBuilding();
                     time = 0;
                 }
             }
@@ -84,5 +83,7 @@ public class BU_WeaponsBay : MonoBehaviour
     private void DestroyBuilding()
     {
         Destroy(buildingTypeAndBehaviour);
+        buildingTypeAndBehaviour = null;
+        requiredEnergy = 0;
     }
 }

@@ -19,6 +19,7 @@ public class BU_Swordsmith : MonoBehaviour
     {
         buildingEquipmentStore = this.transform.GetComponentInChildren<BU_Equipment>();
         weaponsBay = this.transform.GetComponent<BU_WeaponsBay>();
+        weaponsBay.buildingTypeAndBehaviour = this;
         StartCoroutine(CreateEquipment());
     }
 

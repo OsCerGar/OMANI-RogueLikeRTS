@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BU_Equipment_Swordsmith : Interactible
+public class BU_Type_Swordsmith : Interactible
 {
-    [SerializeField]
-    GameObject swordman;
 
     // Use this for initialization
     void Start()
@@ -21,11 +19,9 @@ public class BU_Equipment_Swordsmith : Interactible
 
     public override void Action(BoyMovement _boy)
     {
-        Debug.Log("Action");
         if (_boy.grabbedObject == null)
         {
 
-            Debug.Log("Grab");
             //Grabs
             _boy.grabbedObject = this;
             this.transform.SetParent(_boy.hand.transform);
@@ -35,38 +31,36 @@ public class BU_Equipment_Swordsmith : Interactible
         // If you presss action while there is a nearby barroboy.
         else
         {
-            Debug.Log("Nearby barroboy");
 
             Collider[] objectsInArea = null;
-            objectsInArea = Physics.OverlapSphere(transform.position, 2f, 1 << 9);
+            objectsInArea = Physics.OverlapSphere(transform.position, 3f, 1 << 15);
 
             float minDistance = 0;
-            Worker closest = null;
+            BU_WeaponsBay closest = null;
 
-            //Checks if there are possible parents, like plugs.
+            Debug.Log("1");
+            //Checks if there are possible interactions.
             if (objectsInArea.Length > 1)
             {
+                Debug.Log("2");
+
                 for (int i = 0; i < objectsInArea.Length; i++)
                 {
-                    //If you want it to work with every NPC just change the GetComponent to NPC
-                    if (objectsInArea[i].GetComponent<Worker>() != null)
+                    if (objectsInArea[i].GetComponentInParent<BU_WeaponsBay>().buildingTypeAndBehaviour == null)
                     {
-                        float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
+                        Debug.Log("3");
 
-                        if (minDistance == 0 || minDistance > distance)
-                        {
-                            minDistance = distance;
-                            closest = objectsInArea[i].GetComponent<Worker>();
-                        }
+                        closest = objectsInArea[i].GetComponentInParent<BU_WeaponsBay>();
                     }
+
                 }
                 Debug.Log(closest);
+
                 if (closest != null)
                 {
-                    Debug.Log("Mutating");
 
-                    //Changes the Worker to the type of NPC this is.
-                    closest.Mutate(swordman);
+                    //Changes the Building type to whatever
+                    closest.gameObject.AddComponent(typeof(BU_Swordsmith));
 
                     _boy.grabbedObject = null;
 
@@ -76,7 +70,6 @@ public class BU_Equipment_Swordsmith : Interactible
 
                 else
                 {
-                    Debug.Log("Getting free of my master");
                     this.transform.SetParent(null);
                     _boy.grabbedObject = null;
                 }
