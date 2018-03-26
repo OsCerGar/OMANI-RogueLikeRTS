@@ -37,7 +37,6 @@ public class BU_Type_Swordsmith : Interactible
             Collider[] objectsInArea = null;
             objectsInArea = Physics.OverlapSphere(transform.position, 3f, 1 << 15);
 
-            float minDistance = 0;
             BU_WeaponsBay closest = null;
 
             //Checks if there are possible interactions.
@@ -53,7 +52,6 @@ public class BU_Type_Swordsmith : Interactible
                     }
 
                 }
-                Debug.Log(closest);
 
                 if (closest != null)
                 {

@@ -5,7 +5,8 @@ using BehaviorDesigner.Runtime;
 using UnityEngine.AI;
 using System;
 
-public class NPC : MonoBehaviour {
+public class NPC : MonoBehaviour
+{
 
     #region Variables
     //Type of NPC
@@ -16,7 +17,7 @@ public class NPC : MonoBehaviour {
     public string state;
 
     [SerializeField]
-    public int startLife,life, damage;
+    public int startLife, life, damage;
     //Required for run animations synced with NevMesh
     [HideInInspector]
     public Animator anim;
@@ -24,7 +25,7 @@ public class NPC : MonoBehaviour {
     public NavMeshAgent Nav;
 
     [HideInInspector]
-    public  BehaviorTree AI;
+    public BehaviorTree AI;
     #endregion
 
     #region GETTERSETTERS
@@ -87,16 +88,18 @@ public class NPC : MonoBehaviour {
     #endregion
 
     // Use this for initialization
-    public virtual void Start () {
+    public virtual void Start()
+    {
         AI = this.gameObject.GetComponent<BehaviorTree>();
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
         startLife = life;
         //Nav.updateRotation = true;
     }
-	
-	// Update is called once per frame
-	public virtual void Update () {
+
+    // Update is called once per frame
+    public virtual void Update()
+    {
         //He dies if life lowers 
         //TODO : Make this an animation, and make it so that it swaps his layer and tag to something neutral
         if (state == "Alive")
@@ -108,16 +111,19 @@ public class NPC : MonoBehaviour {
                 state = "Dead";
             }
         }
-		
+
         //Animspeed conected to navmesh speed 
         anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
 
-	}
+    }
 
     public virtual void Die()
     {
-        AI.enabled = false;
-        Nav.enabled = false;
+        if (AI != null)
+        {
+            AI.enabled = false;
+            Nav.enabled = false;
+        }
         anim.SetTrigger("Die");
         this.gameObject.GetComponent<Collider>().enabled = false;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
@@ -126,11 +132,12 @@ public class NPC : MonoBehaviour {
         //cambiar tag y layer
     }
 
-    public virtual void Follow(GameObject player) {
+    public virtual void Follow(GameObject player)
+    {
         AI.EnableBehavior();
         AI_SetState("Follow");
         AI_SetTarget(player);
-        anim.SetBool("SpecialAttack",false);
+        anim.SetBool("SpecialAttack", false);
     }
 
     public virtual void Order(GameObject attackPosition)
@@ -147,17 +154,18 @@ public class NPC : MonoBehaviour {
         AI_SetTarget(attackPosition);
     }
 
-    public virtual  void ChargedOrderFullfilled(GameObject attackPosition)
+    public virtual void ChargedOrderFullfilled(GameObject attackPosition)
     {
         AI.EnableBehavior();
 
         var stateVariable = (SharedBool)AI.GetVariable("Go");
         stateVariable.Value = true;
         AI_SetTarget(attackPosition);
-        
+
     }
 
-    public virtual void AI_SetState(string state) {
+    public virtual void AI_SetState(string state)
+    {
         var stateVariable = (SharedString)AI.GetVariable("State");
         stateVariable.Value = state;
     }
@@ -183,10 +191,10 @@ public class NPC : MonoBehaviour {
 
     public virtual void Mutate(GameObject _mutation)
     {
-        Debug.Log("Mutating");
-        GameObject mutant = Instantiate(_mutation);
-        mutant.transform.position = this.transform.position;
+        GameObject mutant = Instantiate(_mutation, this.transform.position, this.transform.rotation);
+
         Destroy(this.gameObject);
+
     }
 
 }

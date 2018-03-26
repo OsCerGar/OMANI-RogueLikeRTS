@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BU_PowerPlant : MonoBehaviour
 {
     [SerializeField]
@@ -11,6 +12,7 @@ public class BU_PowerPlant : MonoBehaviour
     public int energy;
 
     public List<Transform> positions = new List<Transform>();
+    //public HashSet<Transform, GameObject> stringsSet = new HashSet<>();
 
     // Use this for initialization
     void Start()
@@ -62,6 +64,7 @@ public class BU_PowerPlant : MonoBehaviour
 
     public Transform givePosition()
     {
+        Debug.Log(positions[energy]);
         return positions[energy];
     }
 }

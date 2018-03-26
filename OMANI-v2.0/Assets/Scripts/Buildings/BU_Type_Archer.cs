@@ -39,7 +39,6 @@ public class BU_Type_Archer : Interactible
                     }
 
                 }
-                Debug.Log(closest);
 
                 if (closest != null)
                 {

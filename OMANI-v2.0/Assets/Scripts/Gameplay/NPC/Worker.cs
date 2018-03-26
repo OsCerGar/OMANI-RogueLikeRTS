@@ -6,7 +6,7 @@ public class Worker : NPC {
 
     void Awake()
     {
-        boyType = "Worker";
+        boyType = "Swordsman";
     }
 
 }

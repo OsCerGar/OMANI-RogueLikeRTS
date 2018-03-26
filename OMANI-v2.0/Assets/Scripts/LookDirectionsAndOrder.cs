@@ -100,25 +100,26 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 canvas.transform.GetChild(1).gameObject.SetActive(true);
             }
         }
-        if (selectedTypeList.Count > 0) { 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("joystick button 7")) // forward
+        if (selectedTypeList.Count > 0)
         {
-            selectedTypeInt += 1;
-            if (selectedTypeInt > selectedTypeList.Count - 1)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("joystick button 7")) // forward
             {
-                selectedTypeInt = 0;
+                selectedTypeInt += 1;
+                if (selectedTypeInt > selectedTypeList.Count - 1)
+                {
+                    selectedTypeInt = 0;
+                }
             }
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown("joystick button 6")) // backwards
-        {
-            selectedTypeInt -= 1;
-
-            if (selectedTypeInt < 0)
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown("joystick button 6")) // backwards
             {
-                selectedTypeInt = selectedTypeList.Count - 1;
-            }
+                selectedTypeInt -= 1;
 
-        }
+                if (selectedTypeInt < 0)
+                {
+                    selectedTypeInt = selectedTypeList.Count - 1;
+                }
+
+            }
         }
     }
 
@@ -232,29 +233,32 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             // Save the col as an NPC
             NPC colNPC;
-            if (colNPC = col.gameObject.GetComponent<NPC>())
+            if (!col.gameObject.GetComponent<Player>())
             {
-                // Disables Outline by default
-                col.gameObject.GetComponentInChildren<cakeslice.Outline>().eraseRenderer = true;
-                Transform target = col.transform;
-
-                // Check if its inside the selection angle.
-                Vector3 dirToTarget = (target.position - transform.position).normalized;
-                if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                if (colNPC = col.gameObject.GetComponent<NPC>())
                 {
-                    //Distance to target
-                    float dstToTarget = Vector3.Distance(transform.position, target.position);
-                    //Check if its following already.
-                    if (colNPC.AI_GetState() != "Follow")
-                    {
-                        //If the closestTarget is null he is the closest target.
-                        // If the distance is smaller than the distance to the closestTarget.
-                        if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
-                        {
-                            closestTarget = col.gameObject;
-                        }
-                    }
+                    // Disables Outline by default
+                    col.gameObject.GetComponentInChildren<cakeslice.Outline>().eraseRenderer = true;
+                    Transform target = col.transform;
 
+                    // Check if its inside the selection angle.
+                    Vector3 dirToTarget = (target.position - transform.position).normalized;
+                    if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                    {
+                        //Distance to target
+                        float dstToTarget = Vector3.Distance(transform.position, target.position);
+                        //Check if its following already.
+                        if (colNPC.AI_GetState() != "Follow")
+                        {
+                            //If the closestTarget is null he is the closest target.
+                            // If the distance is smaller than the distance to the closestTarget.
+                            if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
+                            {
+                                closestTarget = col.gameObject;
+                            }
+                        }
+
+                    }
                 }
             }
         }

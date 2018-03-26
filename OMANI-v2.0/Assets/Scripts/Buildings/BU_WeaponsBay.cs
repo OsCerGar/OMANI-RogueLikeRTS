@@ -22,6 +22,7 @@ public class BU_WeaponsBay : MonoBehaviour
     void Start()
     {
         plugs = this.transform.GetChild(0).GetComponentsInChildren<BU_Plug>();
+        /*
         foreach (Component comp in transform.GetComponents<Component>())
         {
             if (!comp.name.Equals("BU_WeaponsBay"))
@@ -29,7 +30,7 @@ public class BU_WeaponsBay : MonoBehaviour
                 buildingTypeAndBehaviour = comp;
             }
         }
-
+        */
         int i = 0;
         foreach (BU_Plug plug in plugs)
         {
