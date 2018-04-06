@@ -204,7 +204,16 @@ public class NPC : MonoBehaviour
     public virtual void EnableCircle()
     {
         circle.enabled = true;
-        circle.material.SetColor("_EmissionColor", Color.yellow * Mathf.LinearToGammaSpace(300));
+
+        if (AI_GetState() == "Follow")
+        {
+            circle.material.SetColor("_EmissionColor", Color.green * Mathf.LinearToGammaSpace(50));
+        }
+
+        else
+        {
+            circle.material.SetColor("_EmissionColor", Color.white * Mathf.LinearToGammaSpace(50));
+        }
     }
 
     public virtual void DisableCircle()
@@ -212,7 +221,7 @@ public class NPC : MonoBehaviour
         if (AI_GetState() != "Follow")
         {
             circle.enabled = false;
-            circle.material.SetColor("_EmissionColor", Color.white);
+            circle.material.SetColor("_EmissionColor", Color.white * Mathf.LinearToGammaSpace(50));
         }
     }
 }
