@@ -7,22 +7,11 @@ public class BU_Type_Swordsmith : Interactible
     [SerializeField]
     GameObject buildingEquipment;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public override void Action(BoyMovement _boy)
     {
         if (_boy.grabbedObject == null)
         {
+            disableRigid();
 
             //Grabs
             _boy.grabbedObject = this;
@@ -62,15 +51,25 @@ public class BU_Type_Swordsmith : Interactible
 
                     _boy.grabbedObject = null;
 
-                    //Destroys itself
-                    Destroy(this.gameObject);
-                }
+                    disableRigid();
 
-                else
-                {
                     this.transform.SetParent(null);
                     _boy.grabbedObject = null;
+
+                    //Destroys itself
+                    this.transform.position = closest.gameObject.transform.Find("BU_UI").Find("BU_Type").transform.position;
+                    this.transform.rotation = closest.gameObject.transform.Find("BU_UI").Find("BU_Type").transform.rotation;
+
                 }
+
+            }
+
+            else
+            {
+                enableRigid();
+
+                this.transform.SetParent(null);
+                _boy.grabbedObject = null;
             }
         }
 

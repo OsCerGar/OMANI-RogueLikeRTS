@@ -2,19 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactible : MonoBehaviour {
+public class Interactible : MonoBehaviour
+{
+
+    Rigidbody myRigidBody;
 
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public virtual void Start()
+    {
+        if (this.GetComponent<Rigidbody>() != null)
+        {
+            myRigidBody = this.GetComponent<Rigidbody>();
+        }
+    }
 
-    public virtual void Action(BoyMovement _boy) {
-        Debug.Log("Action");
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public virtual void Action(BoyMovement _boy)
+    {
+
+    }
+
+    public void enableRigid()
+    {
+        myRigidBody.isKinematic = false;
+    }
+
+    public void disableRigid()
+    {
+        myRigidBody.isKinematic = true;
+
     }
 }

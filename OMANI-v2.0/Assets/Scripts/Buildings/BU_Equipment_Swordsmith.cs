@@ -11,7 +11,7 @@ public class BU_Equipment_Swordsmith : Interactible
     {
         if (_boy.grabbedObject == null)
         {
-
+            disableRigid();
             //Grabs
             _boy.grabbedObject = this;
             this.transform.SetParent(_boy.hand.transform);
@@ -62,6 +62,7 @@ public class BU_Equipment_Swordsmith : Interactible
 
                 else
                 {
+                    enableRigid();
                     this.transform.SetParent(null);
                     _boy.grabbedObject = null;
                 }

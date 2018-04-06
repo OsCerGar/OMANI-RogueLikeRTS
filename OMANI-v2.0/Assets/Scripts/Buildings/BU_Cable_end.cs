@@ -32,11 +32,18 @@ public class BU_Cable_end : Interactible
     {
         if (_boy.grabbedObject == null)
         {
+
+            if ( this.transform.parent != null && this.transform.parent.GetComponent<BU_Plug>()) {
+
+                this.transform.parent.GetComponent<BU_Plug>().ChangeColor(Color.white);
+            }
+
             //Grabs
             _boy.grabbedObject = this;
             lastParent = this.transform.parent;
             this.transform.SetParent(_boy.hand.transform);
             this.transform.localPosition = Vector3.zero;
+
         }
 
         else
@@ -68,11 +75,12 @@ public class BU_Cable_end : Interactible
                 this.transform.localPosition = Vector3.zero;
 
                 _boy.grabbedObject = null;
+
             }
 
             else
             {
-                this.transform.SetParent(lastParent);
+                this.transform.SetParent(null);
                 _boy.grabbedObject = null;
             }
         }

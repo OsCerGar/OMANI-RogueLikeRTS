@@ -27,21 +27,19 @@ public class BU_Plug : MonoBehaviour
     {
         if (this.transform.childCount > 0)
         {
-            //if (energy == false)
-            //{
-              //  if (this.transform.GetChild(0).tag == "Interactible")
-               // {
-                    energy = 1;
-                    mesh.material.color = Color.yellow;
-                //}
-            }
-            /*else
-            {
-                energy = false;
-                mesh.material.color = Color.white;
-            }*/
+            energy = 1;
+            mesh.material.color = Color.yellow;
+        }
+        else
+        {
+            energy = 0;
+        }
 
-        //}
+    }
+
+    public  void ChangeColor(Color _col) {
+        mesh.material.color = _col;
+
     }
 
 }

@@ -75,31 +75,30 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //Show an outline of the closest boy in town.
         if (closestTarget != null)
         {
-            closestTarget.gameObject.GetComponentInChildren<cakeslice.Outline>().eraseRenderer = false;
+            closestTarget.GetComponent<NPC>().EnableCircle();
         }
     }
+
     private void SelectedType()
     {
-        // Selected type temporal
+        // Selected type temporal, 
+        // No units to select.
         if (selectedTypeList.Count == 0)
         {
             canvas.transform.GetChild(0).gameObject.SetActive(false);
             canvas.transform.GetChild(1).gameObject.SetActive(false);
         }
+
+        // When you have a selectable unity
         if (selectedTypeInt < selectedTypeList.Count)
         {
-            if (selectedTypeList[selectedTypeInt] != null && selectedTypeList[selectedTypeInt] == "Musketeer")
+            if (selectedTypeList[selectedTypeInt] != null)
             {
-                canvas.transform.GetChild(0).gameObject.SetActive(true);
-                canvas.transform.GetChild(1).gameObject.SetActive(false);
-            }
+                commander.GUI_ActivateCircle(selectedTypeList[selectedTypeInt]);
 
-            else if (selectedTypeList[selectedTypeInt] == "Swordsman")
-            {
-                canvas.transform.GetChild(0).gameObject.SetActive(false);
-                canvas.transform.GetChild(1).gameObject.SetActive(true);
             }
         }
+
         if (selectedTypeList.Count > 0)
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("joystick button 7")) // forward
@@ -238,7 +237,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 if (colNPC = col.gameObject.GetComponent<NPC>())
                 {
                     // Disables Outline by default
-                    col.gameObject.GetComponentInChildren<cakeslice.Outline>().eraseRenderer = true;
+                    colNPC.DisableCircle();
                     Transform target = col.transform;
 
                     // Check if its inside the selection angle.
@@ -264,6 +263,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
     }
     #endregion
+
     void LookAt(float _hrj, float _vrj)
     {
         if (catchCursor)

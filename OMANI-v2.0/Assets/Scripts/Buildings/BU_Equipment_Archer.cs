@@ -11,6 +11,7 @@ public class BU_Equipment_Archer : Interactible
     {
         if (_boy.grabbedObject == null)
         {
+            disableRigid();
 
             //Grabs
             _boy.grabbedObject = this;
@@ -62,6 +63,8 @@ public class BU_Equipment_Archer : Interactible
 
                 else
                 {
+                    enableRigid();
+
                     this.transform.SetParent(null);
                     _boy.grabbedObject = null;
                 }

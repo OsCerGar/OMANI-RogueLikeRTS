@@ -11,18 +11,6 @@ public class Army : MonoBehaviour
     [SerializeField]
     private GameObject OrderPositionObject;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     //Adds the boy to the Army and makes it follow the Army commander.
     public void Reclute(NPC barroBoy)
     {
@@ -158,7 +146,8 @@ public class Army : MonoBehaviour
         return barroBoy;
     }
 
-    public int ListSize(string _type) {
+    public int ListSize(string _type)
+    {
         int size = 0;
         switch (_type)
         {
@@ -207,4 +196,46 @@ public class Army : MonoBehaviour
         }
     }
 
+    public void GUI_ActivateCircle(string _type)
+    {
+
+        switch (_type)
+        {
+            case "Swordsman":
+                if (swordsmans.Count > 0)
+                {
+                    GUI_ListActivateCircle(swordsmans);
+                    GUI_ListDisableCircle(archers);
+                }
+
+                break;
+            case "Archer":
+                if (archers.Count > 0)
+                {
+                    GUI_ListActivateCircle(archers);
+                    GUI_ListDisableCircle(swordsmans);
+                }
+                break;
+        }
+    }
+
+    private void GUI_ListActivateCircle(List<NPC> _list)
+    {
+
+        foreach (NPC npc in _list)
+        {
+            npc.EnableCircle();
+        }
+
+    }
+
+    private void GUI_ListDisableCircle(List<NPC> _list)
+    {
+
+        foreach (NPC npc in _list)
+        {
+            npc.DisableCircle();
+        }
+
+    }
 }

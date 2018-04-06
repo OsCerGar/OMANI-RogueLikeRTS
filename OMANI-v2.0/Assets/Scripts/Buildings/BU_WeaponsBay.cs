@@ -8,35 +8,57 @@ public class BU_WeaponsBay : MonoBehaviour
     [SerializeField]
     public Component buildingTypeAndBehaviour;
 
-
+    BU_WeaponsBay_GUI weaponsBayGUI;
     public int totalEnergy, requiredEnergy;
-    float time = 0;
+    float time = 0, timeToExplode = 20;
 
     [SerializeField]
     BU_Plug[] plugs;
 
     MeshRenderer[] plugMaterial = new MeshRenderer[3];
+    AudioSource[] audios;
+    AudioSource alarm, explosion, working;
 
+    ParticleSystem particleExplosion;
+
+    // Temporal 
+    float creationTime;
 
     // Use this for initialization
     void Start()
     {
+
+
+        weaponsBayGUI = this.transform.GetComponentInChildren<BU_WeaponsBay_GUI>();
+
         plugs = this.transform.GetChild(0).GetComponentsInChildren<BU_Plug>();
-        /*
-        foreach (Component comp in transform.GetComponents<Component>())
-        {
-            if (!comp.name.Equals("BU_WeaponsBay"))
-            {
-                buildingTypeAndBehaviour = comp;
-            }
-        }
-        */
+
         int i = 0;
         foreach (BU_Plug plug in plugs)
         {
             plugMaterial[i] = plug.gameObject.GetComponent<MeshRenderer>();
             i++;
         }
+
+        particleExplosion = this.GetComponentInChildren<ParticleSystem>();
+
+        foreach (AudioSource audios in transform.GetComponents<AudioSource>())
+        {
+            switch (audios.clip.name)
+            {
+                case "SOUND_BU_ALARM":
+                    alarm = audios;
+                    break;
+                case "SOUND_BU_EXPLOSION":
+                    explosion = audios;
+                    break;
+                case "SOUND_BU_WORKING":
+                    working = audios;
+                    break;
+            }
+
+        }
+
     }
 
     // Update is called once per frame
@@ -47,44 +69,93 @@ public class BU_WeaponsBay : MonoBehaviour
 
         if (buildingTypeAndBehaviour != null)
         {
+            working.volume = 0.3f;
             if (requiredEnergy > totalEnergy)
             {
-                if (requiredEnergy < 4)
-                {
+                weaponsBayGUI.ChangeEnergyColor(Color.red);
+                weaponsBayGUI.ChangeEnergyClock(ExplodeTime());
 
-                    switch (requiredEnergy)
-                    {
-                        case 1:
-                            plugMaterial[0].material.color = Color.red;
-                            break;
-                        case 2:
-                            plugMaterial[1].material.color = Color.red;
-                            break;
-                        case 3:
-                            plugMaterial[2].material.color = Color.red;
-                            break;
-                    }
-                }
+                alarm.volume = 0.7f;
 
                 time += Time.deltaTime;
 
-                if (time > 20)
+                if (time > timeToExplode)
                 {
                     DestroyBuilding();
                     time = 0;
+                    alarm.volume = 0;
                 }
             }
             else
             {
+                weaponsBayGUI.ChangeEnergyColor(Color.yellow);
+                weaponsBayGUI.ChangeEnergyClock(creationTime);
+
+                alarm.volume = 0;
                 time = 0;
+                TurnToWhite();
+
+            }
+        }
+
+        else
+        {
+            working.volume = 0;
+
+            TurnToWhite();
+
+        }
+    }
+
+    //Temporal
+
+    public void ReturnCreationTime(float _creationTime)
+    {
+        creationTime = _creationTime;
+    }
+
+    public float ExplodeTime()
+    {
+        return time / timeToExplode;
+    }
+
+
+    public void TurnToRed()
+    {
+        bool changedToRed = false;
+
+        foreach (MeshRenderer plugMaterials in plugMaterial)
+        {
+            if (changedToRed != true && requiredEnergy > totalEnergy)
+            {
+                if (plugMaterials.material.color == Color.white)
+                {
+                    plugMaterials.material.color = Color.red;
+                    changedToRed = true;
+                }
+            }
+        }
+    }
+
+    public void TurnToWhite()
+    {
+        foreach (MeshRenderer plugMaterials in plugMaterial)
+        {
+            if (plugMaterials.material.color != Color.yellow)
+            {
+                plugMaterials.material.color = Color.white;
             }
         }
     }
 
     private void DestroyBuilding()
     {
+        particleExplosion.Play();
+        explosion.Play();
         Destroy(buildingTypeAndBehaviour);
         buildingTypeAndBehaviour = null;
         requiredEnergy = 0;
     }
+
+
 }

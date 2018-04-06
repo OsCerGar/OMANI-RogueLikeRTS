@@ -9,8 +9,10 @@ public class BU_Type_Archer : Interactible
 
     public override void Action(BoyMovement _boy)
     {
+
         if (_boy.grabbedObject == null)
         {
+            disableRigid();
 
             //Grabs
             _boy.grabbedObject = this;
@@ -55,6 +57,8 @@ public class BU_Type_Archer : Interactible
 
                 else
                 {
+                    enableRigid();
+
                     this.transform.SetParent(null);
                     _boy.grabbedObject = null;
                 }

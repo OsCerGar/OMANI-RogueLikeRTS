@@ -25,6 +25,9 @@ public class NPC : MonoBehaviour
     public NavMeshAgent Nav;
 
     [HideInInspector]
+    public SpriteRenderer circle;
+
+    [HideInInspector]
     public BehaviorTree AI;
     #endregion
 
@@ -93,6 +96,7 @@ public class NPC : MonoBehaviour
         AI = this.gameObject.GetComponent<BehaviorTree>();
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
+        circle = this.gameObject.GetComponentInChildren<SpriteRenderer>();
         startLife = life;
         //Nav.updateRotation = true;
     }
@@ -197,4 +201,18 @@ public class NPC : MonoBehaviour
 
     }
 
+    public virtual void EnableCircle()
+    {
+        circle.enabled = true;
+        circle.material.SetColor("_EmissionColor", Color.yellow * Mathf.LinearToGammaSpace(300));
+    }
+
+    public virtual void DisableCircle()
+    {
+        if (AI_GetState() != "Follow")
+        {
+            circle.enabled = false;
+            circle.material.SetColor("_EmissionColor", Color.white);
+        }
+    }
 }
