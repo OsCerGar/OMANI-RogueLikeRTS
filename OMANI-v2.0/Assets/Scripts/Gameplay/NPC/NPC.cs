@@ -197,6 +197,11 @@ public class NPC : MonoBehaviour
     {
         GameObject mutant = Instantiate(_mutation, this.transform.position, this.transform.rotation);
 
+        if (AI_GetState() == "Follow")
+        {
+            FindObjectOfType<Army>().RemoveFromList(this);
+        }
+
         Destroy(this.gameObject);
 
     }

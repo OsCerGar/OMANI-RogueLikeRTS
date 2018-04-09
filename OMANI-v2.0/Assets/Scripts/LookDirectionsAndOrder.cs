@@ -15,6 +15,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
     float cursorPosition;
     bool catchCursor = true;
 
+
+
     public float viewRadius;
     [Range(0, 360)]
     public float viewAngle;
@@ -23,6 +25,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public Army commander;
     public GameObject closestTarget;
     public LayerMask targetMask, obstacleMask;
+    private int terrain = 1 << 8;
     private float orderCounter;
     private bool orderInOrder;
     private NPC boyInCharge;
@@ -81,13 +84,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     private void SelectedType()
     {
-        // Selected type temporal, 
-        // No units to select.
-        if (selectedTypeList.Count == 0)
-        {
-            canvas.transform.GetChild(0).gameObject.SetActive(false);
-            canvas.transform.GetChild(1).gameObject.SetActive(false);
-        }
 
         // When you have a selectable unity
         if (selectedTypeInt < selectedTypeList.Count)
@@ -124,69 +120,77 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     private void Order()
     {
-
-        #region Order
-        if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
+        if (selectedTypeList.Count > 0)
         {
-            orderCounter = 0;
-        }
 
-        if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1))
-        {
-            orderCounter += Time.deltaTime;
-            if (orderCounter > 0.2f)
+            #region Order
+            if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
             {
-                boyInCharge = commander.GetBoyArmy(selectedTypeList[selectedTypeInt]);
-                boyInCharge.ChargedOrder(miradaPositionObject);
-                orderInOrder = true;
-
+                orderCounter = 0;
             }
-        }
-        if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
-        {
-            if (orderCounter < 0.2f)
-            {
-                Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
 
-                if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+            if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1))
+            {
+                orderCounter += Time.deltaTime;
+
+                if (orderCounter > 0.2f)
                 {
-                    commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                    boyInCharge = commander.GetBoyArmy(selectedTypeList[selectedTypeInt]);
+                    boyInCharge.ChargedOrder(miradaPositionObject);
+                    orderInOrder = true;
+
+                }
+            }
+            if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
+            {
+                if (orderCounter < 0.2f)
+                {
+                    Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
+
+
+                    if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                    {
+                        commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                    }
+                    else
+                    {
+                        commander.Order(selectedTypeList[selectedTypeInt], this.transform.position + (this.transform.forward * viewRadius));
+                    }
+
                 }
                 else
                 {
-                    commander.Order(selectedTypeList[selectedTypeInt], this.transform.position + (this.transform.forward * viewRadius));
+                    GameObject orderPositionVar = Instantiate(orderPosition);
+
+                    Debug.DrawRay(transform.position, this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f), Color.yellow, 5f);
+
+                    if (Physics.Raycast(transform.position, this.transform.forward, out hit, Mathf.Clamp(orderCounter * 5, 0.2f, 20f), obstacleMask))
+                    {
+                        orderPositionVar.transform.position = hit.point;
+                    }
+                    else
+                    {
+                        //Encargado de saber la distancia en la que se lanzará la orden cargada.
+                        orderPositionVar.transform.position = this.transform.position + (this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f));
+                    }
+
+
+                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = boyInCharge.gameObject;
+                    boyInCharge.ChargedOrderFullfilled(orderPositionVar);
+                    commander.RemoveFromList(boyInCharge);
+                    boyInCharge = null;
+
+
+
                 }
-            }
-            else
-            {
-                GameObject orderPositionVar = Instantiate(orderPosition);
 
-                Debug.DrawRay(transform.position, this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f), Color.yellow, 5f);
+                orderInOrder = false;
 
-                if (Physics.Raycast(transform.position, this.transform.forward, out hit, Mathf.Clamp(orderCounter * 5, 0.2f, 20f), obstacleMask))
+                if (commander.ListSize(selectedTypeList[selectedTypeInt]) < 1)
                 {
-                    orderPositionVar.transform.position = hit.point;
-                }
-                else
-                {
-                    //Encargado de saber la distancia en la que se lanzará la orden cargada.
-                    orderPositionVar.transform.position = this.transform.position + (this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f));
+                    selectedTypeList.Remove(selectedTypeList[selectedTypeInt]);
                 }
 
-                orderPositionVar.GetComponent<OrderPositionObject>().NPC = boyInCharge.gameObject;
-                boyInCharge.ChargedOrderFullfilled(orderPositionVar);
-                commander.RemoveFromList(boyInCharge);
-                boyInCharge = null;
-
-
-
-            }
-
-            orderInOrder = false;
-
-            if (commander.ListSize(selectedTypeList[selectedTypeInt]) < 1)
-            {
-                selectedTypeList.Remove(selectedTypeList[selectedTypeInt]);
             }
         }
 
@@ -299,7 +303,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
             //Saves the information of the hit.
             RaycastHit hit;
-            if (Physics.Raycast(cursorRay, out hit))
+            if (Physics.Raycast(cursorRay, out hit, Mathf.Infinity, terrain))
             {
                 //Player is not taken into account due to weird behaviours.
                 if (hit.transform.tag != "Player")

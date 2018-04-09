@@ -13,8 +13,13 @@ public class MeleAttack : MonoBehaviour {
         {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
+            
             EnemyNPC.Life -= transform.parent.GetComponent<NPC>().Damage;
-            EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;
+            if (EnemyNPC.GetType() != typeof(Player) )
+            {
+                EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;
+            }
+            
         }
     }
     private void OnEnable()
