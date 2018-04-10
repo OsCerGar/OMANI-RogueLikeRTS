@@ -21,5 +21,10 @@ public class Turret : NPC
             }
         }
     }
+    public override void Die()
+    {
+        Destroy(transform.gameObject);
+    }
+   
 
 }

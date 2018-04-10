@@ -15,7 +15,7 @@ public class MeleAttack : MonoBehaviour {
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             
             EnemyNPC.Life -= transform.parent.GetComponent<NPC>().Damage;
-            if (EnemyNPC.GetType() != typeof(Player) )
+            if (EnemyNavMesh != null)
             {
                 EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;
             }
