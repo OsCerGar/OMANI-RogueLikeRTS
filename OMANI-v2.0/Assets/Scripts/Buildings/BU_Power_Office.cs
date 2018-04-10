@@ -27,9 +27,12 @@ public class BU_Power_Office : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("People") && thisEnergy < 2)
+        if (other.CompareTag("People") && thisEnergy < buttons.Length)
         {
-            addEnergy();
+            if (other.GetComponent<Player>() == null)
+            {
+                addEnergy();
+            }
         }
     }
 
@@ -37,7 +40,10 @@ public class BU_Power_Office : MonoBehaviour
     {
         if (other.CompareTag("People") && thisEnergy > 0)
         {
-            removeEnergy();
+            if (other.GetComponent<Player>() == null)
+            {
+                removeEnergy();
+            }
         }
 
     }
