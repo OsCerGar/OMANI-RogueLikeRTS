@@ -19,7 +19,12 @@ public class MeleAttack : MonoBehaviour {
             {
                 EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;
             }
-            
+            if (EnemyNPC.Life <= 0)
+            {
+                transform.parent.GetComponent<NPC>().AI_SetTarget(null);
+            }
+
+
         }
     }
     private void OnEnable()

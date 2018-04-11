@@ -52,7 +52,7 @@ public class MapManager : MonoBehaviour {
             if (!usedNumbers.Contains(posNumber) || usedNumbers == null)
             {
                 usedNumbers.Add(posNumber);
-                for (int t = 0; t < 3; t++)
+                for (int t = 0; t < 1; t++)
                 {
 
                     Instantiate(WorkerPrefab, WorkerPositions[posNumber].position, WorkerPositions[posNumber].rotation);

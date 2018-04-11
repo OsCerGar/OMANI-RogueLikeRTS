@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class EnemyBuilding : NPC
 {
-    
-        void Awake()
+
+    void Awake()
+    {
+        boyType = "Building";
+    }
+    public override void Update()
+    {
+        if (state == "Alive")
         {
-            boyType = "Building";
-        }
-        public override void Update()
-        {
-            if (state == "Alive")
+            if (life <= 0)
             {
-                if (life <= 0)
-                {
-                    //provisional :D
-                    Die();
-                    state = "Dead";
-                }
+                //provisional :D
+                Die();
+                state = "Dead";
             }
         }
-
     }
+
+    public override void Die()
+    {
+        Destroy(transform.gameObject);
+    }
+
+}

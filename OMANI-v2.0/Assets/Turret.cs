@@ -25,6 +25,6 @@ public class Turret : NPC
     {
         Destroy(transform.gameObject);
     }
-   
+
 
 }

@@ -12,4 +12,17 @@ public class Creep : NPC {
         thisTarget.Value = master;
 
     }
+    private void FixedUpdate()
+    {
+        if (AI_GetTarget() != null)
+        {
+            if (AI_GetTarget().GetComponent<NPC>()!= null)
+            {
+                if (AI_GetTarget().GetComponent<NPC>().Life <= 0)
+                {
+                    AI_SetTarget(null);
+                }
+            }
+        }
+    }
 }
