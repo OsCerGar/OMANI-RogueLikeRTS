@@ -21,15 +21,17 @@ public class BE_Roll : StateMachineBehaviour
         {
             speed -= 2.5f * Time.deltaTime;
         }
-        if (speed < 4f)
-        {
-            boy.onRoll = false;
-        }
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
     //}
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    {
+        boy.onRoll = false;
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
     override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

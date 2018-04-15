@@ -192,8 +192,8 @@ public class BoyMovement : MonoBehaviour
                 {
                     if (onRoll != true)
                     {
-                        onRoll = true;
                         anim.SetTrigger("Roll");
+                        onRoll = true;
                     }
                 }
 
