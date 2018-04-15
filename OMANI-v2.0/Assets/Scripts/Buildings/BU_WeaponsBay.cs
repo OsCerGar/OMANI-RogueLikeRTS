@@ -15,8 +15,10 @@ public class BU_WeaponsBay : MonoBehaviour
     [SerializeField]
     BU_Plug[] plugs;
 
-    MeshRenderer[] plugMaterial = new MeshRenderer[3];
+    List<MeshRenderer> plugMaterial = new List<MeshRenderer>();
+    [SerializeField]
     AudioSource[] audios;
+    [SerializeField]
     AudioSource alarm, explosion, working;
 
     ParticleSystem particleExplosion;
@@ -28,16 +30,13 @@ public class BU_WeaponsBay : MonoBehaviour
     void Start()
     {
 
-
         weaponsBayGUI = this.transform.GetComponentInChildren<BU_WeaponsBay_GUI>();
 
         plugs = this.transform.GetChild(0).GetComponentsInChildren<BU_Plug>();
 
-        int i = 0;
         foreach (BU_Plug plug in plugs)
         {
-            plugMaterial[i] = plug.gameObject.GetComponent<MeshRenderer>();
-            i++;
+            plugMaterial.Add(plug.gameObject.GetComponent<MeshRenderer>());
         }
 
         particleExplosion = this.GetComponentInChildren<ParticleSystem>();
@@ -65,7 +64,12 @@ public class BU_WeaponsBay : MonoBehaviour
     void Update()
     {
 
-        totalEnergy = plugs[0].energy + plugs[1].energy + plugs[2].energy;
+        totalEnergy = 0;
+
+        foreach (BU_Plug plug in plugs)
+        {
+            totalEnergy += plug.energy;
+        }
 
         if (buildingTypeAndBehaviour != null)
         {

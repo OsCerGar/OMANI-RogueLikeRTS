@@ -73,25 +73,25 @@ public class BU_Archer : MonoBehaviour
 
         switch (itemsSpawned)
         {
-            case 1:
+            case 2:
                 weaponsBay.requiredEnergy += 1;
                 //If the required energy is bigger than what the building has, it will turn a plug red.
                 weaponsBay.TurnToRed();
 
                 break;
-            case 3:
+            case 4:
                 weaponsBay.requiredEnergy += 1;
                 //If the required energy is bigger than what the building has, it will turn a plug red.
                 weaponsBay.TurnToRed();
 
                 break;
-            case 5:
+            case 6:
                 weaponsBay.requiredEnergy += 1;
                 //If the required energy is bigger than what the building has, it will turn a plug red.
                 weaponsBay.TurnToRed();
 
                 break;
-            case 7:
+            case 8:
                 weaponsBay.requiredEnergy += 1;
                 //If the required energy is bigger than what the building has, it will turn a plug red.
                 weaponsBay.TurnToRed();

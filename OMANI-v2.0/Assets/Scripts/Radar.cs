@@ -101,7 +101,7 @@ public class Radar : MonoBehaviour
 
 				// (b) The position of the blip on the radar is then calculated from this normalized position
 				// by calling CalculateBlipPosition(...)
-				print (normalisedTargetPosiiton);
+				//print (normalisedTargetPosiiton);
 				Vector2 blipPosition = CalculateBlipPosition(normalisedTargetPosiiton);
 
 				// (c) Finally, the RawImage blip is displayed by calling DrawBlip(...)
@@ -113,7 +113,7 @@ public class Radar : MonoBehaviour
 
 	//---------------------------------------
 	// remove all GameObjects in the scene that are tagged 'Blip'
-	private void RemoveAllBlips()
+	public void RemoveAllBlips()
 	{
 		GameObject[] blips = GameObject.FindGameObjectsWithTag("Blip");	
 		foreach (GameObject blip in blips)  
@@ -203,7 +203,7 @@ public class Radar : MonoBehaviour
         //  Calls to the Unity RectTransform method SetInsetAndSizeFromParentEdge(...)
         // result in the blip GameObject being positioned at the provided horizontal and vertical locations over the radar image,
         // regardless of where in the Game panel the background radar image has been located.
-        Debug.Log(blipWidth);
+        //Debug.Log(blipWidth);
 		rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, pos.x - (rt.sizeDelta.x) , blipWidth);
 		rt.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, pos.y - (rt.sizeDelta.y), blipHeight);
         rt.localPosition = new Vector3(rt.localPosition.x, rt.localPosition.y,- 0.01f);

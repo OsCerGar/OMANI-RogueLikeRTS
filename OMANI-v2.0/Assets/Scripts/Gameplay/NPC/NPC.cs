@@ -48,7 +48,12 @@ public class NPC : MonoBehaviour
                     anim.SetTrigger("Hit");
                 }
             }
-            life = value;
+
+            else
+            {
+
+                life = value;
+            }
 
         }
     }
@@ -137,6 +142,18 @@ public class NPC : MonoBehaviour
         this.gameObject.tag = "Untagged";
         this.gameObject.layer = 0;
         //cambiar tag y layer
+    }
+
+    public virtual void Heal(int _heal)
+    {
+
+        if (life + _heal > startLife)
+        {
+            life = startLife;
+        }
+        else {
+            life = life + _heal;
+        }
     }
 
     public virtual void Follow(GameObject player)
