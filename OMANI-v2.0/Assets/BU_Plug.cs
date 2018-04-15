@@ -18,11 +18,6 @@ public class BU_Plug : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void FixedUpdate()
     {
         if (this.transform.childCount > 0)
@@ -37,7 +32,8 @@ public class BU_Plug : MonoBehaviour
 
     }
 
-    public  void ChangeColor(Color _col) {
+    public void ChangeColor(Color _col)
+    {
         mesh.material.color = _col;
 
     }

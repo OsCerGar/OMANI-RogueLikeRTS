@@ -180,8 +180,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     commander.RemoveFromList(boyInCharge);
                     boyInCharge = null;
 
-
-
                 }
 
                 orderInOrder = false;

@@ -17,9 +17,11 @@ public class BE_Roll : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        speed -= 2.5f * Time.deltaTime;
-
-        if (boy.onRoll == true && speed < 4.2f )
+        if (boy.onRoll == true && speed > 4f)
+        {
+            speed -= 2.5f * Time.deltaTime;
+        }
+        if (speed < 4f)
         {
             boy.onRoll = false;
         }

@@ -33,7 +33,8 @@ public class BU_Cable_end : Interactible
         if (_boy.grabbedObject == null)
         {
 
-            if ( this.transform.parent != null && this.transform.parent.GetComponent<BU_Plug>()) {
+            if (this.transform.parent != null && this.transform.parent.GetComponent<BU_Plug>())
+            {
 
                 this.transform.parent.GetComponent<BU_Plug>().ChangeColor(Color.white);
             }
@@ -59,7 +60,7 @@ public class BU_Cable_end : Interactible
             {
                 for (int i = 0; i < objectsInArea.Length; i++)
                 {
-                    if (objectsInArea[i].GetComponent<BU_Plug>() != null)
+                    if (objectsInArea[i].GetComponent<BU_Plug>() != null && objectsInArea[i].transform.childCount < 1)
                     {
                         float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
 
@@ -71,10 +72,14 @@ public class BU_Cable_end : Interactible
                     }
                 }
 
-                this.transform.SetParent(closest.transform);
-                this.transform.localPosition = Vector3.zero;
+                if (closest != null)
+                {
+                    this.transform.SetParent(closest.transform);
+                    this.transform.localPosition = Vector3.zero;
 
-                _boy.grabbedObject = null;
+                    _boy.grabbedObject = null;
+
+                }
 
             }
 
