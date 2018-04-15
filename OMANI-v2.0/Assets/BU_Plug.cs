@@ -8,13 +8,13 @@ public class BU_Plug : MonoBehaviour
     MeshRenderer mesh;
     bool givenEnergy;
     public int energy;
-    BU_WeaponsBay parentBuilding;
+    BU_EquipmentBuildings parentBuilding;
 
     // Use this for initialization
     void Start()
     {
         mesh = this.gameObject.GetComponent<MeshRenderer>();
-        parentBuilding = this.gameObject.transform.parent.parent.parent.GetComponent<BU_WeaponsBay>();
+        parentBuilding = this.gameObject.transform.parent.parent.parent.GetComponent<BU_EquipmentBuildings>();
 
     }
 

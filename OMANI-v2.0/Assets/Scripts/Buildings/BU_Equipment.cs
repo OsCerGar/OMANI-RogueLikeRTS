@@ -23,20 +23,6 @@ public class BU_Equipment : Interactible
 
     public override void Action(BoyMovement _boy)
     {
-        /*
-        if (equipment.Count > 0)
-        {
-
-            GameObject Equipment = Instantiate((GameObject)equipment[equipment.Count - 1]);
-            equipment.Remove(equipment[equipment.Count - 1]);
-
-            //Grabs
-            _boy.grabbedObject = Equipment.GetComponent<Interactible>();
-            lastParent = this.transform.parent;
-            Equipment.transform.SetParent(_boy.hand.transform);
-            Equipment.transform.localPosition = Vector3.zero;
-        }
-        */
 
 
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BU_WeaponsBay : MonoBehaviour
+public class BU_EquipmentBuildings : MonoBehaviour
 {
 
     [SerializeField]
