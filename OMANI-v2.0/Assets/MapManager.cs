@@ -93,10 +93,11 @@ public class MapManager : MonoBehaviour {
                 {
                     var newHill = Instantiate(hillToSpawn, hit.point, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
 
-                    SpotFound = true;
                 }
-               
-                
+
+                SpotFound = true;
+
+
             }
 
         }
@@ -115,9 +116,10 @@ public class MapManager : MonoBehaviour {
                 if (Vector3.Distance(_posToSpawn, hitColliders[i].transform.position) < closest)
                 {
                     closest = Vector3.Distance(_posToSpawn, hitColliders[i].transform.position);
-                    _posToSpawn = new Vector3(hitColliders[i].transform.position.x + 1, hitColliders[i].transform.position.y, hitColliders[i].transform.position.z +1 );
+                    _posToSpawn = new Vector3(hitColliders[i].transform.position.x + 4, hitColliders[i].transform.position.y, hitColliders[i].transform.position.z +4 );
                 }
             }
+            i++;
         }
         return _posToSpawn;
     }
