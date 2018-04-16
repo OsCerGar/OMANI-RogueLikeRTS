@@ -7,6 +7,7 @@ public class MapManager : MonoBehaviour {
 
     [SerializeField] float numberOfBigFeatures;
     public GameObject[] Hills;
+    public GameObject[] Trees;
 
 
     private  List<WorldFeature> BigFeatures;
@@ -28,7 +29,7 @@ public class MapManager : MonoBehaviour {
     GameObject[] ArtifactPrefabs;
 
     public GameObject[] POISavageCamps;
-    public Transform[] ResPositions;
+    public ResPos[] ResPositions;
     public Transform[] WorkerPositions;
     public Transform[] ArtifactPositions;
     public List<GameObject> Res = new List<GameObject>();
@@ -41,8 +42,9 @@ public class MapManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
         //Getting terrian Data 
-        /*
+        
         BigFeatures = new List<WorldFeature>();
         terrain = FindObjectOfType<Terrain>();
         tWidth = terrain.terrainData.size.x;
@@ -53,9 +55,14 @@ public class MapManager : MonoBehaviour {
         Debug.Log(BigFeatures.Count);
 
         SpawnHills();
-        */
-        
 
+        //Fill Respos Array with the positions created
+        ResPositions = FindObjectsOfType<ResPos>();
+
+        SpawnTrees();
+        
+        
+        /*
         usedNumbers.Add(100000);
         FillResources();
         ActivateSavageCamp();
@@ -64,7 +71,55 @@ public class MapManager : MonoBehaviour {
         SpawnCreeps();
         SpawnWorkers();
         SpawnArtifacts();
+        */
         
+    }
+
+    private void SpawnTrees()
+    {
+        for (int i = 0; i < numberOfBigFeatures*15; i++)
+        {
+            var hillToSpawn = Trees[UnityEngine.Random.Range(0, Trees.Length)];
+            bool SpotFound = false;
+            while (!SpotFound)
+            {
+                //get a randomSpot in the terrain and 
+                Vector3 PosToSpawn = GetPosToSpawn();
+                PosToSpawn = FindCloseTrees(PosToSpawn);
+
+                RaycastHit hit;
+                // Does the ray intersect any objects excluding the player layer
+                if (Physics.Raycast(new Vector3(PosToSpawn.x, 20, PosToSpawn.z), Vector3.down, out hit, Mathf.Infinity))
+                {
+                    var newHill = Instantiate(hillToSpawn, hit.point, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
+
+                    SpotFound = true;
+                }
+               
+                
+            }
+
+        }
+    }
+
+    private Vector3 FindCloseTrees(Vector3 _posToSpawn)
+    {
+        float closest = 30;
+        Collider[] hitColliders = Physics.OverlapSphere(_posToSpawn, 30);
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            WorldSmallFeature SF = hitColliders[i].GetComponent<WorldSmallFeature>();
+            if (SF != null)
+            {
+                if (Vector3.Distance(_posToSpawn, hitColliders[i].transform.position) < closest)
+                {
+                    closest = Vector3.Distance(_posToSpawn, hitColliders[i].transform.position);
+                    _posToSpawn = new Vector3(hitColliders[i].transform.position.x + 1, hitColliders[i].transform.position.y, hitColliders[i].transform.position.z +1 );
+                }
+            }
+        }
+        return _posToSpawn;
     }
 
     private void SpawnHills()
@@ -156,7 +211,7 @@ public class MapManager : MonoBehaviour {
                 for (int t = 0; t < 3; t++)
                 {
 
-                    Instantiate(CreepPrefab, ResPositions[posNumber].position, ResPositions[posNumber].rotation);
+                    Instantiate(CreepPrefab, ResPositions[posNumber].transform.position, ResPositions[posNumber].transform.rotation);
                 }
                 
             }
@@ -180,7 +235,7 @@ public class MapManager : MonoBehaviour {
             {
                 usedNumbers.Add(posNumber);
                 
-                var ress = Instantiate(ResourcePrefab[UnityEngine.Random.Range(0, ResourcePrefab.Length)],ResPositions[posNumber].position, ResPositions[posNumber].rotation);
+                var ress = Instantiate(ResourcePrefab[UnityEngine.Random.Range(0, ResourcePrefab.Length)],ResPositions[posNumber].transform.position, ResPositions[posNumber].transform.rotation);
                 Res.Add(ress);
             }
             else
