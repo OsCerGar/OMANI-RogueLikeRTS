@@ -58,7 +58,8 @@ public class BU_Type : Interactible
                     _boy.grabbedObject = null;
 
                     //Destroys itself
-                    this.transform.position = closest.gameObject.transform.Find("BU_UI").Find("BU_Type").transform.position;
+                    this.transform.parent = closest.gameObject.transform.Find("BU_UI").Find("BU_Type");
+                    this.transform.localPosition = Vector3.zero;
                     this.transform.rotation = closest.gameObject.transform.Find("BU_UI").Find("BU_Type").transform.rotation;
 
                 }

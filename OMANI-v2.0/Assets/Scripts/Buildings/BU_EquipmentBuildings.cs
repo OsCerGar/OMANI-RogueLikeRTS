@@ -158,6 +158,7 @@ public class BU_EquipmentBuildings : MonoBehaviour
         explosion.Play();
         Destroy(buildingTypeAndBehaviour);
         buildingTypeAndBehaviour = null;
+        Destroy(this.gameObject.transform.Find("BU_UI").Find("BU_Type").GetChild(0).gameObject);
         requiredEnergy = 0;
     }
 
