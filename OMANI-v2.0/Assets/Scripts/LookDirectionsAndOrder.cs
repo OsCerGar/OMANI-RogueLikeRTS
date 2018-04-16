@@ -286,7 +286,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (_hrj != 0 || _vrj != 0)
             {
                 Vector3 tdirection = new Vector3(_hrj, 0, _vrj);
-                miradaposition = this.transform.position + (tdirection + Vector3.up * transform.position.y);
+                miradaposition = this.transform.position + (tdirection);
                 transform.LookAt(miradaposition);
             }
         }
@@ -309,7 +309,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     mousePosition = hit.point;
                 }
             }
-            miradaposition = mousePosition + Vector3.up * transform.position.y;
+
+            miradaposition = mousePosition;
+
             transform.LookAt(miradaposition);
         }
 
