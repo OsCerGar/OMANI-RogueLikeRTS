@@ -81,8 +81,7 @@ public class MapManager : MonoBehaviour {
         {
             var hillToSpawn = Trees[UnityEngine.Random.Range(0, Trees.Length)];
             bool SpotFound = false;
-            while (!SpotFound)
-            {
+            
                 //get a randomSpot in the terrain and 
                 Vector3 PosToSpawn = GetPosToSpawn();
                 PosToSpawn = FindCloseTrees(PosToSpawn);
@@ -94,35 +93,69 @@ public class MapManager : MonoBehaviour {
                     var newHill = Instantiate(hillToSpawn, hit.point, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
 
                 }
+                
 
-                SpotFound = true;
 
-
-            }
+            
 
         }
     }
 
     private Vector3 FindCloseTrees(Vector3 _posToSpawn)
     {
-        float closest = 30;
-        Collider[] hitColliders = Physics.OverlapSphere(_posToSpawn, 30);
+        float closeRange = 100;
+        int xOffset = 2, zOffset = 2;
+        Collider[] hitColliders = Physics.OverlapSphere(_posToSpawn, closeRange);
         int i = 0;
         while (i < hitColliders.Length)
         {
             WorldSmallFeature SF = hitColliders[i].GetComponent<WorldSmallFeature>();
             if (SF != null)
             {
-                if (Vector3.Distance(_posToSpawn, hitColliders[i].transform.position) < closest)
+                if (Vector3.Distance(_posToSpawn, hitColliders[i].transform.position) < closeRange)
                 {
-                    closest = Vector3.Distance(_posToSpawn, hitColliders[i].transform.position);
-                    _posToSpawn = new Vector3(hitColliders[i].transform.position.x + 4, hitColliders[i].transform.position.y, hitColliders[i].transform.position.z +4 );
+                    closeRange = Vector3.Distance(_posToSpawn, hitColliders[i].transform.position);
+                    _posToSpawn = new Vector3(hitColliders[i].transform.position.x + xOffset, hitColliders[i].transform.position.y, hitColliders[i].transform.position.z + zOffset);
+                    int SafetyNet = 0;
+                    while (!IsPosFree(_posToSpawn))
+                    {
+                        xOffset = xOffset + (int)UnityEngine.Random.Range(-2,2);
+                        zOffset = zOffset + (int)UnityEngine.Random.Range(-2, 2);
+                        Debug.Log("changed pos");
+                        SafetyNet++;
+                        if (SafetyNet>4)
+                        {
+                            break;
+                        }
+                    }
+                    
                 }
             }
             i++;
         }
         return _posToSpawn;
     }
+
+    private bool IsPosFree(Vector3 _posToSpawn)
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(_posToSpawn, 2);
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            WorldSmallFeature SF = hitColliders[i].GetComponent<WorldSmallFeature>();
+            if (SF != null)
+            {
+                return false;
+
+                Debug.Log("something in the way");
+            }
+            i++;
+        }
+        return true;
+    }
+    
+
+   
 
     private void SpawnHills()
     {
