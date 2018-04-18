@@ -322,7 +322,7 @@ public class BoyMovement : MonoBehaviour
 
                 stopRagdoll();
                 AnimSpeed = Mathf.Lerp(0, 4.5f, t);
-                t += 0.8f * Time.deltaTime;
+                t += 2.3f * Time.deltaTime;
                 // Calls the Rotate function, which makes the rotation of the character look good.
                 if (onRoll != true)
                 {
@@ -334,7 +334,6 @@ public class BoyMovement : MonoBehaviour
             // If the axis has any sort of input on Joystick.
             else if (horizontalJoystick != 0f || verticalJoystick != 0f)
             {
-                Debug.Log("UsandoMando");
                 stopRagdoll();
                 AnimSpeed = Mathf.Clamp(Mathf.Abs(horizontalJoystick) + Mathf.Abs(verticalJoystick), 0, 1) * 4.5f;
                 // Calls the Rotate function, which makes the rotation of the character look good.
