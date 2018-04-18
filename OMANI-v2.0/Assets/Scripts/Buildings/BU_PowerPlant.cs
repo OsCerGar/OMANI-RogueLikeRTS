@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class BU_PowerPlant : MonoBehaviour
+public class BU_PowerPlant : BU
 {
     [SerializeField]
     GameObject cablePrefab;
     [SerializeField]
     List<temporalCable> cables = new List<temporalCable>();
     public int energy;
+
 
     public List<Transform> positions = new List<Transform>();
     //public HashSet<Transform, GameObject> stringsSet = new HashSet<>();
@@ -64,7 +65,7 @@ public class BU_PowerPlant : MonoBehaviour
 
     public Transform givePosition()
     {
-        Debug.Log(positions[energy]);
         return positions[energy];
     }
+
 }

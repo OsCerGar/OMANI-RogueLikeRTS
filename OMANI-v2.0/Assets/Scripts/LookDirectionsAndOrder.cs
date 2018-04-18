@@ -23,7 +23,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     //Gameplay
     public Army commander;
-    public GameObject closestTarget;
+    public NPC closestTarget;
+    public GameObject closestOrderTarget;
+
     public LayerMask targetMask, obstacleMask;
     private int terrain = 1 << 8;
     private float orderCounter;
@@ -78,7 +80,20 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //Show an outline of the closest boy in town.
         if (closestTarget != null)
         {
-            closestTarget.GetComponent<NPC>().EnableCircle();
+            closestTarget.EnableCircle();
+        }
+
+        //^OrderTarget
+        if (closestOrderTarget != null)
+        {
+            if (closestOrderTarget.CompareTag("Building"))
+            {
+                closestOrderTarget.GetComponent<BU>().EnableCircle();
+            }
+            else
+            {
+                closestOrderTarget.GetComponent<NPC>().EnableCircle();
+            }
         }
     }
 
@@ -202,13 +217,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (closestTarget != null)
             {
 
-                NPC closestTargetNPC = closestTarget.GetComponent<NPC>();
-                if (commander.ListSize(closestTargetNPC.boyType) < 1)
+                if (commander.ListSize(closestTarget.boyType) < 1)
                 {
-                    selectedTypeList.Add(closestTargetNPC.boyType);
+                    selectedTypeList.Add(closestTarget.boyType);
                 }
 
-                commander.Reclute(closestTargetNPC);
+                commander.Reclute(closestTarget);
             }
         }
         #endregion
@@ -234,36 +248,86 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             // Save the col as an NPC
             NPC colNPC;
-            if (!col.gameObject.GetComponent<Player>())
-            {
-                if (colNPC = col.gameObject.GetComponent<NPC>())
-                {
-                    // Disables Outline by default
-                    colNPC.DisableCircle();
-                    Transform target = col.transform;
+            NPC colEnemy;
+            BU colBU;
 
-                    // Check if its inside the selection angle.
-                    Vector3 dirToTarget = (target.position - transform.position).normalized;
-                    if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+            if (col.transform == col.transform.root)
+            {
+                if (col.gameObject != commander.gameObject)
+                {
+                    // Checks if its the player or if its people.
+                    if (col.CompareTag("People"))
                     {
-                        //Distance to target
-                        float dstToTarget = Vector3.Distance(transform.position, target.position);
-                        //Check if its following already.
-                        if (colNPC.AI_GetState() != "Follow")
+                        colNPC = col.GetComponent<NPC>();
+
+                        // Disables Outline by default
+                        colNPC.DisableCircle();
+                        Transform target = col.transform;
+
+                        // Check if its inside the selection angle.
+                        Vector3 dirToTarget = (target.position - transform.position).normalized;
+                        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
                         {
+                            //Distance to target
+                            float dstToTarget = Vector3.Distance(transform.position, target.position);
+                            //Check if its following already.
+                            if (colNPC.AI_GetState() != "Follow")
+                            {
+                                //If the closestTarget is null he is the closest target.
+                                // If the distance is smaller than the distance to the closestTarget.
+                                if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
+                                {
+                                    closestTarget = colNPC;
+                                }
+                            }
+
+                        }
+                    }
+
+                    else if (col.CompareTag("Building"))
+                    {
+                        colBU = col.GetComponent<BU>();
+                        // Disables Outline by default
+                        colBU.DisableCircle();
+                        Transform target = col.transform;
+
+                        // Check if its inside the selection angle.
+                        Vector3 dirToTarget = (target.position - transform.position).normalized;
+
+                        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                        {
+                            closestOrderTarget = col.gameObject;
+                        }
+                    }
+
+                    else if (col.CompareTag("Enemy"))
+                    {
+                        colEnemy = col.GetComponent<NPC>();
+                        // Disables Outline by default
+                        colEnemy.DisableCircle();
+                        Transform target = col.transform;
+
+                        // Check if its inside the selection angle.
+                        Vector3 dirToTarget = (target.position - transform.position).normalized;
+                        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                        {
+                            //Distance to target
+                            float dstToTarget = Vector3.Distance(transform.position, target.position);
+
                             //If the closestTarget is null he is the closest target.
                             // If the distance is smaller than the distance to the closestTarget.
-                            if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
+                            if (closestOrderTarget == null || dstToTarget < Vector3.Distance(transform.position, closestOrderTarget.transform.position))
                             {
-                                closestTarget = col.gameObject;
+                                closestOrderTarget = col.gameObject;
                             }
-                        }
 
+                        }
                     }
                 }
             }
         }
     }
+
     #endregion
 
     void LookAt(float _hrj, float _vrj)

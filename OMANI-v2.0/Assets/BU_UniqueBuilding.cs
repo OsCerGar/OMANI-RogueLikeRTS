@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BU_UniqueBuilding : MonoBehaviour
+public class BU_UniqueBuilding : BU
 {
 
     public int lastTotalEnergy, totalEnergy, requiredEnergy;
