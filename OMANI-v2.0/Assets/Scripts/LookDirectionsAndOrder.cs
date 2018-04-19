@@ -23,8 +23,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     //Gameplay
     public Army commander;
-    public NPC closestTarget;
-    public GameObject closestOrderTarget;
+    public NPC closestTarget, closestEnemyTarget;
+    public BU closestBUTarget;
 
     public LayerMask targetMask, obstacleMask;
     private int terrain = 1 << 8;
@@ -84,15 +84,16 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
 
         //^OrderTarget
-        if (closestOrderTarget != null)
+        if (selectedTypeList.Count > 0)
         {
-            if (closestOrderTarget.CompareTag("Building"))
+            if (closestBUTarget != null)
             {
-                closestOrderTarget.GetComponent<BU>().EnableCircle();
+                closestBUTarget.EnableCircle();
             }
-            else
+
+            if (closestEnemyTarget != null)
             {
-                closestOrderTarget.GetComponent<NPC>().EnableCircle();
+                closestEnemyTarget.EnableCircle();
             }
         }
     }
@@ -244,7 +245,19 @@ public class LookDirectionsAndOrder : MonoBehaviour
             closestTarget.DisableCircle();
         }
 
+        if (closestBUTarget != null)
+        {
+            closestBUTarget.DisableCircle();
+        }
+
+        if (closestEnemyTarget != null)
+        {
+            closestEnemyTarget.DisableCircle();
+        }
+
         closestTarget = null;
+        closestBUTarget = null;
+        closestEnemyTarget = null;
 
         //Each collider hitted by the Sphere in the TargetMask
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
@@ -300,7 +313,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                     if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
                     {
-                        closestOrderTarget = col.gameObject;
+                        closestBUTarget = colBU;
                     }
                 }
 
@@ -321,14 +334,22 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                         //If the closestTarget is null he is the closest target.
                         // If the distance is smaller than the distance to the closestTarget.
-                        if (closestOrderTarget == null || dstToTarget < Vector3.Distance(transform.position, closestOrderTarget.transform.position))
+                        if (closestEnemyTarget == null || dstToTarget < Vector3.Distance(transform.position, closestEnemyTarget.transform.position))
                         {
-                            closestOrderTarget = col.gameObject;
+                            closestEnemyTarget = colEnemy;
                         }
 
                     }
                 }
             }
+
+
+        }
+
+        // if there is a building in the range, enemies wont be selected for order.
+        if (closestBUTarget != null)
+        {
+            closestEnemyTarget = null;
         }
 
     }
