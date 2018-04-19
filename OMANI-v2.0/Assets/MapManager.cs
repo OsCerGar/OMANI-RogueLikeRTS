@@ -13,25 +13,21 @@ public class MapManager : MonoBehaviour {
     private  List<WorldFeature> BigFeatures;
     [SerializeField]
     GameObject BasePrefab;
+    
 
     [SerializeField]
-    GameObject CreepPrefab;
+    GameObject SpawnPosition;
 
 
-
-    public int numberOfCamps;
+    
     public GameObject[] ResourcePrefab;
 
-    [SerializeField]
-    GameObject WorkerPrefab;
-
+  
     [SerializeField]
     GameObject[] ArtifactPrefabs;
 
     public GameObject[] POISavageCamps;
     public ResPos[] ResPositions;
-    public Transform[] WorkerPositions;
-    public Transform[] ArtifactPositions;
     public List<GameObject> Res = new List<GameObject>();
     List<int> usedNumbers = new List<int>();
 
@@ -51,17 +47,19 @@ public class MapManager : MonoBehaviour {
         tLength = terrain.terrainData.size.z;
         
         SpawnBase();
-
-        Debug.Log(BigFeatures.Count);
+        
 
         SpawnHills();
 
         //Fill Respos Array with the positions created
         ResPositions = FindObjectsOfType<ResPos>();
 
+        FillResources();
+
         SpawnTrees();
-        
-        
+
+        SpawnCreepPositions();
+        Debug.Log("hey");
         /*
         usedNumbers.Add(100000);
         FillResources();
@@ -75,6 +73,26 @@ public class MapManager : MonoBehaviour {
         
     }
 
+    private void SpawnCreepPositions()
+    {
+        for (int i = 0; i < numberOfBigFeatures * 15; i++)
+        {
+            Vector3 PosToSpawn = GetPosToSpawn();
+            if (checkDistances(PosToSpawn, SpawnPosition.GetComponent<WorldFeature>()))
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(new Vector3(PosToSpawn.x, 20, PosToSpawn.z), Vector3.down, out hit, Mathf.Infinity))
+                {
+                    var newHill = Instantiate(SpawnPosition, hit.point, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
+                }
+            }else
+            {
+                i--;
+            }
+            
+        }
+    }
+
     private void SpawnTrees()
     {
         for (int i = 0; i < numberOfBigFeatures*15; i++)
@@ -85,25 +103,19 @@ public class MapManager : MonoBehaviour {
                 //get a randomSpot in the terrain and 
                 Vector3 PosToSpawn = GetPosToSpawn();
                 PosToSpawn = FindCloseTrees(PosToSpawn);
-
+           
                 RaycastHit hit;
-                // Does the ray intersect any objects excluding the player layer
                 if (Physics.Raycast(new Vector3(PosToSpawn.x, 20, PosToSpawn.z), Vector3.down, out hit, Mathf.Infinity))
                 {
                     var newHill = Instantiate(hillToSpawn, hit.point, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
 
                 }
-                
-
-
-            
-
         }
     }
 
     private Vector3 FindCloseTrees(Vector3 _posToSpawn)
     {
-        float closeRange = 100;
+        float closeRange = 50;
         int xOffset = 2, zOffset = 2;
         Collider[] hitColliders = Physics.OverlapSphere(_posToSpawn, closeRange);
         int i = 0;
@@ -123,7 +135,7 @@ public class MapManager : MonoBehaviour {
                         zOffset = zOffset + (int)UnityEngine.Random.Range(-2, 2);
                         Debug.Log("changed pos");
                         SafetyNet++;
-                        if (SafetyNet>4)
+                        if (SafetyNet>10)
                         {
                             break;
                         }
@@ -138,23 +150,27 @@ public class MapManager : MonoBehaviour {
 
     private bool IsPosFree(Vector3 _posToSpawn)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(_posToSpawn, 2);
+        Collider[] hitColliders = Physics.OverlapSphere(_posToSpawn, 3);
         int i = 0;
         while (i < hitColliders.Length)
         {
-            WorldSmallFeature SF = hitColliders[i].GetComponent<WorldSmallFeature>();
-            if (SF != null)
+            WorldFeature WF = hitColliders[i].GetComponent<WorldFeature>();
+            if (WF != null)
             {
+
+                Debug.Log(WF.transform.name);
                 return false;
 
-                Debug.Log("something in the way");
             }
             i++;
         }
         return true;
     }
     
+    public void SpawnCreep()
+    {
 
+    }
    
 
     private void SpawnHills()
@@ -203,64 +219,7 @@ public class MapManager : MonoBehaviour {
         BigFeatures.Add( (WorldFeature )mainBase.GetComponent<WorldFeature>());
     }
 
-    private void SpawnArtifacts()
-    {
-        for (int i = 0; i < ArtifactPositions.Length ; i++)
-        {
-            
-            Instantiate(ArtifactPrefabs[UnityEngine.Random.Range(0, ArtifactPrefabs.Length)], ArtifactPositions[i].position, ArtifactPositions[i].rotation);
-               
-        }
-    }
-
-    private void SpawnWorkers()
-    {
-        for (int i = 0; i < WorkerPositions.Length / 2; i++)
-        {
-            var posNumber = UnityEngine.Random.Range(0, WorkerPositions.Length);
-            if (!usedNumbers.Contains(posNumber) || usedNumbers == null)
-            {
-                usedNumbers.Add(posNumber);
-                for (int t = 0; t < 1; t++)
-                {
-
-                    Instantiate(WorkerPrefab, WorkerPositions[posNumber].position, WorkerPositions[posNumber].rotation);
-                }
-
-            }
-            else
-            {
-                i--;
-            }
-        }
-    }
-
-    private void SpawnCreeps()
-    {
-        for (int i = 0; i < ResPositions.Length / 2; i++)
-        {
-            var posNumber = UnityEngine.Random.Range(0, ResPositions.Length);
-            if (!usedNumbers.Contains(posNumber) || usedNumbers == null)
-            {
-                usedNumbers.Add(posNumber);
-                for (int t = 0; t < 3; t++)
-                {
-
-                    Instantiate(CreepPrefab, ResPositions[posNumber].transform.position, ResPositions[posNumber].transform.rotation);
-                }
-                
-            }
-            else
-            {
-                i--;
-            }
-        }
-    }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
+   
     void FillResources()
     {
         for (int i = 0; i < ResPositions.Length/2; i++)

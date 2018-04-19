@@ -6,10 +6,7 @@ public class WorldFeature : MonoBehaviour {
 
     public float Rad;
 
-    // Update is called once per frame
-    void Update() {
-
-    }
+    
 
     void OnDrawGizmosSelected()
     {
