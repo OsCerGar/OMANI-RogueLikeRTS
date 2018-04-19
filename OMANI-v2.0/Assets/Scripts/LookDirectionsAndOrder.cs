@@ -161,16 +161,31 @@ public class LookDirectionsAndOrder : MonoBehaviour
             {
                 if (orderCounter < 0.2f)
                 {
-                    Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
-
-
-                    if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                    //Checks if there is an objective for the order, if not, it goes to a place.
+                    if (closestBUTarget == null && closestEnemyTarget == null)
                     {
-                        commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                        Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
+
+                        // You can't order through walls.
+                        if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                        {
+                            commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                        }
+                        else
+                        {
+                            commander.Order(selectedTypeList[selectedTypeInt], this.transform.position + (this.transform.forward * viewRadius));
+                        }
                     }
                     else
                     {
-                        commander.Order(selectedTypeList[selectedTypeInt], this.transform.position + (this.transform.forward * viewRadius));
+                        if (closestBUTarget != null)
+                        {
+                            commander.Order(selectedTypeList[selectedTypeInt], closestBUTarget.transform.position);
+                        }
+                        else if (closestEnemyTarget != null)
+                        {
+                            commander.Order(selectedTypeList[selectedTypeInt], closestBUTarget.transform.position);
+                        }
                     }
 
                 }
@@ -287,6 +302,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     {
                         //Distance to target
                         float dstToTarget = Vector3.Distance(transform.position, target.position);
+
                         //Check if its following already.
                         if (colNPC.AI_GetState() != "Follow")
                         {

@@ -10,7 +10,7 @@ public class BU_EquipmentBuildings : BU
 
     BU_WeaponsBay_GUI weaponsBayGUI;
     public int totalEnergy, requiredEnergy;
-    float time = 0, timeToExplode = 20;
+    float time = 0, timeToExplode = 45;
 
     [SerializeField]
     BU_Plug[] plugs;
