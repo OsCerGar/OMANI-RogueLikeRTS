@@ -151,7 +151,8 @@ public class NPC : MonoBehaviour
         {
             life = startLife;
         }
-        else {
+        else
+        {
             life = life + _heal;
         }
     }
@@ -230,7 +231,12 @@ public class NPC : MonoBehaviour
     {
         circle.enabled = true;
 
-        if (AI_GetState() == "Follow")
+        if (this.CompareTag("Enemy"))
+        {
+            circle.material.SetColor("_EmissionColor", Color.red * Mathf.LinearToGammaSpace(50));
+        }
+
+        else if (AI_GetState() == "Follow")
         {
             circle.material.SetColor("_EmissionColor", Color.green * Mathf.LinearToGammaSpace(50));
         }
@@ -243,7 +249,7 @@ public class NPC : MonoBehaviour
 
     public virtual void DisableCircle()
     {
-        if (AI_GetState() != "Follow")
+        if (this.CompareTag("Enemy") || AI_GetState() != "Follow")
         {
             circle.enabled = false;
             circle.material.SetColor("_EmissionColor", Color.white * Mathf.LinearToGammaSpace(50));

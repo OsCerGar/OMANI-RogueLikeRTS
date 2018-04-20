@@ -184,7 +184,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         }
                         else if (closestEnemyTarget != null)
                         {
-                            commander.Order(selectedTypeList[selectedTypeInt], closestBUTarget.transform.position);
+                            commander.Order(selectedTypeList[selectedTypeInt], closestEnemyTarget.transform.position);
                         }
                     }
 
@@ -343,6 +343,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                     // Check if its inside the selection angle.
                     Vector3 dirToTarget = (target.position - transform.position).normalized;
+
                     if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
                     {
                         //Distance to target
@@ -363,9 +364,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
 
         // if there is a building in the range, enemies wont be selected for order.
-        if (closestBUTarget != null)
+        if (closestEnemyTarget != null)
         {
-            closestEnemyTarget = null;
+            closestBUTarget = null;
         }
 
     }
