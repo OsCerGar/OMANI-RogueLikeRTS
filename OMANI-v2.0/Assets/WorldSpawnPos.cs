@@ -7,6 +7,7 @@ public class WorldSpawnPos : WorldFeature
 {
     EZObjectPool BasicCreepsPooler;
     private GameObject spawned;
+    private bool isSpawner;
     private Transform player;
 
     // Use this for initialization
@@ -25,38 +26,54 @@ public class WorldSpawnPos : WorldFeature
     {
         if (spawned != null)//If spawned a monster
         {
-            if (Vector3.Distance(spawned.transform.position,player.position)>40)
+           
+            if (Vector3.Distance(spawned.transform.position,player.position)>100)
             {
+                Debug.Log("deactivate");
                 spawned.SetActive(false);
+                spawned = null;
             }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.GetComponent<Player>() != null)
+        if (!isSpawner)
         {
 
-            float randomizer = Random.Range(0, 100);
-            
-            if (randomizer < 20) //Posibilities to spawn something
+            if (other.transform.GetComponent<Player>() != null)
             {
-                randomizer = Random.Range(0, 100);
 
-                if (randomizer < 5) //Posibilities to spawn something Special
+                float randomizer = Random.Range(0, 100);
+            
+                if (randomizer < 20) //Posibilities to spawn something
                 {
-                    Debug.Log("something special");
+                    randomizer = Random.Range(0, 100);
+
+                    if (randomizer < 5) //Posibilities to spawn something Special
+                    {
+                        Debug.Log("something special");
+                    }
+                    else
+                    {
+                        Debug.Log("spawn");
+                        BasicCreepsPooler.TryGetNextObject(transform.position,transform.rotation,out spawned);
+                        player = other.transform;
+                        isSpawner = true;
+                    }
                 }
                 else
                 {
-                    BasicCreepsPooler.TryGetNextObject(transform.position,transform.rotation,out spawned);
-                    player = other.transform;
+                    Destroy(transform.gameObject);
                 }
             }
-            else
+
+        } else
+        {
+            if (!spawned.activeSelf)
             {
-                Destroy(transform.gameObject);
+                spawned.SetActive(true);
             }
         }
-        
+
     }
 }
