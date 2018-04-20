@@ -120,6 +120,69 @@ public class Army : MonoBehaviour
                 break;
         }
     }
+    public void OrderDirect(string type, GameObject orderPosition)
+    {
+        NPC barroBoy = null;
+        switch (type)
+        {
+            case "Swordsman":
+                if (swordsmans.Count > 0)
+                {
+                    barroBoy = swordsmans[swordsmans.Count - 1];
+                    swordsmans.Remove(barroBoy);
+
+                    barroBoy.Order(orderPosition);
+                }
+
+                break;
+            case "Archer":
+                if (archers.Count > 0)
+                {
+
+                    barroBoy = archers[archers.Count - 1];
+                    archers.Remove(barroBoy);
+
+                    barroBoy.Order(orderPosition);
+
+                }
+                break;
+            case "Musketeer":
+                if (musketeers.Count > 0)
+                {
+
+                    barroBoy = musketeers[musketeers.Count - 1];
+                    musketeers.Remove(barroBoy);
+
+                    barroBoy.Order(orderPosition);
+
+                }
+                break;
+            case "Shieldman":
+
+                if (shieldmans.Count > 0)
+                {
+
+
+                    barroBoy = shieldmans[shieldmans.Count - 1];
+                    shieldmans.Remove(barroBoy);
+
+                    barroBoy.Order(orderPosition);
+
+                }
+                break;
+            case "Rogue":
+                if (rogues.Count > 0)
+                {
+
+                    barroBoy = rogues[rogues.Count - 1];
+                    rogues.Remove(barroBoy);
+
+                    barroBoy.Order(orderPosition);
+
+                }
+                break;
+        }
+    }
 
     public NPC GetBoyArmy(string type)
     {

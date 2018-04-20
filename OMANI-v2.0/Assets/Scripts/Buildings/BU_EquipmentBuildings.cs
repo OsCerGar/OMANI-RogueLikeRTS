@@ -26,6 +26,7 @@ public class BU_EquipmentBuildings : BU
     // Temporal 
     float creationTime;
 
+
     // Use this for initialization
     void Start()
     {

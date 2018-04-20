@@ -180,11 +180,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     {
                         if (closestBUTarget != null)
                         {
-                            commander.Order(selectedTypeList[selectedTypeInt], closestBUTarget.transform.position);
+                            //commander.Order(selectedTypeList[selectedTypeInt], closestBUTarget.transform.position);
+                            commander.OrderDirect(selectedTypeList[selectedTypeInt], closestBUTarget.gameObject);
+
                         }
                         else if (closestEnemyTarget != null)
                         {
-                            commander.Order(selectedTypeList[selectedTypeInt], closestEnemyTarget.transform.position);
+                            commander.OrderDirect(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
                         }
                     }
 
