@@ -45,8 +45,10 @@ public class NPC : MonoBehaviour
             {
                 if (anim != null)
                 {
-                    anim.SetTrigger("Hit");
+                   // anim.SetTrigger("Hit");
                 }
+
+                life = value;
             }
 
             else
