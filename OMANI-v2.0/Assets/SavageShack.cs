@@ -36,12 +36,10 @@ public class SavageShack : MonoBehaviour {
                     //instanciate Shepherd
                     Debug.Log("Shepherd!");
                     var shepH = Instantiate(ShepherdPref,SpawnPoint.position, SpawnPoint.rotation);
-                //SetAltar Variable
-                var stateVariable = (SharedGameObject)shepH.GetComponent<BehaviorTree>().GetVariable("Altar");
-                stateVariable.Value = transform.parent.transform.Find("Altar").gameObject;
-                //Add to the list of the camp :D
-                camp.currentShepHerds.Add(shepH);
-                
+                     cooldownCounter = 0;
+                    camp.currentBaddies.Add(shepH);
+
+
                 }
             
         

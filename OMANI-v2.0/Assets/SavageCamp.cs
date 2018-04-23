@@ -6,13 +6,11 @@ using UnityEngine;
 public class SavageCamp : MonoBehaviour {
     
     public GameObject[] Buildings;
-
-    [HideInInspector]
-    public int currentNumberOfShacks = 0;
+    
     
 
     [HideInInspector]
-    public List<GameObject> currentShepHerds = new List<GameObject>();
+    public List<GameObject> currentBaddies = new List<GameObject>();
 
     [SerializeField]
     int AreaOfResources;
@@ -22,14 +20,17 @@ public class SavageCamp : MonoBehaviour {
 
     private bool alarm;
 
+    private GameObject protagonistBase;
+
     private float buildCounter = 0, buildCooldown = 240;
-    private float alarmCounter = 0,alarmCooldown = 20;
+    private float attackCounter = 0,attackCooldown = 240;
     // Use this for initialization
     void Start () {
              
         Evolve();
-        
+        protagonistBase = FindObjectOfType<BU_PowerPlant>().gameObject;
     }
+    
 
     private void Evolve()
     {
@@ -38,7 +39,6 @@ public class SavageCamp : MonoBehaviour {
             if (!Buildings[i].activeSelf)
             {
                 Buildings[i].SetActive(true);
-                currentNumberOfShacks++;
                 return;
             }
         }
@@ -56,24 +56,34 @@ public class SavageCamp : MonoBehaviour {
             buildCounter = 0;
         }
 
-        if (alarm)
+        if (attackCounter < attackCooldown)
         {
-            
-           //Defend Base
-
+            attackCounter += Time.deltaTime;
         }
-        
-	}
+        else
+        {
+            AttackBase();
+            attackCounter = 0;
+        }
 
- 
+    }
+
+    private void AttackBase()
+    {
+        foreach (GameObject baddie in currentBaddies)
+        {
+            baddie.GetComponent<NPC>().AI_SetTarget(protagonistBase);
+        }
+    }
+
     private void Alarm(GameObject intruder)
     {
         if (!alarm)
         {
             alarm = true;
-            for (int i = 0; i < currentShepHerds.Count; i++)
+            for (int i = 0; i < currentBaddies.Count; i++)
             {
-                currentShepHerds[i].GetComponent<ShepHerd>().SetTarget(intruder);
+                currentBaddies[i].GetComponent<ShepHerd>().SetTarget(intruder);
             }
         }
     }
