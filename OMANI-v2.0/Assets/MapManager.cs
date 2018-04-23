@@ -60,6 +60,8 @@ public class MapManager : MonoBehaviour {
 
         SpawnCreepPositions();
         Debug.Log("hey");
+
+
         /*
         usedNumbers.Add(100000);
         FillResources();
@@ -238,18 +240,5 @@ public class MapManager : MonoBehaviour {
             }
         }
     }
-    void ActivateSavageCamp()
-    {
-        bool completed = false;
-        while (!completed)
-        {
-            var CampSelection = UnityEngine.Random.Range(0, POISavageCamps.Length );
-            if (!POISavageCamps[CampSelection].activeSelf)
-            {
-                POISavageCamps[CampSelection].SetActive(true);
-                POISavageCamps[CampSelection].GetComponent<SavageCamp>().createSavageShack();
-                completed = true;
-            }
-        }
-    }
+   
 }

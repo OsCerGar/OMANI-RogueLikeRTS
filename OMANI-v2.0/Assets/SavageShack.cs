@@ -7,7 +7,7 @@ using System;
 
 public class SavageShack : MonoBehaviour {
     [SerializeField]
-    float cooldown = 30f;
+    float cooldown = 45f;
     float cooldownCounter = 0f;
     SavageCamp camp;
     GameObject altar;
@@ -25,8 +25,7 @@ public class SavageShack : MonoBehaviour {
 	void Update () {
 		
             //If the Population is not full, create a Shepherd to the colony
-            if (camp.currentShepHerds.Count < camp.currentNumberOfShacks)
-            {
+            
                 if (cooldownCounter < cooldown)
                 {
                     cooldownCounter += Time.deltaTime;
@@ -44,7 +43,7 @@ public class SavageShack : MonoBehaviour {
                 camp.currentShepHerds.Add(shepH);
                 
                 }
-            }
+            
         
 	}
 }
