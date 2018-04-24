@@ -2,39 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class BU_PowerPlant : BU
 {
     [SerializeField]
-    GameObject cablePrefab;
+    private GameObject cablePrefab;
+
     [SerializeField]
     List<temporalCable> cables = new List<temporalCable>();
     public int energy;
 
-
-    public List<Transform> positions = new List<Transform>();
-    //public HashSet<Transform, GameObject> stringsSet = new HashSet<>();
+    public MeshRenderer[] buttons;
 
     // Use this for initialization
     void Start()
     {
+        maxnumberOfWorkers = 4;
+
+        // Searches buttons
+        buttons = this.transform.Find("Office").GetChild(0).GetComponentsInChildren<MeshRenderer>();
+
         foreach (temporalCable cable in this.transform.GetChild(0).GetChild(0).GetComponentsInChildren<temporalCable>())
         {
             cables.Add(cable);
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
+        if (workers.Count > numberOfWorkers)
+        {
+            int difference = workers.Count - numberOfWorkers;
+
+            for (int i = 0; i < difference; i++)
+            {
+                AddEnergy();
+            }
+
+            numberOfWorkers = workers.Count;
+        }
+
+        else if (workers.Count < numberOfWorkers)
+        {
+            int difference = numberOfWorkers - workers.Count;
+
+            for (int i = 0; i < difference; i++)
+            {
+                RemoveEnergy();
+            }
+            numberOfWorkers = workers.Count;
+        }
 
     }
 
-    public void addEnergy()
+    public void AddEnergy()
     {
         bool givenEnergy = false;
+        buttons[energy].material.color = Color.yellow;
         this.energy += 1;
         int i = 0;
+
         while (givenEnergy == false && i < cables.Count)
         {
             if (cables[i].energy == false)
@@ -47,10 +73,12 @@ public class BU_PowerPlant : BU
         }
     }
 
-    public void removeEnergy()
+    public void RemoveEnergy()
     {
         bool removedEnergy = false;
         this.energy -= 1;
+        buttons[energy].material.color = Color.white;
+
         int i = cables.Count - 1;
         while (removedEnergy == false && i >= 0)
         {
@@ -62,10 +90,4 @@ public class BU_PowerPlant : BU
             i--;
         }
     }
-
-    public Transform givePosition()
-    {
-        return positions[energy];
-    }
-
 }

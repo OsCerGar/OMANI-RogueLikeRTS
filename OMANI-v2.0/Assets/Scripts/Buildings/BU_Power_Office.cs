@@ -7,21 +7,13 @@ public class BU_Power_Office : MonoBehaviour
 
     public BoxCollider myBoxCollider;
     public MeshRenderer[] buttons;
-    private Transform[] positions;
     int thisEnergy;
     BU_PowerPlant powerPlant;
 
     private void Awake()
     {
         buttons = this.transform.GetChild(0).GetComponentsInChildren<MeshRenderer>();
-        positions = this.transform.GetChild(1).GetComponentsInChildren<Transform>();
         powerPlant = this.transform.parent.GetComponent<BU_PowerPlant>();
-
-        //Adds positions to the powerplant
-        foreach (Transform position in positions)
-        {
-            powerPlant.positions.Add(position);
-        }
 
     }
 
@@ -31,7 +23,7 @@ public class BU_Power_Office : MonoBehaviour
         {
             if (other.GetComponent<Player>() == null)
             {
-                addEnergy();
+                AddEnergy();
             }
         }
     }
@@ -42,23 +34,22 @@ public class BU_Power_Office : MonoBehaviour
         {
             if (other.GetComponent<Player>() == null)
             {
-                removeEnergy();
+                RemoveEnergy();
             }
         }
-
     }
-    void addEnergy()
+
+    void AddEnergy()
     {
-        powerPlant.addEnergy();
+        powerPlant.AddEnergy();
         buttons[thisEnergy].material.color = Color.yellow;
         thisEnergy = thisEnergy + 1;
-
     }
 
-    void removeEnergy()
+    void RemoveEnergy()
     {
         thisEnergy = thisEnergy - 1;
         buttons[thisEnergy].material.color = Color.white;
-        powerPlant.removeEnergy();
+        powerPlant.RemoveEnergy();
     }
 }

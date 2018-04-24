@@ -83,12 +83,19 @@ public class LookDirectionsAndOrder : MonoBehaviour
             closestTarget.EnableCircle();
         }
 
+        if (closestBUTarget != null && closestBUTarget.numberOfWorkers > 0)
+        {
+            closestBUTarget.EnableWhiteCircle();
+
+        }
+
         //^OrderTarget
         if (selectedTypeList.Count > 0)
         {
             if (closestBUTarget != null)
             {
                 closestBUTarget.EnableCircle();
+
             }
 
             if (closestEnemyTarget != null)
@@ -136,10 +143,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     private void Order()
     {
+        #region Order
         if (selectedTypeList.Count > 0)
         {
-
-            #region Order
             if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
             {
                 orderCounter = 0;
@@ -229,7 +235,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         #region Reclute
 
-
         if (Input.GetKeyDown("joystick button 4") || Input.GetMouseButtonDown(0))
         {
             if (closestTarget != null)
@@ -241,6 +246,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 }
 
                 commander.Reclute(closestTarget);
+            }
+
+            else if (closestBUTarget != null)
+            {
+                closestBUTarget.RemoveWorker();
             }
         }
         #endregion
@@ -447,7 +457,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (_hrj != 0 || _vrj != 0)
             {
                 Vector3 tdirection = new Vector3(_hrj, 0, _vrj);
-                miradaposition = this.transform.position + (tdirection + Vector3.up * transform.position.y);
+                miradaposition = this.transform.position + (tdirection);
                 transform.LookAt(miradaposition);
             }
         }
@@ -470,7 +480,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     mousePosition = hit.point;
                 }
             }
-            miradaposition = mousePosition + Vector3.up * transform.position.y;
+            miradaposition = mousePosition;
             transform.LookAt(miradaposition);
         }
 
