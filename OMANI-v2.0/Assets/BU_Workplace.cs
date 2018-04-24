@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class BU_Workplace : MonoBehaviour
 {
-    BU_PowerPlant powerplant;
+    BU building;
 
     void Awake()
     {
-        powerplant = this.transform.parent.GetComponent<BU_PowerPlant>();
+        building = this.transform.parent.GetComponent<BU>();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("People") && other.GetComponent<Player>() == null)
         {
-            if (powerplant.numberOfWorkers < powerplant.maxnumberOfWorkers)
+            if (building.numberOfWorkers < building.maxnumberOfWorkers)
             {
 
-                if (other.GetComponent<NPC>().AI_GetTarget() == this.transform.parent.gameObject)
+                if (other.GetComponent<NPC>().AI_GetTarget() == building.direction)
                 {
-                    powerplant.AddWorker(other.gameObject);
+                    building.AddWorker(other.gameObject);
                 }
             }
         }

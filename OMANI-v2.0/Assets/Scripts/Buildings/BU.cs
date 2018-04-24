@@ -12,6 +12,7 @@ public class BU : MonoBehaviour
     public List<GameObject> workers = new List<GameObject>();
     public int numberOfWorkers = 0, maxnumberOfWorkers = 0;
     private GameObject workplace, door;
+    public GameObject direction;
 
 
     private void Awake()
@@ -20,7 +21,10 @@ public class BU : MonoBehaviour
         {
             door = this.transform.Find("Office").Find("Door").gameObject;
         }
-
+        if (this.transform.Find("Direction") != null)
+        {
+            direction = this.transform.Find("Direction").gameObject;
+        }
         workplace = this.transform.parent.transform.Find("Workplace").gameObject;
 
         redCircle = this.transform.Find("BU_UI/SelectionCircle").GetComponent<SpriteRenderer>();

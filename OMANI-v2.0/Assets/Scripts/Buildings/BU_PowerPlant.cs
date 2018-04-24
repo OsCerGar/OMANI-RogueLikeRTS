@@ -13,6 +13,11 @@ public class BU_PowerPlant : BU
 
     public MeshRenderer[] buttons;
 
+
+    //Audios
+
+    AudioSource addedWorker;
+
     // Use this for initialization
     void Start()
     {
@@ -25,6 +30,10 @@ public class BU_PowerPlant : BU
         {
             cables.Add(cable);
         }
+
+        //Audio
+        addedWorker = this.GetComponent<AudioSource>();
+
     }
 
     private void FixedUpdate()
@@ -71,6 +80,8 @@ public class BU_PowerPlant : BU
 
             i++;
         }
+
+        addedWorker.Play();
     }
 
     public void RemoveEnergy()
