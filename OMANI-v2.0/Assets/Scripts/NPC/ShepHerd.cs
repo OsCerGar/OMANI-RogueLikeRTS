@@ -25,7 +25,6 @@ public class ShepHerd : NPC
     public override void  Start()
     {
         base.Start();
-        ResPos = transform.Find("ResPos").gameObject;
     }
 
     void Awake()

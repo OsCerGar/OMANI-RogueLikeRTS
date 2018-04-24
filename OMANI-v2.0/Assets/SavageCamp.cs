@@ -20,7 +20,7 @@ public class SavageCamp : MonoBehaviour {
 
     private bool alarm;
 
-    private GameObject protagonistBase;
+    private GameObject protagonist;
 
     private float buildCounter = 0, buildCooldown = 240;
     private float attackCounter = 0,attackCooldown = 240;
@@ -28,7 +28,7 @@ public class SavageCamp : MonoBehaviour {
     void Start () {
              
         Evolve();
-        protagonistBase = FindObjectOfType<BU_PowerPlant>().gameObject;
+        protagonist = FindObjectOfType<Player>().gameObject;
     }
     
 
@@ -72,7 +72,8 @@ public class SavageCamp : MonoBehaviour {
     {
         foreach (GameObject baddie in currentBaddies)
         {
-            baddie.GetComponent<NPC>().AI_SetTarget(protagonistBase);
+            baddie.GetComponent<NPC>().AI_SetTarget(protagonist);
+            currentBaddies.Remove(baddie);
         }
     }
 

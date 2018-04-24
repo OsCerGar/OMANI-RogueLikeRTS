@@ -6,11 +6,19 @@ using UnityEngine.AI;
 public class ShootProjectile : MonoBehaviour {
 
     public ParticleSystem BasicProjectile, AdvancedProjectile;
+    public bool AimStraight = true;
     public Transform Gun;
 	public void Shoot()
     {
         BasicProjectile.transform.position = Gun.position;
-        BasicProjectile.transform.rotation = transform.rotation;
+        if (AimStraight)
+        {
+            BasicProjectile.transform.rotation = transform.rotation;
+        }
+        else
+        {
+            BasicProjectile.transform.rotation = Gun.rotation;
+        }
         BasicProjectile.Emit(1);
     }
 
