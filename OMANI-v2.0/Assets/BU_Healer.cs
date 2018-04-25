@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BU_Healer : BU_UniqueBuilding
 {
     Transform healer;
+    Transform[] healPositions;
     int healing;
     float timeToHeal = 0, totalTimeToHeal = 5;
     BU_Healing_GUI healingGUI;
@@ -15,8 +17,11 @@ public class BU_Healer : BU_UniqueBuilding
     public override void Start()
     {
         base.Start();
-
+        maxnumberOfWorkers = 8;
         requiredEnergy = 2;
+
+        //Positions where the workers will go
+        healPositions = this.transform.Find("Positions").GetComponentsInChildren<Transform>();
 
         healingGUI = this.transform.GetComponentInChildren<BU_Healing_GUI>();
 
@@ -27,6 +32,8 @@ public class BU_Healer : BU_UniqueBuilding
     public override void Update()
     {
         base.Update();
+
+        numberOfWorkers = workers.Count;
 
         switch (totalEnergy)
         {
@@ -63,9 +70,17 @@ public class BU_Healer : BU_UniqueBuilding
         }
     }
 
+    public override void AddWorker(GameObject _worker)
+    {
+        if (numberOfWorkers < maxnumberOfWorkers)
+        {
+            _worker.GetComponent<NavMeshAgent>().Warp(healPositions[numberOfWorkers].transform.position);
+            workers.Add(_worker);
+        }
+    }
+
     void Healer(int _heal)
     {
-        Debug.Log("Healer");
 
         Collider[] objectsInArea = null;
         objectsInArea = Physics.OverlapSphere(transform.position, healingSize, 1 << 9);

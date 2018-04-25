@@ -78,16 +78,17 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private void LateUpdate()
     {
         //Show an outline of the closest boy in town.
+
         if (closestTarget != null)
         {
             closestTarget.EnableCircle();
         }
 
-        if (closestBUTarget != null && closestBUTarget.numberOfWorkers > 0)
+        else if (closestBUTarget != null && closestBUTarget.numberOfWorkers > 0)
         {
             closestBUTarget.EnableWhiteCircle();
-
         }
+
 
         //^OrderTarget
         if (selectedTypeList.Count > 0)
@@ -187,7 +188,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         if (closestBUTarget != null)
                         {
                             commander.OrderDirect(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
-                            //commander.Order(selectedTypeList[selectedTypeInt], closestBUTarget.transform.position);
                         }
                         else if (closestEnemyTarget != null)
                         {
