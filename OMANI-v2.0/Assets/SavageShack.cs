@@ -17,7 +17,6 @@ public class SavageShack : MonoBehaviour {
     // Use this for initialization
     void Start () {
         camp = transform.parent.GetComponent<SavageCamp>();
-        altar = transform.parent.transform.Find("Altar").gameObject;
         SpawnPoint = transform.Find("SpawnPoint");
 	}
 	

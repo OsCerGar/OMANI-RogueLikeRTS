@@ -5,15 +5,13 @@ using UnityEngine;
 
 public class SavageCamp : MonoBehaviour {
     
-    public GameObject[] Buildings;
+    private List<GameObject> Buildings = new List<GameObject> ()  ;
     
     
 
     [HideInInspector]
     public List<GameObject> currentBaddies = new List<GameObject>();
-
-    [SerializeField]
-    int AreaOfResources;
+    
 
     [HideInInspector]
     public  bool someoneSearching = false;
@@ -26,21 +24,33 @@ public class SavageCamp : MonoBehaviour {
     private float attackCounter = 0,attackCooldown = 240;
     // Use this for initialization
     void Start () {
-             
-        Evolve();
+        foreach (Transform child in transform)
+        {
+            Buildings.Add(child.gameObject);
+        }
+
         protagonist = FindObjectOfType<Player>().gameObject;
+        Evolve();
     }
     
 
     private void Evolve()
     {
-        for (int i = 0; i < Buildings.Length; i++)
+        for (int i = 0; i < Buildings.Count; i++)
         {
-            if (!Buildings[i].activeSelf)
+            if (Buildings[i].GetComponent<Turret>() != null)
             {
                 Buildings[i].SetActive(true);
-                return;
             }
+            else
+            {
+                if (Buildings[i].GetComponent<SavageShack>().enabled == false)
+                {
+                    Buildings[i].GetComponent<SavageShack>().enabled = true;
+                    return;
+                }
+            } 
+            
         }
     }
 

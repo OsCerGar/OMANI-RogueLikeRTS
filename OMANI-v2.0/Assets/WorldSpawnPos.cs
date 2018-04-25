@@ -56,9 +56,16 @@ public class WorldSpawnPos : WorldFeature
                     else
                     {
                         Debug.Log("spawn");
-                        BasicCreepsPooler.TryGetNextObject(transform.position,transform.rotation,out spawned);
-                        player = other.transform;
-                        isSpawner = true;
+                        if (BasicCreepsPooler != null)
+                        {
+                            BasicCreepsPooler.TryGetNextObject(transform.position, transform.rotation, out spawned);
+                            player = other.transform;
+                            isSpawner = true;
+                        }
+                        else
+                        {
+                            Destroy(transform.gameObject);
+                        }
                     }
                 }
                 else

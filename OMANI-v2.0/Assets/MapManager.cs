@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MapManager : MonoBehaviour {
 
@@ -17,17 +18,15 @@ public class MapManager : MonoBehaviour {
 
     [SerializeField]
     GameObject SpawnPosition;
-
-
+    
     
     public GameObject[] ResourcePrefab;
 
   
     [SerializeField]
     GameObject[] ArtifactPrefabs;
-
-    public GameObject[] POISavageCamps;
-    public ResPos[] ResPositions;
+    
+    private ResPos[] ResPositions;
     public List<GameObject> Res = new List<GameObject>();
     List<int> usedNumbers = new List<int>();
 
@@ -35,6 +34,9 @@ public class MapManager : MonoBehaviour {
     Terrain terrain;
     private float tWidth,t;
     private float tLength;
+
+    //Navigation
+    private NavMeshSurface[] surfaces;
 
     // Use this for initialization
     void Start () {
@@ -45,7 +47,8 @@ public class MapManager : MonoBehaviour {
         terrain = FindObjectOfType<Terrain>();
         tWidth = terrain.terrainData.size.x;
         tLength = terrain.terrainData.size.z;
-        
+
+
         SpawnBase();
         
 
@@ -61,7 +64,7 @@ public class MapManager : MonoBehaviour {
         SpawnCreepPositions();
         Debug.Log("hey");
 
-
+        buildNavmesh();
         /*
         usedNumbers.Add(100000);
         FillResources();
@@ -74,6 +77,22 @@ public class MapManager : MonoBehaviour {
         */
         
     }
+
+    private void buildNavmesh()
+    {
+
+        // Use this for initialization
+
+        surfaces = FindObjectsOfType<NavMeshSurface>();
+
+
+
+        for (int i = 0; i < surfaces.Length; i++)
+        {
+            surfaces[i].BuildNavMesh();
+        }
+    
+}
 
     private void SpawnCreepPositions()
     {
@@ -181,16 +200,26 @@ public class MapManager : MonoBehaviour {
         {
             var hillToSpawn = Hills[UnityEngine.Random.Range(0, Hills.Length)];
             bool SpotFound = false;
+            int safetyNet = 0;
             while (!SpotFound)
             {
                 //get a randomSpot in the terrain and 
-                Vector3 PosToSpawn = GetPosToSpawn();
-                if (checkDistances(PosToSpawn, hillToSpawn.GetComponent<WorldFeature>()))
+                Vector3 PosToSpawn = GetPosToSpawn(hillToSpawn.GetComponent<WorldFeature>());
+                if (safetyNet<300)
                 {
-                    var newHill = Instantiate(hillToSpawn, PosToSpawn, Quaternion.Euler(0,UnityEngine.Random.Range(0, 180), 0));
-                    BigFeatures.Add(newHill.GetComponent<WorldFeature>());
-                    SpotFound = true;
+
+                    if (checkDistances(PosToSpawn, hillToSpawn.GetComponent<WorldFeature>()))
+                    {
+                        var newHill = Instantiate(hillToSpawn, PosToSpawn, Quaternion.Euler(0,UnityEngine.Random.Range(0, 180), 0));
+                        BigFeatures.Add(newHill.GetComponent<WorldFeature>());
+                        SpotFound = true;
+                    }
+
+                }else
+                {
+                    break;
                 }
+                safetyNet++;
             }
 
         }
@@ -213,6 +242,10 @@ public class MapManager : MonoBehaviour {
     private Vector3 GetPosToSpawn()
     {
         return new Vector3(UnityEngine.Random.Range(-tWidth / 2, tWidth / 2), 0, UnityEngine.Random.Range(-tLength / 2, tLength / 2));
+    }
+    private Vector3 GetPosToSpawn(WorldFeature _WF)
+    {
+        return new Vector3(UnityEngine.Random.Range(-tWidth / 2 +_WF.Rad, tWidth / 2 - _WF.Rad), 0, UnityEngine.Random.Range(-tLength / 2 + _WF.Rad, tLength / 2 - _WF.Rad));
     }
 
     private void SpawnBase()
