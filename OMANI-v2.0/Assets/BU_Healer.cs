@@ -13,6 +13,10 @@ public class BU_Healer : BU_UniqueBuilding
 
     float healingSize = 6;
 
+    //Audios
+
+    AudioSource addedWorker;
+
     // Use this for initialization
     public override void Start()
     {
@@ -26,6 +30,10 @@ public class BU_Healer : BU_UniqueBuilding
         healingGUI = this.transform.GetComponentInChildren<BU_Healing_GUI>();
 
         healer = this.transform.Find("Healer");
+
+        //Audio
+        addedWorker = this.GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -76,6 +84,7 @@ public class BU_Healer : BU_UniqueBuilding
         {
             _worker.GetComponent<NavMeshAgent>().Warp(healPositions[numberOfWorkers].transform.position);
             workers.Add(_worker);
+            addedWorker.Play();
         }
     }
 

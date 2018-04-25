@@ -31,6 +31,8 @@ public class BU_EquipmentBuildings : BU
     void Start()
     {
 
+        maxnumberOfWorkers = 2;
+
         weaponsBayGUI = this.transform.GetComponentInChildren<BU_WeaponsBay_GUI>();
 
         plugs = this.transform.GetChild(0).GetComponentsInChildren<BU_Plug>();
@@ -112,7 +114,10 @@ public class BU_EquipmentBuildings : BU
         }
     }
 
-    //Temporal
+    private void FixedUpdate()
+    {
+        numberOfWorkers = workers.Count;
+    }
 
     public void ReturnCreationTime(float _creationTime)
     {

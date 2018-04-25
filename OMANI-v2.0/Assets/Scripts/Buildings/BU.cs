@@ -15,6 +15,7 @@ public class BU : MonoBehaviour
     public GameObject direction;
 
 
+
     private void Awake()
     {
         if (this.transform.Find("Door") != null)
