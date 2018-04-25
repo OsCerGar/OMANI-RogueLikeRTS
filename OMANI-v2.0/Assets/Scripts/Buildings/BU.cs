@@ -67,7 +67,7 @@ public class BU : MonoBehaviour
 
     public virtual void RemoveWorker()
     {
-        if (workers.Count != 0 && workers.Count < maxnumberOfWorkers)
+        if (workers.Count != 0 && workers.Count <= maxnumberOfWorkers)
         {
             workers[workers.Count - 1].GetComponent<NavMeshAgent>().Warp(door.transform.position);
             workers.Remove(workers[workers.Count - 1]);
