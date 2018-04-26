@@ -21,6 +21,10 @@ public class BE_Roll : StateMachineBehaviour
         {
             speed -= 2.5f * Time.deltaTime;
         }
+        else
+        {
+            boy.onRoll = false;
+        }
 
     }
 

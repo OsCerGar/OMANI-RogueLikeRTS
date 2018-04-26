@@ -35,7 +35,7 @@ public class BU_EquipmentBuildings : BU
 
         weaponsBayGUI = this.transform.GetComponentInChildren<BU_WeaponsBay_GUI>();
 
-        plugs = this.transform.GetChild(0).GetComponentsInChildren<BU_Plug>();
+        plugs = this.transform.Find("Electricity").GetComponentsInChildren<BU_Plug>();
 
         foreach (BU_Plug plug in plugs)
         {

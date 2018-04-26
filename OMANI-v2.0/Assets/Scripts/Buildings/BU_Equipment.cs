@@ -24,7 +24,6 @@ public class BU_Equipment : Interactible
     public override void Action(BoyMovement _boy)
     {
 
-
     }
 
     public void DestroyEquipment()

@@ -13,6 +13,7 @@ public class BU_BuildingType : MonoBehaviour
 
     [SerializeField]
     int itemsSpawned = 0;
+    [SerializeField]
     float timeToSpawn = 45, timeToSpawnCounter = 0;
 
     BU_WeaponsBay_GUI weaponsBayGUI;
@@ -36,6 +37,22 @@ public class BU_BuildingType : MonoBehaviour
             timeToSpawnCounter += Time.deltaTime;
         }
         weaponsBayGUI.ChangeEquipmentClock(SpawningTimes());
+
+        switch (weaponsBay.numberOfWorkers)
+        {
+            case 0:
+                timeToSpawn = 45;
+                break;
+
+            case 1:
+                timeToSpawn = 35;
+                break;
+
+            case 2:
+                timeToSpawn = 20;
+                break;
+        }
+
     }
 
     public virtual float SpawningTimes()

@@ -63,6 +63,7 @@ public class BU : MonoBehaviour
         if (numberOfWorkers < maxnumberOfWorkers)
         {
             workers.Add(_worker);
+            _worker.GetComponent<NPC>().AI_SetTarget(null);
             _worker.GetComponent<NavMeshAgent>().Warp(workplace.transform.position);
         }
     }

@@ -337,7 +337,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                     if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
                     {
-                        Debug.Log("Viendo Edificio");
                         closestBUTarget = colBU;
                     }
                 }

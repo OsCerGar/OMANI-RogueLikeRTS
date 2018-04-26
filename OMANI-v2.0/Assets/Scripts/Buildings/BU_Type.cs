@@ -47,8 +47,8 @@ public class BU_Type : Interactible
                 {
 
                     //Changes the Building type to whatever
-                    closest.gameObject.AddComponent(typeof(BU_Swordsmith));
-                    closest.GetComponent<BU_Swordsmith>().equipmentToSpawn = buildingEquipment;
+                    closest.gameObject.AddComponent(typeof(BU_BuildingType));
+                    closest.GetComponent<BU_BuildingType>().equipmentToSpawn = buildingEquipment;
 
                     _boy.grabbedObject = null;
 
