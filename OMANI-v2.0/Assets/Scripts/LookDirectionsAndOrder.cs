@@ -144,6 +144,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #region Order
         if (selectedTypeList.Count > 0)
         {
+            //The boy will stop following you
+            if (Input.GetKeyDown("joystick button 1") || Input.GetMouseButtonDown(2))
+            {
+                commander.Order(selectedTypeList[selectedTypeInt], this.transform.position);
+
+            }
+
             if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
             {
                 orderCounter = 0;

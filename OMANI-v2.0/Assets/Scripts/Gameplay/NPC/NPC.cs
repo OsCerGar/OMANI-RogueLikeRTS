@@ -45,7 +45,7 @@ public class NPC : MonoBehaviour
             {
                 if (anim != null)
                 {
-                   // anim.SetTrigger("Hit");
+                    // anim.SetTrigger("Hit");
                 }
 
                 life = value;
@@ -231,20 +231,24 @@ public class NPC : MonoBehaviour
 
     public virtual void EnableCircle()
     {
-        circle.enabled = true;
-
         if (this.CompareTag("Enemy"))
         {
+            circle.enabled = true;
+
             circle.material.SetColor("_EmissionColor", Color.red * Mathf.LinearToGammaSpace(50));
         }
 
         else if (AI_GetState() == "Follow")
         {
+            circle.enabled = true;
+
             circle.material.SetColor("_EmissionColor", Color.green * Mathf.LinearToGammaSpace(50));
         }
 
         else
         {
+            circle.enabled = true;
+
             circle.material.SetColor("_EmissionColor", Color.white * Mathf.LinearToGammaSpace(50));
         }
     }

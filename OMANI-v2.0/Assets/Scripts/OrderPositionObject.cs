@@ -31,13 +31,16 @@ public class OrderPositionObject : MonoBehaviour
 
         Collider[] PeopleInViewRadius = null;
         PeopleInViewRadius = Physics.OverlapSphere(transform.position, 1f, layermask1, QueryTriggerInteraction.Ignore);
-        if (PeopleInViewRadius.Length > 0 && PeopleInViewRadius[0].gameObject != NPC)
+        if (PeopleInViewRadius.Length > 0 && PeopleInViewRadius[0].gameObject.GetComponent<Player>() == null)
         {
-            Vector3 oposite = (this.transform.position - PeopleInViewRadius[0].transform.position).normalized * 2;
-            Vector3 position = this.transform.position;
-            position.x += oposite.x;
-            position.z += oposite.z;
-            this.transform.position = position;
+            if (PeopleInViewRadius[0].gameObject != NPC)
+            {
+                Vector3 oposite = (this.transform.position - PeopleInViewRadius[0].transform.position).normalized * 2;
+                Vector3 position = this.transform.position;
+                position.x += oposite.x;
+                position.z += oposite.z;
+                this.transform.position = position;
+            }
         }
 
     }
