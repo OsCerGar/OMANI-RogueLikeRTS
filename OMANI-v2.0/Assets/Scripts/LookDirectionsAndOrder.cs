@@ -145,7 +145,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (selectedTypeList.Count > 0)
         {
             //The boy will stop following you
-            if (Input.GetKeyDown("joystick button 1") || Input.GetMouseButtonDown(2))
+            if (Input.GetKeyDown("joystick button 0") || Input.GetMouseButtonDown(2))
             {
                 commander.Order(selectedTypeList[selectedTypeInt], this.transform.position);
 
