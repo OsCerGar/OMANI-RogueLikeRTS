@@ -114,6 +114,7 @@ public class BU_EquipmentBuildings : BU
         }
     }
 
+
     private void FixedUpdate()
     {
         numberOfWorkers = workers.Count;

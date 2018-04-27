@@ -25,19 +25,11 @@ public class BU_BuildingType : MonoBehaviour
         weaponsBay = this.transform.GetComponent<BU_EquipmentBuildings>();
         weaponsBay.buildingTypeAndBehaviour = this;
 
-        StartCoroutine(CreateEquipment());
-
         weaponsBayGUI = this.transform.GetComponentInChildren<BU_WeaponsBay_GUI>();
     }
 
     public virtual void Update()
     {
-        if (timeToSpawnCounter < timeToSpawn)
-        {
-            timeToSpawnCounter += Time.deltaTime;
-        }
-        weaponsBayGUI.ChangeEquipmentClock(SpawningTimes());
-
         switch (weaponsBay.numberOfWorkers)
         {
             case 0:
@@ -53,6 +45,19 @@ public class BU_BuildingType : MonoBehaviour
                 break;
         }
 
+        if (timeToSpawnCounter < timeToSpawn)
+        {
+            timeToSpawnCounter += Time.deltaTime;
+        }
+
+        if (timeToSpawnCounter > timeToSpawn)
+        {
+            AddEquipment();
+            timeToSpawnCounter = 0;
+        }
+
+        weaponsBayGUI.ChangeEquipmentClock(SpawningTimes());
+
     }
 
     public virtual float SpawningTimes()
@@ -65,18 +70,6 @@ public class BU_BuildingType : MonoBehaviour
         return (float)itemsSpawned / 7;
     }
 
-
-    IEnumerator CreateEquipment()
-    {
-
-        do
-        {
-            AddEquipment();
-            timeToSpawnCounter = 0;
-            yield return new WaitForSeconds(timeToSpawn);
-        } while (true);
-
-    }
 
 
 

@@ -182,7 +182,7 @@ public class BoyMovement : MonoBehaviour
             if (grabbedObject == null)
             {
                 Collider[] objectsInArea = null;
-                objectsInArea = Physics.OverlapSphere(transform.position, 2f, 1 << 14);
+                objectsInArea = Physics.OverlapSphere(transform.position, 3f, 1 << 14);
 
                 float minDistance = 0;
                 GameObject closest = null;
