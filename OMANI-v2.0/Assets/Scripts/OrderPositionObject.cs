@@ -33,7 +33,7 @@ public class OrderPositionObject : MonoBehaviour
         PeopleInViewRadius = Physics.OverlapSphere(transform.position, 1f, layermask1, QueryTriggerInteraction.Ignore);
         if (PeopleInViewRadius.Length > 0 && PeopleInViewRadius[0].gameObject.GetComponent<Player>() == null)
         {
-            if (PeopleInViewRadius[0].gameObject != NPC)
+            if (PeopleInViewRadius[0].gameObject != NPC && PeopleInViewRadius[0].gameObject.GetComponent<NPC>().AI_GetState() != "Follow")
             {
                 Vector3 oposite = (this.transform.position - PeopleInViewRadius[0].transform.position).normalized * 2;
                 Vector3 position = this.transform.position;

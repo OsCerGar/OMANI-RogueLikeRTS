@@ -9,7 +9,7 @@ public class BU_PowerPlant : BU
 
     [SerializeField]
     List<temporalCable> cables = new List<temporalCable>();
-    public int energy;
+    public int energy = 0;
 
     public MeshRenderer[] buttons;
 
@@ -21,6 +21,7 @@ public class BU_PowerPlant : BU
     // Use this for initialization
     void Start()
     {
+
         maxnumberOfWorkers = 4;
 
         // Searches buttons
@@ -33,6 +34,9 @@ public class BU_PowerPlant : BU
 
         //Audio
         addedWorker = this.GetComponent<AudioSource>();
+
+        //Adds one energy at the start.
+        AddEnergy();
 
     }
 
