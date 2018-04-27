@@ -31,18 +31,18 @@ public class BU_Equipment_Swordsmith : Interactible
             //Checks if there are possible interactions.
             if (objectsInArea.Length > 1)
             {
-
                 for (int i = 0; i < objectsInArea.Length; i++)
                 {
+                    Worker worker = objectsInArea[i].GetComponent<Worker>();
                     //If you want it to work with every NPC just change the GetComponent to NPC
-                    if (objectsInArea[i].GetComponent<Worker>() != null)
+                    if (worker != null)
                     {
                         float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
 
                         if (minDistance == 0 || minDistance > distance)
                         {
                             minDistance = distance;
-                            closest = objectsInArea[i].GetComponent<Worker>();
+                            closest = worker;
                         }
                     }
                 }

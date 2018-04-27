@@ -21,6 +21,7 @@ public class BoyMovement : MonoBehaviour
 
     //Smoothing variables for turning the character
     private float smooth = 15f;
+    private float rollTimer;
     //Timer to remove input from the player while in ragdoll.
     private float ragdollTimer = 0;
     //Speed for the animation
@@ -167,6 +168,7 @@ public class BoyMovement : MonoBehaviour
     {
         //Timer for the character to get up from ragdoll.
         ragdollTimer += Time.deltaTime;
+        rollTimer += Time.deltaTime;
 
         //ROLL 
         // If space is pressed.
@@ -190,11 +192,7 @@ public class BoyMovement : MonoBehaviour
                 // Checks if there are interactible objects nearby
                 if (objectsInArea.Length < 1)
                 {
-                    if (onRoll != true)
-                    {
-                        anim.SetTrigger("Roll");
-                        onRoll = true;
-                    }
+                    Roll();
                 }
 
                 else
@@ -229,6 +227,17 @@ public class BoyMovement : MonoBehaviour
                 grabbedObject.Action(this);
             }
 
+        }
+    }
+
+    private void Roll()
+    {
+
+        if (rollTimer > 1.75f && onRoll != true)
+        {
+            onRoll = true;
+            rollTimer = 0;
+            anim.SetTrigger("Roll");
         }
     }
 

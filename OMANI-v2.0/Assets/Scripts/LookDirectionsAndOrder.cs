@@ -334,43 +334,48 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 else if (col.CompareTag("Building"))
                 {
                     colBU = col.GetComponent<BU>();
-
-                    // Disables Outline by default
-                    colBU.DisableCircle();
-                    Transform target = col.transform;
-
-                    // Check if its inside the selection angle.
-                    Vector3 dirToTarget = (target.position - transform.position).normalized;
-
-                    if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                    if (colBU != null)
                     {
-                        closestBUTarget = colBU;
+                        // Disables Outline by default
+                        colBU.DisableCircle();
+                        Transform target = col.transform;
+
+                        // Check if its inside the selection angle.
+                        Vector3 dirToTarget = (target.position - transform.position).normalized;
+
+                        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                        {
+                            closestBUTarget = colBU;
+                        }
                     }
                 }
 
                 else if (col.CompareTag("Enemy"))
                 {
                     colEnemy = col.GetComponent<NPC>();
-                    // Disables Outline by default
-                    colEnemy.DisableCircle();
-
-                    Transform target = col.transform;
-
-                    // Check if its inside the selection angle.
-                    Vector3 dirToTarget = (target.position - transform.position).normalized;
-
-                    if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                    if (colEnemy != null)
                     {
-                        //Distance to target
-                        float dstToTarget = Vector3.Distance(transform.position, target.position);
+                        // Disables Outline by default
+                        colEnemy.DisableCircle();
 
-                        //If the closestTarget is null he is the closest target.
-                        // If the distance is smaller than the distance to the closestTarget.
-                        if (closestEnemyTarget == null || dstToTarget < Vector3.Distance(transform.position, closestEnemyTarget.transform.position))
+                        Transform target = col.transform;
+
+                        // Check if its inside the selection angle.
+                        Vector3 dirToTarget = (target.position - transform.position).normalized;
+
+                        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
                         {
-                            closestEnemyTarget = colEnemy;
-                        }
+                            //Distance to target
+                            float dstToTarget = Vector3.Distance(transform.position, target.position);
 
+                            //If the closestTarget is null he is the closest target.
+                            // If the distance is smaller than the distance to the closestTarget.
+                            if (closestEnemyTarget == null || dstToTarget < Vector3.Distance(transform.position, closestEnemyTarget.transform.position))
+                            {
+                                closestEnemyTarget = colEnemy;
+                            }
+
+                        }
                     }
                 }
             }

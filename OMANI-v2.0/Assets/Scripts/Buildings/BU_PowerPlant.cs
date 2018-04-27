@@ -22,7 +22,7 @@ public class BU_PowerPlant : BU
     void Start()
     {
 
-        maxnumberOfWorkers = 4;
+        maxnumberOfWorkers = 3;
 
         // Searches buttons
         buttons = this.transform.Find("Office").GetChild(0).GetComponentsInChildren<MeshRenderer>();

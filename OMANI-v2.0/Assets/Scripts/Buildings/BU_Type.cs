@@ -32,13 +32,14 @@ public class BU_Type : Interactible
             //Checks if there are possible interactions.
             if (objectsInArea.Length > 1)
             {
-
+                BU_EquipmentBuildings bu;
                 for (int i = 0; i < objectsInArea.Length; i++)
                 {
-                    if (objectsInArea[i].GetComponentInParent<BU_EquipmentBuildings>().buildingTypeAndBehaviour == null)
+                    bu = objectsInArea[i].GetComponentInParent<BU_EquipmentBuildings>();
+                    if (bu.buildingTypeAndBehaviour == null)
                     {
 
-                        closest = objectsInArea[i].GetComponentInParent<BU_EquipmentBuildings>();
+                        closest = bu;
                     }
 
                 }
