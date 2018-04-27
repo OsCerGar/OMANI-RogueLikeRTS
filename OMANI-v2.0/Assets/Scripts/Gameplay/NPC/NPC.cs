@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
     public string state;
 
     [SerializeField]
-    public int startLife, life, damage;
+    public int startLife , life, damage;
     //Required for run animations synced with NevMesh
     [HideInInspector]
     public Animator anim;
@@ -116,15 +116,14 @@ public class NPC : MonoBehaviour
     {
         //He dies if life lowers 
         //TODO : Make this an animation, and make it so that it swaps his layer and tag to something neutral
-        if (state == "Alive")
-        {
+        
             if (life <= 0)
             {
                 //provisional :D
                 Die();
                 state = "Dead";
             }
-        }
+        
 
         //Animspeed conected to navmesh speed 
         anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
@@ -143,6 +142,7 @@ public class NPC : MonoBehaviour
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         this.gameObject.tag = "Untagged";
         this.gameObject.layer = 0;
+        this.enabled = false;
         //cambiar tag y layer
     }
 

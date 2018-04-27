@@ -7,6 +7,7 @@ public class PTR_ArenaSpawner : MonoBehaviour {
     EZObjectPool ChomperPool,GrenadierPool,SwordsmanPool,ArcherPool;
    public  Transform chomperSpawn, grenadierSpawn, swordsmanSpawn, archerSpawn;
     // Use this for initialization
+    GameObject Spawned;
     void Start () {
         var AllPoolers = FindObjectsOfType<EZObjectPool>();
 
@@ -34,19 +35,39 @@ public class PTR_ArenaSpawner : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
-            SwordsmanPool.TryGetNextObject(swordsmanSpawn.position, swordsmanSpawn.rotation);
+            SwordsmanPool.TryGetNextObject(swordsmanSpawn.position, swordsmanSpawn.rotation, out Spawned);
+            var spawnNpc = Spawned.GetComponent<NPC>();
+            if (spawnNpc.life < spawnNpc.startLife)
+            {
+                spawnNpc.life = spawnNpc.startLife;
+            }
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            ArcherPool.TryGetNextObject(archerSpawn.position, archerSpawn.rotation);
+            ArcherPool.TryGetNextObject(archerSpawn.position, archerSpawn.rotation, out Spawned);
+            var spawnNpc = Spawned.GetComponent<NPC>();
+            if (spawnNpc.life < spawnNpc.startLife)
+            {
+                spawnNpc.life = spawnNpc.startLife;
+            }
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            ChomperPool.TryGetNextObject(chomperSpawn.position, chomperSpawn.rotation);
+            ChomperPool.TryGetNextObject(chomperSpawn.position, chomperSpawn.rotation, out Spawned);
+            var spawnNpc = Spawned.GetComponent<NPC>();
+            if (spawnNpc.life < spawnNpc.startLife)
+            {
+                spawnNpc.life = spawnNpc.startLife;
+            }
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            GrenadierPool.TryGetNextObject(grenadierSpawn.position, grenadierSpawn.rotation);
+            GrenadierPool.TryGetNextObject(grenadierSpawn.position, grenadierSpawn.rotation, out Spawned);
+            var spawnNpc = Spawned.GetComponent<NPC>();
+            if (spawnNpc.life < spawnNpc.startLife)
+            {
+                spawnNpc.life = spawnNpc.startLife;
+            }
         }
     }
 
