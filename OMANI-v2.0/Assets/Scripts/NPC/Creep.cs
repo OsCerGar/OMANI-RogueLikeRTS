@@ -25,4 +25,8 @@ public class Creep : NPC {
             }
         }
     }
+    public override void Die()
+    {
+        transform.gameObject.SetActive(false);
+    }
 }
