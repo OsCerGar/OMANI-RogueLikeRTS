@@ -102,15 +102,17 @@ public class Interactible_Scrap : Interactible
                     }
                 }
 
+                else
+                {
+                    enableRigid();
+
+                    this.transform.SetParent(null);
+                    _boy.grabbedObject = null;
+                }
+
+
             }
 
-            else
-            {
-                enableRigid();
-
-                this.transform.SetParent(null);
-                _boy.grabbedObject = null;
-            }
         }
 
     }
