@@ -6,13 +6,16 @@ public class Interactible : MonoBehaviour
 {
 
     Rigidbody myRigidBody;
+    bool hasRigid = false;
 
     // Use this for initialization
     public virtual void Start()
     {
-        if (this.GetComponent<Rigidbody>() != null)
+        myRigidBody = this.GetComponent<Rigidbody>();
+
+        if (myRigidBody != null)
         {
-            myRigidBody = this.GetComponent<Rigidbody>();
+            hasRigid = true;
         }
     }
 
@@ -29,12 +32,17 @@ public class Interactible : MonoBehaviour
 
     public void enableRigid()
     {
-        myRigidBody.isKinematic = false;
+        if (hasRigid)
+        {
+            myRigidBody.isKinematic = false;
+        }
     }
 
     public void disableRigid()
     {
-        myRigidBody.isKinematic = true;
-
+        if (hasRigid)
+        {
+            myRigidBody.isKinematic = true;
+        }
     }
 }

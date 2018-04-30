@@ -16,6 +16,5 @@ public class BU_Healing_GUI : MonoBehaviour
     public void ChangeHealingClock(float _fillAmount)
     {
         healingClock.fillAmount = _fillAmount;
-
     }
 }

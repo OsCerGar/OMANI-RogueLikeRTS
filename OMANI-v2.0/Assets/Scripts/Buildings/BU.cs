@@ -29,9 +29,14 @@ public class BU : MonoBehaviour
 
         workplace = this.transform.parent.transform.Find("Workplace").gameObject;
 
-        redCircle = this.transform.Find("BU_UI/SelectionCircle").GetComponent<SpriteRenderer>();
-        whiteCircle = this.transform.Find("BU_UI/SelectionCircleWhite").GetComponent<SpriteRenderer>();
-
+        if (this.transform.Find("BU_UI/SelectionCircle") != null)
+        {
+            redCircle = this.transform.Find("BU_UI/SelectionCircle").GetComponent<SpriteRenderer>();
+        }
+        if (this.transform.Find("BU_UI/SelectionCircleWhite") != null)
+        {
+            whiteCircle = this.transform.Find("BU_UI/SelectionCircleWhite").GetComponent<SpriteRenderer>();
+        }
     }
 
     public virtual void EnableCircle()

@@ -19,7 +19,7 @@ public class BU_UniqueBuilding : BU
     {
         //Makes sure it checks for energy on the first run.
         lastTotalEnergy = 100;
-        plugs = this.transform.GetChild(0).GetComponentsInChildren<BU_Plug>();
+        plugs = this.transform.Find("Electricity").GetComponentsInChildren<BU_Plug>();
 
 
         foreach (BU_Plug plug in plugs)
@@ -32,7 +32,6 @@ public class BU_UniqueBuilding : BU
     public virtual void Update()
     {
         totalEnergy = 0;
-
 
         foreach (BU_Plug plug in plugs)
         {
