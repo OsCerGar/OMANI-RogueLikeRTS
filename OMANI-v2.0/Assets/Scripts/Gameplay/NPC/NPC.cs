@@ -208,12 +208,26 @@ public class NPC : MonoBehaviour
         var stateVariable = (SharedString)AI.GetVariable("State");
         return stateVariable.Value;
     }
-
+    public virtual void AI_SetEnemy(GameObject target)
+    {
+        if (AI != null)
+        {
+            var targetVariable = (SharedGameObject)AI.GetVariable("Enemy");
+            targetVariable.Value = target;
+        }
+        
+    }
+    public virtual GameObject AI_GetEnemy()
+    {
+        var targetVariable = (SharedGameObject)AI.GetVariable("Enemy");
+        return targetVariable.Value;
+    }
     public virtual GameObject AI_GetTarget()
     {
         var targetVariable = (SharedGameObject)AI.GetVariable("Target");
         return targetVariable.Value;
     }
+
 
 
     public virtual void Mutate(GameObject _mutation)

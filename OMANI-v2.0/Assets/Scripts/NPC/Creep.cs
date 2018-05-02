@@ -14,13 +14,13 @@ public class Creep : NPC {
     }
     private void FixedUpdate()
     {
-        if (AI_GetTarget() != null)
+        if (AI_GetEnemy() != null)
         {
-            if (AI_GetTarget().GetComponent<NPC>()!= null)
+            if (AI_GetEnemy().GetComponent<NPC>()!= null)
             {
-                if (AI_GetTarget().GetComponent<NPC>().Life <= 0)
+                if (AI_GetEnemy().GetComponent<NPC>().Life <= 0)
                 {
-                    AI_SetTarget(null);
+                    AI_SetEnemy(null);
                 }
             }
         }
