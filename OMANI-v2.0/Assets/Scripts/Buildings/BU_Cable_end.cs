@@ -40,7 +40,7 @@ public class BU_Cable_end : Interactible
             }
 
             //Grabs
-            _boy.grabbedObject = this;
+            _boy.grabbedObject.Add(this);
             lastParent = this.transform.parent;
             this.transform.SetParent(_boy.hand.transform);
             this.transform.localPosition = Vector3.zero;

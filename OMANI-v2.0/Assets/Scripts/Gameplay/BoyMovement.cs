@@ -14,7 +14,7 @@ public class BoyMovement : MonoBehaviour
     //Movement Related
     [HideInInspector]
     public bool onRoll = false;
-    public Interactible grabbedObject;
+    public List<Interactible> grabbedObject = new List<Interactible>();
     private Transform lastParent;
     [SerializeField]
     public GameObject hand;
@@ -181,13 +181,14 @@ public class BoyMovement : MonoBehaviour
     {
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
         {
-            if (grabbedObject == null)
+            if (grabbedObject.Count < 3)
             {
                 Collider[] objectsInArea = null;
                 objectsInArea = Physics.OverlapSphere(transform.position, 3f, 1 << 14);
 
                 float minDistance = 0;
                 GameObject closest = null;
+                bool alreadyGrabbedObject = false;
 
                 // Checks if there are interactible objects nearby
                 if (objectsInArea.Length < 1)
@@ -202,33 +203,50 @@ public class BoyMovement : MonoBehaviour
                     {
                         if (objectsInArea[i].tag == "Interactible")
                         {
-                            float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
-
-                            if (minDistance == 0 || minDistance > distance)
+                            foreach (Interactible interact in grabbedObject)
                             {
-                                minDistance = distance;
-                                closest = objectsInArea[i].gameObject;
+                                if (interact.gameObject == objectsInArea[i].gameObject)
+                                {
+                                    alreadyGrabbedObject = true;
+                                }
                             }
 
-                        }
-                    }
+                            if (alreadyGrabbedObject == false)
+                            {
+                                float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
 
-                    if (closest != null)
-                    {
-                        //Does whatever Action does
-                        //Sends himself to the action manager
-                        closest.GetComponent<Interactible>().Action(this);
+                                if (minDistance == 0 || minDistance > distance)
+                                {
+                                    minDistance = distance;
+                                    closest = objectsInArea[i].gameObject;
+                                }
+                            }
+                        }
+
                     }
+                }
+
+                if (closest != null)
+                {
+                    //Does whatever Action does
+                    //Sends himself to the action manager
+                    closest.GetComponent<Interactible>().Action(this);
+                }
+                else if (grabbedObject.Count > 0)
+                {
+                    grabbedObject[grabbedObject.Count - 1].Action(this);
+
                 }
             }
 
+
             else
             {
-                grabbedObject.Action(this);
+                grabbedObject[grabbedObject.Count - 1].Action(this);
             }
-
         }
     }
+
 
     private void Roll()
     {
@@ -451,10 +469,14 @@ public class BoyMovement : MonoBehaviour
         //Position too look at.
         anim.SetLookAtPosition(LookDirection.miradaposition);
 
-        if (grabbedObject != null)
+        if (grabbedObject.Count > 0)
         {
             anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.6f);
-            anim.SetIKPosition(AvatarIKGoal.LeftHand, grabbedObject.transform.position);
+            anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 0.6f);
+
+            anim.SetIKPosition(AvatarIKGoal.LeftHand, grabbedObject[0].transform.position);
+            anim.SetIKPosition(AvatarIKGoal.RightHand, grabbedObject[0].transform.position);
+
         }
     }
 }

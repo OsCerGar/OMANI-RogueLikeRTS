@@ -23,7 +23,7 @@ public class Interactible_Scrap : Interactible
             disableRigid();
 
             //Grabs
-            _boy.grabbedObject = this;
+            _boy.grabbedObject.Add(this);
             this.transform.SetParent(_boy.hand.transform);
             this.transform.localPosition = Vector3.zero;
         }
