@@ -9,19 +9,22 @@ public class MeleAttack : MonoBehaviour {
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == TagToAttack)
+        if (other.tag == TagToAttack )
         {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             
             EnemyNPC.Life -= transform.parent.GetComponent<NPC>().Damage;
+
+            EnemyNPC.AI_SetEnemy(transform.parent.gameObject);
+
             if (EnemyNavMesh != null)
             {
                 EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;
             }
             if (EnemyNPC.Life <= 0)
             {
-                transform.parent.GetComponent<NPC>().AI_SetTarget(null);
+                transform.parent.GetComponent<NPC>().AI_SetEnemy(null);
             }
 
 
@@ -29,7 +32,16 @@ public class MeleAttack : MonoBehaviour {
     }
     private void OnEnable()
     {
-        Debug.Log("funciona");
+        var enem = transform.parent.GetComponent<NPC>().AI_GetEnemy();
+        if (enem != null)
+        {
+            if (enem.tag == "Building")
+            {
+                Debug.Log("damage to building");
+                enem.GetComponent<NPC>().Life -= transform.parent.GetComponent<NPC>().Damage;
+            }
+        }
+        
         StartCoroutine(WaitandDisable());
     }
     IEnumerator WaitandDisable()

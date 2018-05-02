@@ -17,7 +17,7 @@ public class BU_Workplace : MonoBehaviour
             if (building.numberOfWorkers < building.maxnumberOfWorkers)
             {
 
-                if (other.GetComponent<NPC>().AI_GetTarget() == building.direction)
+                if (other.GetComponent<NPC>().AI_GetEnemy() == building.direction)
                 {
                     building.AddWorker(other.gameObject);
                 }

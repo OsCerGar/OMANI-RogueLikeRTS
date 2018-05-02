@@ -14,7 +14,7 @@ public class Army : MonoBehaviour
     //Adds the boy to the Army and makes it follow the Army commander.
     public void Reclute(NPC barroBoy)
     {
-        if (barroBoy.AI_GetTarget() != this.gameObject)
+        if (barroBoy.AI_GetEnemy() != this.gameObject)
         {
             switch (barroBoy.BoyType)
             {
