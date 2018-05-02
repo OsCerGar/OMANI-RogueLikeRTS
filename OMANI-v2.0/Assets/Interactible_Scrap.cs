@@ -18,7 +18,18 @@ public class Interactible_Scrap : Interactible
     }
     public override void Action(BoyMovement _boy)
     {
-        if (_boy.grabbedObject == null)
+        bool alreadyGrabbedObject = false;
+
+        foreach (Interactible interact in _boy.grabbedObject)
+        {
+            if (interact.gameObject == this.gameObject)
+            {
+                alreadyGrabbedObject = true;
+            }
+        }
+
+
+        if (alreadyGrabbedObject == false && _boy.grabbedObject.Count < 3)
         {
             disableRigid();
 
@@ -76,7 +87,7 @@ public class Interactible_Scrap : Interactible
                         disableRigid();
 
                         this.transform.SetParent(null);
-                        _boy.grabbedObject = null;
+                        _boy.grabbedObject.Remove(this);
 
                         //Should be pooled.
                         Destroy(this.gameObject);
@@ -93,7 +104,7 @@ public class Interactible_Scrap : Interactible
                             disableRigid();
 
                             this.transform.SetParent(null);
-                            _boy.grabbedObject = null;
+                            _boy.grabbedObject.Remove(this);
 
                             //Should be pooled.
                             Destroy(this.gameObject);
@@ -107,7 +118,7 @@ public class Interactible_Scrap : Interactible
                     enableRigid();
 
                     this.transform.SetParent(null);
-                    _boy.grabbedObject = null;
+                    _boy.grabbedObject.Remove(this);
                 }
 
 

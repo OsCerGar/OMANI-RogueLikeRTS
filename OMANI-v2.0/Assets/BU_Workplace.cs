@@ -14,10 +14,11 @@ public class BU_Workplace : MonoBehaviour
     {
         if (other.CompareTag("People") && other.GetComponent<Player>() == null)
         {
+
             if (building.numberOfWorkers < building.maxnumberOfWorkers)
             {
 
-                if (other.GetComponent<NPC>().AI_GetEnemy() == building.direction)
+                if (other.GetComponent<NPC>().AI_GetTarget() == building.direction)
                 {
                     building.AddWorker(other.gameObject);
                 }

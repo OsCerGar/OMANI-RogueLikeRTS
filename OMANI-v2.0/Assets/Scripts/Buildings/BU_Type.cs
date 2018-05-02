@@ -10,8 +10,19 @@ public class BU_Type : Interactible
 
     public override void Action(BoyMovement _boy)
     {
-        if (_boy.grabbedObject == null)
+        bool alreadyGrabbedObject = false;
+
+        foreach (Interactible interact in _boy.grabbedObject)
         {
+            if (interact.gameObject == this.gameObject)
+            {
+                alreadyGrabbedObject = true;
+            }
+        }
+
+        if (alreadyGrabbedObject == false && _boy.grabbedObject.Count < 3)
+        {
+
             disableRigid();
 
             //Grabs
@@ -51,12 +62,10 @@ public class BU_Type : Interactible
                     closest.gameObject.AddComponent(typeof(BU_BuildingType));
                     closest.GetComponent<BU_BuildingType>().equipmentToSpawn = buildingEquipment;
 
-                    _boy.grabbedObject = null;
-
                     disableRigid();
 
                     this.transform.SetParent(null);
-                    _boy.grabbedObject = null;
+                    _boy.grabbedObject.Remove(this);
 
                     //Destroys itself
                     this.transform.parent = closest.gameObject.transform.Find("BU_UI").Find("BU_Type");
@@ -72,7 +81,7 @@ public class BU_Type : Interactible
                 enableRigid();
 
                 this.transform.SetParent(null);
-                _boy.grabbedObject = null;
+                _boy.grabbedObject.Remove(this);
             }
         }
 

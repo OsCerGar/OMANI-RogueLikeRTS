@@ -30,7 +30,18 @@ public class BU_Cable_end : Interactible
 
     public override void Action(BoyMovement _boy)
     {
-        if (_boy.grabbedObject == null)
+        bool alreadyGrabbedObject = false;
+
+        foreach (Interactible interact in _boy.grabbedObject)
+        {
+            if (interact.gameObject == this.gameObject)
+            {
+                alreadyGrabbedObject = true;
+            }
+        }
+
+
+        if (alreadyGrabbedObject == false && _boy.grabbedObject.Count < 3)
         {
 
             if (this.transform.parent != null && this.transform.parent.GetComponent<BU_Plug>())
@@ -77,7 +88,8 @@ public class BU_Cable_end : Interactible
                     this.transform.SetParent(closest.transform);
                     this.transform.localPosition = Vector3.zero;
 
-                    _boy.grabbedObject = null;
+                    _boy.grabbedObject.Remove(this);
+
 
                 }
 
@@ -86,7 +98,7 @@ public class BU_Cable_end : Interactible
             else
             {
                 this.transform.SetParent(null);
-                _boy.grabbedObject = null;
+                _boy.grabbedObject.Remove(this);
             }
         }
 

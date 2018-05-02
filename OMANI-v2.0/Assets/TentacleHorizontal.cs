@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tentacle : MonoBehaviour {
+public class TentacleHorizontal : MonoBehaviour {
     public GameObject PlaceHolderObjective;
     public Vector3 Objective;
     Vector3 initialAttackPos, finalAttackPos;
