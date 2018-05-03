@@ -7,7 +7,7 @@ public class WorldSpawnPos : WorldFeature
 {
     EZObjectPool BasicCreepsPooler;
     private GameObject spawned;
-    private bool isSpawner;
+    private bool isSpawner = false;
     private Transform player;
 
     // Use this for initialization

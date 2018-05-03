@@ -7,7 +7,7 @@ using System;
 
 public class SavageShack : MonoBehaviour {
     [SerializeField]
-    float cooldown = 45f;
+    float cooldown = 90f;
     float cooldownCounter = 0f;
     SavageCamp camp;
     GameObject altar;

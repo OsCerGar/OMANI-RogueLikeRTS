@@ -20,8 +20,8 @@ public class SavageCamp : MonoBehaviour {
 
     private GameObject protagonist;
 
-    private float buildCounter = 0, buildCooldown = 240;
-    private float attackCounter = 0,attackCooldown = 240;
+    private float buildCounter = 0, buildCooldown = 360;
+    private float attackCounter = 0,attackCooldown = 300;
     // Use this for initialization
     void Start () {
         foreach (Transform child in transform)
