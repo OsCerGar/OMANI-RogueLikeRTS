@@ -8,11 +8,12 @@ public class DamagingCollider : MonoBehaviour {
 
     [SerializeField]
     int Damage;
-    private void OnCollisionEnter(Collision collision)
+   
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag ==(TagToDamage))
+        if (other.gameObject.tag == (TagToDamage))
         {
-            var npc = collision.transform.GetComponent<NPC>();
+            var npc = other.transform.GetComponent<NPC>();
             if (npc != null)
             {
                 npc.Life -= Damage;

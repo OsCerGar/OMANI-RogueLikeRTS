@@ -4,7 +4,7 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
 
-public class Creep : NPC {
+public class Creep : Enemy {
 
 	public void SetMaster(GameObject master)
     {

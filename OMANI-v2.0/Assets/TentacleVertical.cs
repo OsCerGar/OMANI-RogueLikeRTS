@@ -9,7 +9,8 @@ public class TentacleVertical : MonoBehaviour {
     Vector3 initialAttackPos, finalAttackPos;
     bool attack = false;
     float counter = 0;
-
+    [SerializeField]ParticleSystem WarningDust;
+   
     // Update is called once per frame
     void Update()
     {
@@ -51,13 +52,14 @@ public class TentacleVertical : MonoBehaviour {
             initialAttackPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             finalAttackPos = new Vector3(transform.position.x, 0f, transform.position.z);
             attack = true;
-            ActivateWarning();
+            ActivateWarning(finalAttackPos);
         }
 
     }
 
-    private void ActivateWarning()
+    private void ActivateWarning(Vector3 _pos)
     {
-        //Put Warning 
+        WarningDust.transform.position = _pos;
+        WarningDust.Play();
     }
 }
