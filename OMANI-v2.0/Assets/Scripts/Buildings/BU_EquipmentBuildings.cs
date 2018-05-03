@@ -30,7 +30,7 @@ public class BU_EquipmentBuildings : BU
     // Use this for initialization
     void Start()
     {
-
+        requiredEnergy = 1;
         maxnumberOfWorkers = 2;
 
         weaponsBayGUI = this.transform.GetComponentInChildren<BU_WeaponsBay_GUI>();
