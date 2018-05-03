@@ -31,7 +31,7 @@ public class BU_Type : Interactible
             this.transform.localPosition = Vector3.zero;
         }
 
-        // If you presss action while there is a nearby barroboy.
+        // If you presss action while there is a nearby object.
         else
         {
 
@@ -43,16 +43,19 @@ public class BU_Type : Interactible
             //Checks if there are possible interactions.
             if (objectsInArea.Length > 1)
             {
-                BU_EquipmentBuildings bu;
-                for (int i = 0; i < objectsInArea.Length; i++)
                 {
-                    bu = objectsInArea[i].GetComponentInParent<BU_EquipmentBuildings>();
-                    if (bu.buildingTypeAndBehaviour == null)
+                    BU_EquipmentBuildings bu;
+                    for (int i = 0; i < objectsInArea.Length; i++)
                     {
 
-                        closest = bu;
-                    }
+                        bu = objectsInArea[i].GetComponentInParent<BU_EquipmentBuildings>();
+                        if (bu != null && bu.buildingTypeAndBehaviour == null)
+                        {
 
+                            closest = bu;
+                        }
+
+                    }
                 }
 
                 if (closest != null)
