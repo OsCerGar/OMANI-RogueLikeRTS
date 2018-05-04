@@ -8,8 +8,11 @@ public class BU_Cable_end : Interactible
     private Transform lastParent;
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
+        base.Start();
+        disableRigid();
+
         cable = this.transform.parent.GetComponent<temporalCable>();
     }
 
@@ -43,6 +46,7 @@ public class BU_Cable_end : Interactible
 
         if (alreadyGrabbedObject == false && _boy.grabbedObject.Count < 3)
         {
+            disableRigid();
 
             if (this.transform.parent != null && this.transform.parent.GetComponent<BU_Plug>())
             {
@@ -85,6 +89,8 @@ public class BU_Cable_end : Interactible
 
                 if (closest != null)
                 {
+                    disableRigid();
+
                     this.transform.SetParent(closest.transform);
                     this.transform.localPosition = Vector3.zero;
 
@@ -97,6 +103,8 @@ public class BU_Cable_end : Interactible
 
             else
             {
+                enableRigid();
+
                 this.transform.SetParent(null);
                 _boy.grabbedObject.Remove(this);
             }

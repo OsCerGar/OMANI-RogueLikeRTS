@@ -9,9 +9,9 @@ public class BU : MonoBehaviour
     [HideInInspector]
     public SpriteRenderer redCircle, whiteCircle;
 
-    public List<GameObject> workers = new List<GameObject>();
+    public List<NPC> workers = new List<NPC>();
     public int numberOfWorkers = 0, maxnumberOfWorkers = 0;
-    public GameObject workplace, door;
+    public GameObject door;
     public GameObject direction;
 
 
@@ -27,7 +27,6 @@ public class BU : MonoBehaviour
             direction = this.transform.Find("Direction").gameObject;
         }
 
-        workplace = this.transform.parent.transform.Find("Workplace").gameObject;
 
         if (this.transform.Find("BU_UI/SelectionCircle") != null)
         {
@@ -63,13 +62,13 @@ public class BU : MonoBehaviour
         whiteCircle.enabled = false;
     }
 
-    public virtual void AddWorker(GameObject _worker)
+    public virtual void AddWorker(NPC _worker)
     {
         if (numberOfWorkers < maxnumberOfWorkers)
         {
             workers.Add(_worker);
-            _worker.GetComponent<NPC>().AI_SetTarget(null);
-            _worker.GetComponent<NavMeshAgent>().Warp(workplace.transform.position);
+            _worker.AI_SetTarget(null);
+            _worker.gameObject.SetActive(false);
         }
     }
 
@@ -77,8 +76,14 @@ public class BU : MonoBehaviour
     {
         if (workers.Count != 0 && workers.Count <= maxnumberOfWorkers)
         {
-            workers[workers.Count - 1].GetComponent<NavMeshAgent>().Warp(door.transform.position);
-            workers.Remove(workers[workers.Count - 1]);
+            NPC worker = workers[workers.Count - 1];
+
+            worker.gameObject.GetComponent<NavMeshAgent>().Warp(door.transform.position);
+            worker.AI_SetTarget(door);
+
+            worker.gameObject.SetActive(true);
+            workers.Remove(worker);
+
         }
     }
 }

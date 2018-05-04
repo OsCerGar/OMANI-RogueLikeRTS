@@ -78,7 +78,7 @@ public class BU_Healer : BU_UniqueBuilding
         }
     }
 
-    public override void AddWorker(GameObject _worker)
+    public override void AddWorker(NPC _worker)
     {
         if (numberOfWorkers < maxnumberOfWorkers)
         {
