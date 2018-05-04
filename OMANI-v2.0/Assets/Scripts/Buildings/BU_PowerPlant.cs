@@ -8,7 +8,7 @@ public class BU_PowerPlant : BU
     private GameObject cablePrefab;
 
     [SerializeField]
-    List<temporalCable> cables = new List<temporalCable>();
+    List<CableComponent> cables = new List<CableComponent>();
     public int energy = 0;
 
     public MeshRenderer[] buttons;
@@ -27,7 +27,7 @@ public class BU_PowerPlant : BU
         // Searches buttons
         buttons = this.transform.Find("Office").GetChild(0).GetComponentsInChildren<MeshRenderer>();
 
-        foreach (temporalCable cable in this.transform.GetChild(0).GetChild(0).GetComponentsInChildren<temporalCable>())
+        foreach (CableComponent cable in this.transform.GetChild(0).GetChild(0).GetComponentsInChildren<CableComponent>())
         {
             cables.Add(cable);
         }

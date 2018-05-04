@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BU_Cable_end : Interactible
 {
-    private temporalCable cable;
+    private CableComponent cable;
     private Transform lastParent;
 
     // Use this for initialization
@@ -13,7 +13,7 @@ public class BU_Cable_end : Interactible
         base.Start();
         disableRigid();
 
-        cable = this.transform.parent.GetComponent<temporalCable>();
+        cable = this.transform.parent.GetComponent<CableComponent>();
     }
 
     // Update is called once per frame
@@ -26,6 +26,7 @@ public class BU_Cable_end : Interactible
         }
         else
         {
+            cable.CableLength(0);
             this.transform.tag = "Untagged";
         }
 
@@ -90,6 +91,7 @@ public class BU_Cable_end : Interactible
                 if (closest != null)
                 {
                     disableRigid();
+                    cable.CableLength(16);
 
                     this.transform.SetParent(closest.transform);
                     this.transform.localPosition = Vector3.zero;
