@@ -19,12 +19,12 @@ public class OrderPositionObject : MonoBehaviour
     private void Update()
     {
         time += Time.deltaTime;
-        if (time > 4f)
+        if (time > 7f)
         {
             this.transform.position = npc.transform.position;
-            npc.AI_SetTarget(null);
+            npc.AI_SetState("Free");
             //Self destroys after x seconds. It shouldn't autodestroy like this.
-            Destroy(this.gameObject, 7f);
+            Destroy(this.gameObject);
 
         }
     }
@@ -62,7 +62,7 @@ public class OrderPositionObject : MonoBehaviour
 
         if (other.gameObject == npc.gameObject)
         {
-            npc.AI_SetTarget(null);
+            npc.AI_SetState("Free");
             //Self destroys
             Destroy(this.gameObject);
         }
