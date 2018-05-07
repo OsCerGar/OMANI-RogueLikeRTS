@@ -17,7 +17,6 @@ public class TaskShoot : Action {
         ShootScript = transform.gameObject.GetComponent<ShootProjectile>();
         if (ShootScript != null)
         {
-            Debug.Log("Turret_Shoot");
             ShootScript.Shoot();
         }
         return TaskStatus.Success;

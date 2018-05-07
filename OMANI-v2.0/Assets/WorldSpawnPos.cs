@@ -31,7 +31,6 @@ public class WorldSpawnPos : WorldFeature
             {
                 Debug.Log("deactivate");
                 spawned.SetActive(false);
-                spawned = null;
             }
         }
     }
@@ -51,11 +50,12 @@ public class WorldSpawnPos : WorldFeature
 
                     if (randomizer < 5) //Posibilities to spawn something Special
                     {
-                        Debug.Log("something special");
+                        BasicCreepsPooler.TryGetNextObject(transform.position, transform.rotation, out spawned);
+                        player = other.transform;
+                        isSpawner = true;
                     }
                     else
                     {
-                        Debug.Log("spawn");
                         if (BasicCreepsPooler != null)
                         {
                             BasicCreepsPooler.TryGetNextObject(transform.position, transform.rotation, out spawned);
