@@ -7,7 +7,7 @@ public class Worker : NPC {
     private ParticleSystem explosion;
     void Awake()
     {
-        boyType = "Swordsman";
+        boyType = "Worker";
     }
     public void Explode()
     {

@@ -49,7 +49,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     void Update()
     {
-
         // LOOK
         miradaPositionObject.transform.position = miradaposition;
 
@@ -106,13 +105,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private void SelectedType()
     {
 
-        // When you have a selectable unity
+        // When you have a selectable unit
         if (selectedTypeInt < selectedTypeList.Count)
         {
             if (selectedTypeList[selectedTypeInt] != null)
             {
                 commander.GUI_ActivateCircle(selectedTypeList[selectedTypeInt]);
-
             }
         }
 
@@ -120,19 +118,28 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("joystick button 7")) // forward
             {
-                selectedTypeInt += 1;
-                if (selectedTypeInt > selectedTypeList.Count - 1)
+                if (selectedTypeInt + 1 > selectedTypeList.Count - 1)
                 {
                     selectedTypeInt = 0;
+                }
+
+                else
+                {
+                    selectedTypeInt += 1;
                 }
             }
             else if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetKeyDown("joystick button 6")) // backwards
             {
-                selectedTypeInt -= 1;
 
-                if (selectedTypeInt < 0)
+                if (selectedTypeInt - 1 < 0)
                 {
                     selectedTypeInt = selectedTypeList.Count - 1;
+                }
+
+                else
+                {
+                    selectedTypeInt -= 1;
+
                 }
 
             }

@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
     public string state;
 
     [SerializeField]
-    public int startLife , life, damage;
+    public int startLife, life, damage;
     //Required for run animations synced with NevMesh
     [HideInInspector]
     public Animator anim;
@@ -116,14 +116,14 @@ public class NPC : MonoBehaviour
     {
         //He dies if life lowers 
         //TODO : Make this an animation, and make it so that it swaps his layer and tag to something neutral
-        
-            if (life <= 0)
-            {
-                //provisional :D
-                Die();
-                state = "Dead";
-            }
-        
+
+        if (life <= 0)
+        {
+            //provisional :D
+            Die();
+            state = "Dead";
+        }
+
 
         //Animspeed conected to navmesh speed 
         anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
@@ -215,7 +215,7 @@ public class NPC : MonoBehaviour
             var targetVariable = (SharedGameObject)AI.GetVariable("Enemy");
             targetVariable.Value = target;
         }
-        
+
     }
     public virtual GameObject AI_GetEnemy()
     {
@@ -267,12 +267,27 @@ public class NPC : MonoBehaviour
         }
     }
 
+    public virtual void EnablePriorityCircle()
+    {
+        circle.enabled = true;
+
+        circle.material.SetColor("_EmissionColor", new Color(1, .3f, .1f, .4f) * Mathf.LinearToGammaSpace(50));
+
+    }
+
+
     public virtual void DisableCircle()
     {
         if (this.CompareTag("Enemy") || AI_GetState() != "Follow")
         {
-            circle.enabled = false;
             circle.material.SetColor("_EmissionColor", Color.white * Mathf.LinearToGammaSpace(50));
+            circle.enabled = false;
         }
     }
+
+    public virtual void DisablePriorityCircle()
+    {
+        circle.material.SetColor("_EmissionColor", Color.green * Mathf.LinearToGammaSpace(50));
+    }
+
 }

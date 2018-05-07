@@ -24,7 +24,7 @@ public class OrderPositionObject : MonoBehaviour
             this.transform.position = npc.transform.position;
             npc.AI_SetTarget(null);
             //Self destroys after x seconds. It shouldn't autodestroy like this.
-            Destroy(this.gameObject, 5f);
+            Destroy(this.gameObject, 7f);
 
         }
     }
