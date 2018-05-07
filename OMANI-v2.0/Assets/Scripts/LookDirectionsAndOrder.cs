@@ -217,7 +217,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
 
 
-                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = boyInCharge.gameObject;
+                    orderPositionVar.GetComponent<OrderPositionObject>().npc = boyInCharge;
                     boyInCharge.ChargedOrderFullfilled(orderPositionVar);
                     commander.RemoveFromList(boyInCharge);
                     boyInCharge = null;

@@ -55,7 +55,7 @@ public class Army : MonoBehaviour
                     barroBoy = swordsmans[swordsmans.Count - 1];
                     swordsmans.Remove(barroBoy);
 
-                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
+                    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
                 }
 
@@ -69,7 +69,7 @@ public class Army : MonoBehaviour
                     barroBoy = archers[archers.Count - 1];
                     archers.Remove(barroBoy);
 
-                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
+                    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
 
                 }
@@ -83,7 +83,7 @@ public class Army : MonoBehaviour
                     barroBoy = musketeers[musketeers.Count - 1];
                     musketeers.Remove(barroBoy);
 
-                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
+                    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
 
                 }
@@ -99,7 +99,7 @@ public class Army : MonoBehaviour
                     barroBoy = shieldmans[shieldmans.Count - 1];
                     shieldmans.Remove(barroBoy);
 
-                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
+                    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
 
                 }
@@ -113,7 +113,7 @@ public class Army : MonoBehaviour
                     barroBoy = rogues[rogues.Count - 1];
                     rogues.Remove(barroBoy);
 
-                    orderPositionVar.GetComponent<OrderPositionObject>().NPC = barroBoy.gameObject;
+                    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
 
                 }
