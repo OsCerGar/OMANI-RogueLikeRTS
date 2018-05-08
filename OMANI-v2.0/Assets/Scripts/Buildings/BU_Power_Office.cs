@@ -21,7 +21,7 @@ public class BU_Power_Office : MonoBehaviour
     {
         if (other.CompareTag("People") && thisEnergy < buttons.Length)
         {
-            if (other.GetComponent<Player>() == null)
+            if (other.tag != "Player")
             {
                 AddEnergy();
             }
@@ -32,7 +32,7 @@ public class BU_Power_Office : MonoBehaviour
     {
         if (other.CompareTag("People") && thisEnergy > 0)
         {
-            if (other.GetComponent<Player>() == null)
+            if (other.tag != "Player")
             {
                 RemoveEnergy();
             }

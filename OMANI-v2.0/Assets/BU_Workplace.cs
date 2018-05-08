@@ -12,7 +12,7 @@ public class BU_Workplace : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("People") && other.GetComponent<Player>() == null)
+        if (other.CompareTag("People") && other.tag != "Player")
         {
 
             if (building.numberOfWorkers < building.maxnumberOfWorkers)

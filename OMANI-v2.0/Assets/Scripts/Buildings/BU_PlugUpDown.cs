@@ -40,7 +40,7 @@ public class BU_PlugUpDown : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("People"))
+        if (other.CompareTag("Player"))
         {
             playerClose = true;
 
@@ -49,10 +49,9 @@ public class BU_PlugUpDown : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("People"))
+        if (other.CompareTag("Player"))
         {
             playerClose = false;
-
         }
     }
 
