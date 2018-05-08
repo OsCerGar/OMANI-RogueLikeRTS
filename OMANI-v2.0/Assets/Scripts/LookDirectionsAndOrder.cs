@@ -87,15 +87,15 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
 
         //^OrderTarget
-        if (selectedTypeList.Count > 0)
+        if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
         {
-            if (closestBUTarget != null)
+            //If building close and Worker selected.
+            if (closestBUTarget != null && selectedTypeList[selectedTypeInt] == "Worker")
             {
                 closestBUTarget.EnableCircle();
-
             }
 
-            if (closestEnemyTarget != null)
+            if (closestEnemyTarget != null && selectedTypeList[selectedTypeInt] != "Worker")
             {
                 closestEnemyTarget.EnableCircle();
             }

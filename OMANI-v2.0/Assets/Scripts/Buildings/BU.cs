@@ -64,7 +64,7 @@ public class BU : MonoBehaviour
 
     public virtual void AddWorker(NPC _worker)
     {
-        if (numberOfWorkers < maxnumberOfWorkers)
+        if (numberOfWorkers < maxnumberOfWorkers && _worker.boyType == "Worker")
         {
             workers.Add(_worker);
             _worker.AI_SetTarget(null);
