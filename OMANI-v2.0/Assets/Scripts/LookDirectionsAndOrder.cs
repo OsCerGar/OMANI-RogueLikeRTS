@@ -104,18 +104,18 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     private void SelectedType()
     {
-
-        // When you have a selectable unit
-        if (selectedTypeInt < selectedTypeList.Count)
+        if (selectedTypeList.Count > 0)
         {
-            if (selectedTypeList[selectedTypeInt] != null)
+            // When you have a selectable unit
+            if (selectedTypeInt < selectedTypeList.Count)
             {
                 commander.GUI_ActivateCircle(selectedTypeList[selectedTypeInt]);
             }
-        }
+            else
+            {
+                selectedTypeInt = selectedTypeList.Count - 1;
+            }
 
-        if (selectedTypeList.Count > 0)
-        {
             if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("joystick button 7")) // forward
             {
                 if (selectedTypeInt + 1 > selectedTypeList.Count - 1)
@@ -141,7 +141,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     selectedTypeInt -= 1;
 
                 }
-
             }
         }
     }

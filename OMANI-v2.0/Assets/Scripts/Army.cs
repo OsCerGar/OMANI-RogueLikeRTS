@@ -393,7 +393,7 @@ public class Army : MonoBehaviour
                 }
                 break;
             case "Worker":
-                if (musketeers.Count > 0)
+                if (workers.Count > 0)
                 {
                     GUI_ListActivateCircle(workers);
                     GUI_ListDisableCircle(swordsmans);

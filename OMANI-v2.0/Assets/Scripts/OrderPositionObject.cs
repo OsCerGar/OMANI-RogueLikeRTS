@@ -10,7 +10,7 @@ public class OrderPositionObject : MonoBehaviour
     int layermask1 = 1 << 9;
     int layermask2 = 1 << 11;
 
-    float time;
+    float time = 0;
 
     private void Start()
     {
@@ -22,7 +22,12 @@ public class OrderPositionObject : MonoBehaviour
         if (time > 7f)
         {
             this.transform.position = npc.transform.position;
-            npc.AI_SetState("Free");
+
+            if (npc.AI_GetState() != "Follow")
+            {
+                npc.AI_SetState("Free");
+
+            }
             //Self destroys after x seconds. It shouldn't autodestroy like this.
             Destroy(this.gameObject);
 
@@ -62,7 +67,11 @@ public class OrderPositionObject : MonoBehaviour
 
         if (other.gameObject == npc.gameObject)
         {
-            npc.AI_SetState("Free");
+            if (npc.AI_GetState() != "Follow")
+            {
+                npc.AI_SetState("Free");
+            }
+
             //Self destroys
             Destroy(this.gameObject);
         }
