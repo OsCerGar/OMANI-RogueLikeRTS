@@ -22,7 +22,7 @@ public class Meteorite : MonoBehaviour {
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Instantiate(ExplosionEffect,transform.position,transform.rotation);
+        Instantiate(ExplosionEffect,new Vector3(transform.position.x, 0.5f, transform.position.z), transform.rotation);
         Destroy(this.gameObject);
     }
 }

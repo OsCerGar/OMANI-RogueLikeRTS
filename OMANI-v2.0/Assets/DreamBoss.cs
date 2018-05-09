@@ -10,7 +10,8 @@ public class DreamBoss : Enemy {
     public void ShootMeteorite()
     {
         var meteor = Instantiate(Meteorite,Mouth.transform.position, Meteorite.transform.rotation);
-        meteor.GetComponent<Meteorite>().objective = AI_GetEnemy().transform.position;
+        var obj = AI_GetEnemy().transform.position;
+        meteor.GetComponent<Meteorite>().objective = new Vector3(obj.x,obj.y-2,obj.z);
     }
     public void ShootExpansiveAttack()
     {

@@ -8,6 +8,9 @@ public class RangedAttack : MonoBehaviour {
 
     [SerializeField] string TagToAttack;
     [SerializeField] float PushBack;
+    [SerializeField] int Damage = 1;
+
+
 
 
     void OnParticleCollision(GameObject other)
@@ -16,13 +19,13 @@ public class RangedAttack : MonoBehaviour {
         {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<UnityEngine.AI.NavMeshAgent>();
-            NPC thisNPC = transform.parent.GetComponent<NPC>();
-            if (thisNPC != null)
+            NPC thisNPC;
+            if (thisNPC = transform.parent.GetComponent<NPC>())
             {
                 EnemyNPC.Life -= thisNPC.Damage;
             } else
             {
-                EnemyNPC.Life -= 1;
+                EnemyNPC.Life -= Damage;
             }
             if (EnemyNavMesh != null)
             {
