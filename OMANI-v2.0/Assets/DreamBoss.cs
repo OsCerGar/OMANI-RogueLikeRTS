@@ -14,6 +14,6 @@ public class DreamBoss : Enemy {
     }
     public void ShootExpansiveAttack()
     {
-        var meteor = Instantiate(ExpansiveAttack, transform.position, transform.rotation);
+        var meteor = Instantiate(ExpansiveAttack,new Vector3(transform.position.x,0.5f, transform.position.z) , transform.rotation);
     }
 }
