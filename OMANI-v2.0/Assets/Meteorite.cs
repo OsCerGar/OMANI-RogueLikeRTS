@@ -17,8 +17,8 @@ public class Meteorite : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         x += Time.deltaTime;
-        x = x % 3;
-        transform.position = MathParabola.Parabola(startPos,objective,15,x/3);
+        x = x % 2;
+        transform.position = MathParabola.Parabola(startPos,objective,15,x/2);
     }
     private void OnCollisionEnter(Collision collision)
     {
