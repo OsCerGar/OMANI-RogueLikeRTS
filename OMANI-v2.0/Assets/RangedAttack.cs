@@ -16,7 +16,14 @@ public class RangedAttack : MonoBehaviour {
         {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<UnityEngine.AI.NavMeshAgent>();
-            EnemyNPC.Life -= transform.parent.GetComponent<NPC>().Damage;
+            NPC thisNPC = transform.parent.GetComponent<NPC>();
+            if (thisNPC != null)
+            {
+                EnemyNPC.Life -= thisNPC.Damage;
+            } else
+            {
+                EnemyNPC.Life -= 1;
+            }
             if (EnemyNavMesh != null)
             {
                 EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;

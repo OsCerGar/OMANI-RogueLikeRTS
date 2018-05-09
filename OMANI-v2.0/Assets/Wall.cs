@@ -58,6 +58,7 @@ public class Wall : NPC
     }
     public override void Die()
     {
+        GetComponent<AudioSource>().Play();
         collider.enabled = false;
         renderer.enabled = false;
         obstacle.enabled = false;
