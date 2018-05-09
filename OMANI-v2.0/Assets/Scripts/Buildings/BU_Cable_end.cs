@@ -79,14 +79,15 @@ public class BU_Cable_end : Interactible
 
             if (distance < 4f)
             {
-                disableRigid();
+                Debug.Log("On Distance 4");
 
-                Vector3.Lerp(this.transform.position, cable.transform.position.normalized, 0.4f);
-                spring.spring = 0;
+                disableRigid();
+                this.transform.position = Vector3.Lerp(this.transform.position, cable.transform.position, 0.4f);
             }
 
             if (distance < 2.5f)
             {
+                Debug.Log("On Distance 2");
 
                 this.transform.position = cable.transform.position;
                 this.transform.parent = cable.transform;
