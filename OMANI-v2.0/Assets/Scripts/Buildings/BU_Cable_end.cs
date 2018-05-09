@@ -65,7 +65,6 @@ public class BU_Cable_end : Interactible
                 spring.maxDistance = maxDistance;
                 collectingStarters = true;
 
-
             }
 
             float distRatio = (maxDistance) / (Vector3.Distance(this.transform.position, cable.transform.position));
@@ -76,17 +75,20 @@ public class BU_Cable_end : Interactible
                 spring.maxDistance -= (distRatio * 0.075f) + 0.05f;
             }
 
-            else
+            float distance = Vector3.Distance(this.transform.position, cable.transform.position);
+
+            if (distance < 4f)
             {
+                disableRigid();
+
+                Vector3.Lerp(this.transform.position, cable.transform.position.normalized, 0.4f);
                 spring.spring = 0;
-                Vector3.Lerp(this.transform.position, cable.transform.position, 0.2f);
             }
 
-            if (Vector3.Distance(this.transform.position, cable.transform.position) < 2.5f)
+            if (distance < 2.5f)
             {
 
                 this.transform.position = cable.transform.position;
-                disableRigid();
                 this.transform.parent = cable.transform;
                 collecting = false;
                 spring.maxDistance = maxDistance;
