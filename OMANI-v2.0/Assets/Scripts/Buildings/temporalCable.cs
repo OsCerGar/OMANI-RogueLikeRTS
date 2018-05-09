@@ -18,9 +18,9 @@ public class temporalCable : MonoBehaviour
         {
             cableStart = this.gameObject.transform.parent.transform;
         }
+
         if (cableEnd == null)
         {
-
             cableEnd = this.gameObject.transform.GetChild(0);
         }
 
@@ -39,8 +39,8 @@ public class temporalCable : MonoBehaviour
         if (energy)
         {
             lineRenderer.material.color = Color.yellow;
-
         }
+
         else
         {
             //lineRenderer.material = lineMaterial;

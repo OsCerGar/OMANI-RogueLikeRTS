@@ -5,7 +5,10 @@ using UnityEngine;
 public class BU_Cable_end : Interactible
 {
     private CableComponent cable;
+    private SpringJoint spring;
     private Transform lastParent;
+    private bool collecting = false, collectingStarters = false;
+    private float maxDistance;
 
     // Use this for initialization
     public override void Start()
@@ -14,6 +17,9 @@ public class BU_Cable_end : Interactible
         disableRigid();
 
         cable = this.transform.parent.GetComponent<CableComponent>();
+        spring = this.transform.parent.GetComponent<SpringJoint>();
+
+        maxDistance = spring.maxDistance;
     }
 
     // Update is called once per frame
@@ -24,12 +30,68 @@ public class BU_Cable_end : Interactible
         {
             this.transform.tag = "Interactible";
         }
+        // Disengage from whatever was attached.
         else
         {
             cable.CableLength(0);
             this.transform.tag = "Untagged";
+
+            if (this.transform.parent != null && this.transform.parent != cable.transform)
+            {
+                if (this.transform.root.CompareTag("Player"))
+                {
+                    this.transform.root.GetComponent<BoyMovement>().grabbedObject.Remove(this);
+                }
+
+                if (this.transform.parent != null && this.transform.parent.GetComponent<BU_Plug>())
+                {
+                    this.transform.parent.GetComponent<BU_Plug>().ChangeColor(Color.white);
+                }
+
+                enableRigid();
+                this.transform.SetParent(null);
+                collecting = true;
+            }
         }
 
+        //Starts Collecting
+        if (collecting == true)
+        {
+
+            if (collectingStarters == false)
+            {
+                //This calcs starting distance between cable end and wanted position.
+                maxDistance = Vector3.Distance(this.transform.position, cable.transform.position);
+                spring.maxDistance = maxDistance;
+                collectingStarters = true;
+
+
+            }
+
+            float distRatio = (maxDistance) / (Vector3.Distance(this.transform.position, cable.transform.position));
+
+            // If its close to the point, it Lerps itself instead of using physics to avoid weird behaviours.
+            if (distRatio > 0.2f)
+            {
+                spring.maxDistance -= (distRatio * 0.075f) + 0.05f;
+            }
+
+            else
+            {
+                spring.spring = 0;
+                Vector3.Lerp(this.transform.position, cable.transform.position, 0.2f);
+            }
+
+            if (Vector3.Distance(this.transform.position, cable.transform.position) < 2.5f)
+            {
+
+                this.transform.position = cable.transform.position;
+                disableRigid();
+                this.transform.parent = cable.transform;
+                collecting = false;
+                spring.maxDistance = maxDistance;
+            }
+        }
     }
 
     public override void Action(BoyMovement _boy)
@@ -106,7 +168,8 @@ public class BU_Cable_end : Interactible
             else
             {
                 enableRigid();
-
+                cable.CableLength(2);
+                collecting = true;
                 this.transform.SetParent(null);
                 _boy.grabbedObject.Remove(this);
             }

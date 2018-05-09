@@ -100,6 +100,16 @@ public class CableComponent : MonoBehaviour
     void Update()
     {
         RenderCable();
+
+        if (energy)
+        {
+            line.material.color = Color.yellow;
+        }
+
+        else
+        {
+            line.material.color = Color.grey;
+        }
     }
 
     /**
@@ -239,7 +249,8 @@ public class CableComponent : MonoBehaviour
 
     #endregion
 
-    public void CableLength(float _length) {
+    public void CableLength(float _length)
+    {
         cableLength = _length;
     }
 }
