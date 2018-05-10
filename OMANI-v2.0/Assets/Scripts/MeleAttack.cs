@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class MeleAttack : MonoBehaviour {
-    [SerializeField] string TagToAttack;
+    [SerializeField] string TagToAttack,secondTagToAttack;
     [SerializeField] float PushBack = 0;
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == TagToAttack )
+        if (other.tag == TagToAttack || other.tag == secondTagToAttack )
         {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
