@@ -16,6 +16,10 @@ public class CircleExplosion : MonoBehaviour {
         if (size > 3)
         {
             ps.Stop();
+
+        }else if (size > 6)
+        {
+            Destroy(this.gameObject);
         }
     }
 }

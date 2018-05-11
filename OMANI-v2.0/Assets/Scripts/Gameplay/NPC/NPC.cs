@@ -126,7 +126,10 @@ public class NPC : MonoBehaviour
 
 
         //Animspeed conected to navmesh speed 
-        anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
+        if (anim != null)
+        {
+            anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
+        }
 
     }
 

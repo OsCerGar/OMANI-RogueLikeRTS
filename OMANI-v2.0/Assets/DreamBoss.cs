@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BehaviorDesigner.Runtime;
+using UnityEngine.AI;
 
 public class DreamBoss : Enemy {
     [SerializeField] GameObject Meteorite;
     [SerializeField] GameObject ExpansiveAttack;
     [SerializeField] GameObject Mouth;
+    [SerializeField] GameObject[] WeakSpots;
+
 
     public void ShootMeteorite()
     {
@@ -17,4 +21,24 @@ public class DreamBoss : Enemy {
     {
         var meteor = Instantiate(ExpansiveAttack,new Vector3(transform.position.x,0.5f, transform.position.z) , transform.rotation);
     }
+    public void Stun()
+    {
+        var stateVariable = (SharedBool)AI.GetVariable("Stunned");
+        stateVariable.Value = true;
+    }
+    void activateWeakspot()
+    {
+        WeakSpots[Random.Range(0, WeakSpots.Length)].GetComponent<WeakSpotBrain>().ActivateWeakSpots();
+    }
+    void deactivateWeakspot()
+    {
+        foreach (var item in WeakSpots)
+        {
+            item.GetComponent<WeakSpotBrain>().DeactivateWeakSpots();
+        }
+    }
+
+
+
+
 }

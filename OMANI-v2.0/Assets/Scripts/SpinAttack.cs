@@ -13,7 +13,10 @@ public class SpinAttack : MonoBehaviour {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             EnemyNPC.Life -= transform.parent.GetComponent<NPC>().Damage * 2;
-            EnemyNavMesh.velocity = (other.transform.position - transform.position) * 10;
+            if (EnemyNavMesh != null)
+            {
+                EnemyNavMesh.velocity = (other.transform.position - transform.position) * 10;
+            }
         }
     }
     
