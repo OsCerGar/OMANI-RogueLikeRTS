@@ -31,9 +31,12 @@ public class RangedAttack : MonoBehaviour {
             {
                 EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;
             }
-
-            var targetVariable = (SharedGameObject)other.gameObject.GetComponent<BehaviorTree>().GetVariable("Target");
-            targetVariable.Value = transform.parent.gameObject;
+            if (thisNPC)
+            {
+                var targetVariable = (SharedGameObject)other.gameObject.GetComponent<BehaviorTree>().GetVariable("Target");
+                targetVariable.Value = transform.parent.gameObject;
+            }
+           
         }
     }
 }

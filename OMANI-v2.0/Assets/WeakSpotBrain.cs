@@ -43,6 +43,9 @@ public class WeakSpotBrain : MonoBehaviour {
             boss.Stun();
             GetChildrenAndActivate();
             DeactivateWeakSpots();
+            StartCountDown = false;
+            countdown = 0;
+
         }
         if (StartCountDown)
         {
