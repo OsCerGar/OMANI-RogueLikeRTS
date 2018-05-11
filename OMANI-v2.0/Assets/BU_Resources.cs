@@ -12,7 +12,8 @@ public class BU_Resources : BU_UniqueBuilding
     [SerializeField]
     private GameObject scrap, worker;
 
-    public float timeToSpawnScrap = 30, timeToSpawnWorker = 45, timeToSpawnCounter = 0;
+    public float timeToSpawnScrap = 30, timeToSpawnWorker = 45;
+    private float[] timeToSpawnCounter = new float[3];
 
     List<Image> scrapClocks = new List<Image>(), workerClocks = new List<Image>();
 
@@ -48,78 +49,158 @@ public class BU_Resources : BU_UniqueBuilding
 
         if (totalEnergy >= requiredEnergy)
         {
+            // Makes Scrap
             if (state == true)
             {
-
-                if (timeToSpawnCounter < timeToSpawnScrap)
-                {
-                    timeToSpawnCounter += Time.deltaTime;
-
-                    ScrapClocks(timeToSpawnCounter / timeToSpawnScrap);
-                }
-                if (timeToSpawnCounter > timeToSpawnScrap)
-                {
-                    MakeScrap(totalEnergy);
-                    timeToSpawnCounter = 0;
-                }
+                ScrapMaker();
             }
+
+            // Makes Clocks
             else
             {
-
-                if (timeToSpawnCounter < timeToSpawnWorker)
-                {
-                    timeToSpawnCounter += Time.deltaTime;
-
-                    WorkerClocks(timeToSpawnCounter / timeToSpawnWorker);
-                }
-                if (timeToSpawnCounter > timeToSpawnWorker)
-                {
-                    MakeWorker(totalEnergy);
-                    timeToSpawnCounter = 0;
-                }
+                WorkerMaker();
             }
         }
     }
 
-    private void MakeScrap(int _totalEnergy)
+    private void WorkerMaker()
     {
-        //Should be a pool later on
-        for (int i = 0; i < _totalEnergy; i++)
+
+        if (totalEnergy > 0)
         {
-            Instantiate(scrap, scrapMaker.transform.position, Quaternion.identity);
+            if (timeToSpawnCounter[0] < timeToSpawnWorker)
+            {
+                timeToSpawnCounter[0] += Time.deltaTime;
+
+                WorkerClocks(timeToSpawnCounter[0] / timeToSpawnWorker, 0);
+            }
+            if (timeToSpawnCounter[0] > timeToSpawnWorker)
+            {
+                MakeWorker();
+                timeToSpawnCounter[0] = 0;
+            }
         }
-    }
-    private void MakeWorker(int _totalEnergy)
-    {
-        //Should be a pool later on
-        for (int i = 0; i < _totalEnergy; i++)
+        if (totalEnergy > 1)
         {
-            Instantiate(worker, workerMaker.transform.position, Quaternion.identity);
+            if (timeToSpawnCounter[1] < timeToSpawnWorker)
+            {
+                timeToSpawnCounter[1] += Time.deltaTime;
+
+                WorkerClocks(timeToSpawnCounter[1] / timeToSpawnWorker, 1);
+            }
+            if (timeToSpawnCounter[1] > timeToSpawnWorker)
+            {
+                MakeWorker();
+                timeToSpawnCounter[1] = 0;
+            }
+        }
+        if (totalEnergy > 2)
+        {
+            if (timeToSpawnCounter[2] < timeToSpawnWorker)
+            {
+                timeToSpawnCounter[2] += Time.deltaTime;
+
+                WorkerClocks(timeToSpawnCounter[2] / timeToSpawnWorker, 2);
+            }
+            if (timeToSpawnCounter[2] > timeToSpawnWorker)
+            {
+                MakeWorker();
+                timeToSpawnCounter[2] = 0;
+            }
+
         }
     }
 
-    private void ScrapClocks(float _fillAmount)
+    private void ScrapMaker()
     {
-        for (int i = 0; i < totalEnergy; i++)
+        if (totalEnergy > 0)
         {
-            scrapClocks[i].fillAmount = _fillAmount;
+            if (timeToSpawnCounter[0] < timeToSpawnScrap)
+            {
+                timeToSpawnCounter[0] += Time.deltaTime;
+
+                ScrapClocks(timeToSpawnCounter[0] / timeToSpawnScrap, 0);
+            }
+            if (timeToSpawnCounter[0] > timeToSpawnScrap)
+            {
+                MakeScrap();
+                timeToSpawnCounter[0] = 0;
+            }
+        }
+        if (totalEnergy > 1)
+        {
+            if (timeToSpawnCounter[1] < timeToSpawnScrap)
+            {
+                timeToSpawnCounter[1] += Time.deltaTime;
+
+                ScrapClocks(timeToSpawnCounter[1] / timeToSpawnScrap, 1);
+            }
+            if (timeToSpawnCounter[1] > timeToSpawnScrap)
+            {
+                MakeScrap();
+                timeToSpawnCounter[1] = 0;
+            }
+        }
+        if (totalEnergy > 2)
+        {
+            if (timeToSpawnCounter[2] < timeToSpawnScrap)
+            {
+                timeToSpawnCounter[2] += Time.deltaTime;
+
+                ScrapClocks(timeToSpawnCounter[2] / timeToSpawnScrap, 2);
+            }
+            if (timeToSpawnCounter[2] > timeToSpawnScrap)
+            {
+                MakeScrap();
+                timeToSpawnCounter[2] = 0;
+            }
         }
     }
 
-    private void WorkerClocks(float _fillAmount)
+
+    private void MakeScrap()
     {
-        for (int i = 0; i < totalEnergy; i++)
-        {
-            workerClocks[i].fillAmount = _fillAmount;
-        }
+        //Should be a pool later on
+        Instantiate(scrap, scrapMaker.transform.position, Quaternion.identity);
+
+    }
+    private void MakeWorker()
+    {
+        //Should be a pool later on
+        Instantiate(worker, workerMaker.transform.position, Quaternion.identity);
+
+    }
+
+    private void ScrapClocks(float _fillAmount, int _clock)
+    {
+
+        scrapClocks[_clock].fillAmount = _fillAmount;
+
+    }
+
+    private void WorkerClocks(float _fillAmount, int _clock)
+    {
+
+        workerClocks[_clock].fillAmount = _fillAmount;
+
 
     }
     public void State(bool _state)
     {
         state = _state;
-        timeToSpawnCounter = 0;
-        WorkerClocks(0);
-        ScrapClocks(0);
+        for (int i = 0; i < timeToSpawnCounter.Length; i++)
+        {
+            timeToSpawnCounter[i] = 0;
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            WorkerClocks(0, i);
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            ScrapClocks(0, i);
+        }
     }
 
 }
