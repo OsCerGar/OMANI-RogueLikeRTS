@@ -74,23 +74,40 @@ public class Interactible_Scrap : Interactible
 
                 if (closest != null)
                 {
-
-
                     if (closest.CompareTag("Building"))
                     {
                         BU_ScrapBox scrapbox = closest.GetComponent<BU_ScrapBox>();
+                        BU_Resources_Workers resourcesWorker = closest.GetComponent<BU_Resources_Workers>();
+
                         if (scrapbox != null)
                         {
                             scrapbox.SpitEquipment();
+
+                            disableRigid();
+
+                            this.transform.SetParent(null);
+                            _boy.grabbedObject.Remove(this);
+
+                            //Should be pooled.
+                            Destroy(this.gameObject);
+
                         }
 
-                        disableRigid();
+                        if (resourcesWorker != null)
+                        {
+                            Debug.Log("First Scrap step");
+                            if (resourcesWorker.StartWorker())
+                            {
+                                disableRigid();
 
-                        this.transform.SetParent(null);
-                        _boy.grabbedObject.Remove(this);
+                                this.transform.SetParent(null);
+                                _boy.grabbedObject.Remove(this);
 
-                        //Should be pooled.
-                        Destroy(this.gameObject);
+                                //Should be pooled.
+                                Destroy(this.gameObject);
+                            }
+                        }
+
 
                     }
 
