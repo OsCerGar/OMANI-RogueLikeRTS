@@ -94,7 +94,7 @@ public class SavageCamp : MonoBehaviour {
             alarm = true;
             for (int i = 0; i < currentBaddies.Count; i++)
             {
-                currentBaddies[i].GetComponent<ShepHerd>().SetTarget(intruder);
+                currentBaddies[i].GetComponent<NPC>().AI_SetTarget(intruder);
             }
         }
     }

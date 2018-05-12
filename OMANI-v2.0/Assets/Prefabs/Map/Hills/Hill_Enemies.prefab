@@ -108,6 +108,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1035327162509102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4773269982597976}
+  - component: {fileID: 114897219609007694}
+  m_Layer: 0
+  m_Name: Detector
+  m_TagString: ImportantPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1036735768047260
 GameObject:
   m_ObjectHideFlags: 1
@@ -3626,13 +3642,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245776615171142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -74.30078, y: 21.35014, z: -27.742668}
+  m_LocalPosition: {x: -36.469887, y: 0, z: -28.697937}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4205089973498606}
   - {fileID: 4442687892115384}
   - {fileID: 4511953190077142}
   - {fileID: 4655113856378894}
+  - {fileID: 4773269982597976}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4426,6 +4443,19 @@ Transform:
   - {fileID: 4992133776578792}
   m_Father: {fileID: 4650946836399372}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4773269982597976
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1035327162509102}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4471086202142162}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4783200098245010
 Transform:
@@ -9041,6 +9071,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TagToAttack: People
   PushBack: 1
+  Damage: 1
 --- !u!114 &114378637553914306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9134,6 +9165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TagToAttack: People
   PushBack: 1
+  Damage: 1
 --- !u!114 &114533803874996326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9231,6 +9263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TagToAttack: People
   PushBack: 1
+  Damage: 1
 --- !u!114 &114722300567397568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9348,6 +9381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TagToAttack: People
   PushBack: 1
+  Damage: 1
 --- !u!114 &114787465699473056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9424,6 +9458,19 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+--- !u!114 &114897219609007694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1035327162509102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0002ca97063eac4f8011b2bdceeac6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imagePrefab: {fileID: 1628096508680884, guid: 6c581d1d42ca07e43bb466d901816642,
+    type: 2}
 --- !u!198 &198030554901333550
 ParticleSystem:
   m_ObjectHideFlags: 1

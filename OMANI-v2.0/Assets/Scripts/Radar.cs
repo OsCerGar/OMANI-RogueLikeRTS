@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 using UnityEngine.UI;
+using System;
 
 /*
  * class to present to user a 'radar'
@@ -10,6 +11,7 @@ using UnityEngine.UI;
  */
 public class Radar : MonoBehaviour
 {
+    private GameObject[] ImportantPlaces;
 	// when objects are within this distance to the Player
 	// then they are canidates for displaying as blips on our radar
 	public float insideRadarDistance = 100;
@@ -67,15 +69,55 @@ public class Radar : MonoBehaviour
 		// then again for objects tagged Sphere, to be represented on the radar with prefab rawImageBlipSphere.
 		FindAndDisplayBlipsForTag("Enemy", rawImageBlipCube);
 		FindAndDisplayBlipsForTag("People", rawImageBlipSphere);
-	}
+
+        ImportantPlaces = GameObject.FindGameObjectsWithTag("ImportantPoint");
+        FindAndDisplayBlipsForTagSpecific(ImportantPlaces);
+
+    }
+
+    private void FindAndDisplayBlipsForTagSpecific(GameObject[] v )
+    {
+        // the current position of the player's character is retrieved from the cached player transform variable.
+        Vector3 playerPos = playerTransform.position;
+
+
+        // This array of GameObjects is looped through, and for each GameObject, the following actions are performed:
+        foreach (GameObject target in v)
+        {
+            Debug.Log(target.name);
+            // The position of the target GameObject is retrieved
+            Vector3 targetPos = target.transform.position;
+
+            // The distance from this target position to the player's position is calculated
+            float distanceToTarget = Vector3.Distance(targetPos, playerPos);
+
+            // IF this distance is within the range (less than or equal to insideRadarDistance)
+            if ((distanceToTarget <= insideRadarDistance))
+            {
+                // THEN three steps are now required to get the blip for this object to appear on the radar:
+
+                // (a) The normalized position of the target is calculated by calling NormalisedPosition(...)
+                Vector3 normalisedTargetPosiiton = NormaisedPosition(playerPos, targetPos);
+
+                // (b) The position of the blip on the radar is then calculated from this normalized position
+                // by calling CalculateBlipPosition(...)
+                //print (normalisedTargetPosiiton);
+                Vector2 blipPosition = CalculateBlipPosition(normalisedTargetPosiiton);
+
+                // (c) Finally, the RawImage blip is displayed by calling DrawBlip(...)
+                // and passing the blip position and the reference to the RawImage prefab that is to be created there
+                DrawBlip(blipPosition, target.transform.GetComponent<ImportantPoint>().imagePrefab);
+            }
+        }
+    }
 
 
 
-	//----------------------------------------
-	// This method inputs two parameters:
-	// the string 'tag' for the objects to the searched for
-	// a reference to the RawImage prefab 'prefabBlip' to be displayed on the radar for any such tagged objects within the range.
-	private void FindAndDisplayBlipsForTag(string tag, GameObject prefabBlip)
+    //----------------------------------------
+    // This method inputs two parameters:
+    // the string 'tag' for the objects to the searched for
+    // a reference to the RawImage prefab 'prefabBlip' to be displayed on the radar for any such tagged objects within the range.
+    private void FindAndDisplayBlipsForTag(string tag, GameObject prefabBlip)
 	{
 		// the current position of the player's character is retrieved from the cached player transform variable.
 		Vector3 playerPos = playerTransform.position;
