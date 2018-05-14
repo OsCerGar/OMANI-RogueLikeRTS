@@ -4048,7 +4048,9 @@ GameObject:
   - component: {fileID: 4767233171181472}
   - component: {fileID: 114368934384295862}
   - component: {fileID: 135339492019410012}
-  - component: {fileID: 114623829778646798}
+  - component: {fileID: 208054449033116154}
+  - component: {fileID: 82309897506472290}
+  - component: {fileID: 114309939543271924}
   m_Layer: 15
   m_Name: BU_Radar
   m_TagString: Building
@@ -4235,7 +4237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1458948956579890
 GameObject:
   m_ObjectHideFlags: 1
@@ -5299,6 +5301,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
   m_IsActive: 1
+--- !u!1 &1583261177850476
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4675518714998882}
+  - component: {fileID: 33687979145206954}
+  - component: {fileID: 23958985314621702}
+  m_Layer: 0
+  m_Name: Ruin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1583375506051398
 GameObject:
   m_ObjectHideFlags: 1
@@ -10039,7 +10058,7 @@ Transform:
   m_LocalScale: {x: 1.6, y: 1, z: 1.6}
   m_Children: []
   m_Father: {fileID: 4767233171181472}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4256806804772476
 Transform:
@@ -12397,6 +12416,19 @@ Transform:
   m_Father: {fileID: 4639364193421144}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: -116.134, z: 0}
+--- !u!4 &4675518714998882
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583261177850476}
+  m_LocalRotation: {x: -0.6516957, y: -0.26120842, z: -0.6643912, w: 0.2562172}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.013465451, y: 0.01346546, z: 0.02704681}
+  m_Children: []
+  m_Father: {fileID: 4767233171181472}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4690921173637886
 Transform:
   m_ObjectHideFlags: 1
@@ -12500,7 +12532,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1818793257069916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.903236, y: 0, z: -38.363045}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4767233171181472}
@@ -12830,11 +12862,12 @@ Transform:
   m_LocalPosition: {x: 18.8, y: 2, z: 3.5399995}
   m_LocalScale: {x: 5.5215406, y: 5.5215445, z: 5.5215445}
   m_Children:
-  - {fileID: 4900525985871512}
   - {fileID: 4246116191824782}
   - {fileID: 224746606669860838}
   - {fileID: 224426758489794908}
+  - {fileID: 4900525985871512}
   - {fileID: 224223979707324032}
+  - {fileID: 4675518714998882}
   m_Father: {fileID: 4717413031094650}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13370,7 +13403,7 @@ Transform:
   m_Children:
   - {fileID: 4369522790914022}
   m_Father: {fileID: 4767233171181472}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4907886677028914
 Transform:
@@ -21232,6 +21265,40 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23958985314621702
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583261177850476}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 20c25099d8ec3744298b1c3fab4c81d3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23962376550879636
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -22411,6 +22478,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1450976188918494}
   m_Mesh: {fileID: 4300000, guid: 0102556e1cc0f69488182c9be4802217, type: 3}
+--- !u!33 &33687979145206954
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583261177850476}
+  m_Mesh: {fileID: 4300000, guid: 28deb9f2de69da84a8b4690810e91ebb, type: 3}
 --- !u!33 &33690687441144556
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -26082,6 +26156,86 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &82309897506472290
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1440780143958306}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 847af920a60c5d641959c958bc090fc5, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 102
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!82 &82310185343000464
 AudioSource:
   m_ObjectHideFlags: 1
@@ -29088,12 +29242,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114009929620969780
@@ -29131,12 +29286,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114010931619821038
@@ -29197,12 +29353,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114023834408253646
@@ -29289,12 +29446,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114030615031199530
@@ -29311,12 +29469,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114032270099763562
@@ -29499,12 +29658,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114061469076577222
@@ -29542,12 +29702,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114064224913005500
@@ -29688,12 +29849,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114072004627347574
@@ -29874,12 +30036,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114092996231571866
@@ -30179,12 +30342,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114136557245215008
@@ -30341,12 +30505,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114177553289795316
@@ -30375,12 +30540,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114185095052835900
@@ -30424,12 +30590,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114188596050377620
@@ -30554,12 +30721,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114196882006734490
@@ -30717,12 +30885,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114216568797035200
@@ -30904,12 +31073,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114234374866722976
@@ -30996,12 +31166,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114256417586596342
@@ -31278,6 +31449,32 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114309939543271924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1440780143958306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4f3427d4ec2a24d9c4835cf71b54cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boyType: 
+  state: Alive
+  startLife: 0
+  life: 1000
+  damage: 0
+  anim: {fileID: 0}
+  Nav: {fileID: 0}
+  circle: {fileID: 0}
+  AI: {fileID: 0}
+  buildingElements:
+  - {fileID: 1829216342366306}
+  - {fileID: 1132216401647772}
+  - {fileID: 1209001601692236}
+  scrapNeeded: 0
+  ScrapCounter: 0
 --- !u!114 &114311474871672880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31292,12 +31489,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114315394116635714
@@ -31465,12 +31663,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114343593872710290
@@ -31514,12 +31713,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114353619870018056
@@ -31617,12 +31817,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114363953217272852
@@ -31970,12 +32171,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114402937599870322
@@ -32430,12 +32632,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114467468080065962
@@ -32662,12 +32865,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114506449122214692
@@ -32684,12 +32888,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114509903119355592
@@ -32799,12 +33004,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114516064325543066
@@ -32876,12 +33082,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114526324269286210
@@ -33090,12 +33297,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114567605898982876
@@ -33247,12 +33455,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114588412296913884
@@ -33373,12 +33582,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114615126596894644
@@ -33423,28 +33633,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114623829778646798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1440780143958306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2f763088a8ffcc46af05c24cb3b200a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boyType: 
-  state: Alive
-  startLife: 0
-  life: 20
-  damage: 0
-  anim: {fileID: 0}
-  Nav: {fileID: 0}
-  circle: {fileID: 0}
-  AI: {fileID: 0}
-  scrapNeeded: 0
-  ScrapCounter: 0
 --- !u!114 &114625598628460962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33474,12 +33662,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114641555507347924
@@ -33657,12 +33846,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114660617791250842
@@ -33770,12 +33960,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114669645093971658
@@ -34193,12 +34384,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114745141512239020
@@ -34350,12 +34542,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114758375366449816
@@ -34372,12 +34565,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114760144271827100
@@ -34485,12 +34679,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114774055989528864
@@ -34686,12 +34881,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114804974402637972
@@ -34989,12 +35185,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114873688384394112
@@ -35673,12 +35870,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114939727631971554
@@ -35843,12 +36041,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!114 &114967782854961422
@@ -36030,12 +36229,13 @@ MonoBehaviour:
   boyType: 
   state: Alive
   startLife: 0
-  life: 20
+  life: 300
   damage: 0
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
 --- !u!120 &120276648917737068
@@ -36148,7 +36348,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.67
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135428981822164786
 SphereCollider:
@@ -67939,6 +68139,21 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.001, y: 7.5090003, z: 0.010000001}
   m_TimeToStationary: 0.5
+--- !u!208 &208054449033116154
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1440780143958306}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!208 &208079394645936040
 NavMeshObstacle:
   m_ObjectHideFlags: 1
@@ -71800,7 +72015,7 @@ RectTransform:
   - {fileID: 4759308696911358}
   - {fileID: 4616761044306682}
   m_Father: {fileID: 4767233171181472}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -72813,7 +73028,7 @@ RectTransform:
   m_Children:
   - {fileID: 224058766856521420}
   m_Father: {fileID: 4767233171181472}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
