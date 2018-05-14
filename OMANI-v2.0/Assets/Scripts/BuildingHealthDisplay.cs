@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuildingHealthDisplay : MonoBehaviour {
+public class BuildingHealthDisplay : MonoBehaviour
+{
     //substituir WALL por BUILDING!
-    [SerializeField] Wall npcScript;
+    [SerializeField] BU_Building_State npcScript;
     [SerializeField] Image hpDisplay;
     Camera cam;
     // Use this for initialization
     void Start()
     {
         hpDisplay = transform.Find("HealthBack/Health").GetComponent<Image>();
-        npcScript = transform.GetComponentInParent<Wall>();
+        npcScript = transform.GetComponentInParent<BU_Building_State>();
         cam = Camera.main;
     }
 

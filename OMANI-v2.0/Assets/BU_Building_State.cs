@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Wall : BU_Building_State
+public class BU_Building_State : NPC
 {
-    Collider collider;
-    Renderer renderer;
+    [SerializeField]
+    List<GameObject> buildingElements = new List<GameObject>();
+
+    protected GameObject ruin;
+    protected NavMeshObstacle obstacle;
+    protected Canvas canv;
+
+    public int scrapNeeded, ScrapCounter = 0;
 
     public override void Update()
     {
@@ -19,6 +24,11 @@ public class Wall : BU_Building_State
                 Reconstruct();
                 state = "Alive";
 
+                foreach (GameObject buildingElement in buildingElements)
+                {
+                    buildingElement.SetActive(true);
+                }
+
             }
         }
         if (life <= 0)
@@ -29,13 +39,13 @@ public class Wall : BU_Building_State
                 state = "Dead";
                 Die();
             }
+
         }
+
     }
 
-    public override void Reconstruct()
+    public virtual void Reconstruct()
     {
-        collider.enabled = true;
-        renderer.enabled = true;
         obstacle.enabled = true;
 
         canv.enabled = false;
@@ -52,22 +62,22 @@ public class Wall : BU_Building_State
     }
     public override void Die()
     {
+        foreach (GameObject buildingElement in buildingElements)
+        {
+            buildingElement.SetActive(false);
+        }
+
         GetComponent<AudioSource>().Play();
-        collider.enabled = false;
-        renderer.enabled = false;
         obstacle.enabled = false;
 
         canv.enabled = true;
-
         ruin.SetActive(true);
     }
 
     private void Awake()
     {
-        collider = GetComponent<Collider>();
-        renderer = GetComponent<Renderer>();
         obstacle = GetComponent<NavMeshObstacle>();
-        canv = transform.Find("Canvas").GetComponent<Canvas>();
+        canv = transform.Find("DeadCanvas").GetComponent<Canvas>();
         ruin = transform.Find("Ruin").gameObject;
     }
 
