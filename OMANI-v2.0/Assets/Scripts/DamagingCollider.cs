@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DamagingCollider : MonoBehaviour {
-   [SerializeField]
-    string TagToDamage;
-
+   
+    float damageTickcd = 0,cd = 1;
     [SerializeField]
     int Damage;
-   
-    private void OnTriggerEnter(Collider other)
+
+    private void Update()
     {
-        if (other.gameObject.tag == (TagToDamage))
+
+        damageTickcd += Time.deltaTime;
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "People")
         {
-            var npc = other.transform.GetComponent<NPC>();
-            if (npc != null)
+            if (damageTickcd > cd)
             {
-                npc.Life -= Damage;
+                var npc = other.transform.GetComponent<NPC>();
+                if (npc != null)
+                {
+                    npc.Life -= Damage;
+                }
+                damageTickcd = 0;
             }
+           
         }
     }
 }

@@ -25,10 +25,10 @@ public class TentacleVertical : MonoBehaviour {
                 transform.position = Vector3.Lerp(transform.position, finalAttackPos, Time.deltaTime * 2);
 
             }
-            else if (counter < 9) //From 5 to 9 rests
+            else if (counter < 7) //From 5 to 7 rests
             {
             }
-            else if(counter < 11)//From 5 to 9 return to ground
+            else if(counter < 9)//From 7 to 9 return to ground
             {
                 transform.position = Vector3.Lerp(transform.position, initialAttackPos, Time.deltaTime * 2);
             } else

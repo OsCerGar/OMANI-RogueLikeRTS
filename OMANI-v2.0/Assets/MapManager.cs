@@ -9,7 +9,7 @@ public class MapManager : MonoBehaviour {
     [SerializeField] float numberOfBigFeatures;
     public GameObject[] Hills;
     public GameObject[] Trees;
-
+    public GameObject OneOF;
 
     private  List<WorldFeature> BigFeatures;
     [SerializeField]
@@ -48,9 +48,9 @@ public class MapManager : MonoBehaviour {
         tWidth = terrain.terrainData.size.x;
         tLength = terrain.terrainData.size.z;
 
-
-        SpawnBase();
         
+        SpawnBase();
+        SpawnOneOf(OneOF);
 
         SpawnHills();
 
@@ -74,6 +74,37 @@ public class MapManager : MonoBehaviour {
         SpawnWorkers();
         SpawnArtifacts();
         */
+        
+    }
+
+    private void SpawnOneOf(GameObject oneOF)
+    {
+        
+            
+            bool SpotFound = false;
+            int safetyNet = 0;
+            while (!SpotFound)
+            {
+                //get a randomSpot in the terrain and 
+                Vector3 PosToSpawn = GetPosToSpawn(oneOF.GetComponent<WorldFeature>());
+                if (safetyNet < 2000)
+                {
+
+                    if (checkDistances(PosToSpawn, oneOF.GetComponent<WorldFeature>()))
+                    {
+                        var newHill = Instantiate(oneOF, PosToSpawn, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
+                        BigFeatures.Add(newHill.GetComponent<WorldFeature>());
+                        SpotFound = true;
+                    }
+
+                }
+                else
+                {
+                    break;
+                }
+                safetyNet++;
+            }
+
         
     }
 
@@ -180,7 +211,7 @@ public class MapManager : MonoBehaviour {
                         xOffset +=  (int)UnityEngine.Random.Range(-1,1);
                         zOffset +=  (int)UnityEngine.Random.Range(-1, 1);
                         SafetyNet++;
-                        if (SafetyNet>20)
+                        if (SafetyNet>1000)
                         {
                             break;
                         }
@@ -228,7 +259,7 @@ public class MapManager : MonoBehaviour {
             {
                 //get a randomSpot in the terrain and 
                 Vector3 PosToSpawn = GetPosToSpawn(hillToSpawn.GetComponent<WorldFeature>());
-                if (safetyNet<300)
+                if (safetyNet<2000)
                 {
 
                     if (checkDistances(PosToSpawn, hillToSpawn.GetComponent<WorldFeature>()))
