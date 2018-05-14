@@ -8,7 +8,7 @@ public class BU : MonoBehaviour
 
     [HideInInspector]
     public SpriteRenderer redCircle, whiteCircle;
-
+    public bool notOnlyWorkers = false;
     public List<NPC> workers = new List<NPC>();
     public int numberOfWorkers = 0, maxnumberOfWorkers = 0;
     public GameObject door;
@@ -40,26 +40,42 @@ public class BU : MonoBehaviour
 
     public virtual void EnableCircle()
     {
-        redCircle.enabled = true;
+        if (redCircle != null)
+        {
+            redCircle.enabled = true;
+            //The sprite should be red.
+            redCircle.material.SetColor("_EmissionColor", Color.red * Mathf.LinearToGammaSpace(5));
 
-        //The sprite should be red.
-        redCircle.material.SetColor("_EmissionColor", Color.red * Mathf.LinearToGammaSpace(5));
+        }
+
 
     }
 
     public virtual void EnableWhiteCircle()
     {
-        whiteCircle.enabled = true;
+        if (whiteCircle != null)
+        {
 
-        //The sprite should be red.
-        whiteCircle.material.SetColor("_EmissionColor", Color.white * Mathf.LinearToGammaSpace(5));
+            whiteCircle.enabled = true;
+            //The sprite should be red.
+            whiteCircle.material.SetColor("_EmissionColor", Color.white * Mathf.LinearToGammaSpace(5));
+
+        }
+
 
     }
 
     public virtual void DisableCircle()
     {
-        redCircle.enabled = false;
-        whiteCircle.enabled = false;
+        if (redCircle != null)
+        {
+            redCircle.enabled = false;
+        }
+        if (whiteCircle != null)
+        {
+
+            whiteCircle.enabled = false;
+        }
     }
 
     public virtual void AddWorker(NPC _worker)

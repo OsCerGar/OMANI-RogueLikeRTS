@@ -21,6 +21,8 @@ public class BU_Healer : BU_UniqueBuilding
     public override void Start()
     {
         base.Start();
+
+        notOnlyWorkers = true;
         maxnumberOfWorkers = 8;
         requiredEnergy = 2;
 

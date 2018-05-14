@@ -184,7 +184,6 @@ public class BU_Resources : BU_UniqueBuilding
 
     public bool MakeWorker()
     {
-        Debug.Log("Step three");
         bool spawned = false;
         for (int i = 0; i < 3; i++)
         {
@@ -219,22 +218,6 @@ public class BU_Resources : BU_UniqueBuilding
     public void State(bool _state)
     {
         state = _state;
-
-        for (int i = 0; i < timeToSpawnScrapCounter.Length; i++)
-        {
-            timeToSpawnScrapCounter[i] = 0;
-        }
-
-        /*
-        for (int i = 0; i < timeToSpawnWorkerCounter.Length; i++)
-        {
-            timeToSpawnWorkerCounter[i] = 0;
-        }
-        */
-        for (int i = 0; i < 3; i++)
-        {
-            ScrapClocks(0, i);
-        }
     }
 
 }

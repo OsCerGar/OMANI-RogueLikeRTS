@@ -67,7 +67,7 @@ public class BU_Building_State : NPC
             buildingElement.SetActive(false);
         }
 
-        GetComponent<AudioSource>().Play();
+        //GetComponent<AudioSource>().Play();
         obstacle.enabled = false;
 
         canv.enabled = true;
