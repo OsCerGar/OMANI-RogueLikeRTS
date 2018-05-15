@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class DreamBoss : Enemy {
     [SerializeField] GameObject Meteorite;
+    [SerializeField] GameObject SolidMeteorite;
     [SerializeField] GameObject ExpansiveAttack;
     [SerializeField] GameObject Mouth;
     [SerializeField] GameObject[] WeakSpots;
@@ -36,6 +37,12 @@ public class DreamBoss : Enemy {
         {
             item.GetComponent<WeakSpotBrain>().DeactivateWeakSpots();
         }
+    }
+    public void ShootSolidMeteorite()
+    {
+        GameObject meteor = Instantiate(SolidMeteorite, Mouth.transform.position, SolidMeteorite.transform.rotation);
+        Vector3 obj = AI_GetEnemy().transform.position;
+        meteor.GetComponent<Meteorite>().objective = new Vector3(obj.x + Random.Range(-4, 4), obj.y - 2, obj.z + Random.Range(-4, 4));
     }
 
 
