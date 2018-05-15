@@ -222,8 +222,16 @@ public class NPC : MonoBehaviour
     }
     public virtual GameObject AI_GetEnemy()
     {
-        var targetVariable = (SharedGameObject)AI.GetVariable("Enemy");
-        return targetVariable.Value;
+        if (checkAI())
+        {
+            var targetVariable = (SharedGameObject)AI.GetVariable("Enemy");
+            return targetVariable.Value;
+        }
+        else
+        {
+            return null;
+        }
+        
     }
     public virtual GameObject AI_GetTarget()
     {
@@ -292,5 +300,31 @@ public class NPC : MonoBehaviour
     {
         circle.material.SetColor("_EmissionColor", Color.green * Mathf.LinearToGammaSpace(50));
     }
+
+        
+    
+
+    private bool checkAI()
+{
+    if (AI.isActiveAndEnabled)
+    {
+        return true;
+    }
+    else
+    {
+        var allAI = GetComponents<BehaviorTree>();
+        foreach (BehaviorTree item in allAI)
+        {
+            if (item.isActiveAndEnabled)
+            {
+                AI = item;
+
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 
 }
