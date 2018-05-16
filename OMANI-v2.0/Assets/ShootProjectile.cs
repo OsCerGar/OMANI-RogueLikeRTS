@@ -13,7 +13,11 @@ public class ShootProjectile : MonoBehaviour {
         BasicProjectile.transform.position = Gun.position;
         if (AimStraight)
         {
-            BasicProjectile.transform.rotation = transform.rotation;
+            var enem = GetComponent<NPC>().AI_GetEnemy();
+            if (enem != null)
+            {
+                BasicProjectile.transform.LookAt(enem.transform);
+            }
         }
         else
         {
