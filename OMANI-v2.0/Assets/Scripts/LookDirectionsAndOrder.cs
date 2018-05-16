@@ -159,7 +159,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (Input.GetKeyDown("joystick button 0") || Input.GetMouseButtonDown(2))
             {
                 commander.Order(selectedTypeList[selectedTypeInt], this.transform.position);
-
             }
 
             if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
@@ -265,6 +264,31 @@ public class LookDirectionsAndOrder : MonoBehaviour
             else if (closestBUTarget != null)
             {
                 closestBUTarget.RemoveWorker();
+            }
+        }
+
+        if (Input.GetKey("joystick button 4") || Input.GetMouseButton(0))
+        {
+            orderCounter += Time.deltaTime;
+
+            if (orderCounter > 0.5f)
+            {
+
+                if (closestTarget != null)
+                {
+
+                    if (commander.ListSize(closestTarget.boyType) < 1)
+                    {
+                        selectedTypeList.Add(closestTarget.boyType);
+                    }
+
+                    commander.Reclute(closestTarget);
+                }
+
+                else if (closestBUTarget != null)
+                {
+                    closestBUTarget.RemoveWorker();
+                }
             }
         }
         #endregion
