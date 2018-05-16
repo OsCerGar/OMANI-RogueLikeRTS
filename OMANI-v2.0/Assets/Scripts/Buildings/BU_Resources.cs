@@ -74,103 +74,57 @@ public class BU_Resources : BU_UniqueBuilding
         //Checks energy up to 3 to see how much it creates. Sends info to the clocks with @WorkerClocks.
         if (totalEnergy > 0)
         {
-            if (workersReady[0] == false)
-            {
-                if (timeToSpawnWorkerCounter[0] < timeToSpawnWorker)
-                {
-                    timeToSpawnWorkerCounter[0] += Time.deltaTime;
+            //Used to see how many workers are going to be build.
+            int calcTotalEnergy = totalEnergy;
 
-                    WorkerClocks(timeToSpawnWorkerCounter[0] / timeToSpawnWorker, 0, Color.green);
-                }
-                if (timeToSpawnWorkerCounter[0] > timeToSpawnWorker)
+            for (int i = 0; i < workersReady.Length; i++)
+            {
+                if (calcTotalEnergy > 0 && workersReady[i] == false)
                 {
-                    workersReady[0] = true;
-                    WorkerClocks(timeToSpawnWorkerCounter[0] / timeToSpawnWorker, 0, Color.cyan);
+                    if (timeToSpawnWorkerCounter[i] < timeToSpawnWorker)
+                    {
+                        timeToSpawnWorkerCounter[i] += Time.deltaTime;
+
+                        WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWorker, i, Color.green);
+                    }
+                    if (timeToSpawnWorkerCounter[i] > timeToSpawnWorker)
+                    {
+                        workersReady[i] = true;
+                        WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWorker, i, Color.cyan);
+                    }
+                    calcTotalEnergy -= 1;
                 }
             }
         }
-        if (totalEnergy > 1)
-        {
-            if (workersReady[1] == false)
-            {
 
-                if (timeToSpawnWorkerCounter[1] < timeToSpawnWorker)
-                {
-                    timeToSpawnWorkerCounter[1] += Time.deltaTime;
-
-                    WorkerClocks(timeToSpawnWorkerCounter[1] / timeToSpawnWorker, 1, Color.green);
-                }
-                if (timeToSpawnWorkerCounter[1] > timeToSpawnWorker)
-                {
-                    workersReady[1] = true;
-                    WorkerClocks(timeToSpawnWorkerCounter[1] / timeToSpawnWorker, 1, Color.cyan);
-                }
-            }
-        }
-        if (totalEnergy > 2)
-        {
-            if (workersReady[2] == false)
-            {
-                if (timeToSpawnWorkerCounter[2] < timeToSpawnWorker)
-                {
-                    timeToSpawnWorkerCounter[2] += Time.deltaTime;
-
-                    WorkerClocks(timeToSpawnWorkerCounter[2] / timeToSpawnWorker, 2, Color.green);
-                }
-                if (timeToSpawnWorkerCounter[2] > timeToSpawnWorker)
-                {
-                    workersReady[2] = true;
-                    WorkerClocks(timeToSpawnWorkerCounter[2] / timeToSpawnWorker, 2, Color.cyan);
-                }
-            }
-        }
     }
 
     //Makes Scrap
     private void ScrapMaker()
     {
-        //Checks energy up to 3 to see how much it creates. Sends info to the clocks with @ScrapClocks.
-
         if (totalEnergy > 0)
         {
-            if (timeToSpawnScrapCounter[0] < timeToSpawnScrap)
-            {
-                timeToSpawnScrapCounter[0] += Time.deltaTime;
+            //Used to see how many workers are going to be build.
+            int calcTotalEnergy = totalEnergy;
 
-                ScrapClocks(timeToSpawnScrapCounter[0] / timeToSpawnScrap, 0);
-            }
-            if (timeToSpawnScrapCounter[0] > timeToSpawnScrap)
+            for (int i = 0; i < workersReady.Length; i++)
             {
-                MakeScrap();
-                timeToSpawnScrapCounter[0] = 0;
-            }
-        }
-        if (totalEnergy > 1)
-        {
-            if (timeToSpawnScrapCounter[1] < timeToSpawnScrap)
-            {
-                timeToSpawnScrapCounter[1] += Time.deltaTime;
+                if (calcTotalEnergy > 0)
+                {
+                    if (timeToSpawnScrapCounter[i] < timeToSpawnScrap)
+                    {
+                        timeToSpawnScrapCounter[i] += Time.deltaTime;
 
-                ScrapClocks(timeToSpawnScrapCounter[1] / timeToSpawnScrap, 1);
-            }
-            if (timeToSpawnScrapCounter[1] > timeToSpawnScrap)
-            {
-                MakeScrap();
-                timeToSpawnScrapCounter[1] = 0;
-            }
-        }
-        if (totalEnergy > 2)
-        {
-            if (timeToSpawnScrapCounter[2] < timeToSpawnScrap)
-            {
-                timeToSpawnScrapCounter[2] += Time.deltaTime;
+                        ScrapClocks(timeToSpawnScrapCounter[i] / timeToSpawnScrap, i);
+                    }
+                    if (timeToSpawnScrapCounter[i] > timeToSpawnScrap)
+                    {
+                        MakeScrap();
+                        timeToSpawnScrapCounter[i] = 0;
+                    }
 
-                ScrapClocks(timeToSpawnScrapCounter[2] / timeToSpawnScrap, 2);
-            }
-            if (timeToSpawnScrapCounter[2] > timeToSpawnScrap)
-            {
-                MakeScrap();
-                timeToSpawnScrapCounter[2] = 0;
+                    calcTotalEnergy -= 1;
+                }
             }
         }
     }
