@@ -47,7 +47,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         commander = FindObjectOfType<Army>();
         miradaPositionObject = new GameObject();
         reclute = this.GetComponent<AudioSource>();
-        StartCoroutine("FindTargetsWithDelay", .2f);
+        StartCoroutine("FindTargetsWithDelay", .05f);
     }
 
     void Update()
