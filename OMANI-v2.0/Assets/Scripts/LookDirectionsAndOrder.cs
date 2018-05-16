@@ -36,6 +36,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     public List<string> selectedTypeList;
     public int selectedTypeInt;
+
+    //sound
+    AudioSource reclute, order;
     #endregion
 
     // Use this for initialization
@@ -43,7 +46,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     {
         commander = FindObjectOfType<Army>();
         miradaPositionObject = new GameObject();
-
+        reclute = this.GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .2f);
     }
 
@@ -259,11 +262,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 }
 
                 commander.Reclute(closestTarget);
+                reclute.Play();
             }
 
             else if (closestBUTarget != null)
             {
                 closestBUTarget.RemoveWorker();
+                reclute.Play();
             }
         }
 
@@ -283,6 +288,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
 
                     commander.Reclute(closestTarget);
+
                 }
 
                 else if (closestBUTarget != null)
