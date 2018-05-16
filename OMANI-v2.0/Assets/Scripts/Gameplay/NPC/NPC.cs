@@ -130,7 +130,28 @@ public class NPC : MonoBehaviour
         {
             anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
         }
+        checkVariables();
 
+    }
+
+    private void checkVariables()
+    {
+        if (AI_GetEnemy() != null)
+        {
+            if (!AI_GetEnemy().activeSelf)
+            {
+                AI_SetEnemy(null);
+                AI_SetState("Free");
+            }
+        }
+        if (AI_GetTarget() != null)
+        {
+            if (!AI_GetTarget().activeSelf)
+            {
+                AI_SetTarget(null);
+                AI_SetState("Free");
+            }
+        }
     }
 
     public virtual void Die()

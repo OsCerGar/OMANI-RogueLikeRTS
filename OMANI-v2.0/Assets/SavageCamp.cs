@@ -83,8 +83,8 @@ public class SavageCamp : MonoBehaviour {
         foreach (GameObject baddie in currentBaddies)
         {
             baddie.GetComponent<NPC>().AI_SetTarget(protagonist);
-            currentBaddies.Remove(baddie);
         }
+        currentBaddies.Clear();
     }
 
     private void Alarm(GameObject intruder)
