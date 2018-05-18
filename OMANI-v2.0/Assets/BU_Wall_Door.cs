@@ -8,7 +8,8 @@ public class BU_Wall_Door : MonoBehaviour
     Animation door;
 
     //false = down, true = up
-    bool state = false;
+    public bool state = false;
+    public float doorCounter;
 
     // Use this for initialization
     void Start()
@@ -16,13 +17,49 @@ public class BU_Wall_Door : MonoBehaviour
         door = this.GetComponent<Animation>();
     }
 
+    private void Update()
+    {
+
+        doorCounter += Time.deltaTime;
+        
+        if (doorCounter > 15f && state == true)
+        {
+            DoorDown();
+            state = false;
+        }
+    }
+
     public void DoorUp()
     {
         door.Play("Door_up");
+        state = true;
+        doorCounter = 0;
     }
 
     public void DoorDown()
     {
         door.Play("Door_down");
+        state = false;
+        doorCounter = 0;
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("People"))
+        {
+            if (state == false)
+            {
+                DoorUp();
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("People"))
+        {
+            doorCounter = 0;
+        }
+    }
+
 }

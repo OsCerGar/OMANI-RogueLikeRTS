@@ -13,15 +13,16 @@ public class BU_Wall_Door_Button : Interactible
         door = this.transform.parent.GetComponent<BU_Wall_Door>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public override void Action(BoyMovement _boy)
     {
-        door.DoorUp();
+        if (door.state == false)
+        {
+            door.DoorUp();
+        }
+        else if (door.doorCounter > 4f)
+        {
+            door.DoorDown();
+        }
     }
 
 }
