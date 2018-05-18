@@ -119,7 +119,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             {
                 commander.GUI_ActivateCircle(selectedTypeList[selectedTypeInt]);
             }
-            else
+            else if (selectedTypeInt > selectedTypeList.Count - 1)
             {
                 selectedTypeInt = selectedTypeList.Count - 1;
             }
@@ -147,7 +147,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 else
                 {
                     selectedTypeInt -= 1;
-
                 }
             }
         }
@@ -229,7 +228,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         orderPositionVar.transform.position = this.transform.position + (this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f));
                     }
 
-
                     orderPositionVar.GetComponent<OrderPositionObject>().npc = boyInCharge;
                     boyInCharge.ChargedOrderFullfilled(orderPositionVar);
                     commander.RemoveFromList(boyInCharge);
@@ -239,11 +237,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                 orderInOrder = false;
 
-                if (commander.ListSize(selectedTypeList[selectedTypeInt]) < 1)
-                {
-                    selectedTypeList.Remove(selectedTypeList[selectedTypeInt]);
-                }
 
+
+            }
+
+            if (commander.ListSize(selectedTypeList[selectedTypeInt]) < 1)
+            {
+                selectedTypeList.Remove(selectedTypeList[selectedTypeInt]);
             }
         }
 
