@@ -21,7 +21,7 @@ public class BU_Wall_Door : MonoBehaviour
     {
 
         doorCounter += Time.deltaTime;
-        
+
         if (doorCounter > 15f && state == true)
         {
             DoorDown();
@@ -47,7 +47,7 @@ public class BU_Wall_Door : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("People"))
         {
-            if (state == false)
+            if (state == false && doorCounter > 3.5f)
             {
                 DoorUp();
             }

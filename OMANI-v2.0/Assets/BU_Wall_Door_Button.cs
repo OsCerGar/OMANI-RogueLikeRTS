@@ -19,7 +19,7 @@ public class BU_Wall_Door_Button : Interactible
         {
             door.DoorUp();
         }
-        else if (door.doorCounter > 4f)
+        else if (door.doorCounter > 3.5f)
         {
             door.DoorDown();
         }
