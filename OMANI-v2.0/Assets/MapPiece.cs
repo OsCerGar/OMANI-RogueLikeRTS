@@ -10,7 +10,35 @@ public class MapPiece  {
     Vector2 entrance;
     public string role;
 
-   
+    public void RepresentWithCube()
+    {
+        var separation = size / 2;
+        
+        var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube.name = "cube  :"+position.x+" "+position.y;
+        if (role == "Mist")
+        {
+            cube.GetComponent<Renderer>().material.color = Color.red;
+
+        }else if (role == "POI")
+        {
+            cube.GetComponent<Renderer>().material.color = Color.green;
+
+        }else if (role == "Base")
+        {
+            cube.GetComponent<Renderer>().material.color = Color.blue;
+
+        }else if (role == "Connection")
+        {
+            cube.GetComponent<Renderer>().material.color = Color.grey;
+
+        }
+        cube.transform.localScale = new Vector3(135,2,135);
+        cube.transform.position = new Vector3( separation + size * (position.x),0, separation + size * (position.y));
+    }
+
+    #region Constructors
+
 
     public MapPiece(string role)
     {
@@ -40,4 +68,5 @@ public class MapPiece  {
         this.entrance = entrance;
         this.role = role;
     }
+    #endregion
 }
