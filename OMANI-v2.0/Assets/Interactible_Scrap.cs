@@ -44,7 +44,7 @@ public class Interactible_Scrap : Interactible
         {
 
             Collider[] objectsInArea = null;
-            objectsInArea = Physics.OverlapSphere(transform.position, 3f, mask);
+            objectsInArea = Physics.OverlapSphere(transform.position, 2f, mask);
             float minDistance = 0;
             GameObject closest = null;
 

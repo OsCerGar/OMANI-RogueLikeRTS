@@ -144,7 +144,7 @@ public class BU_Resources : BU_UniqueBuilding
             if (spawned == false && workersReady[i])
             {
                 //Should be a pool later on
-                Instantiate(worker, new Vector3(workerMaker.transform.position.x + Random.Range(-1f, 1f), workerMaker.transform.position.y, workerMaker.transform.position.z), Quaternion.identity);
+                Instantiate(worker, new Vector3(workerMaker.transform.position.x + Random.Range(-2f, 2f), workerMaker.transform.position.y, workerMaker.transform.position.z - 3f), Quaternion.identity);
                 workersReady[i] = false;
                 timeToSpawnWorkerCounter[i] = 0;
                 WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWorker, i, Color.green);
