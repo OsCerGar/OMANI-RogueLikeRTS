@@ -4,52 +4,80 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MapManager : MonoBehaviour {
+public class MapManager : MonoBehaviour
+{
 
     [SerializeField] float numberOfBigFeatures;
     public GameObject[] Hills;
     public GameObject[] Trees;
     public GameObject OneOF;
 
-    private  List<WorldFeature> BigFeatures;
+    private List<WorldFeature> BigFeatures;
     [SerializeField]
-    GameObject BasePrefab;
-    
+    GameObject[] BasePrefab;
+    GameObject selectedBase = null;
+
 
     [SerializeField]
     GameObject SpawnPosition;
-    
-    
+
+
     public GameObject[] ResourcePrefab;
 
-  
+
     [SerializeField]
     GameObject[] ArtifactPrefabs;
-    
+
     private ResPos[] ResPositions;
     public List<GameObject> Res = new List<GameObject>();
     List<int> usedNumbers = new List<int>();
 
+    //UI
+
+    Canvas baseSelectionImage;
+    bool selected = false;
+
     //TerrainData
     Terrain terrain;
-    private float tWidth,t;
+    private float tWidth, t;
     private float tLength;
 
     //Navigation
     private NavMeshSurface[] surfaces;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         //Getting terrian Data 
-        
+
         BigFeatures = new List<WorldFeature>();
         terrain = FindObjectOfType<Terrain>();
         tWidth = terrain.terrainData.size.x;
         tLength = terrain.terrainData.size.z;
+        baseSelectionImage = this.GetComponentInChildren<Canvas>();
+    }
 
-        
-        SpawnBase();
+    private void Starters(int _selectedBase)
+    {
+        switch (_selectedBase)
+        {
+            case 1:
+                SpawnBase(1);
+                break;
+            case 2:
+                SpawnBase(2);
+                break;
+            case 3:
+                SpawnBase(3);
+                break;
+            case 4:
+                SpawnBase(4);
+                break;
+        }
+
+        baseSelectionImage.enabled = false;
+
         SpawnOneOf(OneOF);
 
         SpawnHills();
@@ -74,38 +102,63 @@ public class MapManager : MonoBehaviour {
         SpawnWorkers();
         SpawnArtifacts();
         */
-        
+
     }
 
+    private void Update()
+    {
+        if (selected != true)
+        {
+            if (Input.GetKeyDown("1") || Input.GetKeyDown("joystick button 1"))
+            {
+                Starters(1);
+                selected = true;
+            }
+            if (Input.GetKeyDown("2") || Input.GetKeyDown("joystick button 2"))
+            {
+                Starters(2);
+                selected = true;
+            }
+            if (Input.GetKeyDown("3") || Input.GetKeyDown("joystick button 0"))
+            {
+                Starters(3);
+                selected = true;
+            }
+            if (Input.GetKeyDown("4") || Input.GetKeyDown("joystick button 3"))
+            {
+                Starters(4);
+                selected = true;
+            }
+        }
+    }
     private void SpawnOneOf(GameObject oneOF)
     {
-        
-            
-            bool SpotFound = false;
-            int safetyNet = 0;
-            while (!SpotFound)
+
+        bool SpotFound = false;
+        int safetyNet = 0;
+        while (!SpotFound)
+        {
+            //get a randomSpot in the terrain and 
+            Vector3 PosToSpawn = GetPosToSpawn(oneOF.GetComponent<WorldFeature>());
+            if (safetyNet < 2000)
             {
-                //get a randomSpot in the terrain and 
-                Vector3 PosToSpawn = GetPosToSpawn(oneOF.GetComponent<WorldFeature>());
-                if (safetyNet < 2000)
-                {
 
-                    if (checkDistances(PosToSpawn, oneOF.GetComponent<WorldFeature>()))
-                    {
-                        var newHill = Instantiate(oneOF, PosToSpawn, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
-                        BigFeatures.Add(newHill.GetComponent<WorldFeature>());
-                        SpotFound = true;
-                    }
-
-                }
-                else
+                if (checkDistances(PosToSpawn, oneOF.GetComponent<WorldFeature>()))
                 {
-                    break;
+                    var newHill = Instantiate(oneOF, PosToSpawn, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
+                    BigFeatures.Add(newHill.GetComponent<WorldFeature>());
+                    SpotFound = true;
                 }
-                safetyNet++;
+
             }
+            else
+            {
+                break;
+            }
+            safetyNet++;
+        }
 
-        
+
     }
 
     private void buildNavmesh()
@@ -121,8 +174,8 @@ public class MapManager : MonoBehaviour {
         {
             surfaces[i].BuildNavMesh();
         }
-    
-}
+
+    }
 
     private void SpawnCreepPositions()
     {
@@ -136,25 +189,26 @@ public class MapManager : MonoBehaviour {
                 {
                     var newHill = Instantiate(SpawnPosition, hit.point, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
                 }
-            }else
+            }
+            else
             {
                 i--;
             }
-            
+
         }
     }
 
     private void SpawnTrees()
     {
-        for (int i = 0; i < numberOfBigFeatures*15; i++)
+        for (int i = 0; i < numberOfBigFeatures * 15; i++)
         {
             var hillToSpawn = Trees[UnityEngine.Random.Range(0, Trees.Length)];
             bool SpotFound = false;
-        
+
             //get a randomSpot in the terrain and 
             Vector3 PosToSpawn = GetPosToSpawn();
             //Make sure it's not in base :D
-            float baseRad = BasePrefab.GetComponent<WorldFeature>().Rad;
+            float baseRad = selectedBase.GetComponent<WorldFeature>().Rad;
 
             if (PosToSpawn.x < baseRad && PosToSpawn.x > -baseRad) //For X Pos
             {
@@ -180,7 +234,7 @@ public class MapManager : MonoBehaviour {
             }
             PosToSpawn = FindCloseTrees(PosToSpawn);
             RaycastHit hit;
-           
+
             if (Physics.Raycast(new Vector3(PosToSpawn.x, 20, PosToSpawn.z), Vector3.down, out hit, Mathf.Infinity))
             {
                 var newHill = Instantiate(hillToSpawn, hit.point, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
@@ -197,7 +251,7 @@ public class MapManager : MonoBehaviour {
         int i = 0;
         while (i < hitColliders.Length) //Check all colliders
         {
-            WorldSmallFeature SF = hitColliders[i].GetComponent<WorldSmallFeature>(); 
+            WorldSmallFeature SF = hitColliders[i].GetComponent<WorldSmallFeature>();
             if (SF != null) //If it's a WorldSmall Feature
             {
                 if (Vector3.Distance(_posToSpawn, hitColliders[i].transform.position) < closeRange) //If close enough to it
@@ -208,15 +262,15 @@ public class MapManager : MonoBehaviour {
                     int SafetyNet = 0;
                     while (!IsPosFree(_posToSpawn)) //If this position isn's free, change the offset to a bigger one
                     {
-                        xOffset +=  (int)UnityEngine.Random.Range(-1,1);
-                        zOffset +=  (int)UnityEngine.Random.Range(-1, 1);
+                        xOffset += (int)UnityEngine.Random.Range(-1, 1);
+                        zOffset += (int)UnityEngine.Random.Range(-1, 1);
                         SafetyNet++;
-                        if (SafetyNet>1000)
+                        if (SafetyNet > 1000)
                         {
                             break;
                         }
                     }
-                    
+
                 }
             }
             i++;
@@ -233,7 +287,7 @@ public class MapManager : MonoBehaviour {
             WorldFeature WF = hitColliders[i].GetComponent<WorldFeature>();
             if (WF != null)
             {
-                
+
                 return false;
 
             }
@@ -241,12 +295,12 @@ public class MapManager : MonoBehaviour {
         }
         return true;
     }
-    
+
     public void SpawnCreep()
     {
 
     }
-   
+
 
     private void SpawnHills()
     {
@@ -259,17 +313,18 @@ public class MapManager : MonoBehaviour {
             {
                 //get a randomSpot in the terrain and 
                 Vector3 PosToSpawn = GetPosToSpawn(hillToSpawn.GetComponent<WorldFeature>());
-                if (safetyNet<2000)
+                if (safetyNet < 2000)
                 {
 
                     if (checkDistances(PosToSpawn, hillToSpawn.GetComponent<WorldFeature>()))
                     {
-                        var newHill = Instantiate(hillToSpawn, PosToSpawn, Quaternion.Euler(0,UnityEngine.Random.Range(0, 180), 0));
+                        var newHill = Instantiate(hillToSpawn, PosToSpawn, Quaternion.Euler(0, UnityEngine.Random.Range(0, 180), 0));
                         BigFeatures.Add(newHill.GetComponent<WorldFeature>());
                         SpotFound = true;
                     }
 
-                }else
+                }
+                else
                 {
                     break;
                 }
@@ -289,7 +344,7 @@ public class MapManager : MonoBehaviour {
                 return false;
             }
         }
-       
+
         return true;
     }
 
@@ -299,26 +354,43 @@ public class MapManager : MonoBehaviour {
     }
     private Vector3 GetPosToSpawn(WorldFeature _WF)
     {
-        return new Vector3(UnityEngine.Random.Range(-tWidth / 2 +_WF.Rad, tWidth / 2 - _WF.Rad), 0, UnityEngine.Random.Range(-tLength / 2 + _WF.Rad, tLength / 2 - _WF.Rad));
+        return new Vector3(UnityEngine.Random.Range(-tWidth / 2 + _WF.Rad, tWidth / 2 - _WF.Rad), 0, UnityEngine.Random.Range(-tLength / 2 + _WF.Rad, tLength / 2 - _WF.Rad));
     }
 
-    private void SpawnBase()
+    private void SpawnBase(int _base)
     {
-        var mainBase  = (GameObject) Instantiate(BasePrefab, new Vector3(0, 0 , 0), BasePrefab.transform.rotation);
-        BigFeatures.Add( (WorldFeature )mainBase.GetComponent<WorldFeature>());
+        GameObject mainBase = null;
+        switch (_base)
+        {
+            case 1:
+                mainBase = (GameObject)Instantiate(BasePrefab[0], new Vector3(0, 0, 0), BasePrefab[0].transform.rotation);
+                break;
+            case 2:
+                mainBase = (GameObject)Instantiate(BasePrefab[1], new Vector3(0, 0, 0), BasePrefab[1].transform.rotation);
+                break;
+            case 3:
+                mainBase = (GameObject)Instantiate(BasePrefab[2], new Vector3(0, 0, 0), BasePrefab[2].transform.rotation);
+                break;
+            case 4:
+                mainBase = (GameObject)Instantiate(BasePrefab[3], new Vector3(0, 0, 0), BasePrefab[3].transform.rotation);
+                break;
+        }
+        selectedBase = mainBase;
+
+        BigFeatures.Add((WorldFeature)mainBase.GetComponent<WorldFeature>());
     }
 
-   
+
     void FillResources()
     {
-        for (int i = 0; i < ResPositions.Length/2; i++)
+        for (int i = 0; i < ResPositions.Length / 2; i++)
         {
-            var posNumber = UnityEngine.Random.Range(0,ResPositions.Length );
+            var posNumber = UnityEngine.Random.Range(0, ResPositions.Length);
             if (!usedNumbers.Contains(posNumber) || usedNumbers == null)
             {
                 usedNumbers.Add(posNumber);
-                
-                var ress = Instantiate(ResourcePrefab[UnityEngine.Random.Range(0, ResourcePrefab.Length)],ResPositions[posNumber].transform.position, ResPositions[posNumber].transform.rotation);
+
+                var ress = Instantiate(ResourcePrefab[UnityEngine.Random.Range(0, ResourcePrefab.Length)], ResPositions[posNumber].transform.position, ResPositions[posNumber].transform.rotation);
                 Res.Add(ress);
             }
             else
@@ -327,5 +399,5 @@ public class MapManager : MonoBehaviour {
             }
         }
     }
-   
+
 }
