@@ -102,7 +102,7 @@ public class Map : MonoBehaviour
             foreach (var item in Pieces)
             {
                 DestroyImmediate(item.CubeRepresentation.gameObject ,false);
-                DestroyImmediate(item.EntranceCubeRepresentation.gameObject, false);
+                
             }
         }
     }
