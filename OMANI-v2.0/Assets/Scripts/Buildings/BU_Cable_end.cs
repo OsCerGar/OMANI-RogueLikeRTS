@@ -152,7 +152,7 @@ public class BU_Cable_end : Interactible
                 if (closest != null)
                 {
                     disableRigid();
-                    cable.CableLength(16);
+                    cable.CableLength(13);
 
                     this.transform.SetParent(closest.transform);
                     this.transform.localPosition = Vector3.zero;
