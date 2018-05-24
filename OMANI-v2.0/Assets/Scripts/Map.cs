@@ -9,16 +9,149 @@ public class Map : MonoBehaviour
     int mapPieceSize = 135;
     MapPiece[,] Pieces; // do in method
     [SerializeField]bool cornerless,diamond;
-    
+
+    public GameObject[] I;
+    public GameObject[] L;
+    public GameObject[] T;
+    public GameObject[] X;
+    public GameObject[] End;
+    public GameObject[] Mist;
 
     public void GenerateMap()
     {
         CleanMap();
         initializePieces();
-        representRoles();
+        SetUpVars();
         SetEntrances();
         AddExtraEntrances();
-        representEntrances();
+        ConnectEntrances();
+        InstanciateRooms();
+        CreatePaths();
+        InstanciateTerrain();
+
+    }
+
+    private void InstanciateRooms()
+    {
+        for (int i = 0; i < Pieces.GetLength(0); i++)
+        {
+            for (int z = 0; z < Pieces.GetLength(1); z++)
+            {
+                Pieces[i, z].instanciateRooms();
+            }
+        }
+    }
+
+    private void CreatePaths()
+    {
+        for (int i = 0; i < Pieces.GetLength(0); i++)
+        {
+            for (int z = 0; z < Pieces.GetLength(1); z++)
+            {
+                Pieces[i, z].ChooseEntrance();
+            }
+        }
+        for (int i = 0; i < Pieces.GetLength(0); i++)
+        {
+            for (int z = 0; z < Pieces.GetLength(1); z++)
+            {
+                Pieces[i, z].CheckSurroundings();
+            }
+        }
+        for (int i = 0; i < Pieces.GetLength(0); i++)
+        {
+            for (int z = 0; z < Pieces.GetLength(1); z++)
+            {
+                Pieces[i, z].CleanPaths();
+            }
+        }
+
+    }
+    private void InstanciateTerrain()
+    {
+        for (int i = 0; i < Pieces.GetLength(0); i++)
+        {
+            for (int z = 0; z < Pieces.GetLength(1); z++)
+            {
+                Pieces[i, z].Map = this;
+                Pieces[i, z].InstanciateTerrain();
+
+
+            }
+        }
+
+
+    }
+
+    private void ConnectEntrances()
+    {
+        for (int i = 0; i < Pieces.GetLength(0); i++)
+        {
+            for (int z = 0; z < Pieces.GetLength(1); z++)
+            {
+                List<Vector2> nearEntrances;
+
+                if (i+1 < size) //Check MapPiece to the right
+                {
+                    nearEntrances = Pieces[i + 1, z].entrances; //The piece on the right
+                    if (nearEntrances != null)
+                    {
+                        foreach (Vector2 item in nearEntrances)
+                        {
+                            if (item.x == 0) // if it has an entrance on the left
+                            {
+                                Pieces[i, z].entrances.Add(new Vector2(2, item.y)); //we connect it by putting an entrance to the right, same Y
+                            }
+                        }
+                    }
+                }
+                if (i - 1 >= 0) //Check MapPiece to the left
+                {
+                    nearEntrances = Pieces[i - 1, z].entrances; 
+                    if (nearEntrances != null)
+                    {
+                        foreach (Vector2 item in nearEntrances)
+                        {
+                            if (item.x == 2) 
+                            {
+                                Pieces[i, z].entrances.Add(new Vector2(0, item.y)); 
+                            }
+                        }
+                    }
+                }
+                if (z - 1 >= 0) //Check MapPiece to the down
+                {
+                    nearEntrances = Pieces[i, z -1].entrances;
+                    if (nearEntrances != null)
+                    {
+                        foreach (Vector2 item in nearEntrances)
+                        {
+                            if (item.y == 2)
+                            {
+                                Pieces[i, z].entrances.Add(new Vector2(item.x, 0));
+                            }
+                        }
+                    }
+                }
+                if (z + 1 < size) //Check MapPiece to the up
+                {
+                    nearEntrances = Pieces[i, z + 1].entrances;
+                    if (nearEntrances != null)
+                    if (nearEntrances != null)
+                    {
+                        foreach (Vector2 item in nearEntrances)
+                        {
+                            if (item.y == 0)
+                            {
+                                Pieces[i, z].entrances.Add(new Vector2(item.x, 2));
+                            }
+                        }
+                    }
+                }
+
+
+            }
+        }
     }
 
     private void AddExtraEntrances()
@@ -90,7 +223,7 @@ public class Map : MonoBehaviour
             for (int z = 0; z < Pieces.GetLength(1); z++)
             {
 
-                Pieces[i, z].RepresentEntranceRoom();
+                Pieces[i, z].SetUpVariables();
             }
         }
     }
@@ -101,8 +234,7 @@ public class Map : MonoBehaviour
         {
             foreach (var item in Pieces)
             {
-                DestroyImmediate(item.CubeRepresentation.gameObject ,false);
-                
+                item.CleanRoomPrefabs();
             }
         }
     }
@@ -197,7 +329,6 @@ public class Map : MonoBehaviour
                 returnString = "Base" + returnString;
             }
         }
-        Debug.Log(currentPiece.position + "has an entrance like this ::  " + returnString);
         return returnString;
 
 
@@ -215,14 +346,14 @@ public class Map : MonoBehaviour
         }
     }
 
-    private void representRoles()
+    private void SetUpVars()
     {
         for (int i = 0; i < Pieces.GetLength(0); i++)
         {
             for (int z = 0; z < Pieces.GetLength(1); z++)
             {
 
-                Pieces[i, z].RepresentWithCube();
+                Pieces[i, z].SetUpVariables();
             }
         }
     }
