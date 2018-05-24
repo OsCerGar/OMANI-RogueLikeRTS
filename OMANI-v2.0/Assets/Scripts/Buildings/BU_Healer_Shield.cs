@@ -21,7 +21,7 @@ public class BU_Healer_Shield : BU_UniqueBuilding
     public override void Start()
     {
         base.Start();
-
+        baseCenter = this.transform.parent;
         notOnlyWorkers = true;
         maxnumberOfWorkers = 0;
         requiredEnergy = 2;
