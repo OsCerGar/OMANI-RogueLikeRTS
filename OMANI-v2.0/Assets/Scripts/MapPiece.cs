@@ -103,7 +103,7 @@ public class MapPiece
             {
                 terrain = Map.Instantiate(Map.Mist[0], room.RealPos, Quaternion.Euler(0, 270, 0));
             }
-            terrain.name = room.relativePos + " left : " + room.left + " || right : " + room.right + " up : " + room.up + " || down : " + room.down;
+            terrain.name = room.role + " left : " + room.left + " || right : " + room.right + " up : " + room.up + " || down : " + room.down;
             TerrainPrefabs.Add(terrain);
         }
     }
@@ -156,7 +156,7 @@ public class MapPiece
 
                 }
 
-
+                //This might fix paths if 4 Adds 2, 3 adds 1
                 if (validSurroundings.Count >= 3) //Picking a random connection to set the entrance from
                 {
 
@@ -204,6 +204,26 @@ public class MapPiece
                     if (roomToSetPos.x + 1 < 3)
                     {
                         Rooms[i + 1, z].left = true;
+                    }
+                }
+                if (roomToSet.role == "Entrance")
+                {
+
+                    if (i == 0)
+                    {
+                        roomToSet.left = true;
+                    }
+                    else if (i == 2)
+                    {
+                        roomToSet.right = true;
+                    }
+                    if (z == 0)
+                    {
+                        roomToSet.down = true;
+                    }
+                    else if (z == 2)
+                    {
+                        roomToSet.up = true;
                     }
                 }
             }
@@ -398,15 +418,30 @@ public class MapPiece
 
     public void instanciateRooms()
     {
+        if (role == "Base")
+        {
+            var BasePos = GetRealRoomPos(new Vector2(Rooms.GetLength(0)/2, Rooms.GetLength(1)/2));
+            var baseProta = Map.Instantiate(Map.Base,BasePos,Map.Base.transform.rotation);
+            TerrainPrefabs.Add(baseProta);
+            for (int i = 0; i < Rooms.GetLength(0); i++)
+            {
+                for (int z = 0; z < Rooms.GetLength(1); z++)
+                {
+                    Rooms[i, z] = null;
+                }
+            }
+                }
         for (int i = 0; i < Rooms.GetLength(0); i++)
         {
             for (int z = 0; z < Rooms.GetLength(1); z++)
             {
-
+                
                 var RoomPos = new Vector2(i, z);
 
                 var CurrentRoom = Rooms[i, z];
                 CurrentRoom = new Room(RoomPos, GetRealRoomPos(RoomPos), false); //Set room position,realposition, and not connected
+                if (role == "Connection" || role == "POI")
+                {
 
                 foreach (Vector2 entr in entrances)//We check each entrance to compare
                 {
@@ -453,6 +488,14 @@ public class MapPiece
                     {
                         CurrentRoom.up = false;
                     }
+                }
+
+                }else if (role == "Mist" )
+                {
+                        CurrentRoom.left = false;
+                        CurrentRoom.right = false;
+                        CurrentRoom.down = false;
+                        CurrentRoom.up = false;
                 }
 
                 Rooms[i, z] = CurrentRoom;

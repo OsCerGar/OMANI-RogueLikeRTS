@@ -16,6 +16,7 @@ public class Map : MonoBehaviour
     public GameObject[] X;
     public GameObject[] End;
     public GameObject[] Mist;
+    public GameObject Base;
 
     public void GenerateMap()
     {
@@ -73,7 +74,6 @@ public class Map : MonoBehaviour
         {
             for (int z = 0; z < Pieces.GetLength(1); z++)
             {
-                Pieces[i, z].Map = this;
                 Pieces[i, z].InstanciateTerrain();
 
 
@@ -336,7 +336,7 @@ public class Map : MonoBehaviour
 
     private bool CheckRole(MapPiece mapPiece)
     {
-        if (mapPiece.role == "Mist" || mapPiece.role == "POI")
+        if (mapPiece.role == "Mist")
         {
             return false;
         }
@@ -353,6 +353,7 @@ public class Map : MonoBehaviour
             for (int z = 0; z < Pieces.GetLength(1); z++)
             {
 
+                Pieces[i, z].Map = this;
                 Pieces[i, z].SetUpVariables();
             }
         }
