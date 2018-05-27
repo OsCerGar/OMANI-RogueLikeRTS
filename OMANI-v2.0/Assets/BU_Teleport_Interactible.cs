@@ -8,7 +8,7 @@ public class BU_Teleport_Interactible : Interactible
 
     public bool energy, planted, teleporting;
     private float timeToTeleport = 0, sizeToTeleport = 7;
-    private GameObject gUI_Teleport, energyLight;
+    private GameObject gUI_Teleport, energyLight, plantedLight;
     private BU_Teleport bu_Teleport;
 
     // Use this for initialization
@@ -16,6 +16,7 @@ public class BU_Teleport_Interactible : Interactible
     {
         base.Start();
         energyLight = this.transform.Find("Energy").gameObject;
+        plantedLight = this.transform.Find("Planted").gameObject;
         gUI_Teleport = this.transform.Find("GUI_Teleport").gameObject;
         bu_Teleport = this.transform.parent.GetComponent<BU_Teleport>();
         disableRigid();
@@ -32,6 +33,16 @@ public class BU_Teleport_Interactible : Interactible
         {
             energyLight.SetActive(false);
             planted = false;
+        }
+
+        if (planted == true)
+        {
+            plantedLight.SetActive(true);
+        }
+
+        else
+        {
+            plantedLight.SetActive(false);
         }
 
         if (teleporting == true)
@@ -74,7 +85,6 @@ public class BU_Teleport_Interactible : Interactible
                     if (objectsInArea[i].tag == "Player")
                     {
                         player = objectsInArea[i].gameObject;
-                        Debug.Log("Player found");
                     }
 
                     else

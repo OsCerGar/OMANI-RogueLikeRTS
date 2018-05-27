@@ -66,6 +66,16 @@ public class BU_Teleport : BU_UniqueBuilding
         }
 
     }
+
+    // If the teleport is planted teleporting  == true;
+    public void StartTeleport()
+    {
+        if (teleport.planted == true && totalEnergy >= requiredEnergy)
+        {
+            teleporting = true;
+        }
+
+    }
     private void LoadingTeleport()
     {
         Collider[] objectsInArea = null;
@@ -101,6 +111,7 @@ public class BU_Teleport : BU_UniqueBuilding
 
         }
     }
+
 
     public void Teleport(List<NavMeshAgent> _people, GameObject _barroboy)
     {

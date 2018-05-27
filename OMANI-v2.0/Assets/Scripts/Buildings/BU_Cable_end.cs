@@ -105,7 +105,6 @@ public class BU_Cable_end : Interactible
             }
         }
 
-
         if (alreadyGrabbedObject == false && _boy.grabbedObject.Count < 3)
         {
             disableRigid();
