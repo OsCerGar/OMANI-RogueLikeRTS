@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class WorldFeature : MonoBehaviour {
 
-    public float Rad;
-
+    public Vector2 Dimensions;
     
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, Rad);
-    }
     public Vector3 getPos ()
     {
         return transform.position;

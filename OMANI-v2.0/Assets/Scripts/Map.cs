@@ -8,7 +8,7 @@ public class Map : MonoBehaviour
     public int size = 3;
     int mapPieceSize = 135;
     MapPiece[,] Pieces; // do in method
-    [SerializeField]bool cornerless,diamond;
+    [SerializeField] bool cornerless, diamond;
 
     public GameObject[] I;
     public GameObject[] L;
@@ -18,6 +18,8 @@ public class Map : MonoBehaviour
     public GameObject[] Mist;
     public GameObject Base;
 
+
+    private DesertMapGenerator DesertMG;
     public void GenerateMap()
     {
         CleanMap();
@@ -29,9 +31,15 @@ public class Map : MonoBehaviour
         InstanciateRooms();
         CreatePaths();
         InstanciateTerrain();
+        SetFinalTerrain();
 
     }
-
+    private void SetFinalTerrain()
+    {
+        DesertMG = FindObjectOfType<DesertMapGenerator>();
+        DesertMG.Generate();
+    }
+       
     private void InstanciateRooms()
     {
         for (int i = 0; i < Pieces.GetLength(0); i++)
@@ -74,7 +82,10 @@ public class Map : MonoBehaviour
         {
             for (int z = 0; z < Pieces.GetLength(1); z++)
             {
-                Pieces[i, z].InstanciateTerrain();
+                if (Pieces[i, z].role != "Base")
+                {
+                    Pieces[i, z].InstanciateTerrain();
+                }
 
 
             }
@@ -237,6 +248,7 @@ public class Map : MonoBehaviour
                 item.CleanRoomPrefabs();
             }
         }
+        DesertMG.Clean();
     }
 
     private void SetEntrances()

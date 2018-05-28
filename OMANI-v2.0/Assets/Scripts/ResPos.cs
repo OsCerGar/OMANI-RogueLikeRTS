@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResPos : WorldSmallFeature {
+public class ResPos : WorldFeature {
 
 
 }
