@@ -10,9 +10,12 @@ public class DesertMapGenerator : MonoBehaviour {
      List<GameObject> InstanciatedTerrain = new List<GameObject>();
     public void Clean()
     {
-        foreach (var item in InstanciatedTerrain)
+        if (InstanciatedTerrain.Count > 0)
         {
-            DestroyImmediate(item,false);
+            foreach (var item in InstanciatedTerrain)
+            {
+                DestroyImmediate(item, false);
+            }
         }
     }
     public void Generate()

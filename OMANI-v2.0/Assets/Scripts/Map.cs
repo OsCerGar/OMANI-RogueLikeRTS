@@ -20,6 +20,7 @@ public class Map : MonoBehaviour
 
 
     private DesertMapGenerator DesertMG;
+
     public void GenerateMap()
     {
         CleanMap();
@@ -36,7 +37,6 @@ public class Map : MonoBehaviour
     }
     private void SetFinalTerrain()
     {
-        DesertMG = FindObjectOfType<DesertMapGenerator>();
         DesertMG.Generate();
     }
        
@@ -241,6 +241,8 @@ public class Map : MonoBehaviour
 
     private void CleanMap()
     {
+
+        DesertMG = GetComponent<DesertMapGenerator>();
         if (Pieces != null)
         {
             foreach (var item in Pieces)
@@ -248,6 +250,7 @@ public class Map : MonoBehaviour
                 item.CleanRoomPrefabs();
             }
         }
+
         DesertMG.Clean();
     }
 
@@ -360,6 +363,7 @@ public class Map : MonoBehaviour
 
     private void SetUpVars()
     {
+
         for (int i = 0; i < Pieces.GetLength(0); i++)
         {
             for (int z = 0; z < Pieces.GetLength(1); z++)
