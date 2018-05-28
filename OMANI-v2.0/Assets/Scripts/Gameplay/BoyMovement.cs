@@ -138,11 +138,6 @@ public class BoyMovement : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-
-    }
-
     void FixedUpdate()
     {
         // MOVEMENT
@@ -346,10 +341,10 @@ public class BoyMovement : MonoBehaviour
             // If the axis has any sort of input on WASD.
             if (horizontal != 0f || vertical != 0f)
             {
-
+                t2 = 0;
                 stopRagdoll();
                 AnimSpeed = Mathf.Lerp(0, 4.5f, t);
-                t += 2.3f * Time.deltaTime;
+                t += 3f * Time.deltaTime;
                 // Calls the Rotate function, which makes the rotation of the character look good.
                 if (onRoll != true)
                 {
@@ -374,9 +369,9 @@ public class BoyMovement : MonoBehaviour
             // If the axis doesn't have any sort of input.
             else
             {
-                t = 0.2f;
-                AnimSpeed = Mathf.Lerp(AnimSpeed, 0, t);
-                t2 -= 0.4f * Time.deltaTime;
+                t = 0;
+                AnimSpeed = Mathf.Lerp(AnimSpeed, 0, t2);
+                t2 += 3f * Time.deltaTime;
                 anim.SetFloat("AnimSpeed", AnimSpeed);
             }
         }
