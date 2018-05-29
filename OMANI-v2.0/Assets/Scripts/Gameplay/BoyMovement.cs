@@ -164,7 +164,6 @@ public class BoyMovement : MonoBehaviour
         //Timer for the character to get up from ragdoll.
         ragdollTimer += Time.deltaTime;
         rollTimer += Time.deltaTime;
-
         //ROLL 
         // If space is pressed.
         //If the get up animation is not playing and ragdolled is false
