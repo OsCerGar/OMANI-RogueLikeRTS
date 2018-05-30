@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResPos : WorldFeature {
+public class ResPos : MonoBehaviour {
 
 
 }

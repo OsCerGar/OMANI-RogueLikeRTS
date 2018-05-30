@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Map : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class Map : MonoBehaviour
     public GameObject Base;
 
 
+    //Navigation
+    private NavMeshSurface[] surfaces;
+
+
     private DesertMapGenerator DesertMG;
 
     public void GenerateMap()
@@ -33,6 +38,22 @@ public class Map : MonoBehaviour
         CreatePaths();
         InstanciateTerrain();
         SetFinalTerrain();
+        buildNavmesh();
+
+    }
+    private void buildNavmesh()
+    {
+
+        // Use this for initialization
+
+        surfaces = FindObjectsOfType<NavMeshSurface>();
+
+
+
+        for (int i = 0; i < surfaces.Length; i++)
+        {
+            surfaces[i].BuildNavMesh();
+        }
 
     }
     private void SetFinalTerrain()

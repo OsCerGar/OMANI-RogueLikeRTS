@@ -4,11 +4,12 @@ using UnityEngine;
 using EZObjectPools;
 public class PTR_ArenaSpawner : MonoBehaviour {
 
-    EZObjectPool ChomperPool,GrenadierPool,SwordsmanPool,ArcherPool;
-   public  Transform chomperSpawn, grenadierSpawn, swordsmanSpawn, archerSpawn;
+    EZObjectPool ChomperPool, GrenadierPool, SwordsmanPool, ArcherPool;
+    public Transform chomperSpawn, grenadierSpawn, swordsmanSpawn, archerSpawn;
     // Use this for initialization
     GameObject Spawned;
-    void Start () {
+    void Start()
+    {
         var AllPoolers = FindObjectsOfType<EZObjectPool>();
 
         foreach (EZObjectPool item in AllPoolers)
@@ -70,5 +71,4 @@ public class PTR_ArenaSpawner : MonoBehaviour {
             }
         }
     }
-
 }

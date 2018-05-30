@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Room {
+public class Room{
    public  Vector2 relativePos;
    public  Vector3 RealPos;
    public  bool? up, down, left, right;
