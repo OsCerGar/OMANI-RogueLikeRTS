@@ -4,26 +4,18 @@ using UnityEngine;
 
 public class Powers : MonoBehaviour
 {
-    private float slowdownFactor = 0.1f;
-    private float slowdownLength = 10f;
+    [SerializeField]
+    public List<Power> power = new List<Power>();
+    int selectedPower = 0;
 
     // Update is called once per frame
     void Update()
     {
-        Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
-        Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
-        //Time.fixedDeltaTime = Time.timeScale;
-
-        if (Input.GetKey("1"))
+        if (Input.GetKeyDown("1"))
         {
-            SlowMotion();
+            power[selectedPower].CastPower();
         }
     }
 
-    public void SlowMotion()
-    {
-        Time.timeScale = slowdownFactor;
-        Time.fixedDeltaTime = Time.timeScale * 0.2f;
-    }
 
 }
