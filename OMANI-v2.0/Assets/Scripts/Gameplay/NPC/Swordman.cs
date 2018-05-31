@@ -8,4 +8,9 @@ public class Swordman : NPC
     {
         boyType = "Swordsman";
     }
+    public override void Update()
+    {
+        base.Update();
+        checkVariables();
+    }
 }

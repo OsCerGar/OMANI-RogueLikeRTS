@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
+using UnityEngine.AI;
 
 public class RangedAttack : MonoBehaviour {
 
@@ -15,38 +16,27 @@ public class RangedAttack : MonoBehaviour {
 
     void OnParticleCollision(GameObject other)
     {
-        if (other.tag == TagToAttack)
+        string tagToAttack, secondTagToAttack;
+        if (transform.parent.tag == "Enemy")
+        {
+            tagToAttack = "People";
+            secondTagToAttack = "Player";
+        }
+        else
+        {
+            tagToAttack = "Enemy";
+            secondTagToAttack = "Enemy";
+        }
+        if (other.tag == tagToAttack || other.tag == secondTagToAttack)
         {
             var EnemyNPC = other.GetComponent<NPC>();
-            var EnemyNavMesh = other.GetComponent<UnityEngine.AI.NavMeshAgent>();
-            NPC thisNPC;
-            if (thisNPC = transform.parent.GetComponent<NPC>())
-            {
-                EnemyNPC.Life -= thisNPC.Damage;
-            } else
-            {
-                EnemyNPC.Life -= Damage;
-            }
-            if (EnemyNavMesh != null)
-            {
-                EnemyNavMesh.velocity = (other.transform.position - transform.position).normalized * PushBack;
-            }
-            if (thisNPC)
-            {
-                var targetVariable = (SharedGameObject)other.gameObject.GetComponent<BehaviorTree>().GetVariable("Target");
-                if (targetVariable != null)
-                {
-                    targetVariable.Value = transform.parent.gameObject;
-                }
-            }
-           
-        }else
-        {
-            Rigidbody rb;
-            if (rb = other.GetComponent<Rigidbody>())
-            {
-                rb.AddForce((other.transform.position - transform.position).normalized * PushBack * 80);
-            }
+            var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
+            //Make his take damage;
+            EnemyNPC.TakeDamage(transform.parent.GetComponent<NPC>().Damage, true, 5);
+            //Set his Enemy to this
+            EnemyNPC.AI_SetEnemy(transform.parent.gameObject);
+            //If he's dead, then forget about him
+
         }
     }
 }

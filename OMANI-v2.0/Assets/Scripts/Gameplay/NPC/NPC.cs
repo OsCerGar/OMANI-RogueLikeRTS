@@ -29,6 +29,13 @@ public class NPC : MonoBehaviour
 
     [HideInInspector]
     public BehaviorTree AI;
+
+    //Variables for when disabled (knockback)
+    bool disabled;
+    float disabledTime = 2, disabledCountdown = 0;
+    bool KnockBackParabola = false;
+    float k;
+    Vector3 LandingPosition, initialPosition;
     #endregion
 
     #region GETTERSETTERS
@@ -117,11 +124,29 @@ public class NPC : MonoBehaviour
         //He dies if life lowers 
         //TODO : Make this an animation, and make it so that it swaps his layer and tag to something neutral
 
-        if (life <= 0)
+        if (disabled)
         {
-            //provisional :D
-            Die();
-            state = "Dead";
+            if (disabledCountdown < disabledTime)
+            {
+                disabledCountdown += Time.deltaTime;
+            }else
+            {
+                disabled = false;
+                anim.SetBool("KnockBack",false);
+            }
+        }
+        if (KnockBackParabola)
+        {
+            if (k<0.93f) {
+            k += Time.deltaTime;
+            transform.position = MathParabola.Parabola(initialPosition, LandingPosition, 2, k );
+            Debug.Log(k);
+            }
+            else
+            {
+                k = 0;
+                KnockBackParabola = false;
+            }
         }
 
 
@@ -130,20 +155,93 @@ public class NPC : MonoBehaviour
         {
             anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
         }
-        checkVariables();
+
+    }
+    //take damage with knockBack
+    public void TakeDamage(int damage, bool knockback,float knockbackTime)
+    {
+        life -= damage;
+        if (life <= 0)
+        {
+            Die();
+            state = "Dead";
+        }
+        else
+        {
+            if (knockback)
+            {
+                if (!disabled)
+                {
+                    disabledTime = knockbackTime;
+                    anim.SetBool("KnockBack", true);
+                    DisableNPC();
+                }
+            }
+        }
+        
+    }
+    public void EnableNPC()
+    {
+        disabled = false;
+        if (AI != null)
+        {
+            AI.enabled = true;
+        }
+        Nav.enabled = true;
+    }
+    public void DisableNPC()
+    {
+        disabled = true;
+        if (AI != null)
+        {
+            AI.enabled = false;
+        }
+        Nav.enabled = false;
+
+    }
+    //Simple way to take damage
+    public void TakeDamage(int damage)
+    {
+        life -= damage;
+        if (life <= 0)
+        {
+            Die();
+            state = "Dead";
+        }
+
+    }
+    public void KnockBack()
+    {
+        Vector3 tempLandingPosition;
+        if (AI_GetEnemy() != null)
+        {
+            transform.LookAt(AI_GetEnemy().transform.position);
+            tempLandingPosition = AI_GetEnemy().transform.forward * 4;
+        } else
+        {
+            tempLandingPosition = transform.forward * -2;
+        }
+        LandingPosition = new Vector3(tempLandingPosition.x, tempLandingPosition.y, tempLandingPosition.z);
+        initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        k = 0;
+        KnockBackParabola = true;
 
     }
 
-    private void checkVariables()
+    protected void checkVariables()
     {
+        //If it's not null 
         if (AI_GetEnemy() != null)
         {
+            //But not active
             if (!AI_GetEnemy().activeSelf)
             {
+                //Turn it null, and set and stop your order
                 AI_SetEnemy(null);
                 AI_SetState("Free");
             }
         }
+        //Same with target
         if (AI_GetTarget() != null)
         {
             if (!AI_GetTarget().activeSelf)
@@ -151,6 +249,11 @@ public class NPC : MonoBehaviour
                 AI_SetTarget(null);
                 AI_SetState("Free");
             }
+        }
+        else
+        {
+            //If null, then go free
+            AI_SetState("Free");
         }
     }
 

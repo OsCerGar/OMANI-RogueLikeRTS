@@ -13,7 +13,7 @@ public class HitscanAttack : MonoBehaviour {
         {
             if (hit.transform.tag == "Enemy")
             {
-                hit.transform.GetComponent<NPC>().Life -= damage;
+                hit.transform.GetComponent<NPC>().TakeDamage(damage); ;
             }
 
             ps.transform.position = hit.point;
