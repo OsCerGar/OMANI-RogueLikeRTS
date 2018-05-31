@@ -8,14 +8,16 @@ public class PW_SlowMotion : Power
 {
 
     private float slowdownFactor = 0.25f;
-    private float slowdownLength = 1.5f, recovery = 5f, waste = 10f;
+    private float slowdownLength = 1.5f, recovery = 5f, waste = 10f, viewRadius = 2f;
     private bool active = false;
+    private int targetMask = 1 << 10;
 
     [SerializeField]
     PostProcessingProfile slowmo;
     PostProcessingProfile normal;
     CinemachinePostFX postFx;
     BoyMovement boy;
+    List<NPC> hittedNpcs = new List<NPC>();
 
     private void Start()
     {
@@ -42,6 +44,25 @@ public class PW_SlowMotion : Power
         {
             powerPool = Mathf.Clamp(powerPool - (Time.unscaledDeltaTime * waste), 0, maxpowerPool);
             boy.maxanimSpeed = 8f;
+
+            Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+            foreach (Collider col in targetsInViewRadius)
+            {
+                NPC enemy = col.transform.root.GetComponent<NPC>();
+                bool found = false;
+                foreach (NPC _npc in hittedNpcs)
+                {
+                    if (_npc == enemy)
+                    {
+                        found = true;
+                    }
+                }
+                if (enemy != null && found == false)
+                {
+                    hittedNpcs.Add(enemy);
+                    enemy.TakeDamage(50, true, 0.1f);
+                }
+            }
         }
 
         if (powerPool < 1)
@@ -62,6 +83,8 @@ public class PW_SlowMotion : Power
         }
         else
         {
+            // cleans list
+            hittedNpcs.Clear();
             // if already active becomes inactive and loads the regular postfx.
             active = false;
             postFx.m_Profile = normal;

@@ -38,7 +38,7 @@ public class MeleAttack : MonoBehaviour {
             if (enem.tag == "Building")
             {
                 Debug.Log("damage to building");
-                enem.GetComponent<NPC>().Life -= transform.parent.GetComponent<NPC>().Damage;
+                enem.GetComponent<NPC>().Life -= transform.root.GetComponent<NPC>().Damage;
             }
         }
         

@@ -56,7 +56,6 @@ public class BU_Teleport_Interactible : Interactible
                 timeToTeleport = 0;
                 planted = false;
                 teleporting = false;
-                Debug.Log("Loading teleport");
                 LoadingTeleport();
             }
         }

@@ -140,7 +140,6 @@ public class NPC : MonoBehaviour
             if (k<0.93f) {
             k += Time.deltaTime;
             transform.position = MathParabola.Parabola(initialPosition, LandingPosition, 2, k );
-            Debug.Log(k);
             }
             else
             {
