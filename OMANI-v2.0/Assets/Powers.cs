@@ -8,6 +8,10 @@ public class Powers : MonoBehaviour
     public List<Power> power = new List<Power>();
     int selectedPower = 0;
 
+    private void Start()
+    {
+    }
+
     // Update is called once per frame
     void Update()
     {

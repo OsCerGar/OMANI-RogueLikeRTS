@@ -10,7 +10,7 @@ public class HealthDisplay : MonoBehaviour {
     // Use this for initialization
     void Start () {
         hpDisplay =  transform.Find("HealthBack/Health").GetComponent<Image>();
-        npcScript = transform.GetComponentInParent<NPC>();
+        npcScript = transform.root.GetComponent<NPC>();
         cam = Camera.main;
     }
 	

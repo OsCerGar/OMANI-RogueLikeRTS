@@ -50,7 +50,6 @@ public class PW_SlowMotion : Power
         }
     }
 
-
     public void SlowMotion()
     {
         if (active == false)
