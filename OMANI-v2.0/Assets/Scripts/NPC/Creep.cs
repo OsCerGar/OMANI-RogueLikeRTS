@@ -12,19 +12,7 @@ public class Creep : Enemy {
         thisTarget.Value = master;
 
     }
-    private void FixedUpdate()
-    {
-        if (AI_GetEnemy() != null)
-        {
-            if (AI_GetEnemy().GetComponent<NPC>()!= null)
-            {
-                if (AI_GetEnemy().GetComponent<NPC>().Life <= 0)
-                {
-                    AI_SetEnemy(null);
-                }
-            }
-        }
-    }
+   
     public override void Die()
     {
         transform.gameObject.SetActive(false);

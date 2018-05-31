@@ -36,6 +36,7 @@ public class NPC : MonoBehaviour
     bool KnockBackParabola = false;
     float k;
     Vector3 LandingPosition, initialPosition;
+    Transform perpetrator;
     #endregion
 
     #region GETTERSETTERS
@@ -122,7 +123,6 @@ public class NPC : MonoBehaviour
     public virtual void Update()
     {
         //He dies if life lowers 
-        //TODO : Make this an animation, and make it so that it swaps his layer and tag to something neutral
 
         if (disabled)
         {
@@ -157,7 +157,7 @@ public class NPC : MonoBehaviour
 
     }
     //take damage with knockBack
-    public void TakeDamage(int damage, bool knockback,float knockbackTime)
+    public void TakeDamage(int damage, bool knockback,float knockbackTime,Transform _perpetrator)
     {
         life -= damage;
         if (life <= 0)
@@ -174,6 +174,7 @@ public class NPC : MonoBehaviour
                     disabledTime = knockbackTime;
                     anim.SetBool("KnockBack", true);
                     DisableNPC();
+                    perpetrator = _perpetrator;
                 }
             }
         }
@@ -212,15 +213,15 @@ public class NPC : MonoBehaviour
     public void KnockBack()
     {
         Vector3 tempLandingPosition;
-        if (AI_GetEnemy() != null)
+        if (perpetrator != null)
         {
-            transform.LookAt(AI_GetEnemy().transform.position);
-            tempLandingPosition = AI_GetEnemy().transform.forward * 4;
+            transform.LookAt(perpetrator);
+            tempLandingPosition = transform.position + perpetrator.forward * 3;
         } else
         {
             tempLandingPosition = transform.forward * -2;
         }
-        LandingPosition = new Vector3(tempLandingPosition.x, tempLandingPosition.y, tempLandingPosition.z);
+        LandingPosition = new Vector3(tempLandingPosition.x, tempLandingPosition.y+1, tempLandingPosition.z);
         initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         k = 0;
         KnockBackParabola = true;

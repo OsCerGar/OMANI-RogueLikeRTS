@@ -6,9 +6,8 @@ using BehaviorDesigner.Runtime;
 using UnityEngine.AI;
 
 public class RangedAttack : MonoBehaviour {
-
-    [SerializeField] string TagToAttack;
-    [SerializeField] float PushBack;
+    
+    [SerializeField] bool Knockback;
     [SerializeField] int Damage = 1;
 
 
@@ -32,7 +31,13 @@ public class RangedAttack : MonoBehaviour {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             //Make his take damage;
-            EnemyNPC.TakeDamage(transform.parent.GetComponent<NPC>().Damage, true, 5);
+            if (Knockback)
+            {
+                EnemyNPC.TakeDamage(transform.parent.GetComponent<NPC>().Damage, true, 5, transform.parent.transform);
+            }else
+            {
+                EnemyNPC.TakeDamage(transform.parent.GetComponent<NPC>().Damage);
+            }
             //Set his Enemy to this
             EnemyNPC.AI_SetEnemy(transform.parent.gameObject);
             //If he's dead, then forget about him

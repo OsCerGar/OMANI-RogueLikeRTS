@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class MeleAttack : MonoBehaviour {
-    [SerializeField] float PushBack = 0;
+    [SerializeField] bool Knockback;
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
@@ -23,7 +23,13 @@ public class MeleAttack : MonoBehaviour {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             //Make his take damage;
-            EnemyNPC.TakeDamage(transform.parent.GetComponent<NPC>().Damage,true, 5);
+            if (Knockback)
+            {
+                EnemyNPC.TakeDamage(transform.parent.GetComponent<NPC>().Damage, true, 5,transform.parent.transform);
+            }else
+            {
+                EnemyNPC.TakeDamage(transform.parent.GetComponent<NPC>().Damage);
+            }
             //Set his Enemy to this
             EnemyNPC.AI_SetEnemy(transform.parent.gameObject);
             //If he's dead, then forget about him

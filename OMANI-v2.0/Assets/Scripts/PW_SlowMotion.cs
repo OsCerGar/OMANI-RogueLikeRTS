@@ -60,7 +60,7 @@ public class PW_SlowMotion : Power
                 if (enemy != null && found == false)
                 {
                     hittedNpcs.Add(enemy);
-                    enemy.TakeDamage(50, true, 0.1f);
+                    enemy.TakeDamage(50, true, 1f,transform);
                 }
             }
         }
