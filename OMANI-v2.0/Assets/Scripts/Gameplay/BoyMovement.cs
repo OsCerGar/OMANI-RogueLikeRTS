@@ -25,7 +25,7 @@ public class BoyMovement : MonoBehaviour
     //Timer to remove input from the player while in ragdoll.
     private float ragdollTimer = 0;
     //Speed for the animation
-    private float AnimSpeed;
+    public float animSpeed, maxanimSpeed = 4.5f;
     //Time for the animation blend
     private float t, t2;
 
@@ -342,36 +342,36 @@ public class BoyMovement : MonoBehaviour
             {
                 t2 = 0;
                 stopRagdoll();
-                AnimSpeed = Mathf.Lerp(0, 4.5f, t);
+                animSpeed = Mathf.Lerp(0, maxanimSpeed, t);
                 t += 3f * Time.deltaTime;
                 // Calls the Rotate function, which makes the rotation of the character look good.
                 if (onRoll != true)
                 {
                     Rotate(horizontal, vertical);
                 }
-                anim.SetFloat("AnimSpeed", AnimSpeed);
+                anim.SetFloat("AnimSpeed", animSpeed);
 
             }
             // If the axis has any sort of input on Joystick.
             else if (horizontalJoystick != 0f || verticalJoystick != 0f)
             {
                 stopRagdoll();
-                AnimSpeed = Mathf.Clamp(Mathf.Abs(horizontalJoystick) + Mathf.Abs(verticalJoystick), 0, 1) * 4.5f;
+                animSpeed = Mathf.Clamp(Mathf.Abs(horizontalJoystick) + Mathf.Abs(verticalJoystick), 0, 1) * maxanimSpeed;
                 // Calls the Rotate function, which makes the rotation of the character look good.
                 if (onRoll != true)
                 {
                     Rotate(horizontalJoystick, verticalJoystick);
                 }
-                anim.SetFloat("AnimSpeed", AnimSpeed);
+                anim.SetFloat("AnimSpeed", animSpeed);
 
             }
             // If the axis doesn't have any sort of input.
             else
             {
                 t = 0;
-                AnimSpeed = Mathf.Lerp(AnimSpeed, 0, t2);
+                animSpeed = Mathf.Lerp(animSpeed, 0, t2);
                 t2 += 3f * Time.deltaTime;
-                anim.SetFloat("AnimSpeed", AnimSpeed);
+                anim.SetFloat("AnimSpeed", animSpeed);
             }
         }
     }
