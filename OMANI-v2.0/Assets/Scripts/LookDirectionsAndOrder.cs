@@ -154,7 +154,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     private void Order()
     {
-        #region Order
+        #region Orders
         if (selectedTypeList.Count > 0)
         {
             //The boy will stop following you
@@ -163,6 +163,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 commander.Order(selectedTypeList[selectedTypeInt], this.transform.position);
             }
 
+            #region Direct Order
             if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
             {
                 orderCounter = 0;
@@ -172,16 +173,46 @@ public class LookDirectionsAndOrder : MonoBehaviour
             {
                 orderCounter += Time.deltaTime;
 
-                if (orderCounter > 0.2f)
+                if (orderCounter > 0.5f)
                 {
+
+                    //Checks if there is an objective for the order, if not, it goes to a place.
+                    if (closestBUTarget == null && closestEnemyTarget == null)
+                    {
+                        Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
+
+                        // You can't order through walls.
+                        if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                        {
+                            commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                        }
+                        else
+                        {
+                            commander.Order(selectedTypeList[selectedTypeInt], this.transform.position + (this.transform.forward * viewRadius));
+                        }
+                    }
+                    else
+                    {
+                        if (closestBUTarget != null)
+                        {
+                            commander.OrderDirect(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
+                        }
+                        else if (closestEnemyTarget != null)
+                        {
+                            commander.OrderDirect(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
+                        }
+                    }
+                    //Old
+                    /*
                     boyInCharge = commander.GetBoyArmy(selectedTypeList[selectedTypeInt]);
                     boyInCharge.ChargedOrder(miradaPositionObject);
                     orderInOrder = true;
-
+                    */
                 }
             }
             if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
             {
+                //Normal order
                 if (orderCounter < 0.2f)
                 {
                     //Checks if there is an objective for the order, if not, it goes to a place.
@@ -212,33 +243,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
 
                 }
-                else
-                {
-                    GameObject orderPositionVar = Instantiate(orderPosition);
-
-                    Debug.DrawRay(transform.position, this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f), Color.yellow, 5f);
-
-                    if (Physics.Raycast(transform.position, this.transform.forward, out hit, Mathf.Clamp(orderCounter * 5, 0.2f, 20f), obstacleMask))
-                    {
-                        orderPositionVar.transform.position = hit.point;
-                    }
-                    else
-                    {
-                        //Encargado de saber la distancia en la que se lanzará la orden cargada.
-                        orderPositionVar.transform.position = this.transform.position + (this.transform.forward * Mathf.Clamp(orderCounter * 5, 0.2f, 20f));
-                    }
-
-                    orderPositionVar.GetComponent<OrderPositionObject>().npc = boyInCharge;
-                    boyInCharge.ChargedOrderFullfilled(orderPositionVar);
-                    commander.RemoveFromList(boyInCharge);
-                    boyInCharge = null;
-
-                }
 
                 orderInOrder = false;
-
-
-
             }
 
             if (commander.ListSize(selectedTypeList[selectedTypeInt]) < 1)
@@ -246,9 +252,20 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 selectedTypeList.Remove(selectedTypeList[selectedTypeInt]);
             }
         }
-
         #endregion
 
+        #region SpecialOrder
+        if (Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("q"))
+        {
+            //Gives the order to everyone on that list.
+            foreach (NPC boyInCharge in commander.GetArmy(selectedTypeList[selectedTypeInt]))
+            {
+                boyInCharge.ChargedOrder();
+            }
+        }
+
+        #endregion
+        #endregion
         #region Reclute
 
         if (Input.GetKeyDown("joystick button 4") || Input.GetMouseButtonDown(0))

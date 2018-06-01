@@ -309,6 +309,34 @@ public class Army : MonoBehaviour
 
         return barroBoy;
     }
+    public List<NPC> GetArmy(string type)
+    {
+
+        List<NPC> armyList = null;
+        switch (type)
+        {
+            case "Swordsman":
+                armyList = swordsmans;
+                break;
+            case "Archer":
+                armyList = archers;
+                break;
+            case "Musketeer":
+                armyList = musketeers;
+                break;
+            case "Worker":
+                armyList = workers;
+                break;
+            case "Shieldman":
+                armyList = shieldmans;
+                break;
+            case "Rogue":
+                armyList = rogues;
+                break;
+        }
+
+        return armyList;
+    }
 
     public int ListSize(string _type)
     {

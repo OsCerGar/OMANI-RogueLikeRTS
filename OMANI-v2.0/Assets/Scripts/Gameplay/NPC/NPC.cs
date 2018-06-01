@@ -129,17 +129,19 @@ public class NPC : MonoBehaviour
             if (disabledCountdown < disabledTime)
             {
                 disabledCountdown += Time.deltaTime;
-            }else
+            }
+            else
             {
                 disabled = false;
-                anim.SetBool("KnockBack",false);
+                anim.SetBool("KnockBack", false);
             }
         }
         if (KnockBackParabola)
         {
-            if (k<0.93f) {
-            k += Time.deltaTime;
-            transform.position = MathParabola.Parabola(initialPosition, LandingPosition, 2, k );
+            if (k < 0.93f)
+            {
+                k += Time.deltaTime;
+                transform.position = MathParabola.Parabola(initialPosition, LandingPosition, 2, k);
             }
             else
             {
@@ -157,7 +159,7 @@ public class NPC : MonoBehaviour
 
     }
     //take damage with knockBack
-    public void TakeDamage(int damage, bool knockback,float knockbackTime,Transform _perpetrator)
+    public void TakeDamage(int damage, bool knockback, float knockbackTime, Transform _perpetrator)
     {
         life -= damage;
         if (life <= 0)
@@ -178,7 +180,7 @@ public class NPC : MonoBehaviour
                 }
             }
         }
-        
+
     }
     public void EnableNPC()
     {
@@ -217,11 +219,12 @@ public class NPC : MonoBehaviour
         {
             transform.LookAt(perpetrator);
             tempLandingPosition = transform.position + perpetrator.forward * 3;
-        } else
+        }
+        else
         {
             tempLandingPosition = transform.forward * -2;
         }
-        LandingPosition = new Vector3(tempLandingPosition.x, tempLandingPosition.y+1, tempLandingPosition.z);
+        LandingPosition = new Vector3(tempLandingPosition.x, tempLandingPosition.y + 1, tempLandingPosition.z);
         initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         k = 0;
         KnockBackParabola = true;
@@ -296,13 +299,13 @@ public class NPC : MonoBehaviour
         AI_SetTarget(attackPosition);
     }
 
-    public virtual void ChargedOrder(GameObject attackPosition)
+    public virtual void ChargedOrder()
     {
         AI.EnableBehavior();
         AI_SetState("SpecialAttack");
-        AI_SetTarget(attackPosition);
     }
 
+    //Old, remove !?
     public virtual void ChargedOrderFullfilled(GameObject attackPosition)
     {
         AI.EnableBehavior();
@@ -350,7 +353,7 @@ public class NPC : MonoBehaviour
         {
             return null;
         }
-        
+
     }
     public virtual GameObject AI_GetTarget()
     {
@@ -420,30 +423,30 @@ public class NPC : MonoBehaviour
         circle.material.SetColor("_EmissionColor", Color.green * Mathf.LinearToGammaSpace(50));
     }
 
-        
-    
+
+
 
     private bool checkAI()
-{
-    if (AI.isActiveAndEnabled)
     {
-        return true;
-    }
-    else
-    {
-        var allAI = GetComponents<BehaviorTree>();
-        foreach (BehaviorTree item in allAI)
+        if (AI.isActiveAndEnabled)
         {
-            if (item.isActiveAndEnabled)
-            {
-                AI = item;
-
-                return true;
-            }
+            return true;
         }
-        return false;
+        else
+        {
+            var allAI = GetComponents<BehaviorTree>();
+            foreach (BehaviorTree item in allAI)
+            {
+                if (item.isActiveAndEnabled)
+                {
+                    AI = item;
+
+                    return true;
+                }
+            }
+            return false;
+        }
     }
-}
 
 
 }
