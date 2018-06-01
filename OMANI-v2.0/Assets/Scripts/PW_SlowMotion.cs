@@ -17,6 +17,7 @@ public class PW_SlowMotion : Power
     PostProcessingProfile normal;
     CinemachinePostFX postFx;
     BoyMovement boy;
+    Animator animatorSpeed;
     List<NPC> hittedNpcs = new List<NPC>();
 
     private void Start()
@@ -26,6 +27,7 @@ public class PW_SlowMotion : Power
 
         postFx = FindObjectOfType<CinemachinePostFX>();
         boy = GetComponent<BoyMovement>();
+        animatorSpeed = GetComponent<Animator>();
         normal = postFx.m_Profile;
     }
 
@@ -38,12 +40,12 @@ public class PW_SlowMotion : Power
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
             Time.fixedDeltaTime = 0.02F;
             powerPool = Mathf.Clamp(powerPool + (Time.unscaledDeltaTime * recovery), 0, maxpowerPool);
-            boy.maxanimSpeed = 4.5f;
+            animatorSpeed.speed = 1f;
         }
         else
         {
             powerPool = Mathf.Clamp(powerPool - (Time.unscaledDeltaTime * waste), 0, maxpowerPool);
-            boy.maxanimSpeed = 8f;
+            animatorSpeed.speed = 4f;
 
             Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
             foreach (Collider col in targetsInViewRadius)
@@ -60,7 +62,7 @@ public class PW_SlowMotion : Power
                 if (enemy != null && found == false)
                 {
                     hittedNpcs.Add(enemy);
-                    enemy.TakeDamage(50, true, 1f,transform);
+                    enemy.TakeDamage(50, true, 1f, transform);
                 }
             }
         }

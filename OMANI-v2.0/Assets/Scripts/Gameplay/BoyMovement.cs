@@ -141,7 +141,6 @@ public class BoyMovement : MonoBehaviour
     void FixedUpdate()
     {
         // MOVEMENT
-
         #region Inputs
         // This stores the input in both vertical and horizontal axis. 
         float h = Input.GetAxis("Horizontal");
@@ -154,8 +153,6 @@ public class BoyMovement : MonoBehaviour
 
         //This function controls the movement.
         MovementController(h, v, hj, vj);
-
-
     }
 
     // Called uppon each frame. 
