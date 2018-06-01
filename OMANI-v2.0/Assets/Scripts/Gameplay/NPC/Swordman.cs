@@ -13,4 +13,5 @@ public class Swordman : NPC
         base.Update();
         checkVariables();
     }
+    
 }

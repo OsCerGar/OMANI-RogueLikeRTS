@@ -250,11 +250,6 @@ public class NPC : MonoBehaviour
                 AI_SetState("Free");
             }
         }
-        else
-        {
-            //If null, then go free
-            AI_SetState("Free");
-        }
     }
 
     public virtual void Die()

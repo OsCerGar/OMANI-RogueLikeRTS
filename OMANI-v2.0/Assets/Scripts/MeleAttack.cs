@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class MeleAttack : MonoBehaviour {
     [SerializeField] bool Knockback;
+    [SerializeField] ParticleSystem Effect;
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
@@ -39,6 +40,10 @@ public class MeleAttack : MonoBehaviour {
     private void OnEnable()
     {
         var enem = transform.parent.GetComponent<NPC>().AI_GetEnemy();
+        if (Effect != null)
+        {
+            Effect.Play();
+        }
         if (enem != null)
         {
             if (enem.tag == "Building")
