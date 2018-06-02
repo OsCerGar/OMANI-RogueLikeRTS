@@ -13,5 +13,14 @@ public class Swordman : NPC
         base.Update();
         checkVariables();
     }
-    
+    public void Explode()
+    {
+        transform.Find("Explosion").gameObject.SetActive(true);
+        Die();
+        anim.applyRootMotion = false;
+    }
+    public void AttackHit()
+    {
+       transform.Find("AttackZone").gameObject.SetActive(true);
+    }
 }
