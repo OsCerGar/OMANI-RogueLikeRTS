@@ -224,7 +224,7 @@ public class NPC : MonoBehaviour
         {
             tempLandingPosition = transform.forward * -2;
         }
-        LandingPosition = new Vector3(tempLandingPosition.x, tempLandingPosition.y + 1, tempLandingPosition.z);
+        LandingPosition = new Vector3(tempLandingPosition.x, tempLandingPosition.y, tempLandingPosition.z);
         initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         k = 0;
         KnockBackParabola = true;
@@ -262,6 +262,7 @@ public class NPC : MonoBehaviour
             AI.enabled = false;
             Nav.enabled = false;
         }
+        life = 0;
         anim.SetTrigger("Die");
         this.gameObject.GetComponent<Collider>().enabled = false;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
