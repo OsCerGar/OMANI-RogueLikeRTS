@@ -344,48 +344,64 @@ public class Army : MonoBehaviour
         switch (type)
         {
             case "Swordsman":
-                foreach (NPC npc in swordsmans)
+                if (swordsmans.Count > 0)
                 {
-                    npc.ChargedOrder();
+                    foreach (NPC npc in swordsmans)
+                    {
+                        npc.ChargedOrder();
+                    }
+                    swordsmans.Clear();
                 }
-                swordsmans.Clear();
                 break;
             case "Archer":
-                foreach (NPC npc in archers)
+                if (archers.Count > 0)
                 {
-                    npc.ChargedOrder();
+                    foreach (NPC npc in archers)
+                    {
+                        npc.ChargedOrder();
+                    }
+                    archers.Clear();
                 }
-                archers.Clear();
-
                 break;
             case "Musketeer":
-                foreach (NPC npc in musketeers)
+                if (musketeers.Count > 0)
                 {
-                    npc.ChargedOrder();
+                    foreach (NPC npc in musketeers)
+                    {
+                        npc.ChargedOrder();
+                    }
+                    musketeers.Clear();
                 }
-                musketeers.Clear();
-
                 break;
             case "Worker":
-                foreach (NPC npc in workers)
+                if (workers.Count > 0)
                 {
-                    npc.ChargedOrder();
+                    foreach (NPC npc in workers)
+                    {
+                        npc.ChargedOrder();
+                    }
+                    workers.Clear();
                 }
-                workers.Clear();
                 break;
             case "Shieldman":
-                foreach (NPC npc in shieldmans)
+                if (shieldmans.Count > 0)
                 {
-                    npc.ChargedOrder();
+                    foreach (NPC npc in shieldmans)
+                    {
+                        npc.ChargedOrder();
+                    }
+                    shieldmans.Clear();
                 }
-                shieldmans.Clear();
                 break;
             case "Rogue":
-                foreach (NPC npc in rogues)
+                if (rogues.Count > 0)
                 {
-                    npc.ChargedOrder();
+                    foreach (NPC npc in rogues)
+                    {
+                        npc.ChargedOrder();
+                    }
+                    rogues.Clear();
                 }
-                rogues.Clear();
                 break;
         }
 

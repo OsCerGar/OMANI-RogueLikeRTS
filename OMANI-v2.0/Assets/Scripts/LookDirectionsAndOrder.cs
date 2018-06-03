@@ -247,20 +247,23 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 orderInOrder = false;
             }
 
+            #region SpecialOrder
+            if (Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("q"))
+            {
+                commander.ArmyChargedOrder(selectedTypeList[selectedTypeInt]);
+            }
+            #endregion
+
             if (commander.ListSize(selectedTypeList[selectedTypeInt]) < 1)
             {
                 selectedTypeList.Remove(selectedTypeList[selectedTypeInt]);
             }
-        }
-        #endregion
 
-        #region SpecialOrder
-        if (Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("q"))
-        {
-            commander.ArmyChargedOrder(selectedTypeList[selectedTypeInt]);
+
+            #endregion
+
         }
 
-        #endregion
         #endregion
         #region Reclute
 
