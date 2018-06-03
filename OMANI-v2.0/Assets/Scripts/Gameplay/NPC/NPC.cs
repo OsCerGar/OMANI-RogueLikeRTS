@@ -429,24 +429,32 @@ public class NPC : MonoBehaviour
 
     private bool checkAI()
     {
-        if (AI.isActiveAndEnabled)
+        if (AI != null)
         {
-            return true;
+            if (AI.isActiveAndEnabled)
+            {
+                return true;
+            }
+            else
+            {
+                var allAI = GetComponents<BehaviorTree>();
+                foreach (BehaviorTree item in allAI)
+                {
+                    if (item.isActiveAndEnabled)
+                    {
+                        AI = item;
+
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
         else
         {
-            var allAI = GetComponents<BehaviorTree>();
-            foreach (BehaviorTree item in allAI)
-            {
-                if (item.isActiveAndEnabled)
-                {
-                    AI = item;
-
-                    return true;
-                }
-            }
             return false;
         }
+        
     }
 
 
