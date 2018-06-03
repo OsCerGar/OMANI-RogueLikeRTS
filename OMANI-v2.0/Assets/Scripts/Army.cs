@@ -338,6 +338,59 @@ public class Army : MonoBehaviour
         return armyList;
     }
 
+    public void ArmyChargedOrder(string type)
+    {
+
+        switch (type)
+        {
+            case "Swordsman":
+                foreach (NPC npc in swordsmans)
+                {
+                    npc.ChargedOrder();
+                }
+                swordsmans.Clear();
+                break;
+            case "Archer":
+                foreach (NPC npc in archers)
+                {
+                    npc.ChargedOrder();
+                }
+                archers.Clear();
+
+                break;
+            case "Musketeer":
+                foreach (NPC npc in musketeers)
+                {
+                    npc.ChargedOrder();
+                }
+                musketeers.Clear();
+
+                break;
+            case "Worker":
+                foreach (NPC npc in workers)
+                {
+                    npc.ChargedOrder();
+                }
+                workers.Clear();
+                break;
+            case "Shieldman":
+                foreach (NPC npc in shieldmans)
+                {
+                    npc.ChargedOrder();
+                }
+                shieldmans.Clear();
+                break;
+            case "Rogue":
+                foreach (NPC npc in rogues)
+                {
+                    npc.ChargedOrder();
+                }
+                rogues.Clear();
+                break;
+        }
+
+    }
+
     public int ListSize(string _type)
     {
         int size = 0;

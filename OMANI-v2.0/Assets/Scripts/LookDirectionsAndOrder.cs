@@ -257,11 +257,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #region SpecialOrder
         if (Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("q"))
         {
-            //Gives the order to everyone on that list.
-            foreach (NPC boyInCharge in commander.GetArmy(selectedTypeList[selectedTypeInt]))
-            {
-                boyInCharge.ChargedOrder();
-            }
+            commander.ArmyChargedOrder(selectedTypeList[selectedTypeInt]);
         }
 
         #endregion
