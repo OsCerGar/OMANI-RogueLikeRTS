@@ -39,7 +39,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
 
     //NEW UI
-    GameObject pointerDirection, pointerOrder, pointerSelection;
+    GameObject pointerDirection, pointerOrder, pointerSelection, headArm;
     [SerializeField]
     bool modo;
 
@@ -54,6 +54,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         reclute = this.GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
         pointerDirection = this.transform.Find("PointerDirection").gameObject;
+        headArm = this.transform.Find("HeadArm").gameObject;
     }
 
     void Update()
@@ -78,6 +79,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (closestEnemyTarget == null && closestBUTarget == null)
             {
                 pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
+                headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
+                headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
             }
 
             else
@@ -85,16 +88,19 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 if (closestEnemyTarget != null)
                 {
                     pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.4f);
+                    headArm.transform.LookAt(closestEnemyTarget.transform);
                 }
 
                 if (closestBUTarget != null)
                 {
                     pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestBUTarget.transform.position, 0.4f);
+                    headArm.transform.LookAt(closestBUTarget.transform);
                 }
 
             }
         }
 
+        /*
         else
         {
             if (closestEnemyTarget == null && closestBUTarget == null)
@@ -116,6 +122,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
             }
         }
+        */
 
         SelectedType();
         Order();
