@@ -10,7 +10,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     //Vector3 that keeps track of the LookPositions
     private Vector3 mousePosition, direction, tpoint;
     public Vector3 miradaposition;
-    private GameObject miradaPositionObject;
     float visibleCursorTimer = 10.0f, timeLeft;
     float cursorPosition;
     bool catchCursor = true;
@@ -37,6 +36,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public List<string> selectedTypeList;
     public int selectedTypeInt;
 
+
+
+    //NEW UI
+    GameObject pointerDirection, pointerOrder, pointerSelection;
+    [SerializeField]
+    bool modo;
+
     //sound
     AudioSource reclute, order;
     #endregion
@@ -45,16 +51,14 @@ public class LookDirectionsAndOrder : MonoBehaviour
     void Start()
     {
         commander = FindObjectOfType<Army>();
-        miradaPositionObject = new GameObject();
         reclute = this.GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
+        pointerDirection = this.transform.Find("PointerDirection").gameObject;
     }
 
     void Update()
     {
         // LOOK
-        miradaPositionObject.transform.position = miradaposition;
-
         #region Inputs
         //RightJoystick
         float hrj = Input.GetAxis("HorizontalRightJoystick");
@@ -68,6 +72,49 @@ public class LookDirectionsAndOrder : MonoBehaviour
         else
         {
             LookAtFromTargetPoint(hrj, vrj, boyInCharge.gameObject);
+        }
+        if (modo == false)
+        {
+            if (closestEnemyTarget == null && closestBUTarget == null)
+            {
+                pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
+            }
+
+            else
+            {
+                if (closestEnemyTarget != null)
+                {
+                    pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.4f);
+                }
+
+                if (closestBUTarget != null)
+                {
+                    pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestBUTarget.transform.position, 0.4f);
+                }
+
+            }
+        }
+
+        else
+        {
+            if (closestEnemyTarget == null && closestBUTarget == null)
+            {
+                pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, miradaposition, 0.4f);
+            }
+
+            else
+            {
+                if (closestEnemyTarget != null)
+                {
+                    pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.4f);
+                }
+
+                if (closestBUTarget != null)
+                {
+                    pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestBUTarget.transform.position, 0.4f);
+                }
+
+            }
         }
 
         SelectedType();
@@ -202,12 +249,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                             commander.OrderDirect(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
                         }
                     }
-                    //Old
-                    /*
-                    boyInCharge = commander.GetBoyArmy(selectedTypeList[selectedTypeInt]);
-                    boyInCharge.ChargedOrder(miradaPositionObject);
-                    orderInOrder = true;
-                    */
+
                 }
             }
             if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
@@ -477,7 +519,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         else
         {
             timeLeft = visibleCursorTimer;
-            Cursor.visible = true;
+            Cursor.visible = false;
             //Mouse
             //Sends a ray to where the mouse is pointing at.
 
