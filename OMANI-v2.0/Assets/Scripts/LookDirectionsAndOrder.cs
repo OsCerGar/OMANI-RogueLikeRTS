@@ -40,6 +40,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     //NEW UI
     GameObject pointerDirection, pointerOrder, pointerSelection, headArm;
+    Material materialpointerDirection, materialpointerOrder, materialpointerSelection;
+    float alphaTarget = 0.111f;
+
     [SerializeField]
     bool modo;
 
@@ -54,7 +57,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
         reclute = this.GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
         pointerDirection = this.transform.Find("PointerDirection").gameObject;
+        materialpointerDirection = this.transform.Find("PointerDirection").GetComponent<MeshRenderer>().material;
+        pointerOrder = this.transform.Find("OrderDirection").gameObject;
+        materialpointerOrder = this.transform.Find("OrderDirection").GetComponent<MeshRenderer>().material;
         headArm = this.transform.Find("HeadArm").gameObject;
+
     }
 
     void Update()
@@ -81,6 +88,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
                 headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
                 headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
+                //point order material and position reset.
+                materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.8f));
+                materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.8f));
+                pointerOrder.transform.position = this.transform.position;
+
             }
 
             else
@@ -89,12 +101,20 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 {
                     pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.4f);
                     headArm.transform.LookAt(closestEnemyTarget.transform);
+                    pointerOrder.transform.position = closestEnemyTarget.transform.position;
+
+                    materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.8f));
+                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.8f));
                 }
 
                 if (closestBUTarget != null)
                 {
                     pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestBUTarget.transform.position, 0.4f);
                     headArm.transform.LookAt(closestBUTarget.transform);
+                    pointerOrder.transform.position = closestBUTarget.transform.position;
+
+                    materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.4f));
+                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
                 }
 
             }
