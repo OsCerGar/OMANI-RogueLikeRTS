@@ -130,18 +130,18 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (closestTarget != null)
         {
             pointerSelection.transform.position = closestTarget.ui_information.transform.position;
-            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), alphaTarget, 0.2f));
+            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), alphaTarget, 0.4f));
         }
 
         else if (closestBUTarget != null && closestBUTarget.numberOfWorkers > 0)
         {
             pointerSelection.transform.position = closestBUTarget.ui_information.transform.position;
-            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), alphaTarget, 0.2f));
+            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), alphaTarget, 0.4f));
         }
 
         else
         {
-            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), 0, 0.2f));
+            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), 0, 0.4f));
         }
 
         #endregion
@@ -155,8 +155,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                 headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
                 //point order material and position reset.
-                materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.2f));
-                materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.2f));
+                materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), alphaTarget, 0.2f));
+                materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.9f));
 
                 //Doesnt return, for now.
 
@@ -171,15 +171,15 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                     if (closestEnemyTarget != null)
                     {
-                        pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.4f);
+                        pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.6f);
 
                         headArm.transform.LookAt(closestEnemyTarget.transform);
 
                         pointerOrder.transform.position = closestEnemyTarget.ui_information.transform.position;
                         pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
 
-                        materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.2f));
-                        materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.2f));
+                        materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), 0, 0.3f));
+                        materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
                     }
 
                     //^OrderTarget
@@ -195,11 +195,25 @@ public class LookDirectionsAndOrder : MonoBehaviour
                             pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
                             pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
 
-                            materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.2f));
-                            materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.2f));
+                            materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), 0, 0.3f));
+                            materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
 
                         }
+                        else
+                        {
+                            materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
+                        }
                     }
+
+                    else
+                    {
+                        materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
+                    }
+                }
+
+                else
+                {
+                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
                 }
             }
         }
