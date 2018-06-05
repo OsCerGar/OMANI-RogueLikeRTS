@@ -6670,6 +6670,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1489922818421836
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4006184733745852}
+  m_Layer: 15
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1491569096475726
 GameObject:
   m_ObjectHideFlags: 1
@@ -14188,6 +14203,19 @@ Transform:
   m_Father: {fileID: 4236617189652764}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4006184733745852
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489922818421836}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.516, y: -2.01, z: 0.398}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_Children: []
+  m_Father: {fileID: 4463318974171438}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4006316763757030
 Transform:
   m_ObjectHideFlags: 1
@@ -18764,6 +18792,7 @@ Transform:
   - {fileID: 4236617189652764}
   - {fileID: 4548692827104284}
   - {fileID: 4912913438620270}
+  - {fileID: 4006184733745852}
   m_Father: {fileID: 4495909905355126}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -359.999, z: 0}
@@ -19022,7 +19051,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1437793443868532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.58815, y: 0, z: -32.505844}
+  m_LocalPosition: {x: 158.2996, y: 0, z: 141.20253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4324212661747956}
@@ -56426,6 +56455,7 @@ MonoBehaviour:
   maxnumberOfWorkers: 0
   door: {fileID: 0}
   direction: {fileID: 0}
+  ui_information: {fileID: 0}
   cablePrefab: {fileID: 0}
   cables: []
   energy: 0
@@ -56516,7 +56546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574c873a0ba1228428ba570b7137f102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rad: 41
+  Dimensions: {x: 0, y: 0}
 --- !u!114 &114052500286099592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -56855,6 +56885,7 @@ MonoBehaviour:
   maxnumberOfWorkers: 0
   door: {fileID: 0}
   direction: {fileID: 0}
+  ui_information: {fileID: 0}
   lastTotalEnergy: 0
   totalEnergy: 0
   requiredEnergy: 0
@@ -57026,6 +57057,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 1261203948301230}
   - {fileID: 1139689753502520}
@@ -57582,6 +57614,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 0}
   scrapNeeded: 5
@@ -57633,6 +57666,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   Cannon: {fileID: 114186451195867966}
   energy: 0
 --- !u!114 &114256667740800364
@@ -57860,6 +57894,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 0}
   scrapNeeded: 5
@@ -57884,6 +57919,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 0}
   scrapNeeded: 5
@@ -58121,6 +58157,7 @@ MonoBehaviour:
   maxnumberOfWorkers: 0
   door: {fileID: 0}
   direction: {fileID: 0}
+  ui_information: {fileID: 0}
   lastTotalEnergy: 0
   totalEnergy: 0
   requiredEnergy: 1
@@ -58157,6 +58194,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   Cannon: {fileID: 114652149335818770}
   energy: 0
 --- !u!114 &114360137852097566
@@ -58346,6 +58384,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 0}
   scrapNeeded: 5
@@ -58369,6 +58408,7 @@ MonoBehaviour:
   maxnumberOfWorkers: 0
   door: {fileID: 0}
   direction: {fileID: 0}
+  ui_information: {fileID: 0}
   lastTotalEnergy: 0
   totalEnergy: 0
   requiredEnergy: 0
@@ -58395,6 +58435,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements: []
   scrapNeeded: 0
   ScrapCounter: 0
@@ -58561,6 +58602,7 @@ MonoBehaviour:
   maxnumberOfWorkers: 0
   door: {fileID: 0}
   direction: {fileID: 0}
+  ui_information: {fileID: 0}
   lastTotalEnergy: 0
   totalEnergy: 0
   requiredEnergy: 1
@@ -58647,6 +58689,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 1740755278034970}
   - {fileID: 1591722038772788}
@@ -58778,6 +58821,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   Cannon: {fileID: 114605552146399222}
   energy: 0
 --- !u!114 &114472813142924210
@@ -59146,6 +59190,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   Cannon: {fileID: 114149366230902912}
   energy: 0
 --- !u!114 &114546954992853674
@@ -59326,6 +59371,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 1007848471707770}
   - {fileID: 1627160455700014}
@@ -59812,6 +59858,7 @@ MonoBehaviour:
   maxnumberOfWorkers: 0
   door: {fileID: 0}
   direction: {fileID: 0}
+  ui_information: {fileID: 0}
   lastTotalEnergy: 0
   totalEnergy: 0
   requiredEnergy: 1
@@ -60047,6 +60094,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   Cannon: {fileID: 114191402466264636}
   energy: 0
 --- !u!114 &114718292033963044
@@ -60136,6 +60184,7 @@ MonoBehaviour:
   maxnumberOfWorkers: 0
   door: {fileID: 0}
   direction: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingTypeAndBehaviour: {fileID: 0}
   totalEnergy: 0
   requiredEnergy: 0
@@ -60572,6 +60621,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 0}
   scrapNeeded: 5
@@ -60634,6 +60684,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 0}
   scrapNeeded: 5
@@ -60657,6 +60708,7 @@ MonoBehaviour:
   maxnumberOfWorkers: 0
   door: {fileID: 0}
   direction: {fileID: 0}
+  ui_information: {fileID: 0}
   lastTotalEnergy: 0
   totalEnergy: 0
   requiredEnergy: 0
@@ -60687,6 +60739,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   Cannon: {fileID: 114240053106445536}
   energy: 0
 --- !u!114 &114851429701439950
@@ -60960,6 +61013,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 0}
   scrapNeeded: 5
@@ -61068,6 +61122,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   buildingElements:
   - {fileID: 0}
   scrapNeeded: 5
@@ -61193,6 +61248,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   Cannon: {fileID: 114459078539823158}
   energy: 0
 --- !u!114 &114980844475944562
@@ -61239,6 +61295,7 @@ MonoBehaviour:
   maxnumberOfWorkers: 0
   door: {fileID: 0}
   direction: {fileID: 0}
+  ui_information: {fileID: 0}
   lastTotalEnergy: 0
   totalEnergy: 0
   requiredEnergy: 1
@@ -61264,6 +61321,7 @@ MonoBehaviour:
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
+  ui_information: {fileID: 0}
   Cannon: {fileID: 114338485285971182}
   energy: 0
 --- !u!114 &114996552343910706

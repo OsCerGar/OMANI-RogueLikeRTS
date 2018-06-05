@@ -129,13 +129,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #region SelectionUI
         if (closestTarget != null)
         {
-            pointerSelection.transform.position = closestTarget.transform.position;
+            pointerSelection.transform.position = closestTarget.ui_information.transform.position;
             materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), alphaTarget, 0.2f));
         }
 
         else if (closestBUTarget != null && closestBUTarget.numberOfWorkers > 0)
         {
-            pointerSelection.transform.position = closestBUTarget.transform.position;
+            pointerSelection.transform.position = closestBUTarget.ui_information.transform.position;
             materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), alphaTarget, 0.2f));
         }
 
@@ -175,7 +175,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                         headArm.transform.LookAt(closestEnemyTarget.transform);
 
-                        pointerOrder.transform.position = closestEnemyTarget.transform.position;
+                        pointerOrder.transform.position = closestEnemyTarget.ui_information.transform.position;
+                        pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
 
                         materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.2f));
                         materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.2f));
@@ -191,7 +192,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                             headArm.transform.LookAt(closestBUTarget.transform);
 
-                            pointerOrder.transform.position = closestBUTarget.transform.position;
+                            pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
+                            pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
 
                             materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.2f));
                             materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.2f));
@@ -354,6 +356,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         }
 
+        else
+        {
+            commander.GUI_ListDisableCircle();
+        }
         #endregion
         #region Reclute
 

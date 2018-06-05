@@ -14,7 +14,8 @@ public class BU : MonoBehaviour
     public GameObject door;
     public GameObject direction;
 
-
+    //ui
+    public GameObject ui_information = null;
 
     private void Awake()
     {
@@ -36,6 +37,13 @@ public class BU : MonoBehaviour
         {
             whiteCircle = this.transform.Find("BU_UI/SelectionCircleWhite").GetComponent<SpriteRenderer>();
         }
+
+        if (this.transform.Find("BU_UI/UI") != null)
+        {
+
+            ui_information = this.transform.Find("UI").gameObject;
+        }
+
     }
 
     public virtual void EnableCircle()

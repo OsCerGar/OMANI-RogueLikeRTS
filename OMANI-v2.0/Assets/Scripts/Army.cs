@@ -527,7 +527,9 @@ public class Army : MonoBehaviour
     {
         //Gives a priority circle to the npc that is going to get the order.
         int i = 0;
-        GameUI[i].transform.position = _list[_list.Count - 1].transform.position;
+        GameUI[i].transform.position = _list[_list.Count - 1].ui_information.transform.position;
+        GameUI[i].transform.localScale = _list[_list.Count - 1].ui_information.transform.localScale;
+
         GameUI[i].material = prioritySelection;
         prioritySelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), alphaTarget, 1f));
 
@@ -535,17 +537,18 @@ public class Army : MonoBehaviour
 
         foreach (NPC npc in _list)
         {
-            GameUI[i].transform.position = npc.transform.position;
+            GameUI[i].transform.position = npc.ui_information.transform.position;
+            GameUI[i].transform.localScale = npc.ui_information.transform.localScale;
+
             GameUI[i].material = normalSelection;
             normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), alphaTarget, 1f));
-
 
             i++;
         }
 
     }
 
-    private void GUI_ListDisableCircle()
+    public void GUI_ListDisableCircle()
     {
 
         foreach (MeshRenderer gui in GameUI)
