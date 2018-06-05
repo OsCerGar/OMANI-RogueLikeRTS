@@ -37,7 +37,7 @@ public class NPC : MonoBehaviour
     float k;
     Vector3 LandingPosition, initialPosition;
     Transform perpetrator;
-    public GameObject ui_information;
+    public GameObject ui_information = null;
     #endregion
 
     #region GETTERSETTERS
@@ -116,7 +116,13 @@ public class NPC : MonoBehaviour
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
         circle = this.gameObject.GetComponentInChildren<SpriteRenderer>();
-        ui_information = this.transform.Find("UI").gameObject;
+        if (this.transform.Find("UI") != null)
+        {
+
+            ui_information = this.transform.Find("UI").gameObject;
+
+        }
+
         startLife = life;
         //Nav.updateRotation = true;
     }

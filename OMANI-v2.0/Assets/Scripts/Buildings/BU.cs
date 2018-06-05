@@ -38,7 +38,7 @@ public class BU : MonoBehaviour
             whiteCircle = this.transform.Find("BU_UI/SelectionCircleWhite").GetComponent<SpriteRenderer>();
         }
 
-        if (this.transform.Find("BU_UI/UI") != null)
+        if (this.transform.Find("UI") != null)
         {
 
             ui_information = this.transform.Find("UI").gameObject;
