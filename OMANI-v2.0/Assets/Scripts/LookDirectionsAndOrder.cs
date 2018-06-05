@@ -56,10 +56,17 @@ public class LookDirectionsAndOrder : MonoBehaviour
         commander = FindObjectOfType<Army>();
         reclute = this.GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
+
+
         pointerDirection = this.transform.Find("PointerDirection").gameObject;
         materialpointerDirection = this.transform.Find("PointerDirection").GetComponent<MeshRenderer>().material;
+
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
         materialpointerOrder = this.transform.Find("OrderDirection").GetComponent<MeshRenderer>().material;
+
+        pointerSelection = this.transform.Find("SelectionDirection").gameObject;
+        materialpointerSelection = this.transform.Find("SelectionDirection").GetComponent<MeshRenderer>().material;
+
         headArm = this.transform.Find("HeadArm").gameObject;
 
     }
@@ -81,44 +88,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             LookAtFromTargetPoint(hrj, vrj, boyInCharge.gameObject);
         }
-        if (modo == false)
-        {
-            if (closestEnemyTarget == null && closestBUTarget == null)
-            {
-                pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
-                headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
-                headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
-                //point order material and position reset.
-                materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.8f));
-                materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.8f));
-                pointerOrder.transform.position = this.transform.position;
 
-            }
-
-            else
-            {
-                if (closestEnemyTarget != null)
-                {
-                    pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.4f);
-                    headArm.transform.LookAt(closestEnemyTarget.transform);
-                    pointerOrder.transform.position = closestEnemyTarget.transform.position;
-
-                    materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.8f));
-                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.8f));
-                }
-
-                if (closestBUTarget != null)
-                {
-                    pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestBUTarget.transform.position, 0.4f);
-                    headArm.transform.LookAt(closestBUTarget.transform);
-                    pointerOrder.transform.position = closestBUTarget.transform.position;
-
-                    materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.4f));
-                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
-                }
-
-            }
-        }
 
         /*
         else
@@ -150,38 +120,89 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     private void LateUpdate()
     {
-        //Show an outline of the closest boy in town.
+        UI_Hologram();
 
+    }
+
+    private void UI_Hologram()
+    {
+        #region SelectionUI
         if (closestTarget != null)
         {
-            closestTarget.EnableCircle();
+            pointerSelection.transform.position = closestTarget.transform.position;
+            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), alphaTarget, 0.2f));
         }
 
         else if (closestBUTarget != null && closestBUTarget.numberOfWorkers > 0)
         {
-            closestBUTarget.EnableWhiteCircle();
+            pointerSelection.transform.position = closestBUTarget.transform.position;
+            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), alphaTarget, 0.2f));
         }
 
-
-        //^OrderTarget
-        if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
+        else
         {
-            //If building close and Worker selected.
-            if (closestBUTarget != null)
+            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), 0, 0.2f));
+        }
+
+        #endregion
+        #region OrderUI
+        if (modo == false)
+        {
+            if (closestEnemyTarget == null && closestBUTarget == null)
             {
-                if (closestBUTarget.notOnlyWorkers == true || selectedTypeList[selectedTypeInt] == "Worker")
+                pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
+                headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
+
+                headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
+                //point order material and position reset.
+                materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.2f));
+                materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.2f));
+
+                //Doesnt return, for now.
+
+                //pointerOrder.transform.position = this.transform.position;
+
+            }
+
+            else
+            {
+                if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
                 {
-                    closestBUTarget.EnableCircle();
+
+                    if (closestEnemyTarget != null)
+                    {
+                        pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.4f);
+
+                        headArm.transform.LookAt(closestEnemyTarget.transform);
+
+                        pointerOrder.transform.position = closestEnemyTarget.transform.position;
+
+                        materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.2f));
+                        materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.2f));
+                    }
+
+                    //^OrderTarget
+                    //If building close and Worker selected.
+                    else if (closestBUTarget != null)
+                    {
+                        if (closestBUTarget.notOnlyWorkers == true || selectedTypeList[selectedTypeInt] == "Worker")
+                        {
+                            pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestBUTarget.transform.position, 0.4f);
+
+                            headArm.transform.LookAt(closestBUTarget.transform);
+
+                            pointerOrder.transform.position = closestBUTarget.transform.position;
+
+                            materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.2f));
+                            materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.2f));
+
+                        }
+                    }
                 }
             }
-
-            if (closestEnemyTarget != null && selectedTypeList[selectedTypeInt] != "Worker")
-            {
-                closestEnemyTarget.EnableCircle();
-            }
-
-
         }
+
+        #endregion
     }
 
     private void SelectedType()
@@ -396,20 +417,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
     void FindVisibleTargets()
     {
-        if (closestTarget != null)
-        {
-            closestTarget.DisableCircle();
-        }
-
-        if (closestBUTarget != null)
-        {
-            closestBUTarget.DisableCircle();
-        }
-
-        if (closestEnemyTarget != null)
-        {
-            closestEnemyTarget.DisableCircle();
-        }
 
         closestTarget = null;
         closestBUTarget = null;
@@ -430,9 +437,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 if (col.CompareTag("People"))
                 {
                     colNPC = col.GetComponent<NPC>();
-
-                    // Disables Outline by default
-                    colNPC.DisableCircle();
 
                     Transform target = col.transform;
 
@@ -462,8 +466,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     colBU = col.GetComponent<BU>();
                     if (colBU != null)
                     {
-                        // Disables Outline by default
-                        colBU.DisableCircle();
                         Transform target = col.transform;
 
                         // Check if its inside the selection angle.
@@ -481,8 +483,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     colEnemy = col.GetComponent<NPC>();
                     if (colEnemy != null)
                     {
-                        // Disables Outline by default
-                        colEnemy.DisableCircle();
 
                         Transform target = col.transform;
 

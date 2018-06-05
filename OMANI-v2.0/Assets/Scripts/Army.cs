@@ -11,6 +11,30 @@ public class Army : MonoBehaviour
     [SerializeField]
     private GameObject OrderPositionObject;
 
+
+    //G_UI
+    private List<MeshRenderer> GameUI = new List<MeshRenderer>();
+
+    [SerializeField]
+    GameObject UI;
+
+    [SerializeField]
+    Material normalSelection, prioritySelection;
+
+    float alphaTarget = 0.111f;
+
+    void Start()
+    {
+        normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), 0, 0.2f));
+        prioritySelection.SetFloat("_Alpha", Mathf.Lerp(prioritySelection.GetFloat("_Alpha"), 0, 0.2f));
+
+        for (int i = 0; i < 50; i++)
+        {
+            MeshRenderer pooled = Instantiate(UI, this.transform.parent).GetComponent<MeshRenderer>();
+            GameUI.Add(pooled);
+        }
+    }
+
     //Adds the boy to the Army and makes it follow the Army commander.
     public void Reclute(NPC barroBoy)
     {
@@ -467,34 +491,33 @@ public class Army : MonoBehaviour
 
     public void GUI_ActivateCircle(string _type)
     {
-
         switch (_type)
         {
             case "Swordsman":
                 if (swordsmans.Count > 0)
                 {
-                    GUI_ListActivateCircle(swordsmans);
-                    GUI_ListDisableCircle(musketeers);
-                    GUI_ListDisableCircle(workers);
+                    GUI_ListDisableCircle();
 
+                    GUI_ListActivateCircle(swordsmans);
                 }
 
                 break;
             case "Musketeer":
                 if (musketeers.Count > 0)
                 {
+                    GUI_ListDisableCircle();
+
                     GUI_ListActivateCircle(musketeers);
-                    GUI_ListDisableCircle(swordsmans);
-                    GUI_ListDisableCircle(workers);
 
                 }
                 break;
             case "Worker":
                 if (workers.Count > 0)
                 {
+                    GUI_ListDisableCircle();
+
                     GUI_ListActivateCircle(workers);
-                    GUI_ListDisableCircle(swordsmans);
-                    GUI_ListDisableCircle(musketeers);
+
                 }
                 break;
         }
@@ -502,21 +525,40 @@ public class Army : MonoBehaviour
 
     private void GUI_ListActivateCircle(List<NPC> _list)
     {
+        //Gives a priority circle to the npc that is going to get the order.
+        int i = 0;
+        GameUI[i].transform.position = _list[_list.Count - 1].transform.position;
+        GameUI[i].material = prioritySelection;
+        prioritySelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), alphaTarget, 1f));
+
+        i++;
 
         foreach (NPC npc in _list)
         {
-            npc.EnablePriorityCircle();
+            GameUI[i].transform.position = npc.transform.position;
+            GameUI[i].material = normalSelection;
+            normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), alphaTarget, 1f));
+
+
+            i++;
         }
 
     }
 
-    private void GUI_ListDisableCircle(List<NPC> _list)
+    private void GUI_ListDisableCircle()
     {
 
-        foreach (NPC npc in _list)
+        foreach (MeshRenderer gui in GameUI)
         {
-            npc.DisablePriorityCircle();
+            gui.transform.position = new Vector3(1000, 1000, 1000);
         }
 
+        int i = 0;
+        normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), 0, 1f));
+        prioritySelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), 0, 1f));
+
+        i++;
     }
+
 }
+

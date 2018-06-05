@@ -377,56 +377,6 @@ public class NPC : MonoBehaviour
 
     }
 
-    public virtual void EnableCircle()
-    {
-        if (this.CompareTag("Enemy"))
-        {
-            circle.enabled = true;
-
-            circle.material.SetColor("_EmissionColor", Color.red * Mathf.LinearToGammaSpace(50));
-        }
-
-        else if (AI_GetState() == "Follow")
-        {
-            circle.enabled = true;
-
-            circle.material.SetColor("_EmissionColor", Color.green * Mathf.LinearToGammaSpace(50));
-        }
-
-        else
-        {
-            circle.enabled = true;
-
-            circle.material.SetColor("_EmissionColor", Color.white * Mathf.LinearToGammaSpace(50));
-        }
-    }
-
-    public virtual void EnablePriorityCircle()
-    {
-        circle.enabled = true;
-
-        circle.material.SetColor("_EmissionColor", new Color(1, .3f, .1f, .4f) * Mathf.LinearToGammaSpace(50));
-
-    }
-
-
-    public virtual void DisableCircle()
-    {
-        if (this.CompareTag("Enemy") || AI_GetState() != "Follow")
-        {
-            circle.material.SetColor("_EmissionColor", Color.white * Mathf.LinearToGammaSpace(50));
-            circle.enabled = false;
-        }
-    }
-
-    public virtual void DisablePriorityCircle()
-    {
-        circle.material.SetColor("_EmissionColor", Color.green * Mathf.LinearToGammaSpace(50));
-    }
-
-
-
-
     private bool checkAI()
     {
         if (AI != null)
@@ -454,7 +404,7 @@ public class NPC : MonoBehaviour
         {
             return false;
         }
-        
+
     }
 
 
