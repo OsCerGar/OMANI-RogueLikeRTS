@@ -526,28 +526,25 @@ public class Army : MonoBehaviour
     private void GUI_ListActivateCircle(List<NPC> _list)
     {
         //Gives a priority circle to the npc that is going to get the order.
+        int i = 0;
+        GameUI[i].transform.position = _list[_list.Count - 1].ui_information.transform.position;
+        GameUI[i].transform.localScale = _list[_list.Count - 1].ui_information.transform.localScale;
 
+        GameUI[i].material = prioritySelection;
+        prioritySelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), alphaTarget, 1f));
 
-        for (int i = _list.Count - 1; i >= 0; i--)
+        i++;
+
+        foreach (NPC npc in _list)
         {
-            if (i == _list.Count - 1)
-            {
-                GameUI[i].transform.position = _list[i].ui_information.transform.position;
-                GameUI[i].transform.localScale = _list[i].ui_information.transform.localScale;
-                GameUI[i].material = prioritySelection;
-                prioritySelection.SetFloat("_Alpha", Mathf.Lerp(prioritySelection.GetFloat("_Alpha"), alphaTarget, 1f));
-            }
-            else
-            {
-                GameUI[i].transform.position = _list[i].ui_information.transform.position;
-                GameUI[i].transform.localScale = _list[i].ui_information.transform.localScale;
+            GameUI[i].transform.position = npc.ui_information.transform.position;
+            GameUI[i].transform.localScale = npc.ui_information.transform.localScale;
 
-                GameUI[i].material = normalSelection;
-                normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), alphaTarget, 1f));
+            GameUI[i].material = normalSelection;
+            normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), alphaTarget, 1f));
 
-            }
+            i++;
         }
-
 
     }
 
@@ -561,7 +558,7 @@ public class Army : MonoBehaviour
 
         int i = 0;
         normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), 0, 1f));
-        prioritySelection.SetFloat("_Alpha", Mathf.Lerp(prioritySelection.GetFloat("_Alpha"), 0, 1f));
+        prioritySelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), 0, 1f));
 
         i++;
     }

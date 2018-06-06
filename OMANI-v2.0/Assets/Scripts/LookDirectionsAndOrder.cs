@@ -127,37 +127,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private void UI_Hologram()
     {
         #region SelectionUI
-        GUI_SelectionUI();
-
-        #endregion
-
-        #region OrderUI
-        if (modo == false)
-        {
-            if (closestEnemyTarget == null && closestBUTarget == null)
-            {
-                GUI_RegularPointer();
-
-            }
-
-            else
-            {
-                if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
-                {
-                    GUI_BUOrder();
-                }
-
-                else
-                {
-                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
-                }
-            }
-        }
-
-    }
-
-    private void GUI_SelectionUI()
-    {
         if (closestTarget != null)
         {
             pointerSelection.transform.position = closestTarget.ui_information.transform.position;
@@ -174,74 +143,83 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), 0, 0.4f));
         }
-    }
 
-    private void GUI_RegularPointer()
-    {
-        pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
-        headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
-
-        headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
-        //point order material and position reset.
-        materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), alphaTarget, 0.2f));
-        materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.9f));
-
-        //Doesnt return, for now.
-
-        //pointerOrder.transform.position = this.transform.position;
-    }
-
-    private void GUI_BUOrder()
-    {
-        if (closestEnemyTarget != null)
+        #endregion
+        #region OrderUI
+        if (modo == false)
         {
-            pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.6f);
-
-            headArm.transform.LookAt(closestEnemyTarget.transform);
-
-            pointerOrder.transform.position = closestEnemyTarget.ui_information.transform.position;
-            pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
-
-            materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), 0, 0.3f));
-            materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
-        }
-
-        //^OrderTarget
-        //If building close and Worker selected.
-        else if (closestBUTarget != null)
-        {
-            if (closestBUTarget.notOnlyWorkers == true || selectedTypeList[selectedTypeInt] == "Worker")
+            if (closestEnemyTarget == null && closestBUTarget == null)
             {
-                if (closestBUTarget.ui_information != null)
+                pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
+                headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
+
+                headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
+                //point order material and position reset.
+                materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), alphaTarget, 0.2f));
+                materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.9f));
+
+                //Doesnt return, for now.
+
+                //pointerOrder.transform.position = this.transform.position;
+
+            }
+
+            else
+            {
+                if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
                 {
-                    pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestBUTarget.transform.position, 0.4f);
 
-                    headArm.transform.LookAt(closestBUTarget.transform);
+                    if (closestEnemyTarget != null)
+                    {
+                        pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.6f);
 
-                    pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
-                    pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
+                        headArm.transform.LookAt(closestEnemyTarget.transform);
 
-                    materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), 0, 0.3f));
-                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
+                        pointerOrder.transform.position = closestEnemyTarget.ui_information.transform.position;
+                        pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
+
+                        materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), 0, 0.3f));
+                        materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
+                    }
+
+                    //^OrderTarget
+                    //If building close and Worker selected.
+                    else if (closestBUTarget != null)
+                    {
+                        if (closestBUTarget.notOnlyWorkers == true || selectedTypeList[selectedTypeInt] == "Worker")
+                        {
+                            pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestBUTarget.transform.position, 0.4f);
+
+                            headArm.transform.LookAt(closestBUTarget.transform);
+
+                            pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
+                            pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
+
+                            materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), 0, 0.3f));
+                            materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
+
+                        }
+                        else
+                        {
+                            materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
+                        }
+                    }
+
+                    else
+                    {
+                        materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
+                    }
                 }
+
                 else
                 {
                     materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
                 }
             }
-            else
-            {
-                materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
-            }
         }
 
-        else
-        {
-            materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
-        }
+        #endregion
     }
-    #endregion
-
 
     private void SelectedType()
     {
