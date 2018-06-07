@@ -89,31 +89,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             LookAtFromTargetPoint(hrj, vrj, boyInCharge.gameObject);
         }
 
-
-        /*
-        else
-        {
-            if (closestEnemyTarget == null && closestBUTarget == null)
-            {
-                pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, miradaposition, 0.4f);
-            }
-
-            else
-            {
-                if (closestEnemyTarget != null)
-                {
-                    pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.4f);
-                }
-
-                if (closestBUTarget != null)
-                {
-                    pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestBUTarget.transform.position, 0.4f);
-                }
-
-            }
-        }
-        */
-
         SelectedType();
         Order();
     }
@@ -149,6 +124,30 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                 else
                 {
+                    GUI_RegularPointer();
+                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
+                }
+            }
+        }
+
+        else
+        {
+            if (closestEnemyTarget == null && closestBUTarget == null)
+            {
+                GUI_SpecialPointer();
+
+            }
+
+            else
+            {
+                if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
+                {
+                    GUI_BUOrder();
+                }
+
+                else
+                {
+                    GUI_SpecialPointer();
                     materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
                 }
             }
@@ -179,6 +178,20 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private void GUI_RegularPointer()
     {
         pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
+        headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
+
+        headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
+        //point order material and position reset.
+        materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), alphaTarget, 0.2f));
+        materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.9f));
+
+        //Doesnt return, for now.
+
+        //pointerOrder.transform.position = this.transform.position;
+    }
+    private void GUI_SpecialPointer()
+    {
+        pointerDirection.transform.position = miradaposition;
         headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
 
         headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
@@ -321,7 +334,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         }
                         else
                         {
-                            commander.Order(selectedTypeList[selectedTypeInt], this.transform.position + (this.transform.forward * viewRadius));
+                            commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
                         }
                     }
                     else
@@ -355,7 +368,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         }
                         else
                         {
-                            commander.Order(selectedTypeList[selectedTypeInt], this.transform.position + (this.transform.forward * viewRadius));
+                            commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
                         }
                     }
                     else
@@ -605,7 +618,20 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 }
             }
 
-            miradaposition = mousePosition;
+            //un miradaposition = mousePosition;
+            Vector3 centerPosition = this.transform.position; //center of *black circle*
+            float distance = Vector3.Distance(mousePosition, centerPosition); //distance from ~green object~ to *black circle*
+
+            if (distance > viewRadius) //If the distance is less than the radius, it is already within the circle.
+            {
+                Vector3 fromOriginToObject = mousePosition - centerPosition; //~GreenPosition~ - *BlackCenter*
+                fromOriginToObject *= viewRadius / distance; //Multiply by radius //Divide by Distance
+                miradaposition = centerPosition + fromOriginToObject; //*BlackCenter* + all that Math
+            }
+            else
+            {
+                miradaposition = mousePosition;
+            }
 
             transform.LookAt(miradaposition);
         }
@@ -674,5 +700,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 
-
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(miradaposition, 1);
+    }
 }
