@@ -23,14 +23,16 @@ public class Army : MonoBehaviour
 
     float alphaTarget = 0.111f;
 
+
     void Start()
     {
+        
         normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), 0, 0.2f));
         prioritySelection.SetFloat("_Alpha", Mathf.Lerp(prioritySelection.GetFloat("_Alpha"), 0, 0.2f));
 
         for (int i = 0; i < 50; i++)
         {
-            MeshRenderer pooled = Instantiate(UI, this.transform.parent).GetComponent<MeshRenderer>();
+            MeshRenderer pooled = Instantiate(UI, this.transform).GetComponent<MeshRenderer>();
             GameUI.Add(pooled);
         }
     }
