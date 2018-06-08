@@ -594,7 +594,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (_hrj != 0 || _vrj != 0)
             {
                 Vector3 tdirection = new Vector3(_hrj, 0, _vrj);
-                miradaposition = this.transform.position + (tdirection);
+                miradaposition = this.transform.position + (tdirection) * viewRadius/2;
                 transform.LookAt(miradaposition);
             }
         }
