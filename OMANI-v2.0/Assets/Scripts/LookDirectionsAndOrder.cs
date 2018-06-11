@@ -14,7 +14,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     float cursorPosition;
     bool catchCursor = true;
 
-
+    float hrj, vrj;
 
     public float viewRadius;
     [Range(0, 360)]
@@ -44,7 +44,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     float alphaTarget = 0.111f;
 
     [SerializeField]
-    bool modo;
+    bool controllerLookModel;
 
     //sound
     AudioSource reclute, order;
@@ -76,8 +76,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
         // LOOK
         #region Inputs
         //RightJoystick
-        float hrj = Input.GetAxis("HorizontalRightJoystick");
-        float vrj = Input.GetAxis("VerticalRightJoystick");
+        //restart
+        hrj = 0;
+        vrj = 0;
+
+        hrj = Input.GetAxis("HorizontalRightJoystick");
+        vrj = Input.GetAxis("VerticalRightJoystick");
         #endregion
 
         if (!orderInOrder)
@@ -87,6 +91,19 @@ public class LookDirectionsAndOrder : MonoBehaviour
         else
         {
             LookAtFromTargetPoint(hrj, vrj, boyInCharge.gameObject);
+        }
+
+        // Look At Mode
+        if (Input.GetKeyDown("joystick button 11"))
+        {
+            if (controllerLookModel)
+            {
+                controllerLookModel = false;
+            }
+            else
+            {
+                controllerLookModel = true;
+            }
         }
 
         SelectedType();
@@ -107,7 +124,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #endregion
 
         #region OrderUI
-        if (modo == false)
+        if (controllerLookModel == false)
         {
             if (closestEnemyTarget == null && closestBUTarget == null)
             {
@@ -129,28 +146,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 }
             }
         }
-
         else
         {
-            if (closestEnemyTarget == null && closestBUTarget == null)
-            {
-                GUI_SpecialPointer();
-
-            }
-
-            else
-            {
-                if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
-                {
-                    GUI_BUOrder();
-                }
-
-                else
-                {
-                    GUI_SpecialPointer();
-                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
-                }
-            }
+            GUI_SpecialPointer();
         }
 
     }
@@ -253,6 +251,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
             materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
         }
     }
+
+
     #endregion
 
 
@@ -310,54 +310,96 @@ public class LookDirectionsAndOrder : MonoBehaviour
             }
 
             #region Direct Order
-            if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
+            if (controllerLookModel == false)
             {
-                orderCounter = 0;
-            }
-
-            if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1))
-            {
-                orderCounter += Time.deltaTime;
-
-                if (orderCounter > 0.5f)
+                if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
                 {
+                    orderCounter = 0;
+                }
+                if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1))
+                {
+                    orderCounter += Time.deltaTime;
 
-                    //Checks if there is an objective for the order, if not, it goes to a place.
-                    if (closestBUTarget == null && closestEnemyTarget == null)
+                    if (orderCounter > 0.75f)
                     {
-                        Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
 
-                        // You can't order through walls.
-                        if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                        //Checks if there is an objective for the order, if not, it goes to a place.
+                        if (closestBUTarget == null && closestEnemyTarget == null)
                         {
-                            commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                            Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
+
+                            // You can't order through walls.
+                            if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                            {
+                                commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                            }
+                            else
+                            {
+                                commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
+                            }
                         }
                         else
                         {
-                            commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
+                            if (closestBUTarget != null)
+                            {
+                                commander.OrderDirect(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
+                            }
+                            else if (closestEnemyTarget != null)
+                            {
+                                commander.OrderDirect(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
+                            }
                         }
+
                     }
-                    else
+                }
+                if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
+                {
+                    //Normal order
+                    if (orderCounter < 0.2f)
                     {
-                        if (closestBUTarget != null)
+                        //Checks if there is an objective for the order, if not, it goes to a place.
+                        if (closestBUTarget == null && closestEnemyTarget == null)
                         {
-                            commander.OrderDirect(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
+                            Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
+
+                            // You can't order through walls.
+                            if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                            {
+                                commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                            }
+                            else
+                            {
+                                commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
+                            }
                         }
-                        else if (closestEnemyTarget != null)
+                        else
                         {
-                            commander.OrderDirect(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
+                            if (closestBUTarget != null)
+                            {
+                                commander.OrderDirect(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
+                            }
+                            else if (closestEnemyTarget != null)
+                            {
+                                commander.OrderDirect(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
+                            }
                         }
+
                     }
 
+                    orderInOrder = false;
                 }
             }
-            if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
+            else
             {
-                //Normal order
-                if (orderCounter < 0.2f)
+                if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
                 {
-                    //Checks if there is an objective for the order, if not, it goes to a place.
-                    if (closestBUTarget == null && closestEnemyTarget == null)
+                    orderCounter = 0;
+                }
+                if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1))
+                {
+                    orderCounter += Time.deltaTime;
+
+                    if (orderCounter > 0.75f)
                     {
                         Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
 
@@ -371,16 +413,26 @@ public class LookDirectionsAndOrder : MonoBehaviour
                             commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
                         }
                     }
-                    else
+                }
+                if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
+                {
+                    //Normal order
+                    if (orderCounter < 0.2f)
                     {
-                        if (closestBUTarget != null)
+
+                        Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
+
+                        // You can't order through walls.
+                        if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
                         {
-                            commander.OrderDirect(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
+                            commander.Order(selectedTypeList[selectedTypeInt], hit.point);
                         }
-                        else if (closestEnemyTarget != null)
+                        else
                         {
-                            commander.OrderDirect(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
+                            commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
                         }
+
+
                     }
 
                 }
@@ -594,7 +646,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (_hrj != 0 || _vrj != 0)
             {
                 Vector3 tdirection = new Vector3(_hrj, 0, _vrj);
-                miradaposition = this.transform.position + (tdirection) * viewRadius/2;
+                miradaposition = this.transform.position + (tdirection) * viewRadius / 2;
                 transform.LookAt(miradaposition);
             }
         }
@@ -639,6 +691,16 @@ public class LookDirectionsAndOrder : MonoBehaviour
         this.transform.position = commander.transform.position;
 
     }
+    public void LookAtWhileMoving(float _playerHrj, float _playerVrj)
+    {
+        if (hrj == 0 && vrj == 0)
+        {
+            Vector3 tdirection = new Vector3(_playerHrj, 0, _playerVrj);
+            miradaposition = this.transform.position + (tdirection) * viewRadius / 2;
+            transform.LookAt(miradaposition);
+        }
+    }
+
     void LookAtFromTargetPoint(float _hrj, float _vrj, GameObject _TargetPoint)
     {
         if (catchCursor)

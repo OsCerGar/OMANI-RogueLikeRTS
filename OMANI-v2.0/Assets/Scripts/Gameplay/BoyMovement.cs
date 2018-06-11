@@ -361,6 +361,8 @@ public class BoyMovement : MonoBehaviour
                 }
                 anim.SetFloat("AnimSpeed", animSpeed);
 
+                // Look At when not using joystick, looks forward.
+                LookDirection.LookAtWhileMoving(horizontalJoystick, verticalJoystick);
             }
             // If the axis doesn't have any sort of input.
             else
