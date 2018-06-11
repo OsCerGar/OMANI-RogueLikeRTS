@@ -39,7 +39,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
 
     //NEW UI
-    GameObject pointerDirection, pointerOrder, pointerSelection, headArm;
+    UI_PointerDirection pointerDirection;
+    GameObject pointerOrder, pointerSelection, headArm;
     Material materialpointerDirection, materialpointerOrder, materialpointerSelection;
     float alphaTarget = 0.111f;
 
@@ -58,8 +59,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         StartCoroutine("FindTargetsWithDelay", .05f);
 
 
-        pointerDirection = this.transform.Find("PointerDirection").gameObject;
-        materialpointerDirection = this.transform.Find("PointerDirection").GetComponent<MeshRenderer>().material;
+        pointerDirection = this.transform.Find("PointerDirection").GetComponent<UI_PointerDirection>();
 
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
         materialpointerOrder = this.transform.Find("OrderDirection").GetComponent<MeshRenderer>().material;
@@ -180,13 +180,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
         //point order material and position reset.
-        materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), alphaTarget, 0.2f));
         materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.9f));
 
         //Doesnt return, for now.
 
         //pointerOrder.transform.position = this.transform.position;
     }
+
     private void GUI_SpecialPointer()
     {
         pointerDirection.transform.position = miradaposition;
@@ -194,7 +194,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
         //point order material and position reset.
-        materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), alphaTarget, 0.2f));
         materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.9f));
 
         //Doesnt return, for now.
@@ -213,7 +212,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             pointerOrder.transform.position = closestEnemyTarget.ui_information.transform.position;
             pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
 
-            materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), 0, 0.3f));
             materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
         }
 
@@ -232,7 +230,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
                     pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
 
-                    materialpointerDirection.SetFloat("_Alpha", Mathf.Lerp(materialpointerDirection.GetFloat("_Alpha"), 0, 0.3f));
                     materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
                 }
                 else
@@ -301,12 +298,19 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private void Order()
     {
         #region Orders
+        //Animation start
+        if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
+        {
+            pointerDirection.Click();
+        }
+
         if (selectedTypeList.Count > 0)
         {
             //The boy will stop following you
             if (Input.GetKeyDown("joystick button 0") || Input.GetMouseButtonDown(2))
             {
                 commander.Order(selectedTypeList[selectedTypeInt], this.transform.position);
+
             }
 
             #region Direct Order
@@ -366,6 +370,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                             if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
                             {
                                 commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+
                             }
                             else
                             {
@@ -377,6 +382,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                             if (closestBUTarget != null)
                             {
                                 commander.OrderDirect(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
+
                             }
                             else if (closestEnemyTarget != null)
                             {
@@ -384,11 +390,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
                             }
                         }
 
+
                     }
 
                     orderInOrder = false;
                 }
             }
+
             else
             {
                 if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
@@ -419,6 +427,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     //Normal order
                     if (orderCounter < 0.2f)
                     {
+                        pointerDirection.Click();
 
                         Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
 
