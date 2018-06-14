@@ -9,7 +9,7 @@ public class CharacterMovement : MonoBehaviour
     HingeJoint childHj;
 
     [SerializeField]
-    float speed = 1, smooth = 15f;
+    float speed = 1, smooth = 5f;
     bool onMovement = false;
 
     Vector3 desiredDirection;
