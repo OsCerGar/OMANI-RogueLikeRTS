@@ -5,27 +5,23 @@ using UnityEngine;
 public class UI_PointerDirection : MonoBehaviour
 {
 
-    GameObject pointer, dots;
-    Animator dotsAnim;
+    SpriteRenderer dots;
+    [SerializeField]
+    ParticleSystem dotsAnimation;
     bool timer;
     float timerAnimation;
 
     // Use this for initialization
     void Start()
     {
-        dots = this.transform.Find("Dots").gameObject;
-        pointer = this.transform.Find("Pointer").gameObject;
-        dotsAnim = dots.GetComponent<Animator>();
+        dots = this.transform.Find("Dots").GetComponent<SpriteRenderer>();
     }
 
     public void Click()
     {
-        dots.transform.parent = this.transform;
-        dots.transform.localPosition = new Vector3(0, 0, 0);
-        dots.transform.localRotation = Quaternion.identity;
-        dots.transform.parent = null;
-        Debug.Log(dots.transform.parent);
-        dotsAnim.SetTrigger("Play");
+        Debug.Log("Click");
+        dots.enabled = false;
+        Instantiate(dotsAnimation, dots.transform.position, dots.transform.rotation);
         timer = true;
     }
 
@@ -40,9 +36,8 @@ public class UI_PointerDirection : MonoBehaviour
         if (timerAnimation > 1f)
         {
             timerAnimation = 0;
-            dots.transform.parent = this.transform;
-            dots.transform.localPosition = new Vector3(0, 0, 0);
-            dots.transform.localRotation = Quaternion.identity;
+            //Turns dots again.
+            dots.enabled = true;
             timer = false;
         }
     }

@@ -22,7 +22,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     //Gameplay
     public Army commander;
-    public NPC closestTarget, closestEnemyTarget;
+    public NPC closestTarget, closestEnemyTarget, latestClosestTarget;
     public BU closestBUTarget;
 
     public LayerMask targetMask, obstacleMask;
@@ -40,8 +40,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     //NEW UI
     UI_PointerDirection pointerDirection;
-    GameObject pointerOrder, pointerSelection, headArm;
-    Material materialpointerDirection, materialpointerOrder, materialpointerSelection;
+    UI_PointerSelection pointerSelection;
+    GameObject pointerOrder, headArm;
     float alphaTarget = 0.111f;
 
     [SerializeField]
@@ -60,13 +60,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
 
         pointerDirection = this.transform.Find("PointerDirection").GetComponent<UI_PointerDirection>();
+        pointerSelection = this.transform.Find("PointerSelection").GetComponent<UI_PointerSelection>();
 
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
-        materialpointerOrder = this.transform.Find("OrderDirection").GetComponent<MeshRenderer>().material;
-
-        pointerSelection = this.transform.Find("SelectionDirection").gameObject;
-        materialpointerSelection = this.transform.Find("SelectionDirection").GetComponent<MeshRenderer>().material;
-
         headArm = this.transform.Find("HeadArm").gameObject;
 
     }
@@ -113,7 +109,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private void LateUpdate()
     {
         UI_Hologram();
-
     }
 
     private void UI_Hologram()
@@ -142,7 +137,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 else
                 {
                     GUI_RegularPointer();
-                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
                 }
             }
         }
@@ -158,18 +152,23 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (closestTarget != null)
         {
             pointerSelection.transform.position = closestTarget.ui_information.transform.position;
-            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), alphaTarget, 0.4f));
+
+            if (closestTarget != latestClosestTarget)
+            {
+                pointerSelection.OnTop();
+            }
+
+            latestClosestTarget = closestTarget;
         }
 
         else if (closestBUTarget != null && closestBUTarget.numberOfWorkers > 0)
         {
             pointerSelection.transform.position = closestBUTarget.ui_information.transform.position;
-            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), alphaTarget, 0.4f));
         }
 
         else
         {
-            materialpointerSelection.SetFloat("_Alpha", Mathf.Lerp(materialpointerSelection.GetFloat("_Alpha"), 0, 0.4f));
+            pointerSelection.NotOnTop();
         }
     }
 
@@ -180,7 +179,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
         //point order material and position reset.
-        materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.9f));
 
         //Doesnt return, for now.
 
@@ -194,7 +192,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
         //point order material and position reset.
-        materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.9f));
 
         //Doesnt return, for now.
 
@@ -212,7 +209,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             pointerOrder.transform.position = closestEnemyTarget.ui_information.transform.position;
             pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
 
-            materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
         }
 
         //^OrderTarget
@@ -230,22 +226,18 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
                     pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
 
-                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), alphaTarget, 0.4f));
                 }
                 else
                 {
-                    materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
                 }
             }
             else
             {
-                materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
             }
         }
 
         else
         {
-            materialpointerOrder.SetFloat("_Alpha", Mathf.Lerp(materialpointerOrder.GetFloat("_Alpha"), 0, 0.6f));
         }
     }
 
@@ -299,7 +291,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     {
         #region Orders
         //Animation start
-        if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0))
         {
             pointerDirection.Click();
         }
@@ -694,10 +686,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 miradaposition = mousePosition;
             }
 
-            transform.LookAt(miradaposition);
+            transform.LookAt(new Vector3(miradaposition.x, miradaposition.y + 0.5f, miradaposition.z));
         }
 
-        this.transform.position = commander.transform.position;
+        this.transform.position = new Vector3(commander.transform.position.x, commander.transform.position.y + 0.5f, commander.transform.position.z);
 
     }
     public void LookAtWhileMoving(float _playerHrj, float _playerVrj)
