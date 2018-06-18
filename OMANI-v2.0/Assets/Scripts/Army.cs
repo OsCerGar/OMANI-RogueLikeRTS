@@ -18,23 +18,19 @@ public class Army : MonoBehaviour
     [SerializeField]
     GameObject UI;
 
-    [SerializeField]
-    Material normalSelection, prioritySelection;
-
     float alphaTarget = 0.111f;
 
 
     void Start()
     {
-        
-        normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), 0, 0.2f));
-        prioritySelection.SetFloat("_Alpha", Mathf.Lerp(prioritySelection.GetFloat("_Alpha"), 0, 0.2f));
-
+        /*
         for (int i = 0; i < 50; i++)
         {
             MeshRenderer pooled = Instantiate(UI, this.transform).GetComponent<MeshRenderer>();
             GameUI.Add(pooled);
         }
+        */
+
     }
 
     //Adds the boy to the Army and makes it follow the Army commander.
@@ -534,18 +530,24 @@ public class Army : MonoBehaviour
         {
             if (i == _list.Count - 1)
             {
+                /*
                 GameUI[i].transform.position = _list[i].ui_information.transform.position;
                 GameUI[i].transform.localScale = _list[i].ui_information.transform.localScale;
+                
                 GameUI[i].material = prioritySelection;
                 prioritySelection.SetFloat("_Alpha", Mathf.Lerp(prioritySelection.GetFloat("_Alpha"), alphaTarget, 1f));
+                */
             }
             else
             {
+                /*
                 GameUI[i].transform.position = _list[i].ui_information.transform.position;
                 GameUI[i].transform.localScale = _list[i].ui_information.transform.localScale;
 
+                
                 GameUI[i].material = normalSelection;
                 normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), alphaTarget, 1f));
+                */
 
             }
         }
@@ -555,17 +557,18 @@ public class Army : MonoBehaviour
 
     public void GUI_ListDisableCircle()
     {
-
+        /*
         foreach (MeshRenderer gui in GameUI)
         {
             gui.transform.position = new Vector3(1000, 1000, 1000);
         }
 
         int i = 0;
+        
         normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), 0, 1f));
         prioritySelection.SetFloat("_Alpha", Mathf.Lerp(prioritySelection.GetFloat("_Alpha"), 0, 1f));
-
-        i++;
+        
+        i++;*/
     }
 
 }

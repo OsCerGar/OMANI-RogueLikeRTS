@@ -8,7 +8,7 @@ public class PW_SlowMotion : Power
 {
 
     private float slowdownFactor = 0.25f;
-    private float slowdownLength = 1.5f, recovery = 5f, waste = 10f, viewRadius = 2f;
+    private float slowdownLength = 1.5f, recovery = 5f, waste = 10f, viewRadius = 2f, regularSpeed;
     private bool active = false;
     private int targetMask = 1 << 10;
 
@@ -16,7 +16,7 @@ public class PW_SlowMotion : Power
     PostProcessingProfile slowmo;
     PostProcessingProfile normal;
     CinemachinePostFX postFx;
-    BoyMovement boy;
+    CharacterMovement player;
     Animator animatorSpeed;
     List<NPC> hittedNpcs = new List<NPC>();
 
@@ -26,9 +26,9 @@ public class PW_SlowMotion : Power
         powerPool = 100;
 
         postFx = FindObjectOfType<CinemachinePostFX>();
-        boy = GetComponent<BoyMovement>();
-        animatorSpeed = GetComponent<Animator>();
+        player = GetComponent<CharacterMovement>();
         normal = postFx.m_Profile;
+        regularSpeed = player.speed;
     }
 
     public void Update()
@@ -40,12 +40,16 @@ public class PW_SlowMotion : Power
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
             Time.fixedDeltaTime = 0.02F;
             powerPool = Mathf.Clamp(powerPool + (Time.unscaledDeltaTime * recovery), 0, maxpowerPool);
-            animatorSpeed.speed = 1f;
+
+            // turns speed back
+            player.speed = regularSpeed;
         }
         else
         {
             powerPool = Mathf.Clamp(powerPool - (Time.unscaledDeltaTime * waste), 0, maxpowerPool);
-            animatorSpeed.speed = 4f;
+
+            // Player goes faster
+            player.speed = 15;
 
             Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
             foreach (Collider col in targetsInViewRadius)

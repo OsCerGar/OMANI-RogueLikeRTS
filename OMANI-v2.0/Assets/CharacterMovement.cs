@@ -7,9 +7,9 @@ public class CharacterMovement : MonoBehaviour
     //Objects
     Rigidbody rb, childRb;
     HingeJoint childHj;
-
+    LookDirectionsAndOrder LookDirection;
     [SerializeField]
-    float speed = 1, smooth = 5f;
+    public float speed = 1, smooth = 5f;
     bool onMovement = false;
 
     Vector3 desiredDirection;
@@ -20,6 +20,7 @@ public class CharacterMovement : MonoBehaviour
         rb = this.GetComponent<Rigidbody>();
         childRb = this.transform.Find("Throne").GetComponent<Rigidbody>();
         childHj = this.transform.Find("Throne").GetComponent<HingeJoint>();
+        LookDirection = FindObjectOfType<LookDirectionsAndOrder>();
 
     }
 
@@ -59,12 +60,26 @@ public class CharacterMovement : MonoBehaviour
             }
 
             rb.MovePosition(this.transform.position + desiredDirection * Time.deltaTime * speed);
-            Rotate(horizontal, vertical, desiredDirection);
+            Rotate(desiredDirection);
         }
         // If the axis has any sort of input on Joystick.
         else if (horizontalJoystick != 0f || verticalJoystick != 0f)
         {
             onMovement = true;
+
+            desiredDirection = new Vector3(horizontalJoystick, 0f, verticalJoystick);
+
+            //In case the player moves diagonally, it's normalized so that the speed is the same.
+            if (desiredDirection.magnitude > 1)
+            {
+                desiredDirection = desiredDirection.normalized;
+            }
+
+            rb.MovePosition(this.transform.position + desiredDirection * Time.deltaTime * speed);
+            Rotate(desiredDirection);
+
+            LookDirection.LookAtWhileMoving(horizontalJoystick, verticalJoystick);
+
         }
         // If the axis doesn't have any sort of input.
         else
@@ -88,7 +103,7 @@ public class CharacterMovement : MonoBehaviour
 
     // Function that makes the rotation of the character look good.
     /* This rotate function is called upon each frame. The rotation is smoothed.*/
-    void Rotate(float horizontal, float vertical, Vector3 desiredDirection)
+    void Rotate(Vector3 desiredDirection)
     {
 
         desiredDirection = Camera.main.transform.TransformDirection(desiredDirection);

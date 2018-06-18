@@ -27,7 +27,7 @@ public class UI_PointerSelection : MonoBehaviour
         Debug.Log("On top");
         arrow.enabled = false;
         //Debug.Break();
-        anim = Instantiate(selectionAnimation, this.transform.position, this.transform.rotation);
+        //anim = Instantiate(selectionAnimation, this.transform.position, this.transform.rotation);
         timer = true;
     }
 
@@ -40,7 +40,11 @@ public class UI_PointerSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.LookAt(commander.transform);
+
+        var lookPos = commander.transform.position - transform.position;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = rotation;
 
         if (anim != null)
         {
@@ -51,7 +55,7 @@ public class UI_PointerSelection : MonoBehaviour
             timerAnimation += Time.deltaTime;
         }
 
-        if (timerAnimation > 1f)
+        if (timerAnimation > 0.1f)
         {
             timerAnimation = 0;
             //Turns dots again.

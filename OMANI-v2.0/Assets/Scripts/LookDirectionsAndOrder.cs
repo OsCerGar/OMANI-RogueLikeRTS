@@ -36,7 +36,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public List<string> selectedTypeList;
     public int selectedTypeInt;
 
-
+    bool playingOnController;
 
     //NEW UI
     UI_PointerDirection pointerDirection;
@@ -80,14 +80,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         vrj = Input.GetAxis("VerticalRightJoystick");
         #endregion
 
-        if (!orderInOrder)
-        {
-            LookAt(hrj, vrj);
-        }
-        else
-        {
-            LookAtFromTargetPoint(hrj, vrj, boyInCharge.gameObject);
-        }
+        LookAt(hrj, vrj);
 
         // Look At Mode
         if (Input.GetKeyDown("joystick button 11"))
@@ -119,32 +112,37 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #endregion
 
         #region OrderUI
-        if (controllerLookModel == false)
+        if (playingOnController)
         {
-            if (closestEnemyTarget == null && closestBUTarget == null)
+            if (controllerLookModel == false)
             {
-                GUI_RegularPointer();
-
-            }
-
-            else
-            {
-                if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
+                if (closestEnemyTarget == null && closestBUTarget == null)
                 {
-                    GUI_BUOrder();
+                    GUI_RegularPointer();
                 }
 
                 else
                 {
-                    GUI_RegularPointer();
+                    if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
+                    {
+                        GUI_BUOrder();
+                    }
+
+                    else
+                    {
+                        GUI_RegularPointer();
+                    }
                 }
+            }
+            else
+            {
+                GUI_SpecialPointer();
             }
         }
         else
         {
-            GUI_SpecialPointer();
+            GUI_MousePointer();
         }
-
     }
 
     private void GUI_SelectionUI()
@@ -175,14 +173,21 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private void GUI_RegularPointer()
     {
         pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
+
         headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
 
         headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
-        //point order material and position reset.
+        pointerOrder.SetActive(false);
+    }
 
-        //Doesnt return, for now.
+    private void GUI_MousePointer()
+    {
+        pointerDirection.transform.position = miradaposition;
 
-        //pointerOrder.transform.position = this.transform.position;
+        headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
+
+        headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
+        pointerOrder.SetActive(false);
     }
 
     private void GUI_SpecialPointer()
@@ -206,9 +211,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
             headArm.transform.LookAt(closestEnemyTarget.transform);
 
-            pointerOrder.transform.position = closestEnemyTarget.ui_information.transform.position;
-            pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
+            pointerOrder.transform.position = Vector3.Lerp(pointerOrder.transform.position, closestEnemyTarget.transform.position, 0.4f);
 
+            //pointerOrder.transform.position = closestEnemyTarget.ui_information.transform.position;
+            pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
+            pointerSelection.enabled = false;
+            pointerOrder.SetActive(true);
         }
 
         //^OrderTarget
@@ -223,21 +231,27 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                     headArm.transform.LookAt(closestBUTarget.transform);
 
-                    pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
-                    pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
+                    pointerOrder.transform.position = Vector3.Lerp(pointerOrder.transform.position, closestBUTarget.transform.position, 0.4f);
 
+                    //pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
+                    pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
+                    pointerSelection.enabled = false;
+                    pointerOrder.SetActive(true);
                 }
                 else
                 {
+                    pointerOrder.SetActive(true);
                 }
             }
             else
             {
+                pointerOrder.SetActive(true);
             }
         }
-
         else
         {
+            pointerOrder.SetActive(false);
+            pointerSelection.enabled = true;
         }
     }
 
@@ -649,10 +663,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 Vector3 tdirection = new Vector3(_hrj, 0, _vrj);
                 miradaposition = this.transform.position + (tdirection) * viewRadius / 2;
                 transform.LookAt(miradaposition);
+
+                playingOnController = true;
             }
         }
         else
         {
+            playingOnController = false;
             timeLeft = visibleCursorTimer;
             Cursor.visible = false;
             //Mouse
@@ -671,25 +688,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 }
             }
 
-            //un miradaposition = mousePosition;
-            Vector3 centerPosition = this.transform.position; //center of *black circle*
-            float distance = Vector3.Distance(mousePosition, centerPosition); //distance from ~green object~ to *black circle*
 
-            if (distance > viewRadius) //If the distance is less than the radius, it is already within the circle.
-            {
-                Vector3 fromOriginToObject = mousePosition - centerPosition; //~GreenPosition~ - *BlackCenter*
-                fromOriginToObject *= viewRadius / distance; //Multiply by radius //Divide by Distance
-                miradaposition = centerPosition + fromOriginToObject; //*BlackCenter* + all that Math
-            }
-            else
-            {
-                miradaposition = mousePosition;
-            }
+            miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
 
-            transform.LookAt(new Vector3(miradaposition.x, miradaposition.y + 0.5f, miradaposition.z));
+            transform.LookAt(new Vector3(miradaposition.x, miradaposition.y, miradaposition.z));
         }
 
-        this.transform.position = new Vector3(commander.transform.position.x, commander.transform.position.y + 0.5f, commander.transform.position.z);
+        this.transform.position = new Vector3(commander.transform.position.x, commander.transform.position.y, commander.transform.position.z);
 
     }
     public void LookAtWhileMoving(float _playerHrj, float _playerVrj)
@@ -702,56 +707,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
     }
 
-    void LookAtFromTargetPoint(float _hrj, float _vrj, GameObject _TargetPoint)
-    {
-        if (catchCursor)
-        {
-            catchCursor = false;
-            cursorPosition = Input.GetAxis("Mouse X");
-        }
-        if (Input.GetAxis("Mouse X") == cursorPosition)
-        {
-            timeLeft -= Time.deltaTime;
-            if (timeLeft < 0)
-            {
-                timeLeft = visibleCursorTimer;
-                Cursor.visible = false;
-                catchCursor = true;
-            }
-
-            if (_hrj != 0 || _vrj != 0)
-            {
-                Vector3 tdirection = new Vector3(_hrj, 0, _vrj);
-                miradaposition = this.transform.position + (tdirection);
-                transform.LookAt(miradaposition);
-            }
-        }
-        else
-        {
-            timeLeft = visibleCursorTimer;
-            Cursor.visible = true;
-            //Mouse
-            //Sends a ray to where the mouse is pointing at.
-
-            Ray cursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            //Saves the information of the hit.
-            RaycastHit hit;
-            if (Physics.Raycast(cursorRay, out hit))
-            {
-                //Player is not taken into account due to weird behaviours.
-                if (hit.transform.tag != "Player")
-                {
-                    mousePosition = hit.point;
-                }
-            }
-            miradaposition = mousePosition;
-            transform.LookAt(miradaposition);
-        }
-
-        this.transform.position = _TargetPoint.transform.position;
-
-    }
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
 
