@@ -64,7 +64,7 @@ public class OrderPositionObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
+        Debug.Log("Hitted");
         if (other.gameObject == npc.gameObject)
         {
             if (npc.AI_GetState() != "Follow")
@@ -74,6 +74,7 @@ public class OrderPositionObject : MonoBehaviour
 
             //Self destroys
             Destroy(this.gameObject);
+            Debug.Log("Destroyed");
         }
     }
 

@@ -16,7 +16,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     float hrj, vrj;
 
-    public float viewRadius;
+    public float viewRadius, mouseRadius = 3;
     [Range(0, 360)]
     public float viewAngle;
 
@@ -64,6 +64,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
         headArm = this.transform.Find("HeadArm").gameObject;
+
 
     }
 
@@ -539,7 +540,96 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
     void FindVisibleTargets()
     {
+        if (playingOnController)
+        {
+            targetsOnController();
+        }
+        else
+        {
+            targetsOnMouse();
+        }
+    }
+    private void targetsOnMouse()
+    {
+        closestTarget = null;
+        closestBUTarget = null;
+        closestEnemyTarget = null;
 
+        //Each collider hitted by the Sphere in the TargetMask
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(miradaposition, mouseRadius, targetMask);
+        foreach (Collider col in targetsInViewRadius)
+        {
+            // Save the col as an NPC
+            NPC colNPC;
+            NPC colEnemy;
+            BU colBU;
+
+            if (col.gameObject != commander.gameObject)
+            {
+                // Checks if its the player or if its people.
+                if (col.CompareTag("People"))
+                {
+                    colNPC = col.GetComponent<NPC>();
+
+                    Transform target = col.transform;
+
+                    //Distance to target
+                    float dstToTarget = Vector3.Distance(transform.position, target.position);
+
+                    //Check if its following already.
+                    if (colNPC.AI_GetState() != "Follow")
+                    {
+                        //If the closestTarget is null he is the closest target.
+                        // If the distance is smaller than the distance to the closestTarget.
+                        if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
+                        {
+                            closestTarget = colNPC;
+                        }
+                    }
+
+                }
+
+                else if (col.CompareTag("Building"))
+                {
+                    colBU = col.GetComponent<BU>();
+                    if (colBU != null)
+                    {
+                        closestBUTarget = colBU;
+                    }
+                }
+
+                else if (col.CompareTag("Enemy"))
+                {
+                    colEnemy = col.GetComponent<NPC>();
+                    if (colEnemy != null)
+                    {
+
+                        Transform target = col.transform;
+
+                        //Distance to target
+                        float dstToTarget = Vector3.Distance(transform.position, target.position);
+
+                        //If the closestTarget is null he is the closest target.
+                        // If the distance is smaller than the distance to the closestTarget.
+                        if (closestEnemyTarget == null || dstToTarget < Vector3.Distance(transform.position, closestEnemyTarget.transform.position))
+                        {
+                            closestEnemyTarget = colEnemy;
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+        // if there is a building in the range, enemies wont be selected for order.
+        if (closestEnemyTarget != null)
+        {
+            closestBUTarget = null;
+        }
+    }
+    private void targetsOnController()
+    {
         closestTarget = null;
         closestBUTarget = null;
         closestEnemyTarget = null;
@@ -636,13 +726,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             closestBUTarget = null;
         }
-
     }
-
     #endregion
 
     void LookAt(float _hrj, float _vrj)
     {
+        Cursor.visible = false;
+
         if (catchCursor)
         {
             catchCursor = false;
@@ -650,12 +740,31 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
         if (Input.GetAxis("Mouse X") == cursorPosition)
         {
+
             timeLeft -= Time.deltaTime;
             if (timeLeft < 0)
             {
                 timeLeft = visibleCursorTimer;
-                Cursor.visible = false;
                 catchCursor = true;
+            }
+
+            if (!playingOnController)
+            {
+                // If the mouse is not moving, the cursor follows the camera movement.
+                Ray cursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(cursorRay, out hit, Mathf.Infinity, terrain))
+                {
+                    //Player is not taken into account due to weird behaviours.
+                    if (hit.transform.tag != "Player")
+                    {
+                        mousePosition = hit.point;
+                    }
+
+                    miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
+
+                    transform.LookAt(new Vector3(miradaposition.x, miradaposition.y, miradaposition.z));
+                }
             }
 
             if (_hrj != 0 || _vrj != 0)
@@ -667,11 +776,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 playingOnController = true;
             }
         }
+
         else
         {
             playingOnController = false;
             timeLeft = visibleCursorTimer;
-            Cursor.visible = false;
             //Mouse
             //Sends a ray to where the mouse is pointing at.
 
@@ -699,6 +808,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
     public void LookAtWhileMoving(float _playerHrj, float _playerVrj)
     {
+        playingOnController = true;
+
         if (hrj == 0 && vrj == 0)
         {
             Vector3 tdirection = new Vector3(_playerHrj, 0, _playerVrj);
