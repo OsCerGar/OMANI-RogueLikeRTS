@@ -12,13 +12,14 @@ public class ArmBrain : MonoBehaviour {
     private void Start()
     {
         TargetPos = ArmTarget.position;
+        ArmTarget.parent = null;
         moving = false;
     }
     private void Update()
     {
         if (moving)
         {
-            x += (Time.deltaTime * 2f);
+            x += (Time.deltaTime * 3f);
             ArmTarget.position = MathParabola.Parabola(startPos, TargetPos, TargetPos.y+1f,  x);
             if (x>0.95)
             {
