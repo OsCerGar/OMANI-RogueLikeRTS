@@ -105,11 +105,34 @@ public class LocomotionBrain : MonoBehaviour {
         {
             //TODO
         }
-        ArmPositions.transform.position = transform.parent.position + playerRB.velocity / 2f;
+        ArmPositions.transform.position = transform.parent.position + playerRB.velocity / 2f; //adjust to rB velocity
+
+        var MaxDistance = 2.5f;
+        if (Vector3.Distance(IKrightHandPos, ShootRaycast(rightHandPos)) > MaxDistance)
+        {
+            IKrightHandPos = ShootRaycast(rightHandPos);
+            RightHandBrain.SetTargetPos(IKrightHandPos);
+        }
+        if (Vector3.Distance(IKleftHandPos, ShootRaycast(leftHandPos)) > MaxDistance)
+        {
+            IKleftHandPos = ShootRaycast(leftHandPos);
+            LeftHandBrain.SetTargetPos(IKleftHandPos);
+        }
+        if (Vector3.Distance(IKrightFootPos, ShootRaycast(rightFootPos)) > MaxDistance)
+        {
+            IKrightFootPos = ShootRaycast(rightFootPos);
+            RightFootBrain.SetTargetPos(IKrightFootPos);
+        }
+        if (Vector3.Distance(IKleftFootPos, ShootRaycast(leftFootPos)) > MaxDistance)
+        {
+            IKleftFootPos = ShootRaycast(leftFootPos);
+            LeftFootBrain.SetTargetPos(IKleftFootPos);
+        }
 
 
 
-}
+
+    }
 
 Vector3 ShootRaycast(Transform tr)
     {
