@@ -49,7 +49,7 @@ public class PW_SlowMotion : Power
             powerPool = Mathf.Clamp(powerPool - (Time.unscaledDeltaTime * waste), 0, maxpowerPool);
 
             // Player goes faster
-            player.speed = 15;
+            player.speed = 0.1f;
 
             Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
             foreach (Collider col in targetsInViewRadius)

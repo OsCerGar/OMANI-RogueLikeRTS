@@ -27,11 +27,12 @@ public class LocomotionBrain : MonoBehaviour {
     private ArmBrain LeftHandBrain;
     private ArmBrain RightFootBrain;
     private ArmBrain LeftFootBrain;
-    Rigidbody playerRB;
+    CharacterController playerRB;
 
     void Start()
     {
-        playerRB = transform.parent.GetComponent<Rigidbody>();
+        playerRB = transform.parent.GetComponent<CharacterController>();
+
         RightHandBrain = rightHandPos.GetComponent<ArmBrain>(); 
         LeftHandBrain = leftHandPos.GetComponent<ArmBrain>();
         RightFootBrain = rightFootPos.GetComponent<ArmBrain>();
