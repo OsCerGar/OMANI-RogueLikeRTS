@@ -7,8 +7,7 @@ public class CharacterMovement : MonoBehaviour
 
 
     //Objects
-    Rigidbody rb, childRb;
-    HingeJoint childHj;
+    Rigidbody rb;
     LookDirectionsAndOrder LookDirection;
     [SerializeField]
     public float speed = 1, smooth = 5f;
@@ -24,8 +23,6 @@ public class CharacterMovement : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         rb = this.GetComponent<Rigidbody>();
-        childRb = this.transform.Find("Throne").GetComponent<Rigidbody>();
-        childHj = this.transform.Find("Throne").GetComponent<HingeJoint>();
         LookDirection = FindObjectOfType<LookDirectionsAndOrder>();
     }
 

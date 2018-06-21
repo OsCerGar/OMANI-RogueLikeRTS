@@ -33,7 +33,7 @@ public class LocomotionBrain : MonoBehaviour {
 
     void Start()
     {
-        playerRB = transform.parent.GetComponent<CharacterController>();
+        playerRB = transform.parent.GetComponentInChildren<CharacterController>();
         layer_mask = LayerMask.GetMask("Terrain", "Obstacle");
         RightHandBrain = rightHandPos.GetComponent<ArmBrain>(); 
         LeftHandBrain = leftHandPos.GetComponent<ArmBrain>();
@@ -108,7 +108,7 @@ public class LocomotionBrain : MonoBehaviour {
         {
             //TODO
         }
-        ArmPositions.transform.position = transform.parent.position + playerRB.velocity / 2f; //adjust to rB velocity
+        ArmPositions.transform.position = playerRB.transform.position + playerRB.velocity / 2f; //adjust to rB velocity
         
         var MaxDistance = 2.5f;
         if (Vector3.Distance(IKrightHandPos, ShootRaycast(rightHandPos)) > MaxDistance)
