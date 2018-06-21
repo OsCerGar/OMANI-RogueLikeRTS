@@ -29,10 +29,12 @@ public class LocomotionBrain : MonoBehaviour {
     private ArmBrain LeftFootBrain;
     CharacterController playerRB;
 
+    int layer_mask;
+
     void Start()
     {
         playerRB = transform.parent.GetComponent<CharacterController>();
-
+        layer_mask = LayerMask.GetMask("Terrain", "Obstacle");
         RightHandBrain = rightHandPos.GetComponent<ArmBrain>(); 
         LeftHandBrain = leftHandPos.GetComponent<ArmBrain>();
         RightFootBrain = rightFootPos.GetComponent<ArmBrain>();
@@ -138,7 +140,7 @@ public class LocomotionBrain : MonoBehaviour {
 Vector3 ShootRaycast(Transform tr)
     {
         RaycastHit hit;
-        if (Physics.Raycast(tr.position, -Vector3.up, out hit))
+        if (Physics.Raycast(new Vector3(tr.position.x, tr.position.y + 10, tr.position.z), -Vector3.up, out hit, layer_mask))
         {
             return hit.point;
         }
