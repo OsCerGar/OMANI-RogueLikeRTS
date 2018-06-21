@@ -109,7 +109,7 @@ public class LocomotionBrain : MonoBehaviour {
             //TODO
         }
         ArmPositions.transform.position = transform.parent.position + playerRB.velocity / 2f; //adjust to rB velocity
-        /*
+        
         var MaxDistance = 2.5f;
         if (Vector3.Distance(IKrightHandPos, ShootRaycast(rightHandPos)) > MaxDistance)
         {
@@ -132,7 +132,6 @@ public class LocomotionBrain : MonoBehaviour {
             LeftFootBrain.SetTargetPos(IKleftFootPos);
         }
         
-    */
 
 
 
