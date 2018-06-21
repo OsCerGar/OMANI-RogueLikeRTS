@@ -109,7 +109,7 @@ public class LocomotionBrain : MonoBehaviour {
             //TODO
         }
         ArmPositions.transform.position = transform.parent.position + playerRB.velocity / 2f; //adjust to rB velocity
-
+        /*
         var MaxDistance = 2.5f;
         if (Vector3.Distance(IKrightHandPos, ShootRaycast(rightHandPos)) > MaxDistance)
         {
@@ -131,7 +131,8 @@ public class LocomotionBrain : MonoBehaviour {
             IKleftFootPos = ShootRaycast(leftFootPos);
             LeftFootBrain.SetTargetPos(IKleftFootPos);
         }
-
+        
+    */
 
 
 
@@ -142,7 +143,7 @@ Vector3 ShootRaycast(Transform tr)
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(tr.position.x, tr.position.y + 10, tr.position.z), -Vector3.up, out hit, layer_mask))
         {
-            return hit.point;
+            return new Vector3(hit.point.x, hit.point.y, hit.point.z);
         }
         return transform.position;
     }
