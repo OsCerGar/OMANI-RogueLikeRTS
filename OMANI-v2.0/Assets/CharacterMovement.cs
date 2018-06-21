@@ -116,10 +116,10 @@ public class CharacterMovement : MonoBehaviour
         Quaternion desiredRotation = Quaternion.LookRotation(desiredDirection, Vector3.up);
 
         // Smoothes the transition
-        Quaternion smoothedRotation = Quaternion.Lerp(rb.rotation, desiredRotation, smooth * Time.deltaTime);
+        Quaternion smoothedRotation = Quaternion.Lerp(this.transform.rotation, desiredRotation, smooth * Time.deltaTime);
 
         // Uses the rigidbody function  "MoveRotation" which sets the new rotation of the Rigidbody. 
-        rb.MoveRotation(smoothedRotation);
+        transform.rotation = smoothedRotation;
     }
 }
 

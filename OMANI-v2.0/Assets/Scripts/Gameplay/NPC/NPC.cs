@@ -337,6 +337,14 @@ public class NPC : MonoBehaviour
         targetVariable.Value = target;
     }
 
+    public virtual void AI_GoToPoint(GameObject _target, float _speed)
+    {
+        var speed = (SharedGameObject)AI.GetVariable("AnimSpeed");
+        var targetVariable = (SharedGameObject)AI.GetVariable("Target");
+        targetVariable.Value = _target;
+
+    }
+
     public virtual string AI_GetState()
     {
         var stateVariable = (SharedString)AI.GetVariable("State");
@@ -369,8 +377,6 @@ public class NPC : MonoBehaviour
         var targetVariable = (SharedGameObject)AI.GetVariable("Target");
         return targetVariable.Value;
     }
-
-
 
     public virtual void Mutate(GameObject _mutation)
     {
