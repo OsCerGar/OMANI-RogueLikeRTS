@@ -12,7 +12,7 @@ public class Tutorial_Start : MonoBehaviour
     GameObject masterWorkerObjective, spotLight, backgroundLights, backgroundLights2;
     Cinemachine.CinemachineVirtualCamera startCamera, standardCamera;
 
-    float timer, oldIntensity;
+    float timer, oldIntensity, oldFogStart, oldFogEnd;
     [SerializeField]
     float totalTimer = 2;
 
@@ -23,7 +23,13 @@ public class Tutorial_Start : MonoBehaviour
         backgroundLights = this.transform.Find("Lights/backgroundLight").gameObject;
         backgroundLights2 = this.transform.Find("Lights/backgroundLight2").gameObject;
         directionalLight = this.transform.Find("Lights/Aura Directional Light").GetComponent<Light>();
+
+
+        //save normal values
         oldIntensity = directionalLight.intensity;
+        oldFogStart = RenderSettings.fogStartDistance;
+        oldFogEnd = RenderSettings.fogEndDistance;
+
         masterWorker = this.transform.Find("MasterWorker").GetComponent<NPC>();
         masterWorkerObjective = this.transform.Find("Gameplay/MasterWorkerObjective").gameObject;
         player = FindObjectOfType<Player>();
@@ -52,6 +58,8 @@ public class Tutorial_Start : MonoBehaviour
 
     public void LightsOn()
     {
+        RenderSettings.fogEndDistance = oldFogEnd;
+        RenderSettings.fogStartDistance = oldFogStart;
         spotLight.SetActive(true);
         backgroundLights.SetActive(true);
         backgroundLights2.SetActive(true);
@@ -63,6 +71,8 @@ public class Tutorial_Start : MonoBehaviour
     }
     public void LightsOff()
     {
+        RenderSettings.fogStartDistance = 105;
+        RenderSettings.fogEndDistance = 200;
         directionalLight.intensity = 0.01f;
         spotLight.SetActive(false);
         backgroundLights.SetActive(false);
