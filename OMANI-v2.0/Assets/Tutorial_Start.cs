@@ -11,11 +11,14 @@ public class Tutorial_Start : MonoBehaviour
     Light directionalLight;
     GameObject masterWorkerObjective, spotLight, backgroundLights, backgroundLights2;
     Cinemachine.CinemachineVirtualCamera startCamera, standardCamera;
+    LocomotionBrain locomotion;
+    CharacterMovement control;
 
     float timer, oldIntensity, oldFogStart, oldFogEnd;
     [SerializeField]
     float totalTimer = 2;
-
+    [SerializeField]
+    bool lightsIn = false, lightsOut = false, gameplay = false;
     // Use this for initialization
     void Start()
     {
@@ -23,7 +26,8 @@ public class Tutorial_Start : MonoBehaviour
         backgroundLights = this.transform.Find("Lights/backgroundLight").gameObject;
         backgroundLights2 = this.transform.Find("Lights/backgroundLight2").gameObject;
         directionalLight = this.transform.Find("Lights/Aura Directional Light").GetComponent<Light>();
-
+        locomotion = FindObjectOfType<LocomotionBrain>();
+        control = FindObjectOfType<CharacterMovement>();
 
         //save normal values
         oldIntensity = directionalLight.intensity;
@@ -35,25 +39,21 @@ public class Tutorial_Start : MonoBehaviour
         player = FindObjectOfType<Player>();
 
         LightsOff();
+        startCamera = this.transform.Find("Timeline/Cameras/StartCamera").GetComponent<Cinemachine.CinemachineVirtualCamera>();
 
-        /*
-        startCamera = this.transform.Find("Cameras/StartCamera").GetComponent<Cinemachine.CinemachineVirtualCamera>();
-        standardCamera = this.transform.parent.Find("CamBrain/Standard").GetComponent<Cinemachine.CinemachineVirtualCamera>();
-        masterWorker.Order(masterWorkerObjective);
-        */
     }
 
     private void Update()
     {
-
-        if (Vector3.Distance(masterWorker.transform.position, masterWorkerObjective.transform.position) <= 1)
-        {
-            timer += Time.deltaTime;
-            if (timer > totalTimer)
-            {
-                LightsOn();
-            }
-        }
+        if (lightsIn) { LightsOn(); }
+        if (lightsOut) { LightsOff(); }
+        if (gameplay) { Gameplay(); }
+    }
+    public void Gameplay()
+    {
+        startCamera.gameObject.SetActive(false);
+        control.enabled = true;
+        locomotion.enabled = true;
     }
 
     public void LightsOn()
@@ -75,8 +75,6 @@ public class Tutorial_Start : MonoBehaviour
         RenderSettings.fogEndDistance = 200;
         directionalLight.intensity = 0.01f;
         spotLight.SetActive(false);
-        backgroundLights.SetActive(false);
-        backgroundLights2.SetActive(false);
 
         foreach (Light light in lights)
         {
