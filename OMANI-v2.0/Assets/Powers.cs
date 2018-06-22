@@ -13,7 +13,10 @@ public class Powers : MonoBehaviour
     {
         if (Input.GetKeyDown("e") || Input.GetKeyDown("joystick button 6"))
         {
-            power[selectedPower].CastPower();
+            if (power[selectedPower] != null)
+            {
+                power[selectedPower].CastPower();
+            }
         }
     }
 
