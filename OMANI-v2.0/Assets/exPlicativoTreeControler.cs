@@ -9,7 +9,7 @@ using System;
 public class exPlicativoTreeControler : MonoBehaviour {
          [SerializeField] GameObject[] holograms; 
 
-       public delegate void ActivateTutorial(Transform posToGo,string whatToShow);
+       public delegate void ActivateTutorial(GameObject posToGo,string whatToShow);
        public static event ActivateTutorial Tutorial;//un evento para cada fragmento del tutorial
 
     [SerializeField] BehaviorTree TutorialBehaviour;
@@ -26,7 +26,7 @@ public class exPlicativoTreeControler : MonoBehaviour {
         }
 
 
-        void ActivateMovementTut(Transform posToGo, string whatToShow)
+        void ActivateMovementTut(GameObject posToGo, string whatToShow)
         {
             ClearHolograms();
         foreach (var hologram in holograms)
@@ -35,7 +35,7 @@ public class exPlicativoTreeControler : MonoBehaviour {
             {
                 //gets the Vars
                 TutorialBehaviour.enabled = true;
-                var posToGoVar = (SharedTransform)TutorialBehaviour.GetVariable("posToGo");
+                var posToGoVar = (SharedGameObject)TutorialBehaviour.GetVariable("posToGo");
                 posToGoVar.Value = posToGo;
                 var hologramVar = (SharedGameObject)TutorialBehaviour.GetVariable("hologram");
                 hologramVar.Value = hologram;
