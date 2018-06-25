@@ -301,6 +301,11 @@ public class NPC : MonoBehaviour
         anim.SetBool("SpecialAttack", false);
     }
 
+    public void AttackHit()
+    {
+        transform.Find("AttackZone").gameObject.SetActive(true);
+    }
+
     public virtual void Order(GameObject attackPosition)
     {
         AI.EnableBehavior();
