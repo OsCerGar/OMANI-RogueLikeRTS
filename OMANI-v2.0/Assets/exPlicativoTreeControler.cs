@@ -12,7 +12,7 @@ public class exPlicativoTreeControler : MonoBehaviour {
        public delegate void ActivateTutorial(GameObject posToGo,string whatToShow);
        public static event ActivateTutorial Tutorial;//un evento para cada fragmento del tutorial
 
-    [SerializeField] BehaviorTree TutorialBehaviour;
+    [SerializeField] BehaviorTree TutorialBehaviour,FollowBehaviour;
     
         void OnEnable()
         {
@@ -42,6 +42,10 @@ public class exPlicativoTreeControler : MonoBehaviour {
             }
         }
         }
+    void ActivateFollow()
+    {
+        FollowBehaviour.enabled = true;
+    }
 
     private void ClearHolograms()
     {
