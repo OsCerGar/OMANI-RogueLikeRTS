@@ -39,6 +39,7 @@ public class Tutorial_Start : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        tutorial = true;
         cameraFX = FindObjectOfType<Cinemachine.PostFX.CinemachinePostFX>();
 
         spotLight = this.transform.Find("Lights/SpotLight").gameObject;
@@ -81,7 +82,7 @@ public class Tutorial_Start : MonoBehaviour
 
     public void Tutorial()
     {
-        if (timer<totalTimer)
+        if (timer < totalTimer)
         {
             timer += Time.deltaTime;
         }
@@ -95,6 +96,7 @@ public class Tutorial_Start : MonoBehaviour
             {
                 masterWorker.ActivateMovementTut(masterWorkerObjective, "WASD");
             }
+            tutorial = false;
             Debug.Log("Done");
         }
     }

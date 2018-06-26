@@ -6,20 +6,21 @@ using BehaviorDesigner.Runtime;
 using UnityEngine.AI;
 using System;
 
-public class exPlicativoTreeControler : MonoBehaviour {
-         [SerializeField] GameObject[] holograms; 
-    
-    [SerializeField] BehaviorTree TutorialBehaviour,FollowBehaviour;
-    
-        
+public class exPlicativoTreeControler : MonoBehaviour
+{
+    [SerializeField] GameObject[] holograms;
+
+    [SerializeField] BehaviorTree TutorialBehaviour, FollowBehaviour;
 
 
-        public void ActivateMovementTut(GameObject posToGo, string whatToShow)
-        {
-            ClearHolograms();
+
+
+    public void ActivateMovementTut(GameObject posToGo, string whatToShow)
+    {
+        ClearHolograms();
         foreach (var hologram in holograms)
         {
-            if (hologram.name == whatToShow)
+            if (hologram.name.Equals(whatToShow))
             {
                 //gets the Vars
                 TutorialBehaviour.enabled = true;
@@ -29,7 +30,7 @@ public class exPlicativoTreeControler : MonoBehaviour {
                 hologramVar.Value = hologram;
             }
         }
-        }
+    }
     void ActivateFollow()
     {
         FollowBehaviour.enabled = true;
@@ -41,8 +42,8 @@ public class exPlicativoTreeControler : MonoBehaviour {
         {
             //gets the Vars
             hologram.SetActive(false);
-            
+
         }
     }
-    
+
 }
