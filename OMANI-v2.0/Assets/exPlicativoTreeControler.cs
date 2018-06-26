@@ -8,25 +8,13 @@ using System;
 
 public class exPlicativoTreeControler : MonoBehaviour {
          [SerializeField] GameObject[] holograms; 
-
-       public delegate void ActivateTutorial(GameObject posToGo,string whatToShow);
-       public static event ActivateTutorial Tutorial;//un evento para cada fragmento del tutorial
-
+    
     [SerializeField] BehaviorTree TutorialBehaviour,FollowBehaviour;
     
-        void OnEnable()
-        {
-        Tutorial += ActivateMovementTut;
-        }
+        
 
 
-        void OnDisable()
-        {
-        Tutorial -= ActivateMovementTut;
-        }
-
-
-        void ActivateMovementTut(GameObject posToGo, string whatToShow)
+        public void ActivateMovementTut(GameObject posToGo, string whatToShow)
         {
             ClearHolograms();
         foreach (var hologram in holograms)
