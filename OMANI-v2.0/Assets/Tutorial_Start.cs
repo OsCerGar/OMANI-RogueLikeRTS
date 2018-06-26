@@ -19,13 +19,23 @@ public class Tutorial_Start : MonoBehaviour
     PostProcessingProfile postFX;
     LocomotionBrain locomotion;
     CharacterMovement control;
+    LookDirectionsAndOrder lookDirections;
+
+    //MAsterWorkerVariables
     exPlicativoTreeControler masterWorker;
+    [SerializeField]
+    GameObject masterWorkerObjective;
 
     float timer, oldIntensity, oldFogStart, oldFogEnd;
     [SerializeField]
-    float totalTimer = 2;
+    float totalTimer = 3;
     [SerializeField]
-    bool lightsIn = false, lightsOut = false, gameplay = false;
+    bool lightsIn = false, lightsOut = false, gameplay = false, tutorial = false;
+
+
+
+
+
     // Use this for initialization
     void Start()
     {
@@ -37,6 +47,8 @@ public class Tutorial_Start : MonoBehaviour
         directionalLight = this.transform.Find("Lights/Aura Directional Light").GetComponent<Light>();
         locomotion = FindObjectOfType<LocomotionBrain>();
         control = FindObjectOfType<CharacterMovement>();
+        lookDirections = FindObjectOfType<LookDirectionsAndOrder>();
+
         int i = 0;
 
         foreach (Light light in lights)
@@ -64,13 +76,35 @@ public class Tutorial_Start : MonoBehaviour
         if (lightsIn) { LightsOn(); }
         if (lightsOut) { LightsOff(); }
         if (gameplay) { Gameplay(); }
+        if (tutorial) { Tutorial(); }
     }
+
+    public void Tutorial()
+    {
+        if (timer<totalTimer)
+        {
+            timer += Time.deltaTime;
+        }
+        if (timer > totalTimer)
+        {
+            if (lookDirections.playingOnController)
+            {
+                masterWorker.ActivateMovementTut(masterWorkerObjective, "LeftStick");
+            }
+            else
+            {
+                masterWorker.ActivateMovementTut(masterWorkerObjective, "WASD");
+            }
+            Debug.Log("Done");
+        }
+    }
+
     public void Gameplay()
     {
         startCamera.gameObject.SetActive(false);
         control.enabled = true;
         locomotion.enabled = true;
-        //masterWorker.
+        tutorial = true;
     }
 
     public void LightsOn()

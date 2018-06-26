@@ -36,7 +36,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public List<string> selectedTypeList;
     public int selectedTypeInt;
 
-    bool playingOnController;
+    public bool playingOnController;
 
     //NEW UI
     UI_PointerDirection pointerDirection;
