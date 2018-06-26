@@ -6,19 +6,20 @@ using UnityEngine.PostProcessing;
 public class Tutorial_Start : MonoBehaviour
 {
 
-    NPC masterWorker, player;
+    NPC player;
     [SerializeField]
     Light[] lights = new Light[8];
     Color[] oldColors = new Color[8];
 
     Light directionalLight;
-    GameObject masterWorkerObjective, spotLight, backgroundLights, backgroundLights2;
+    GameObject spotLight, backgroundLights, backgroundLights2;
     Cinemachine.CinemachineVirtualCamera startCamera, standardCamera;
     Cinemachine.PostFX.CinemachinePostFX cameraFX;
     [SerializeField]
     PostProcessingProfile postFX;
     LocomotionBrain locomotion;
     CharacterMovement control;
+    exPlicativoTreeControler masterWorker;
 
     float timer, oldIntensity, oldFogStart, oldFogEnd;
     [SerializeField]
@@ -50,8 +51,7 @@ public class Tutorial_Start : MonoBehaviour
         oldFogEnd = RenderSettings.fogEndDistance;
         Debug.Log(oldFogEnd);
         Debug.Log(oldFogStart);
-        masterWorker = this.transform.Find("MasterWorker").GetComponent<NPC>();
-        masterWorkerObjective = this.transform.Find("Gameplay/MasterWorkerObjective").gameObject;
+        masterWorker = FindObjectOfType<exPlicativoTreeControler>();
         player = FindObjectOfType<Player>();
 
         LightsOff();
@@ -70,6 +70,7 @@ public class Tutorial_Start : MonoBehaviour
         startCamera.gameObject.SetActive(false);
         control.enabled = true;
         locomotion.enabled = true;
+        //masterWorker.
     }
 
     public void LightsOn()

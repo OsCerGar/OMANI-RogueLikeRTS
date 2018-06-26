@@ -13,7 +13,7 @@ public class Army : MonoBehaviour
 
 
     //G_UI
-    private List<MeshRenderer> GameUI = new List<MeshRenderer>();
+    private List<SpriteRenderer> GameUI = new List<SpriteRenderer>();
 
     [SerializeField]
     GameObject UI;
@@ -23,13 +23,13 @@ public class Army : MonoBehaviour
 
     void Start()
     {
-        /*
+
         for (int i = 0; i < 50; i++)
         {
-            MeshRenderer pooled = Instantiate(UI, this.transform).GetComponent<MeshRenderer>();
+            SpriteRenderer pooled = Instantiate(UI, this.transform).GetComponent<SpriteRenderer>();
             GameUI.Add(pooled);
         }
-        */
+
 
     }
 
@@ -530,24 +530,18 @@ public class Army : MonoBehaviour
         {
             if (i == _list.Count - 1)
             {
-                /*
+
                 GameUI[i].transform.position = _list[i].ui_information.transform.position;
                 GameUI[i].transform.localScale = _list[i].ui_information.transform.localScale;
-                
-                GameUI[i].material = prioritySelection;
-                prioritySelection.SetFloat("_Alpha", Mathf.Lerp(prioritySelection.GetFloat("_Alpha"), alphaTarget, 1f));
-                */
+                //Priority, guy who gets the order
+                GameUI[i].color = Color.yellow;
             }
             else
             {
-                /*
+
                 GameUI[i].transform.position = _list[i].ui_information.transform.position;
                 GameUI[i].transform.localScale = _list[i].ui_information.transform.localScale;
-
-                
-                GameUI[i].material = normalSelection;
-                normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), alphaTarget, 1f));
-                */
+                GameUI[i].color = Color.white;
 
             }
         }
@@ -557,18 +551,11 @@ public class Army : MonoBehaviour
 
     public void GUI_ListDisableCircle()
     {
-        /*
-        foreach (MeshRenderer gui in GameUI)
+
+        foreach (SpriteRenderer gui in GameUI)
         {
             gui.transform.position = new Vector3(1000, 1000, 1000);
         }
-
-        int i = 0;
-        
-        normalSelection.SetFloat("_Alpha", Mathf.Lerp(normalSelection.GetFloat("_Alpha"), 0, 1f));
-        prioritySelection.SetFloat("_Alpha", Mathf.Lerp(prioritySelection.GetFloat("_Alpha"), 0, 1f));
-        
-        i++;*/
     }
 
 }

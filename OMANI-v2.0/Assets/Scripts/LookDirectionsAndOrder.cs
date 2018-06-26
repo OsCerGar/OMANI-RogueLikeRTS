@@ -151,6 +151,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (closestTarget != null)
         {
             pointerSelection.transform.position = closestTarget.ui_information.transform.position;
+            pointerSelection.transform.localScale = closestTarget.ui_information.transform.localScale;
 
             if (closestTarget != latestClosestTarget)
             {
@@ -163,6 +164,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
         else if (closestBUTarget != null && closestBUTarget.numberOfWorkers > 0)
         {
             pointerSelection.transform.position = closestBUTarget.ui_information.transform.position;
+            pointerSelection.transform.localScale = closestBUTarget.ui_information.transform.localScale;
+
         }
 
         else
@@ -212,9 +215,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
             headArm.transform.LookAt(closestEnemyTarget.transform);
 
-            pointerOrder.transform.position = Vector3.Lerp(pointerOrder.transform.position, closestEnemyTarget.transform.position, 0.4f);
+            pointerOrder.transform.position = closestEnemyTarget.transform.position;
 
-            //pointerOrder.transform.position = closestEnemyTarget.ui_information.transform.position;
             pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
             pointerSelection.enabled = false;
             pointerOrder.SetActive(true);
@@ -232,21 +234,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                     headArm.transform.LookAt(closestBUTarget.transform);
 
-                    pointerOrder.transform.position = Vector3.Lerp(pointerOrder.transform.position, closestBUTarget.transform.position, 0.4f);
+                    pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
 
-                    //pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
                     pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
                     pointerSelection.enabled = false;
                     pointerOrder.SetActive(true);
                 }
-                else
-                {
-                    pointerOrder.SetActive(true);
-                }
-            }
-            else
-            {
-                pointerOrder.SetActive(true);
             }
         }
         else
@@ -581,7 +574,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     {
                         //If the closestTarget is null he is the closest target.
                         // If the distance is smaller than the distance to the closestTarget.
-                        if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, closestTarget.transform.position))
+                        if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, miradaposition))
                         {
                             closestTarget = colNPC;
                         }
