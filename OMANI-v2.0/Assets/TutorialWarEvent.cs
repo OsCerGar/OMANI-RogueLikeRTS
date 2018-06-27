@@ -15,15 +15,15 @@ public class TutorialWarEvent : MonoBehaviour {
             
         }
     }
-	
-	void ActivateDeath()
+
+    void ActivateDeath()
     {
         foreach (var item in npcArrays)
         {
             item.Damage = 20;
             if (item.GetType() ==  typeof(Creep))
             {
-                item.AI_SetEnemy(Player);
+                item.AI_SetTarget(Player);
             }
         }
     }

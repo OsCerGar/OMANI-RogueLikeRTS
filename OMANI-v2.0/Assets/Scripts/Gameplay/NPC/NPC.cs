@@ -157,6 +157,14 @@ public class NPC : MonoBehaviour
                 KnockBackParabola = false;
             }
         }
+        GameObject enem = AI_GetEnemy();
+        if (enem  != null)
+        {
+            if (enem.GetComponent<NPC>().Life <= 0)
+            {
+                AI_SetEnemy(null);
+            }
+        }
 
 
         //Animspeed conected to navmesh speed 
@@ -276,8 +284,7 @@ public class NPC : MonoBehaviour
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         this.gameObject.tag = "Untagged";
         this.gameObject.layer = 0;
-        this.enabled = false;
-        //cambiar tag y layer
+        //this.enabled = false;
     }
 
     public virtual void Heal(int _heal)
