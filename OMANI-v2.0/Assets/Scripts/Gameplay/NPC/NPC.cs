@@ -38,6 +38,7 @@ public class NPC : MonoBehaviour
     Vector3 LandingPosition, initialPosition;
     Transform perpetrator;
     public GameObject ui_information = null;
+    private GameObject Attackzone;
     #endregion
 
     #region GETTERSETTERS
@@ -112,6 +113,7 @@ public class NPC : MonoBehaviour
     // Use this for initialization
     public virtual void Start()
     {
+        Attackzone = transform.FindDeepChild("AttackZone").gameObject;
         AI = this.gameObject.GetComponent<BehaviorTree>();
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
@@ -310,7 +312,7 @@ public class NPC : MonoBehaviour
 
     public void AttackHit()
     {
-        transform.Find("AttackZone").gameObject.SetActive(true);
+        Attackzone.SetActive(true);
     }
 
     public virtual void Order(GameObject attackPosition)

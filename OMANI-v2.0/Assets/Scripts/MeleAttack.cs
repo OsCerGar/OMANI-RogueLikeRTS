@@ -6,6 +6,9 @@ using UnityEngine.AI;
 public class MeleAttack : MonoBehaviour {
     [SerializeField] bool Knockback;
     [SerializeField] ParticleSystem Effect;
+    [SerializeField] AttackSoundsManager Sounds;
+    [SerializeField] NPC thisNpcScript;
+    bool missed;
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
@@ -26,20 +29,22 @@ public class MeleAttack : MonoBehaviour {
             //Make his take damage;
             if (Knockback)
             {
-                EnemyNPC.TakeDamage(transform.parent.GetComponent<NPC>().Damage, true, 5,transform.parent.transform);
+                EnemyNPC.TakeDamage(thisNpcScript.Damage, true, 5,transform.parent.transform);
             }else
             {
-                EnemyNPC.TakeDamage(transform.parent.GetComponent<NPC>().Damage);
+                EnemyNPC.TakeDamage(thisNpcScript.Damage);
             }
             //Set his Enemy to this
             EnemyNPC.AI_SetEnemy(transform.parent.gameObject);
             //If he's dead, then forget about him
+            missed = false;
            
         }
     }
     private void OnEnable()
     {
-        var enem = transform.parent.GetComponent<NPC>().AI_GetEnemy();
+        missed = true; 
+        var enem = thisNpcScript.AI_GetEnemy();
         if (Effect != null)
         {
 
@@ -56,10 +61,21 @@ public class MeleAttack : MonoBehaviour {
         
         StartCoroutine(WaitandDisable());
     }
+    
     IEnumerator WaitandDisable()
     {
         
         yield return new WaitForSeconds(0.1f);
+        if (Sounds != null)
+        {
+            if (missed)
+            {
+                Sounds.AttackMiss();
+            }else
+            {
+                Sounds.AttackHit();
+            }
+        }
         transform.gameObject.SetActive(false);
     }
 }
