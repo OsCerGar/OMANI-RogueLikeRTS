@@ -45,7 +45,7 @@ public class MeleAttack : MonoBehaviour {
     private void OnEnable()
     {
         missed = true; 
-        var enem = thisNpcScript.AI_GetEnemy();
+        GameObject enem = thisNpcScript.AI_GetEnemy();
         if (Effect != null)
         {
 

@@ -20,9 +20,9 @@ public class TutorialWarEvent : MonoBehaviour {
     {
         foreach (var item in npcArrays)
         {
-            item.Damage = 20;
             if (item.GetType() ==  typeof(Creep))
             {
+                item.Damage = 20;
                 item.AI_SetTarget(Player);
             }
         }
