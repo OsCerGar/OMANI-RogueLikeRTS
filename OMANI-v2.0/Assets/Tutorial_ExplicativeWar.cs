@@ -24,9 +24,6 @@ public class Tutorial_ExplicativeWar : MonoBehaviour
             {
                 masterWorker = FindObjectOfType<exPlicativoTreeControler>();
 
-                masterWorker.ActivateMovementTut(warObjective, "LeftClick");
-                alreadydone = true;
-
                 if (lookDirections.playingOnController)
                 {
                     masterWorker.ActivateMovementTut(warObjective, "RightStick+L1");
@@ -34,8 +31,9 @@ public class Tutorial_ExplicativeWar : MonoBehaviour
                 else
                 {
                     masterWorker.ActivateMovementTut(warObjective, "LeftClick");
-                    Debug.Log("War");
                 }
+                alreadydone = true;
+
             }
         }
     }

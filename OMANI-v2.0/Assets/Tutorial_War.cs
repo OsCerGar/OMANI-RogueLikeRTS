@@ -61,6 +61,7 @@ public class Tutorial_War : MonoBehaviour
             if (recluteNumbers > 2)
             {
                 warEvent.ActivateDeath();
+                Debug.Log("Activate Death");
             }
         }
     }
