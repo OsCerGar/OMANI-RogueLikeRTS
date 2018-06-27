@@ -20,17 +20,18 @@ public class Tutorial_Start : MonoBehaviour
     LocomotionBrain locomotion;
     CharacterMovement control;
     LookDirectionsAndOrder lookDirections;
+    Animator door;
 
     //MAsterWorkerVariables
-    exPlicativoTreeControler masterWorker;
+    exPlicativoTreeControler masterWorker, explicative;
     [SerializeField]
     GameObject masterWorkerObjective;
 
     float timer, oldIntensity, oldFogStart, oldFogEnd;
     [SerializeField]
-    float totalTimer = 3;
+    float totalTimer = 2;
     [SerializeField]
-    bool lightsIn = false, lightsOut = false, gameplay = false, tutorial = false;
+    bool lightsIn = false, lightsOut = false, gameplay = false, tutorial = false, doorbool = false;
 
 
 
@@ -39,7 +40,6 @@ public class Tutorial_Start : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        tutorial = true;
         cameraFX = FindObjectOfType<Cinemachine.PostFX.CinemachinePostFX>();
 
         spotLight = this.transform.Find("Lights/SpotLight").gameObject;
@@ -62,10 +62,9 @@ public class Tutorial_Start : MonoBehaviour
         oldIntensity = directionalLight.intensity;
         oldFogStart = RenderSettings.fogStartDistance;
         oldFogEnd = RenderSettings.fogEndDistance;
-        Debug.Log(oldFogEnd);
-        Debug.Log(oldFogStart);
         masterWorker = FindObjectOfType<exPlicativoTreeControler>();
         player = FindObjectOfType<Player>();
+        door = this.transform.Find("Props/Door").GetComponent<Animator>();
 
         LightsOff();
         startCamera = this.transform.Find("Timeline/Cameras/StartCamera").GetComponent<Cinemachine.CinemachineVirtualCamera>();
@@ -78,27 +77,40 @@ public class Tutorial_Start : MonoBehaviour
         if (lightsOut) { LightsOff(); }
         if (gameplay) { Gameplay(); }
         if (tutorial) { Tutorial(); }
+        if (doorbool)
+        {
+            if (timer < totalTimer)
+            {
+                timer += Time.deltaTime;
+            }
+            if (timer > totalTimer)
+            {
+                door.SetTrigger("door");
+                Debug.Log("door");
+                doorbool = false;
+            }
+        }
     }
 
     public void Tutorial()
     {
-        if (timer < totalTimer)
+        doorbool = true;
+        if (masterWorker != null)
         {
-            timer += Time.deltaTime;
+            explicative = GameObject.Instantiate(masterWorker, this.transform);
+            Destroy(masterWorker.gameObject);
         }
-        if (timer > totalTimer)
+
+        if (lookDirections.playingOnController)
         {
-            if (lookDirections.playingOnController)
-            {
-                masterWorker.ActivateMovementTut(masterWorkerObjective, "LeftStick");
-            }
-            else
-            {
-                masterWorker.ActivateMovementTut(masterWorkerObjective, "WASD");
-            }
-            tutorial = false;
-            Debug.Log("Done");
+            explicative.ActivateMovementTut(masterWorkerObjective, "LeftStick");
+
         }
+        else
+        {
+            explicative.ActivateMovementTut(masterWorkerObjective, "WASD");
+        }
+        tutorial = false;
     }
 
     public void Gameplay()
@@ -107,13 +119,13 @@ public class Tutorial_Start : MonoBehaviour
         control.enabled = true;
         locomotion.enabled = true;
         tutorial = true;
+
     }
 
     public void LightsOn()
     {
         cameraFX.m_Profile = postFX;
         RenderSettings.fogEndDistance = oldFogEnd;
-        Debug.Log("Changed" + RenderSettings.fogEndDistance);
         RenderSettings.fogStartDistance = oldFogStart;
         spotLight.SetActive(true);
         backgroundLights.SetActive(true);

@@ -12,9 +12,6 @@ public class exPlicativoTreeControler : MonoBehaviour
 
     [SerializeField] BehaviorTree TutorialBehaviour, FollowBehaviour;
 
-
-
-
     public void ActivateMovementTut(GameObject posToGo, string whatToShow)
     {
         ClearHolograms();
@@ -31,7 +28,7 @@ public class exPlicativoTreeControler : MonoBehaviour
             }
         }
     }
-    void ActivateFollow()
+    public void ActivateFollow()
     {
         FollowBehaviour.enabled = true;
     }
