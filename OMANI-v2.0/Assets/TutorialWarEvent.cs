@@ -16,7 +16,7 @@ public class TutorialWarEvent : MonoBehaviour {
         }
     }
 
-    void ActivateDeath()
+    public void ActivateDeath()
     {
         foreach (var item in npcArrays)
         {
