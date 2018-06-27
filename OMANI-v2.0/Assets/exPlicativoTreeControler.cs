@@ -23,6 +23,7 @@ public class exPlicativoTreeControler : MonoBehaviour
             if (hologram.name.Equals(whatToShow))
             {
                 //gets the Vars
+                FollowBehaviour.enabled = false;
                 TutorialBehaviour.enabled = true;
                 var posToGoVar = (SharedGameObject)TutorialBehaviour.GetVariable("posToGo");
                 posToGoVar.Value = posToGo;
@@ -33,6 +34,7 @@ public class exPlicativoTreeControler : MonoBehaviour
     }
     void ActivateFollow()
     {
+        TutorialBehaviour.enabled = false;
         FollowBehaviour.enabled = true;
     }
 
