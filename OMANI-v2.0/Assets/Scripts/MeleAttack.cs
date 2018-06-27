@@ -9,11 +9,12 @@ public class MeleAttack : MonoBehaviour {
     [SerializeField] AttackSoundsManager Sounds;
     [SerializeField] NPC thisNpcScript;
     bool missed;
+    
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
         string tagToAttack,secondTagToAttack;
-        if(transform.parent.tag == "Enemy")
+        if(thisNpcScript.transform.tag == "Enemy")
         {
             tagToAttack = "People";
             secondTagToAttack = "Player";

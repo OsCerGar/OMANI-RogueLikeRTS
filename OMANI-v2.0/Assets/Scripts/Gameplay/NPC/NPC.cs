@@ -113,7 +113,6 @@ public class NPC : MonoBehaviour
     // Use this for initialization
     public virtual void Start()
     {
-        Attackzone = transform.FindDeepChild("AttackZone").gameObject;
         AI = this.gameObject.GetComponent<BehaviorTree>();
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
@@ -123,6 +122,11 @@ public class NPC : MonoBehaviour
 
             ui_information = this.transform.Find("UI").gameObject;
 
+        }
+        //Get AttackZone child Somewhere 
+        if (transform.FindDeepChild("AttackZone")!= null)
+        {
+            Attackzone = transform.FindDeepChild("AttackZone").gameObject;
         }
 
         startLife = life;
@@ -162,7 +166,7 @@ public class NPC : MonoBehaviour
         GameObject enem = AI_GetEnemy();
         if (enem  != null)
         {
-            if (enem.GetComponent<NPC>().Life <= 0)
+            if (enem.GetComponent<NPC>()!= null && enem.GetComponent<NPC>().Life <= 0)
             {
                 AI_SetEnemy(null);
             }
