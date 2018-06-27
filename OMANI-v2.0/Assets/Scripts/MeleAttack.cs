@@ -42,13 +42,14 @@ public class MeleAttack : MonoBehaviour {
         var enem = transform.parent.GetComponent<NPC>().AI_GetEnemy();
         if (Effect != null)
         {
+
+            Debug.Log("EnemyParticle");
             Effect.Play();
         }
         if (enem != null)
         {
             if (enem.tag == "Building")
             {
-                Debug.Log("damage to building");
                 enem.GetComponent<NPC>().Life -= transform.root.GetComponent<NPC>().Damage;
             }
         }
