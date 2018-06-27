@@ -47,6 +47,7 @@ public class Tutorial_War : MonoBehaviour
                 {
                     masterWorker.ActivateMovementTut(warObjective, "RightClick");
                 }
+                reclute = true;
                 recluteNumbers = 0;
             }
             else { recluteNumbers = 0; }
