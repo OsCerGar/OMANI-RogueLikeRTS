@@ -86,7 +86,6 @@ public class Tutorial_Start : MonoBehaviour
             if (timer > totalTimer)
             {
                 door.SetTrigger("door");
-                Debug.Log("door");
                 doorbool = false;
             }
         }
