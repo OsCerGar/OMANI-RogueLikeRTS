@@ -8,7 +8,7 @@ public class PW_SlowMotion : Power
 {
 
     private float slowdownFactor = 0.25f;
-    private float slowdownLength = 1.5f, recovery = 5f, waste = 10f, viewRadius = 2f, regularSpeed;
+    private float slowdownLength = 1.5f, waste = 10f, viewRadius = 2f, regularSpeed;
     private bool active = false;
     private int targetMask = 1 << 10;
 
@@ -22,9 +22,6 @@ public class PW_SlowMotion : Power
 
     private void Start()
     {
-        maxpowerPool = 100;
-        powerPool = 100;
-
         postFx = FindObjectOfType<CinemachinePostFX>();
         player = GetComponent<CharacterMovement>();
         normal = postFx.m_Profile;
@@ -39,7 +36,6 @@ public class PW_SlowMotion : Power
             Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
             Time.fixedDeltaTime = 0.02F;
-            powerPool = Mathf.Clamp(powerPool + (Time.unscaledDeltaTime * recovery), 0, maxpowerPool);
 
             // turns speed back
             player.speed = regularSpeed;

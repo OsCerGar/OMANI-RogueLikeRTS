@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 114826843354881134}
   m_Layer: 9
   m_Name: Throne
-  m_TagString: People
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1056,6 +1056,7 @@ GameObject:
   - component: {fileID: 114461394858468346}
   - component: {fileID: 143483434121616890}
   - component: {fileID: 114279467264377788}
+  - component: {fileID: 114517299383533022}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -4156,7 +4157,7 @@ MonoBehaviour:
   workers: []
   OrderPositionObject: {fileID: 1709850120066608, guid: 81713316a7bc26544a0f3e4a15ccc7a5,
     type: 2}
-  UI: {fileID: 0}
+  UI: {fileID: 1475860787332618, guid: 47f096ad61d34bd44897dea277f43322, type: 2}
 --- !u!114 &114176917236055914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4170,6 +4171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power:
   - {fileID: 114461394858468346}
+  maxpowerPool: 100
+  powerPool: 0
 --- !u!114 &114261992049991026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4233,6 +4236,17 @@ MonoBehaviour:
   maxpowerPool: 0
   powerPool: 0
   slowmo: {fileID: 11400000, guid: dd09f9403ef713a48911da05f0dee27f, type: 2}
+--- !u!114 &114517299383533022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723035598566812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb36354f1edf55418be52599d9d2d62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114532040033848746
 MonoBehaviour:
   m_ObjectHideFlags: 1

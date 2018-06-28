@@ -2,12 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnnuiParabola : MonoBehaviour {
-    
+public class EnnuiParabola : MonoBehaviour
+{
+
     public Vector3 TargetPos;
     private Vector3 startPos;
     private bool moving;
     float x = 0;
+    EnnuiSpawnerManager ennui;
+
+
+    private void Start()
+    {
+        ennui = FindObjectOfType<EnnuiSpawnerManager>();
+
+    }
     private void Update()
     {
         if (moving)
@@ -19,20 +28,21 @@ public class EnnuiParabola : MonoBehaviour {
                 x = 0;
                 moving = false;
 
-                //AArrived Spawn other
+                ennui.SpawnEnnui(this.transform);
+                this.transform.gameObject.SetActive(false);
             }
         }
     }
     private void OnEnable()
     {
-        SetTargetPos(ShootRaycast(new Vector3(transform.position.x+Random.Range(-3,3), transform.position.y,transform.position.z + Random.Range(-3, 3))));
+        SetTargetPos(ShootRaycast(new Vector3(transform.position.x + Random.Range(-3, 3), transform.position.y, transform.position.z + Random.Range(-3, 3))));
     }
     public void SetTargetPos(Vector3 _targetPos)
     {
-            startPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            TargetPos = _targetPos;
-            x = 0;
-            moving = true;
+        startPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        TargetPos = _targetPos;
+        x = 0;
+        moving = true;
     }
     Vector3 ShootRaycast(Vector3 tr)
     {
