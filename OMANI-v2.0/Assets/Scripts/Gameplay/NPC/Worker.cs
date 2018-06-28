@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Worker : NPC {
+public class Worker : Robot {
     public GameObject Scrap;
     private ParticleSystem explosion;
     void Awake()
@@ -15,6 +15,6 @@ public class Worker : NPC {
         Instantiate(Scrap,transform.position,transform.rotation);
         Instantiate(Scrap, transform.position, transform.rotation);
         Instantiate(Scrap, transform.position, transform.rotation);
-        Destroy(transform.gameObject);
+        transform.gameObject.SetActive(false);
     }
 }
