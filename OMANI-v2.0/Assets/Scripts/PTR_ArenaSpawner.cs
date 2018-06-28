@@ -10,7 +10,7 @@ public class PTR_ArenaSpawner : MonoBehaviour {
     GameObject Spawned;
     void Start()
     {
-        var AllPoolers = FindObjectsOfType<EZObjectPool>();
+        var AllPoolers = GetComponents<EZObjectPool>();
 
         foreach (EZObjectPool item in AllPoolers)
         {
