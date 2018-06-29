@@ -55,19 +55,21 @@ public class Powers : MonoBehaviour
 
     private void FindEnnuis()
     {
-
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(this.transform.position, radius, ennuisMask);
-        foreach (Collider col in targetsInViewRadius)
+        if (powerPool < maxpowerPool)
         {
-            if (col.name == "Ennui")
+            Collider[] targetsInViewRadius = Physics.OverlapSphere(this.transform.position, radius, ennuisMask);
+            foreach (Collider col in targetsInViewRadius)
             {
-                // Save the col as an NPC
-                Ennui_Ground ennui;
-                ennui = col.GetComponent<Ennui_Ground>();
-
-                if (ennui != null)
+                if (col.tag == "Ennui")
                 {
-                    ennui.Action(this);
+                    // Save the col as an NPC
+                    Ennui_Ground ennui;
+                    ennui = col.GetComponent<Ennui_Ground>();
+
+                    if (ennui != null)
+                    {
+                        ennui.Action(this);
+                    }
                 }
             }
         }

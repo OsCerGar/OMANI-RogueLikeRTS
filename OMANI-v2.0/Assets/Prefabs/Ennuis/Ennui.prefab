@@ -336,9 +336,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4564932752079030}
   - component: {fileID: 95577682783466564}
-  m_Layer: 10
+  - component: {fileID: 135145637506373024}
+  - component: {fileID: 114559291604404560}
+  m_Layer: 14
   m_Name: Ennui
-  m_TagString: Enemy
+  m_TagString: Ennui
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2344,7 +2346,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1265286146769924}
   m_LocalRotation: {x: -0.16029325, y: 0.5916776, z: 0.16391546, w: 0.77288765}
-  m_LocalPosition: {x: 6.03, y: 0.259, z: 13.68}
+  m_LocalPosition: {x: 150.24, y: 0.259, z: 115.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4784781944652032}
@@ -3026,6 +3028,30 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114559291604404560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1265286146769924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c8a5a1022bb4343aa47adbdb7fe6fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energy: 25
+--- !u!135 &135145637506373024
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1265286146769924}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.43, z: 0.19}
 --- !u!137 &137818353016360940
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
