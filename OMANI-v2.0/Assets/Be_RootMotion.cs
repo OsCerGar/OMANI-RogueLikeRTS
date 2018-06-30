@@ -5,11 +5,12 @@ using UnityEngine.AI;
 using BehaviorDesigner.Runtime;
 
 public class Be_RootMotion : StateMachineBehaviour {
-
+    NPC npcScript;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.applyRootMotion = true;
-        animator.GetComponent<NavMeshAgent>().enabled = false;
+        npcScript = animator.GetComponent<NPC>();
+        npcScript.RootMotion = true;
         animator.GetComponent<BehaviorTree>().enabled = false;
     }
 
@@ -17,8 +18,9 @@ public class Be_RootMotion : StateMachineBehaviour {
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.applyRootMotion = false;
-        animator.GetComponent<NavMeshAgent>().enabled = true;
+        npcScript.RootMotion = false;
         animator.GetComponent<BehaviorTree>().enabled = true;
     }
-    
+   
+
 }

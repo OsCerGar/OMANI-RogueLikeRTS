@@ -39,6 +39,8 @@ public class NPC : MonoBehaviour
     Transform perpetrator;
     public GameObject ui_information = null;
     private GameObject Attackzone;
+
+    public bool RootMotion;
     #endregion
 
     #region GETTERSETTERS
@@ -437,6 +439,13 @@ public class NPC : MonoBehaviour
             return false;
         }
 
+    }
+    void OnAnimatorMove()
+    {
+        if (RootMotion)
+        {
+            Nav.velocity = anim.deltaPosition / Time.deltaTime;
+        }
     }
 
 
