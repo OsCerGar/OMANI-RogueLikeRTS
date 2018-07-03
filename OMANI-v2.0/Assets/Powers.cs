@@ -8,16 +8,18 @@ public class Powers : MonoBehaviour
     public List<Power> power = new List<Power>();
     int selectedPower = 0, ennuisMask;
     PW_SlowMotion slowMo;
+    PW_Hearthstone hearthStone;
 
     [SerializeField]
-    public int maxpowerPool = 100, powerPool;
+    public float maxpowerPool = 100, powerPool = 100, increaseAmount = 1;
     float radius = 3;
 
     private void Start()
     {
-        powerPool = 100;
         ennuisMask = 1 << LayerMask.NameToLayer("Interactible");
         slowMo = this.transform.GetComponent<PW_SlowMotion>();
+        hearthStone = this.transform.GetComponent<PW_Hearthstone>();
+
     }
 
     // Update is called once per frame
@@ -66,11 +68,30 @@ public class Powers : MonoBehaviour
         #region Hearthstone
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 0"))
         {
+            hearthStone.CastPower();
         }
         #endregion
 
         #endregion
 
+        #region IncreasePowerPool
+        if (powerPool <= maxpowerPool * 0.25f)
+        {
+            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, maxpowerPool * 0.25f);
+        }
+        else if (powerPool <= maxpowerPool * 0.5f)
+        {
+            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, maxpowerPool * 0.5f);
+        }
+        else if (powerPool <= maxpowerPool * 0.75f)
+        {
+            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, maxpowerPool * 0.75f);
+        }
+        else
+        {
+            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, maxpowerPool);
+        }
+        #endregion
     }
 
     public void addPower(int amount)
@@ -80,7 +101,6 @@ public class Powers : MonoBehaviour
 
     public bool reducePower(int amount)
     {
-        Debug.Log(amount);
         if (powerPool - amount >= 0)
         {
             powerPool -= amount;

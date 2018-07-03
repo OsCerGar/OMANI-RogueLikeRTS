@@ -45,8 +45,6 @@ public class PW_SlowMotion : Power
         }
         else
         {
-            Debug.Log(!powers.reducePower(Mathf.RoundToInt(Time.unscaledDeltaTime * waste)));
-
             if (powerToReduce < 1)
             {
                 powerToReduce += Time.unscaledDeltaTime * waste;
