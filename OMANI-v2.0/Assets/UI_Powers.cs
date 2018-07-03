@@ -28,7 +28,7 @@ public class UI_Powers : MonoBehaviour
     {
         for (int i = 0; i < clocks.Count; i++)
         {
-            clocks[i].fillAmount = powers.power[i].powerPool / powers.power[i].maxpowerPool;
+            clocks[i].fillAmount = powers.powerPool / powers.maxpowerPool;
         }
     }
 }

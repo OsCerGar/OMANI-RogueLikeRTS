@@ -43,6 +43,7 @@ public class UI_PointerSelection : MonoBehaviour
 
         var lookPos = commander.transform.position - transform.position;
         lookPos.y = 0;
+
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = rotation;
 

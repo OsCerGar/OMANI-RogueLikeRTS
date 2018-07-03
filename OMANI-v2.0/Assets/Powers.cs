@@ -7,27 +7,70 @@ public class Powers : MonoBehaviour
     [SerializeField]
     public List<Power> power = new List<Power>();
     int selectedPower = 0, ennuisMask;
+    PW_SlowMotion slowMo;
 
     [SerializeField]
-    int maxpowerPool = 100, powerPool;
+    public int maxpowerPool = 100, powerPool;
     float radius = 3;
 
     private void Start()
     {
-        powerPool = 0;
+        powerPool = 100;
         ennuisMask = 1 << LayerMask.NameToLayer("Interactible");
+        slowMo = this.transform.GetComponent<PW_SlowMotion>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("e") || Input.GetKeyDown("joystick button 6"))
+        #region Inputs
+        #region LaserBeams
+        //Controller
+        if (Input.GetKeyDown("joystick button 7"))
         {
-            if (power[selectedPower] != null)
+            //Energy Beam
+        }
+
+        if (Input.GetKey("joystick button 6"))
+        {
+            //Attack mode
+            if (Input.GetKeyDown("joystick button 7"))
             {
-                power[selectedPower].CastPower();
+                //Attack Beam
             }
         }
+
+        //Kb&M
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            //Attack mode
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                //Energy Beam
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                //Attack Beam
+            }
+        }
+        #endregion
+
+        #region SlowMotion
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown("joystick button 3"))
+        {
+            slowMo.CastPower();
+        }
+        #endregion
+
+        #region Hearthstone
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 0"))
+        {
+        }
+        #endregion
+
+        #endregion
+
     }
 
     public void addPower(int amount)
@@ -37,6 +80,7 @@ public class Powers : MonoBehaviour
 
     public bool reducePower(int amount)
     {
+        Debug.Log(amount);
         if (powerPool - amount >= 0)
         {
             powerPool -= amount;

@@ -8,7 +8,7 @@ public class PW_SlowMotion : Power
 {
 
     private float slowdownFactor = 0.25f;
-    private float slowdownLength = 1.5f, waste = 10f, viewRadius = 2f, regularSpeed;
+    private float slowdownLength = 1.5f, waste = 10f, viewRadius = 2f, regularSpeed, powerToReduce;
     private bool active = false;
     private int targetMask = 1 << 10;
 
@@ -18,12 +18,15 @@ public class PW_SlowMotion : Power
     CinemachinePostFX postFx;
     CharacterMovement player;
     Animator animatorSpeed;
+    Powers powers;
+
     List<NPC> hittedNpcs = new List<NPC>();
 
     private void Start()
     {
         postFx = FindObjectOfType<CinemachinePostFX>();
         player = GetComponent<CharacterMovement>();
+        powers = FindObjectOfType<Powers>();
         normal = postFx.m_Profile;
         regularSpeed = player.speed;
     }
@@ -42,38 +45,26 @@ public class PW_SlowMotion : Power
         }
         else
         {
-            powerPool = Mathf.Clamp(powerPool - (Time.unscaledDeltaTime * waste), 0, maxpowerPool);
+            Debug.Log(!powers.reducePower(Mathf.RoundToInt(Time.unscaledDeltaTime * waste)));
 
-            // Player goes faster
-            player.speed = 0.1f;
-
-            Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-            foreach (Collider col in targetsInViewRadius)
+            if (powerToReduce < 1)
             {
-                NPC enemy = col.transform.root.GetComponent<NPC>();
-                bool found = false;
-                foreach (NPC _npc in hittedNpcs)
+                powerToReduce += Time.unscaledDeltaTime * waste;
+            }
+            else
+            {
+                powerToReduce = 0;
+                if (!powers.reducePower(1))
                 {
-                    if (_npc == enemy)
-                    {
-                        found = true;
-                    }
-                }
-                if (enemy != null && found == false)
-                {
-                    hittedNpcs.Add(enemy);
-                    enemy.TakeDamage(50, true, 1f, transform);
+                    active = false;
                 }
             }
-        }
-
-        if (powerPool < 1)
-        {
-            active = false;
+            // Player goes faster
+            player.speed = 0.1f;
         }
     }
 
-    public void SlowMotion()
+    private void SlowMotion()
     {
         if (active == false)
         {
