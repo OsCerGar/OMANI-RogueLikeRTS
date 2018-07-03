@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : NPC {
+public class Player : NPC
+{
 
-    
+    public delegate void OnDeath();
+    public static event OnDeath playerDead;
 
     void Awake()
     {
         boyType = "Swordsman";
+    }
+
+    public override void Die()
+    {
+        playerDead();
     }
 
     public override void Update()

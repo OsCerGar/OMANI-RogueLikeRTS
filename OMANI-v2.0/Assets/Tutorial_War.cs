@@ -13,18 +13,38 @@ public class Tutorial_War : MonoBehaviour
     exPlicativoTreeControler masterWorker;
     LookDirectionsAndOrder lookDirections;
     TutorialWarEvent warEvent;
+    Player player;
+
     bool reclute = false;
+
+    private void OnEnable()
+    {
+        Player.playerDead += Fade;
+    }
+
+    private void OnDisable()
+    {
+        Player.playerDead -= Fade;
+    }
 
     private void Start()
     {
         warObjective = this.transform.GetChild(0).gameObject;
         lookDirections = FindObjectOfType<LookDirectionsAndOrder>();
         warEvent = FindObjectOfType<TutorialWarEvent>();
+        player = FindObjectOfType<Player>();
+    }
+
+    private void Fade()
+    {
+        Initiate.Fade("Tutorial2", Color.red, 3f);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         if (reclute == false)
         {
             foreach (NPC npc in listOfNPC)
