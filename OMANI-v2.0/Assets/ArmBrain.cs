@@ -19,7 +19,7 @@ public class ArmBrain : MonoBehaviour {
     {
         if (moving)
         {
-            x += (Time.deltaTime * 3f);
+            x += (Time.unscaledDeltaTime * 3f);
             ArmTarget.position = MathParabola.Parabola(startPos, TargetPos, 0.5f,  x);
             if (x>0.95)
             {

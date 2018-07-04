@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LocomotionBrain : MonoBehaviour {
-        private float Loop = 0;
-        private int footControler = 0;
+public class LocomotionBrain : MonoBehaviour
+{
+    private float Loop = 0, loopCycle = 100, armSpeed = 2;
+    private int footControler = 0;
 
-        public bool ikActive = false;
+    public bool ikActive = false;
 
-        
-        public Transform lookObj = null;
 
-        public Transform rightHandPos = null;
-        public Transform leftHandPos = null;
-        public Transform rightFootPos = null;
-        public Transform leftFootPos = null;
+    public Transform lookObj = null;
+
+    public Transform rightHandPos = null;
+    public Transform leftHandPos = null;
+    public Transform rightFootPos = null;
+    public Transform leftFootPos = null;
 
     public GameObject ArmPositions;
 
@@ -35,20 +36,20 @@ public class LocomotionBrain : MonoBehaviour {
     {
         playerRB = transform.parent.GetComponentInChildren<CharacterController>();
         layer_mask = LayerMask.GetMask("Terrain", "Obstacle");
-        RightHandBrain = rightHandPos.GetComponent<ArmBrain>(); 
+        RightHandBrain = rightHandPos.GetComponent<ArmBrain>();
         LeftHandBrain = leftHandPos.GetComponent<ArmBrain>();
         RightFootBrain = rightFootPos.GetComponent<ArmBrain>();
         LeftFootBrain = leftFootPos.GetComponent<ArmBrain>();
         IKrightHandPos = new Vector3(rightHandPos.position.x, rightHandPos.position.y, rightHandPos.position.z);
-        IKleftHandPos = new Vector3(leftHandPos.position.x, leftHandPos.position.y, leftHandPos.position.z) ;
+        IKleftHandPos = new Vector3(leftHandPos.position.x, leftHandPos.position.y, leftHandPos.position.z);
         IKrightFootPos = new Vector3(rightFootPos.position.x, rightFootPos.position.y, rightFootPos.position.z);
-        IKleftFootPos = new Vector3(leftFootPos.position.x,leftFootPos.position.y, leftFootPos.position.z) ;
+        IKleftFootPos = new Vector3(leftFootPos.position.x, leftFootPos.position.y, leftFootPos.position.z);
     }
 
     private void Update()
     {
-        Loop += Time.deltaTime;
-        if (Loop >= 0.2 - (playerRB.velocity.magnitude / 100) )
+        Loop += Time.unscaledDeltaTime;
+        if (Loop >= 0.2 - (playerRB.velocity.magnitude / loopCycle))
         {
             switch (footControler)
             {
@@ -69,9 +70,9 @@ public class LocomotionBrain : MonoBehaviour {
                     print("Incorrect ");
                     break;
             }
-            
-            
-            
+
+
+
             footControler++;
             if (footControler == 4)
             {
@@ -108,8 +109,8 @@ public class LocomotionBrain : MonoBehaviour {
         {
             //TODO
         }
-        ArmPositions.transform.position = playerRB.transform.position + playerRB.velocity / 2f; //adjust to rB velocity
-        
+        ArmPositions.transform.position = playerRB.transform.position + playerRB.velocity / armSpeed; //adjust to rB velocity
+
         var MaxDistance = 2.5f;
         if (Vector3.Distance(IKrightHandPos, ShootRaycast(rightHandPos)) > MaxDistance)
         {
@@ -131,13 +132,13 @@ public class LocomotionBrain : MonoBehaviour {
             IKleftFootPos = ShootRaycast(leftFootPos);
             LeftFootBrain.SetTargetPos(IKleftFootPos);
         }
-        
+
 
 
 
     }
 
-Vector3 ShootRaycast(Transform tr)
+    Vector3 ShootRaycast(Transform tr)
     {
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(tr.position.x, tr.position.y + 10, tr.position.z), -Vector3.up, out hit, layer_mask))
@@ -147,6 +148,15 @@ Vector3 ShootRaycast(Transform tr)
         return transform.position;
     }
 
-   
-    
+    public void SlowMotionValues()
+    {
+        loopCycle = loopCycle * 5;
+        armSpeed = armSpeed * 5;
+    }
+    public void normalValues()
+    {
+        loopCycle = loopCycle / 5;
+        armSpeed = armSpeed / 5;
+    }
+
 }

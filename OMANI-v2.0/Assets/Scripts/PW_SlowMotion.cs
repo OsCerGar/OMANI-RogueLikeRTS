@@ -19,12 +19,12 @@ public class PW_SlowMotion : Power
     CharacterMovement player;
     Animator animatorSpeed;
     Powers powers;
-
-    List<NPC> hittedNpcs = new List<NPC>();
+    LocomotionBrain locomotionBrain;
 
     private void Start()
     {
         postFx = FindObjectOfType<CinemachinePostFX>();
+        locomotionBrain = FindObjectOfType<LocomotionBrain>();
         player = GetComponent<CharacterMovement>();
         powers = FindObjectOfType<Powers>();
         normal = postFx.m_Profile;
@@ -68,14 +68,15 @@ public class PW_SlowMotion : Power
         {
             // if inactive becomes active and loads the slowmo postfx added in inspector.
             active = true;
+            locomotionBrain.SlowMotionValues();
             Time.timeScale = slowdownFactor;
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
             postFx.m_Profile = slowmo;
         }
         else
         {
-            // cleans list
-            hittedNpcs.Clear();
+            locomotionBrain.normalValues();
+
             // if already active becomes inactive and loads the regular postfx.
             active = false;
             postFx.m_Profile = normal;
