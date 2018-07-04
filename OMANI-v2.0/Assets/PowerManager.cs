@@ -8,7 +8,7 @@ public class PowerManager : MonoBehaviour
 
     EZObjectPool BasicPower, UpgradedPower;
     GameObject Spawned;
-    [SerializeField] bool PressUtoSpawn;
+    [SerializeField] bool PressUToBasic,PressIToUpgraded;
     Transform Player;
     // Use this for initialization
     void Start()
@@ -29,12 +29,20 @@ public class PowerManager : MonoBehaviour
     }
     private void Update()
     {
-        if (PressUtoSpawn)
+        if (PressUToBasic)
         {
 
             if (Input.GetKeyDown(KeyCode.U))
             {
                 ShootBasicPower(Player);
+            }
+        }
+        if (PressIToUpgraded)
+        {
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                ShootUpgradedPower(Player);
             }
         }
     }
