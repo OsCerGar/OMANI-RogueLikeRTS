@@ -496,7 +496,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &286768656
 Prefab:
@@ -535,7 +535,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4564932752079030, guid: e1d0f20d933482448a03aaf93acc761e, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e1d0f20d933482448a03aaf93acc761e, type: 2}
@@ -609,30 +609,28 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &848277180 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1723035598566812, guid: 82e63961db90dec41b03cec85b670994,
     type: 2}
   m_PrefabInternal: {fileID: 1476791038}
---- !u!114 &848277188
-MonoBehaviour:
+--- !u!208 &848277181
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 848277180}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff36813891f96b74eaa05a55cb13615e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energy: 0
-  planted: 0
-  teleporting: 0
-  hearthstoneUI: {fileID: 1579708493625080, guid: dabe175b0e59f0645993d78ca83f9d5b,
-    type: 2}
-  teleportBasePosition: {fileID: 141908311}
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.51, y: 1.23, z: 1.3}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.69, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &849153089
 Prefab:
   m_ObjectHideFlags: 0
@@ -767,7 +765,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4377765296710542, guid: 76099d0ec741b294eb270ff612b5c7d6, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1634702695061952, guid: 76099d0ec741b294eb270ff612b5c7d6, type: 2}
       propertyPath: m_Name
@@ -1004,11 +1002,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114176917236055914, guid: 82e63961db90dec41b03cec85b670994,
+    - target: {fileID: 114727041039144752, guid: 82e63961db90dec41b03cec85b670994,
         type: 2}
-      propertyPath: powerPool
-      value: 100
-      objectReference: {fileID: 0}
+      propertyPath: teleportBasePosition
+      value: 
+      objectReference: {fileID: 141908311}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 82e63961db90dec41b03cec85b670994, type: 2}
   m_IsPrefabParent: 0
@@ -1055,6 +1053,26 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 212247459282418060, guid: 459fac8e568d6df47bc3f6f75d122276,
+        type: 2}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212650708968249008, guid: 459fac8e568d6df47bc3f6f75d122276,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 664b8f62a28755b4ca43d4aae4c5dca9, type: 2}
+    - target: {fileID: 212422939583958302, guid: 459fac8e568d6df47bc3f6f75d122276,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 664b8f62a28755b4ca43d4aae4c5dca9, type: 2}
+    - target: {fileID: 212062709403778592, guid: 459fac8e568d6df47bc3f6f75d122276,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 664b8f62a28755b4ca43d4aae4c5dca9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 459fac8e568d6df47bc3f6f75d122276, type: 2}
   m_IsPrefabParent: 0

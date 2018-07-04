@@ -66,10 +66,15 @@ public class Powers : MonoBehaviour
         #endregion
 
         #region Hearthstone
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 0"))
+        if (Input.GetKey(KeyCode.Q) || Input.GetKey("joystick button 0"))
         {
             hearthStone.CastPower();
         }
+        else if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp("joystick button 0"))
+        {
+            hearthStone.StopCast();
+        }
+
         #endregion
 
         #endregion

@@ -2,33 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class PW_Hearthstone : Power
 {
     public bool energy, planted, teleporting;
-    private float timeToTeleport = 0, sizeToTeleport = 7, cost = 25;
-    [SerializeField]
-    public GameObject hearthstoneUI;
+    private float timeToTeleport, sizeToTeleport = 10, cost = 25, timer, timerToTeleport = 1.5f;
+
+    private Image hearthstoneUI;
+    private ParticleSystem hearthstoneExplosionUI;
     Powers powers;
+    CharacterMovement movement;
     [SerializeField]
     Transform teleportBasePosition;
+
     // Use this for initialization
     void Start()
     {
         powers = this.GetComponent<Powers>();
+        movement = this.GetComponent<CharacterMovement>();
+        hearthstoneUI = this.transform.Find("Player_UI/GUI_Teleport").GetComponent<Image>();
+        hearthstoneExplosionUI = hearthstoneUI.transform.GetChild(0).GetComponent<ParticleSystem>();
     }
 
     public override void CastPower()
     {
-        if (teleporting == true)
+        timer += Time.deltaTime;
+
+        if (timer > timerToTeleport)
         {
-            teleporting = false;
-        }
-        else
-        {
+            timer = 0;
+
+            //Costs
+            powers.reducePower((int)cost);
             teleporting = true;
         }
-        powers.reducePower((int)cost);
+
+    }
+
+    public void StopCast()
+    {
+        timer = 0;
     }
 
     // Update is called once per frame
@@ -36,8 +50,10 @@ public class PW_Hearthstone : Power
     {
         if (teleporting == true)
         {
+            //Disables Movement
+            movement.enabled = false;
             timeToTeleport += Time.deltaTime;
-            hearthstoneUI.SetActive(true);
+            hearthstoneUI.enabled = true;
             hearthstoneUI.transform.Rotate(Vector3.up * Time.deltaTime * 5, Space.World);
 
             if (timeToTeleport > 5)
@@ -50,19 +66,16 @@ public class PW_Hearthstone : Power
         }
         else
         {
-            hearthstoneUI.SetActive(false);
             timeToTeleport = 0;
         }
 
     }
-
     private void LoadingTeleport()
     {
         Collider[] objectsInArea = null;
         objectsInArea = Physics.OverlapSphere(transform.position, sizeToTeleport, 1 << 9);
 
         List<NavMeshAgent> peoples = new List<NavMeshAgent>();
-        GameObject player = null;
         //Checks if there are possible interactions.
         if (objectsInArea.Length > 1)
         {
@@ -70,12 +83,7 @@ public class PW_Hearthstone : Power
                 NavMeshAgent people;
                 for (int i = 0; i < objectsInArea.Length; i++)
                 {
-                    if (objectsInArea[i].tag == "Player")
-                    {
-                        player = objectsInArea[i].gameObject;
-                    }
-
-                    else
+                    if (objectsInArea[i].tag != "Player")
                     {
                         people = objectsInArea[i].GetComponent<NavMeshAgent>();
 
@@ -86,21 +94,28 @@ public class PW_Hearthstone : Power
                     }
                 }
             }
-
-            Teleport(peoples, player);
-
         }
+        Teleport(peoples, powers.gameObject);
     }
-
-
     public void Teleport(List<NavMeshAgent> _people, GameObject _barroboy)
     {
-        foreach (NavMeshAgent people in _people)
+        //UI disable
+        hearthstoneUI.enabled = false;
+        if (_people.Count > 0)
         {
-            people.Warp(new Vector3(teleportBasePosition.position.x + Random.Range(2, sizeToTeleport), teleportBasePosition.position.y, teleportBasePosition.position.z + Random.Range(2, sizeToTeleport)));
+            foreach (NavMeshAgent people in _people)
+            {
+                people.Warp(new Vector3(teleportBasePosition.position.x + Random.Range(5, sizeToTeleport), teleportBasePosition.position.y, teleportBasePosition.position.z + Random.Range(5, sizeToTeleport)));
+            }
         }
-
         Vector3 randomPos = new Vector3(teleportBasePosition.position.x + Random.Range(2, sizeToTeleport), teleportBasePosition.position.y, teleportBasePosition.position.z + Random.Range(2, sizeToTeleport));
         _barroboy.transform.position = randomPos;
+
+        //UI EXPLOSION
+        hearthstoneExplosionUI.Play();
+
+        //Restores movement
+        movement.enabled = true;
+
     }
 }

@@ -8,6 +8,7 @@ public class UI_Powers : MonoBehaviour
 
     List<Image> clocks = new List<Image>();
     Powers powers;
+    Camera mainCamera;
 
     // Use this for initialization
     void Start()
@@ -20,15 +21,18 @@ public class UI_Powers : MonoBehaviour
                 clocks.Add(realClock);
             }
         }
-        powers = this.transform.root.GetComponent<Powers>();
+        powers = this.transform.root.GetComponentInChildren<Powers>();
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         for (int i = 0; i < clocks.Count; i++)
         {
             clocks[i].fillAmount = powers.powerPool / powers.maxpowerPool;
+            clocks[i].transform.LookAt(mainCamera.transform);
         }
     }
 }
