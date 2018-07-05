@@ -92,7 +92,7 @@ public class BU_Cable_end : Interactible
             }
         }
     }
-
+    /*
     public override void Action(BoyMovement _boy)
     {
         bool alreadyGrabbedObject = false;
@@ -174,4 +174,5 @@ public class BU_Cable_end : Interactible
         }
 
     }
+    */
 }

@@ -21,11 +21,6 @@ public class BU_Equipment : Interactible
         SpitEquipment();
     }
 
-    public override void Action(BoyMovement _boy)
-    {
-
-    }
-
     public void DestroyEquipment()
     {
         equipment.Clear();

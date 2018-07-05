@@ -6,7 +6,7 @@ public class BU_Equipments : Interactible
 {
     [SerializeField]
     GameObject boy;
-
+    /*
     public override void Action(BoyMovement _boy)
     {
         bool alreadyGrabbedObject = false;
@@ -82,4 +82,5 @@ public class BU_Equipments : Interactible
         }
 
     }
+    */
 }

@@ -15,6 +15,7 @@ public class BU_Lever : Interactible
         parent = this.transform.parent.GetComponent<BU_Resources>();
     }
 
+    /*
     public override void Action(BoyMovement _boy)
     {
         if (left == true)
@@ -28,7 +29,7 @@ public class BU_Lever : Interactible
             left = true;
         }
     }
-
+    */
     public void Left_Lever()
     {
         animations.Play("Lever_left");

@@ -6,9 +6,9 @@ using EZObjectPools;
 public class PowerManager : MonoBehaviour
 {
 
-    EZObjectPool BasicPower, UpgradedPower;
+    EZObjectPool BasicPower, UpgradedPower, Link;
     GameObject Spawned;
-    [SerializeField] bool PressUToBasic,PressIToUpgraded;
+    [SerializeField] bool PressUToBasic, PressIToUpgraded;
     Transform Player;
     // Use this for initialization
     void Start()
@@ -24,6 +24,10 @@ public class PowerManager : MonoBehaviour
             if (item.PoolName == "UpgradedPower")
             {
                 UpgradedPower = item;
+            }
+            if (item.PoolName == "Link")
+            {
+                Link = item;
             }
         }
     }
@@ -50,10 +54,17 @@ public class PowerManager : MonoBehaviour
     public void ShootBasicPower(Transform tr)
     {
         BasicPower.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+
     }
     public void ShootUpgradedPower(Transform tr)
     {
         UpgradedPower.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+    }
+    public GameObject CreateLink(Transform tr, Powers _powers, Interactible _interactible)
+    {
+        Link.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+        Debug.Log("Spawned");
+        return Spawned;
     }
 }
 

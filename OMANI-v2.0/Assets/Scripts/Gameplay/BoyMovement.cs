@@ -164,10 +164,11 @@ public class BoyMovement : MonoBehaviour
         //ROLL 
         // If space is pressed.
         //If the get up animation is not playing and ragdolled is false
-        if (Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1"))
-            Action();
+        if (Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1")) ;
+        //Action();
     }
 
+    /*
     private void Action()
     {
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Belly") && !anim.GetCurrentAnimatorStateInfo(0).IsName("GetUp_From_Back") && ragdollTimer > 2)
@@ -237,7 +238,7 @@ public class BoyMovement : MonoBehaviour
             }
         }
     }
-
+    */
 
     private void Roll()
     {

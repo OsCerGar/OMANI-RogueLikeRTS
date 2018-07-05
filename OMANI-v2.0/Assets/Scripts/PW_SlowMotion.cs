@@ -45,18 +45,12 @@ public class PW_SlowMotion : Power
         }
         else
         {
-            if (powerToReduce < 1)
+
+            if (!powers.reducePower(7.5f * Time.unscaledDeltaTime))
             {
-                powerToReduce += Time.unscaledDeltaTime * waste;
+                active = false;
             }
-            else
-            {
-                powerToReduce = 0;
-                if (!powers.reducePower(1))
-                {
-                    active = false;
-                }
-            }
+
             // Player goes faster
             player.speed = 0.1f;
         }

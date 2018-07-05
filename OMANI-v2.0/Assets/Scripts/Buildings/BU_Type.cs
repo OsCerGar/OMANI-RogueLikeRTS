@@ -8,6 +8,7 @@ public class BU_Type : Interactible
     [SerializeField]
     GameObject buildingEquipment;
 
+    /*
     public override void Action(BoyMovement _boy)
     {
         bool alreadyGrabbedObject = false;
@@ -89,4 +90,5 @@ public class BU_Type : Interactible
         }
 
     }
+    */
 }

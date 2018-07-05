@@ -6,7 +6,7 @@ public class Powers : MonoBehaviour
 {
     [SerializeField]
     public List<Power> power = new List<Power>();
-    int selectedPower = 0, ennuisMask;
+    int ennuisMask;
     PW_SlowMotion slowMo;
     PW_Hearthstone hearthStone;
     LookDirectionsAndOrder lookDirection;
@@ -109,12 +109,12 @@ public class Powers : MonoBehaviour
         #endregion
     }
 
-    public void addPower(int amount)
+    public void addPower(float amount)
     {
         powerPool = Mathf.Clamp(powerPool + amount, 0, maxpowerPool);
     }
 
-    public bool reducePower(int amount)
+    public bool reducePower(float amount)
     {
         if (powerPool - amount >= 0)
         {

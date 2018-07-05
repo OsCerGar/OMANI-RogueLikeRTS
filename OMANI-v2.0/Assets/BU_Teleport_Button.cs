@@ -13,10 +13,11 @@ public class BU_Teleport_Button : Interactible
         bu_teleport = this.transform.parent.GetComponent<BU_Teleport>();
     }
 
+    /*
     public override void Action(BoyMovement _boy)
     {
         bu_teleport.StartTeleport();
     }
-
+    */
 
 }

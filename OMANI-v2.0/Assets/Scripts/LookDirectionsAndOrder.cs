@@ -64,8 +64,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
         headArm = this.transform.Find("HeadArm").gameObject;
-
-
     }
 
     void Update()
@@ -250,6 +248,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
     #endregion
     #endregion
+
     private void SelectedType()
     {
         if (selectedTypeList.Count > 0)
