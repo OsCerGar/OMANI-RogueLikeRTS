@@ -185,6 +185,7 @@ public class NPC : MonoBehaviour
     //take damage with knockBack
     public void TakeDamage(int damage, bool knockback, float knockbackTime, Transform _perpetrator)
     {
+        anim.SetTrigger("Hit");
         life -= damage;
         if (life <= 0)
         {
@@ -228,6 +229,8 @@ public class NPC : MonoBehaviour
     //Simple way to take damage
     public void TakeDamage(int damage)
     {
+
+        anim.SetTrigger("Hit");
         life -= damage;
         if (life <= 0)
         {
