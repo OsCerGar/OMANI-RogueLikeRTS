@@ -9,6 +9,8 @@ public class Powers : MonoBehaviour
     int selectedPower = 0, ennuisMask;
     PW_SlowMotion slowMo;
     PW_Hearthstone hearthStone;
+    LookDirectionsAndOrder lookDirection;
+    PowerManager powerManager;
 
     [SerializeField]
     public float maxpowerPool = 100, powerPool = 100, increaseAmount = 1;
@@ -19,7 +21,8 @@ public class Powers : MonoBehaviour
         ennuisMask = 1 << LayerMask.NameToLayer("Interactible");
         slowMo = this.transform.GetComponent<PW_SlowMotion>();
         hearthStone = this.transform.GetComponent<PW_Hearthstone>();
-
+        lookDirection = FindObjectOfType<LookDirectionsAndOrder>();
+        powerManager = FindObjectOfType<PowerManager>();
     }
 
     // Update is called once per frame
@@ -31,29 +34,36 @@ public class Powers : MonoBehaviour
         if (Input.GetKeyDown("joystick button 7"))
         {
             //Energy Beam
+            powerManager.ShootBasicPower(lookDirection.transform);
         }
 
         if (Input.GetKey("joystick button 6"))
         {
             //Attack mode
+
             if (Input.GetKeyDown("joystick button 7"))
             {
                 //Attack Beam
+                //Attack Beam
+                powerManager.ShootUpgradedPower(lookDirection.transform);
             }
         }
 
         //Kb&M
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             //Attack mode
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 //Energy Beam
+                powerManager.ShootBasicPower(lookDirection.transform);
             }
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
+                Debug.Log("Shot");
                 //Attack Beam
+                powerManager.ShootUpgradedPower(lookDirection.transform);
             }
         }
         #endregion

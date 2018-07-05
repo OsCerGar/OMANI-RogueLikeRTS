@@ -7,6 +7,7 @@ public class Interactible : MonoBehaviour
 
     Rigidbody myRigidBody;
     bool hasRigid = false;
+    float price;
 
     // Use this for initialization
     public virtual void Start()
@@ -19,13 +20,7 @@ public class Interactible : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public virtual void Action(BoyMovement _boy)
+    public virtual void Action()
     {
 
     }

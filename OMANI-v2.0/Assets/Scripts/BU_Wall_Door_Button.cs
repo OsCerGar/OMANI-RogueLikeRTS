@@ -13,6 +13,7 @@ public class BU_Wall_Door_Button : Interactible
         door = this.transform.parent.GetComponent<BU_Wall_Door>();
     }
 
+    /*
     public override void Action(BoyMovement _boy)
     {
         if (door.state == false)
@@ -24,5 +25,5 @@ public class BU_Wall_Door_Button : Interactible
             door.DoorDown();
         }
     }
-
+    */
 }

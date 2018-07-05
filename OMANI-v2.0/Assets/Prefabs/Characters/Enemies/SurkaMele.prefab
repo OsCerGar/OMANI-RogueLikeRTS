@@ -699,6 +699,7 @@ GameObject:
   - component: {fileID: 114944567713044300}
   - component: {fileID: 114967586138896192}
   - component: {fileID: 195866185036630498}
+  - component: {fileID: 54969662156327808}
   m_Layer: 10
   m_Name: SurkaMele
   m_TagString: Enemy
@@ -1889,8 +1890,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1713054619217746}
-  m_LocalRotation: {x: -0, y: -0.61603004, z: -0, w: 0.7877227}
-  m_LocalPosition: {x: -0.83, y: 0, z: 7.88}
+  m_LocalRotation: {x: -0, y: -0.96044266, z: -0, w: 0.27847788}
+  m_LocalPosition: {x: -2.5060387, y: 0, z: 8.611084}
   m_LocalScale: {x: 0.7734314, y: 0.77343124, z: 0.7734314}
   m_Children:
   - {fileID: 4387647351125722}
@@ -1900,7 +1901,7 @@ Transform:
   - {fileID: 4132728883330072}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -76.054, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -147.66101, z: 0}
 --- !u!4 &4980634497809322
 Transform:
   m_ObjectHideFlags: 1
@@ -2167,6 +2168,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1774097761134022}
   m_Mesh: {fileID: 4300006, guid: 9ddd67da2be8a6345bc70c1f48a8c0eb, type: 3}
+--- !u!54 &54969662156327808
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1713054619217746}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65808620625743400
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2512,7 +2528,7 @@ CapsuleCollider:
   m_Radius: 0.35
   m_Height: 2.92
   m_Direction: 1
-  m_Center: {x: 0, y: 1.54, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137474185215573632
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

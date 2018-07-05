@@ -102,7 +102,7 @@ public class BU_Teleport_Interactible : Interactible
 
         }
     }
-
+    /*
     public override void Action(BoyMovement _boy)
     {
         bool alreadyGrabbedObject = false;
@@ -143,7 +143,7 @@ public class BU_Teleport_Interactible : Interactible
             }
         }
     }
-
+    */
     public void Teleport(List<NavMeshAgent> _people, GameObject _barroboy)
     {
         foreach (NavMeshAgent people in _people)

@@ -16,6 +16,7 @@ public class Interactible_Scrap : Interactible
         mask = build | peopl;
 
     }
+    /*
     public override void Action(BoyMovement _boy)
     {
         bool alreadyGrabbedObject = false;
@@ -144,4 +145,5 @@ public class Interactible_Scrap : Interactible
         }
 
     }
+    */
 }

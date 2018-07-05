@@ -104,7 +104,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     {
         UI_Hologram();
     }
-
+    #region GUI
     private void UI_Hologram()
     {
         #region SelectionUI
@@ -248,11 +248,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
             pointerSelection.enabled = true;
         }
     }
-
-
     #endregion
-
-
+    #endregion
     private void SelectedType()
     {
         if (selectedTypeList.Count > 0)
@@ -294,7 +291,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             }
         }
     }
-
     private void Order()
     {
         #region Orders
