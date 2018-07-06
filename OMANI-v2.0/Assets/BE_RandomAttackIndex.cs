@@ -32,7 +32,7 @@ public class BE_RandomAttackIndex : StateMachineBehaviour {
 	override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
     {
         
-        animator.SetInteger("AttackIndex", Random.Range(0, 4));
+        animator.SetInteger("AttackIndex", Random.Range(0, 5));
     }
 
 	// OnStateMachineExit is called when exiting a statemachine via its Exit Node

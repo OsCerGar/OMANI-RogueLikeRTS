@@ -8,21 +8,25 @@ public class MeleAttack : MonoBehaviour {
     [SerializeField] ParticleSystem Effect;
     [SerializeField] AttackSoundsManager Sounds;
     [SerializeField] NPC thisNpcScript;
+    string tagToAttack, secondTagToAttack;
     bool missed;
-    
-    // Use this for initialization
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        string tagToAttack,secondTagToAttack;
-        if(thisNpcScript.transform.tag == "Enemy")
+        if (thisNpcScript.transform.tag == "Enemy")
         {
             tagToAttack = "People";
             secondTagToAttack = "Player";
-        } else 
+        }
+        else
         {
             tagToAttack = "Enemy";
             secondTagToAttack = "Enemy";
         }
+    }
+    // Use this for initialization
+    private void OnTriggerEnter(Collider other)
+    {
+        
         if ( other.tag == tagToAttack || other.tag == secondTagToAttack)
         {
             var EnemyNPC = other.GetComponent<NPC>();

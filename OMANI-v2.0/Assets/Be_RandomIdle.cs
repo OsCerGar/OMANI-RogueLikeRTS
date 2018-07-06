@@ -31,7 +31,7 @@ public class Be_RandomIdle : StateMachineBehaviour {
 
     // OnStateMachineEnter is called when entering a statemachine via its Entry Node
     override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash){
-     animator.SetInteger("IdleIndex", Random.Range(0, 2));
+     animator.SetInteger("IdleIndex", Random.Range(0, 3));
 	}
 
 	// OnStateMachineExit is called when exiting a statemachine via its Exit Node
