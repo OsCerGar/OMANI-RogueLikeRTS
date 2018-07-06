@@ -291,7 +291,8 @@ public class NPC : MonoBehaviour
         }
         life = 0;
         anim.SetTrigger("Die");
-        this.gameObject.GetComponent<Collider>().enabled = false;
+        //this.gameObject.GetComponent<Collider>().enabled = false;
+        this.gameObject.GetComponent<Collider>().isTrigger = true;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         this.gameObject.tag = "Untagged";
         this.gameObject.layer = 0;

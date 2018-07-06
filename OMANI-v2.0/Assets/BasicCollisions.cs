@@ -8,19 +8,38 @@ public class BasicCollisions : MonoBehaviour
     [SerializeField] ParticleSystem PS;
     private void OnTriggerEnter(Collider other)
     {
-        Enemy NPC;
+        Enemy enemy;
         Interactible interactible;
-        if (other.CompareTag("Enemy"))
-        {
-            NPC = other.GetComponent<Enemy>();
-            PS.transform.position = other.transform.position;
-            PS.Play();
-            NPC.TakeDamage(5, true, 0.2f, this.transform);
-        }
-        else if (other.CompareTag("Building"))
+        Robot ally;
+
+        if (other.CompareTag("Building"))
         {
             interactible = other.GetComponent<Interactible>();
             interactible.Action();
+            PS.transform.position = this.transform.position;
+            PS.Play();
+        }
+
+        else if (other.CompareTag("Enemy"))
+        {
+            enemy = other.GetComponent<Enemy>();
+            PS.transform.position = this.transform.position;
+            PS.Play();
+            enemy.TakeDamage(5, true, 0.2f, this.transform);
+        }
+
+        else if (other.CompareTag("People"))
+        {
+
+            ally = other.GetComponent<Robot>();
+            PS.transform.position = this.transform.position;
+            PS.Play();
+
+            if (ally.state == "Dead")
+            {
+                ally.Resurrect();
+            }
+
         }
     }
 

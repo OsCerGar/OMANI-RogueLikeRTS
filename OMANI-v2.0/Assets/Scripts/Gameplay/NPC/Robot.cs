@@ -17,7 +17,8 @@ public class Robot : NPC
             Nav.enabled = true;
         }
         life = 0;
-        this.gameObject.GetComponent<Collider>().enabled = true;
+        //this.gameObject.GetComponent<Collider>().enabled = true;
+        this.gameObject.GetComponent<Collider>().isTrigger = false;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         this.gameObject.tag = "People";
         this.gameObject.layer = 9;

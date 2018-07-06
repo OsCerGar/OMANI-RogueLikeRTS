@@ -19,8 +19,11 @@ public class Link : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lineRenderer.SetPosition(0, point1);
-        lineRenderer.SetPosition(1, point2);
+        if (power != null && interactible != null)
+        {
+            lineRenderer.SetPosition(0, power.transform.position);
+            lineRenderer.SetPosition(1, interactible.transform.position);
+        }
     }
 
     public void Completed()
