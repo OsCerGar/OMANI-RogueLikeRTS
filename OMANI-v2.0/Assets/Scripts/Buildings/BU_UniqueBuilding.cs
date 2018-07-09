@@ -9,7 +9,7 @@ public class BU_UniqueBuilding : BU
 
 
     [SerializeField]
-    public BU_Plug[] plugs;
+    public Interactible_Repeater[] plugs;
 
     public List<MeshRenderer> plugMaterial = new List<MeshRenderer>();
 
@@ -19,12 +19,12 @@ public class BU_UniqueBuilding : BU
     {
         //Makes sure it checks for energy on the first run.
         lastTotalEnergy = 100;
-        plugs = this.transform.Find("Electricity").GetComponentsInChildren<BU_Plug>();
+        plugs = this.transform.Find("Electricity").GetComponentsInChildren<Interactible_Repeater>();
 
 
-        foreach (BU_Plug plug in plugs)
+        foreach (Interactible_Repeater plug in plugs)
         {
-            plugMaterial.Add(plug.gameObject.GetComponent<MeshRenderer>());
+            plugMaterial.Add(plug.transform.Find("Base").GetComponent<MeshRenderer>());
         }
 
     }
@@ -33,9 +33,12 @@ public class BU_UniqueBuilding : BU
     {
         totalEnergy = 0;
 
-        foreach (BU_Plug plug in plugs)
+        foreach (Interactible_Repeater plug in plugs)
         {
-            totalEnergy += plug.energy;
+            if (plug.energy == true)
+            {
+                totalEnergy++;
+            }
         }
 
         //Checks if there have been changes in the plugs

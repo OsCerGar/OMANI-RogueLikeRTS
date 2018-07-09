@@ -5,7 +5,7 @@ using UnityEngine;
 public class Interactible_Repeater : Interactible
 {
     Animator animator;
-    bool Energy = false;
+    public bool energy = false;
 
     // Use this for initialization
     public override void Start()
@@ -23,15 +23,15 @@ public class Interactible_Repeater : Interactible
 
     public override void Action()
     {
-        if (Energy == false)
+        if (energy == false)
         {
             base.Action();
-            Energy = true;
+            energy = true;
         }
         else
         {
             StopWorking();
-            Energy = false;
+            energy = false;
         }
     }
     public override void ActionCompleted()

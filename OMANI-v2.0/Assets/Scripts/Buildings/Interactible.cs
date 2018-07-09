@@ -48,7 +48,10 @@ public class Interactible : MonoBehaviour
 
     public virtual void Action()
     {
-        CreateLink();
+        if (!link)
+        {
+            CreateLink();
+        }
     }
 
     public virtual void ActionCompleted()
