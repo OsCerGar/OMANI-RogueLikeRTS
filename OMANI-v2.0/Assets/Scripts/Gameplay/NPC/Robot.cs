@@ -16,12 +16,11 @@ public class Robot : NPC
             AI.enabled = true;
             Nav.enabled = true;
         }
-        life = 0;
+        life = startLife;
         //this.gameObject.GetComponent<Collider>().enabled = true;
         this.gameObject.GetComponent<Collider>().isTrigger = false;
         this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        this.gameObject.tag = "People";
-        this.gameObject.layer = 9;
+        this.gameObject.layer = peopl;
         state = "Alive";
         //cambiar tag y layer
     }

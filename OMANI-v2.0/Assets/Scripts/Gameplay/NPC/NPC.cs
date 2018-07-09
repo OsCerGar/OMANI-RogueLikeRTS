@@ -41,6 +41,7 @@ public class NPC : MonoBehaviour
     private GameObject Attackzone;
 
     public bool RootMotion;
+    public  int peopl;
     #endregion
 
     #region GETTERSETTERS
@@ -115,6 +116,7 @@ public class NPC : MonoBehaviour
     // Use this for initialization
     public virtual void Start()
     {
+        peopl = 1 << LayerMask.NameToLayer("People");
         AI = this.gameObject.GetComponent<BehaviorTree>();
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
@@ -293,8 +295,6 @@ public class NPC : MonoBehaviour
         anim.SetTrigger("Die");
         //this.gameObject.GetComponent<Collider>().enabled = false;
         this.gameObject.GetComponent<Collider>().isTrigger = true;
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        this.gameObject.tag = "Untagged";
         this.gameObject.layer = 0;
         //this.enabled = false;
     }
