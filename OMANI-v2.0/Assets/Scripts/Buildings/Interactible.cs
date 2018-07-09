@@ -61,7 +61,7 @@ public class Interactible : MonoBehaviour
     private void CreateLink()
     {
         //CreatesLink
-        linky = powerManager.CreateLink(this.transform, powers, this).GetComponent<Link>();
+        linky = powerManager.CreateLink(this.transform, powers).GetComponent<Link>();
 
         linky.power = powers.gameObject;
         linky.interactible = this.transform.gameObject;

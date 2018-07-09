@@ -34,12 +34,7 @@ public class BasicCollisions : MonoBehaviour
             ally = other.GetComponent<Robot>();
             PS.transform.position = this.transform.position;
             PS.Play();
-
-            if (ally.state == "Dead")
-            {
-                ally.StartResurrection();
-            }
-
+            ally.Action();
         }
     }
 

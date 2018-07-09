@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
     public string state;
 
     [SerializeField]
-    public int startLife, life, damage;
+    public int startLife, life, damage, resurrectCost = 25, powerUpCost = 10;
     //Required for run animations synced with NevMesh
     [HideInInspector]
     public Animator anim;
@@ -182,6 +182,8 @@ public class NPC : MonoBehaviour
         {
             anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
         }
+
+
 
     }
     //take damage with knockBack

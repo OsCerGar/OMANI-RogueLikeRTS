@@ -4,11 +4,63 @@ using UnityEngine;
 
 public class Robot : NPC
 {
-   public void StartResurrection()
+    bool link = false;
+    Link linky;
+    Powers powers = null;
+    PowerManager powerManager;
+
+    public float powerReduced = 0, linkPrice = 2;
+
+    public void StartResurrection()
     {
-        Debug.Log("HelloImResurrectin'");
         anim.SetTrigger("GetUp");
     }
+
+    public override void Start()
+    {
+        base.Start();
+        powerManager = FindObjectOfType<PowerManager>();
+        powers = FindObjectOfType<Powers>();
+
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        //Powers Link
+        if (link)
+        {
+            if (powers.reducePower(linkPrice * Time.unscaledDeltaTime))
+            {
+                powerReduced += linkPrice * Time.unscaledDeltaTime;
+            }
+
+            else
+            {
+                DestroyLink();
+            }
+
+            if (state == "Alive")
+            {
+                if (powerReduced >= powerUpCost)
+                {
+                    ActionCompleted();
+                    //PowerUP
+                }
+            }
+            else
+            {
+                if (powerReduced >= resurrectCost)
+                {
+                    ActionCompleted();
+                    StartResurrection();
+                }
+            }
+        }
+
+    }
+
     public void Resurrect()
     {
 
@@ -25,4 +77,35 @@ public class Robot : NPC
         state = "Alive";
         //cambiar tag y layer
     }
+
+    public virtual void Action()
+    {
+        CreateLink();
+
+    }
+
+    public virtual void ActionCompleted()
+    {
+        linky.Completed();
+        link = false;
+        powerReduced = 0;
+    }
+
+    private void CreateLink()
+    {
+        //CreatesLink
+        linky = powerManager.CreateLink(this.transform, powers).GetComponent<Link>();
+
+        linky.power = powers.gameObject;
+        linky.interactible = this.transform.gameObject;
+        link = true;
+    }
+
+    private void DestroyLink()
+    {
+        linky.Failed();
+        link = false;
+        powerReduced = 0;
+    }
+
 }

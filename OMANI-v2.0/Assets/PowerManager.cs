@@ -60,7 +60,7 @@ public class PowerManager : MonoBehaviour
     {
         UpgradedPower.TryGetNextObject(tr.position, tr.rotation, out Spawned);
     }
-    public GameObject CreateLink(Transform tr, Powers _powers, Interactible _interactible)
+    public GameObject CreateLink(Transform tr, Powers _powers)
     {
         Link.TryGetNextObject(tr.position, tr.rotation, out Spawned);
         Debug.Log("Spawned");
