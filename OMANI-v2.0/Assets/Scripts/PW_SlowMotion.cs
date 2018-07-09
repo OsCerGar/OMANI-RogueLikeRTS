@@ -31,7 +31,7 @@ public class PW_SlowMotion : Power
         regularSpeed = player.speed;
     }
 
-    public void Update()
+    public override void Update()
     {
         if (active == false)
         {

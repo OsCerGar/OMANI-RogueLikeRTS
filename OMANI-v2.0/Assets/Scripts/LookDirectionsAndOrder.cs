@@ -467,35 +467,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
         #endregion
         #region Reclute
-
-        if (Input.GetKeyDown("joystick button 4") || Input.GetMouseButtonDown(0))
+        if (Input.GetKey(KeyCode.LeftShift) == false)
         {
-            if (closestTarget != null)
+            if (Input.GetKeyDown("joystick button 4") || Input.GetMouseButtonDown(0))
             {
-
-                if (commander.ListSize(closestTarget.boyType) < 1)
-                {
-                    selectedTypeList.Add(closestTarget.boyType);
-                }
-
-                commander.Reclute(closestTarget);
-                reclute.Play();
-            }
-
-            else if (closestBUTarget != null)
-            {
-                closestBUTarget.RemoveWorker();
-                reclute.Play();
-            }
-        }
-
-        if (Input.GetKey("joystick button 4") || Input.GetMouseButton(0))
-        {
-            orderCounter += Time.deltaTime;
-
-            if (orderCounter > 0.5f)
-            {
-
                 if (closestTarget != null)
                 {
 
@@ -505,12 +480,39 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
 
                     commander.Reclute(closestTarget);
-
+                    reclute.Play();
                 }
 
                 else if (closestBUTarget != null)
                 {
                     closestBUTarget.RemoveWorker();
+                    reclute.Play();
+                }
+            }
+
+            if (Input.GetKey("joystick button 4") || Input.GetMouseButton(0))
+            {
+                orderCounter += Time.deltaTime;
+
+                if (orderCounter > 0.5f)
+                {
+
+                    if (closestTarget != null)
+                    {
+
+                        if (commander.ListSize(closestTarget.boyType) < 1)
+                        {
+                            selectedTypeList.Add(closestTarget.boyType);
+                        }
+
+                        commander.Reclute(closestTarget);
+
+                    }
+
+                    else if (closestBUTarget != null)
+                    {
+                        closestBUTarget.RemoveWorker();
+                    }
                 }
             }
         }

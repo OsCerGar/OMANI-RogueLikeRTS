@@ -4,15 +4,4 @@ using UnityEngine;
 
 public class BasicPower : MonoBehaviour
 {
-    [SerializeField] ParticleSystem mainParticleSystem;
-    // Use this for initialization
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (mainParticleSystem.IsAlive() == false)
-            transform.parent.gameObject.SetActive(false);
-
-    }
 }

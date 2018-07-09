@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradedPower : MonoBehaviour
+public class UpgradedPower : Power
 {
+    public override void Update()
+    {
+        if (mainParticleSystem.IsAlive() == false)
+        {
+            transform.gameObject.SetActive(false);
+        }
+    }
+
     [SerializeField] ParticleSystem PS;
     private void OnTriggerEnter(Collider other)
     {

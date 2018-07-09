@@ -46,7 +46,7 @@ public class PW_Hearthstone : Power
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
         if (teleporting == true)
         {

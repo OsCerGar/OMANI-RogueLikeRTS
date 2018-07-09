@@ -41,7 +41,7 @@ public class NPC : MonoBehaviour
     private GameObject Attackzone;
 
     public bool RootMotion;
-    public  int peopl;
+    public int peopl;
     #endregion
 
     #region GETTERSETTERS
@@ -116,7 +116,7 @@ public class NPC : MonoBehaviour
     // Use this for initialization
     public virtual void Start()
     {
-        peopl = 1 << LayerMask.NameToLayer("People");
+        peopl = LayerMask.NameToLayer("People");
         AI = this.gameObject.GetComponent<BehaviorTree>();
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
@@ -128,7 +128,7 @@ public class NPC : MonoBehaviour
 
         }
         //Get AttackZone child Somewhere 
-        if (transform.FindDeepChild("AttackZone")!= null)
+        if (transform.FindDeepChild("AttackZone") != null)
         {
             Attackzone = transform.FindDeepChild("AttackZone").gameObject;
         }
@@ -168,9 +168,9 @@ public class NPC : MonoBehaviour
             }
         }
         GameObject enem = AI_GetEnemy();
-        if (enem  != null)
+        if (enem != null)
         {
-            if (enem.GetComponent<NPC>()!= null && enem.GetComponent<NPC>().Life <= 0)
+            if (enem.GetComponent<NPC>() != null && enem.GetComponent<NPC>().Life <= 0)
             {
                 AI_SetEnemy(null);
             }

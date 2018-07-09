@@ -6,6 +6,7 @@ public class Robot : NPC
 {
    public void StartResurrection()
     {
+        Debug.Log("HelloImResurrectin'");
         anim.SetTrigger("GetUp");
     }
     public void Resurrect()

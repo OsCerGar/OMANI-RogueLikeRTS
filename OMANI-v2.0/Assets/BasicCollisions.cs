@@ -37,7 +37,7 @@ public class BasicCollisions : MonoBehaviour
 
             if (ally.state == "Dead")
             {
-                ally.Resurrect();
+                ally.StartResurrection();
             }
 
         }

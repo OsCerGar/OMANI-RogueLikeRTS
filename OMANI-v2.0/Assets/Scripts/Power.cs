@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Power : MonoBehaviour
 {
+    [SerializeField] public ParticleSystem mainParticleSystem;
+
+    public virtual void Update()
+    {
+        if (mainParticleSystem.IsAlive() == false)
+        {
+            transform.parent.gameObject.SetActive(false);
+        }
+    }
 
     public virtual void CastPower()
     {

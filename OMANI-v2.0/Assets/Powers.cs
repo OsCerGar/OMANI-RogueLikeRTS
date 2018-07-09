@@ -13,7 +13,8 @@ public class Powers : MonoBehaviour
     PowerManager powerManager;
 
     [SerializeField]
-    public float maxpowerPool = 100, powerPool = 100, increaseAmount = 1;
+    public float maxpowerPool = 100, powerPool = 100, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1;
+
     float radius = 3;
 
     private void Start()
@@ -33,8 +34,11 @@ public class Powers : MonoBehaviour
         //Controller
         if (Input.GetKeyDown("joystick button 7"))
         {
-            //Energy Beam
-            powerManager.ShootBasicPower(lookDirection.transform);
+            if (this.reducePower(smallLazerAmount))
+            {
+                //Energy Beam
+                powerManager.ShootBasicPower(lookDirection.transform);
+            }
         }
 
         if (Input.GetKey("joystick button 6"))
@@ -43,9 +47,11 @@ public class Powers : MonoBehaviour
 
             if (Input.GetKeyDown("joystick button 7"))
             {
-                //Attack Beam
-                //Attack Beam
-                powerManager.ShootUpgradedPower(lookDirection.transform);
+                if (this.reducePower(bigLazerAmount))
+                {
+                    //Attack Beam
+                    powerManager.ShootUpgradedPower(lookDirection.transform);
+                }
             }
         }
 
@@ -56,14 +62,19 @@ public class Powers : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                //Energy Beam
-                powerManager.ShootBasicPower(lookDirection.transform);
+                if (this.reducePower(smallLazerAmount))
+                {
+                    //Energy Beam
+                    powerManager.ShootBasicPower(lookDirection.transform);
+                }
             }
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                Debug.Log("Shot");
-                //Attack Beam
-                powerManager.ShootUpgradedPower(lookDirection.transform);
+                if (this.reducePower(bigLazerAmount))
+                {
+                    //Attack Beam
+                    powerManager.ShootUpgradedPower(lookDirection.transform);
+                }
             }
         }
         #endregion
