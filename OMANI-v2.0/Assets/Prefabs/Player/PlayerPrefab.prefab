@@ -4420,6 +4420,8 @@ MonoBehaviour:
   maxpowerPool: 100
   powerPool: 100
   increaseAmount: 1
+  bigLazerAmount: 20
+  smallLazerAmount: 1
 --- !u!114 &114212805116228626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4432,18 +4434,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.9616327, b: 1, a: 1}
+  m_Color: {r: 0.013375282, g: 1, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 93ff0b838906fb3408cb6ad315ecc24b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3bb495bdce0a8cf4fa3a067e58a76758, type: 3}
   m_Type: 3
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 3
   m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -4528,6 +4530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68314044eb4327243ad38b7e500c050c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainParticleSystem: {fileID: 0}
   slowmo: {fileID: 11400000, guid: dd09f9403ef713a48911da05f0dee27f, type: 2}
 --- !u!114 &114468263660996504
 MonoBehaviour:
@@ -4605,12 +4608,16 @@ MonoBehaviour:
   startLife: 0
   life: 10
   damage: 0
+  resurrectCost: 25
+  powerUpCost: 10
   anim: {fileID: 0}
   Nav: {fileID: 0}
   circle: {fileID: 0}
   AI: {fileID: 0}
   ui_information: {fileID: 0}
+  Attackzone: {fileID: 0}
   RootMotion: 0
+  peopl: 0
 --- !u!114 &114700561777002742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4659,6 +4666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff36813891f96b74eaa05a55cb13615e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainParticleSystem: {fileID: 0}
   energy: 0
   planted: 0
   teleporting: 0
@@ -4700,9 +4708,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 93ff0b838906fb3408cb6ad315ecc24b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3bb495bdce0a8cf4fa3a067e58a76758, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -27365,7 +27373,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 2, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224086912132164990
 RectTransform:
@@ -27384,7 +27392,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 2, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224336986512684086
 RectTransform:

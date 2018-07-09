@@ -81,8 +81,10 @@ public class Robot : NPC
 
     public virtual void Action()
     {
-        CreateLink();
-
+        if (!link)
+        {
+            CreateLink();
+        }
     }
 
     public virtual void ActionCompleted()
