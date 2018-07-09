@@ -9,7 +9,7 @@ public class Robot : NPC
     Powers powers = null;
     PowerManager powerManager;
 
-    public float powerReduced = 0, linkPrice = 2;
+    public float powerReduced = 0, linkPrice = 1;
 
     public void StartResurrection()
     {
@@ -47,6 +47,7 @@ public class Robot : NPC
                 {
                     ActionCompleted();
                     //PowerUP
+                    BoostAttack();
                 }
             }
             else
@@ -111,7 +112,7 @@ public class Robot : NPC
     public void BoostAttack()
     {
         var Mattack = Attackzone.GetComponent<MeleAttack>();
-        Mattack.ActivateBoostAttack ();
+        Mattack.ActivateBoostAttack();
 
     }
 }
