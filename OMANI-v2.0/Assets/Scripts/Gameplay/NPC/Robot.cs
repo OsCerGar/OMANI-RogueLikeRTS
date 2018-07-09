@@ -108,4 +108,10 @@ public class Robot : NPC
         powerReduced = 0;
     }
 
+    public void BoostAttack()
+    {
+        var Mattack = Attackzone.GetComponent<MeleAttack>();
+        Mattack.ActivateBoostAttack ();
+
+    }
 }

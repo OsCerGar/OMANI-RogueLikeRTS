@@ -5,13 +5,17 @@ using UnityEngine.AI;
 
 public class MeleAttack : MonoBehaviour {
     [SerializeField] bool Knockback;
+    [HideInInspector]public  bool PowerUp;
     [SerializeField] ParticleSystem Effect;
     [SerializeField] AttackSoundsManager Sounds;
     [SerializeField] NPC thisNpcScript;
     string tagToAttack, secondTagToAttack;
     bool missed;
+    ParticleSystem PowerUpEffect, PowerUpHitEffect;
     private void Start()
     {
+        PowerUpEffect = transform.parent.Find("PowerUpEffect").GetComponent<ParticleSystem>();
+        PowerUpHitEffect = transform.parent.Find("PowerUpHit").GetComponent<ParticleSystem>();
         if (thisNpcScript.transform.tag == "Enemy")
         {
             tagToAttack = "People";
@@ -22,6 +26,7 @@ public class MeleAttack : MonoBehaviour {
             tagToAttack = "Enemy";
             secondTagToAttack = "Enemy";
         }
+
     }
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
@@ -31,13 +36,22 @@ public class MeleAttack : MonoBehaviour {
         {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
+            var attackDamage = thisNpcScript.Damage;
+            if (PowerUp)
+            {
+                attackDamage = attackDamage * 2;
+                Knockback = true;
+                PowerUpHit();
+                PowerUp = false;
+            }
+
             //Make his take damage;
             if (Knockback)
             {
-                EnemyNPC.TakeDamage(thisNpcScript.Damage, true, 5,transform.parent.transform);
+                EnemyNPC.TakeDamage(attackDamage, true, 5,transform.parent.transform);
             }else
             {
-                EnemyNPC.TakeDamage(thisNpcScript.Damage);
+                EnemyNPC.TakeDamage(attackDamage);
             }
             //Set his Enemy to this
             EnemyNPC.AI_SetEnemy(transform.parent.gameObject);
@@ -82,5 +96,19 @@ public class MeleAttack : MonoBehaviour {
             }
         }
         transform.gameObject.SetActive(false);
+    }
+    public void ActivateBoostAttack()
+    {
+        PowerUpEffect.Play();
+        PowerUp = true;
+    }
+    public void DeactivateBoostAttack()
+    {
+        PowerUpEffect.Stop();
+    }
+    public void PowerUpHit()
+    {
+        DeactivateBoostAttack();
+        PowerUpHitEffect.Play();
     }
 }

@@ -38,7 +38,7 @@ public class NPC : MonoBehaviour
     Vector3 LandingPosition, initialPosition;
     Transform perpetrator;
     public GameObject ui_information = null;
-    private GameObject Attackzone;
+    public GameObject Attackzone;
 
     public bool RootMotion;
     public int peopl;
