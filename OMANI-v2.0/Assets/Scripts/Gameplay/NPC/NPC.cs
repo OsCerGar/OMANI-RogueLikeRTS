@@ -189,25 +189,30 @@ public class NPC : MonoBehaviour
     //take damage with knockBack
     public void TakeDamage(int damage, bool knockback, float knockbackTime, Transform _perpetrator)
     {
-        anim.SetTrigger("Hit");
-        life -= damage;
-        if (life <= 0)
+        if (state == "Alive")
         {
-            Die();
-            state = "Dead";
-        }
-        else
-        {
-            if (knockback)
+
+            anim.SetTrigger("Hit");
+            life -= damage;
+            if (life <= 0)
             {
-                if (!disabled)
+                Die();
+                state = "Dead";
+            }
+            else
+            {
+                if (knockback)
                 {
-                    disabledTime = knockbackTime;
-                    anim.SetBool("KnockBack", true);
-                    DisableNPC();
-                    perpetrator = _perpetrator;
+                    if (!disabled)
+                    {
+                        disabledTime = knockbackTime;
+                        anim.SetBool("KnockBack", true);
+                        DisableNPC();
+                        perpetrator = _perpetrator;
+                    }
                 }
             }
+
         }
 
     }
@@ -233,13 +238,16 @@ public class NPC : MonoBehaviour
     //Simple way to take damage
     public void TakeDamage(int damage)
     {
-
-        anim.SetTrigger("Hit");
-        life -= damage;
-        if (life <= 0)
+        if (state == "Alive")
         {
-            Die();
-            state = "Dead";
+
+            anim.SetTrigger("Hit");
+            life -= damage;
+            if (life <= 0)
+            {
+                Die();
+                state = "Dead";
+            }
         }
 
     }
