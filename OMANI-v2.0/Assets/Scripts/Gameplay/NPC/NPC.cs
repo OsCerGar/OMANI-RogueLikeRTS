@@ -418,7 +418,7 @@ public class NPC : MonoBehaviour
     {
         if (RootMotion)
         {
-            Nav.velocity = anim.deltaPosition / Time.deltaTime;
+            Nav.velocity = anim.deltaPosition;
         }
     }
 

@@ -11,12 +11,11 @@ public class Be_RootMotion : StateMachineBehaviour {
     
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        NAgent = animator.GetComponent<NavMeshAgent>();
         npcScript = animator.GetComponent<NPC>();
 
         animator.applyRootMotion = true;
-        
-
+       // NAgent.updatePosition = false;
         npcScript.RootMotion = true;
 
         animator.GetComponent<BehaviorTree>().DisableBehavior();
@@ -27,6 +26,8 @@ public class Be_RootMotion : StateMachineBehaviour {
     {
         if (Restore)
         {
+
+          //  NAgent.updatePosition = true;
             animator.applyRootMotion = false;
             npcScript.RootMotion = false;
             animator.GetComponent<BehaviorTree>().EnableBehavior();
