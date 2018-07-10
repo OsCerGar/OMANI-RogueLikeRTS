@@ -2,28 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BU_Resources_Workers : MonoBehaviour
+public class BU_Resources_Workers : Interactible
 {
 
-    BU_Resources parentResources;
+    BU_WorkerMaker parentResources;
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
-        parentResources = this.transform.parent.GetComponent<BU_Resources>();
+        base.Start();
+        parentResources = this.transform.parent.GetComponent<BU_WorkerMaker>();
+        price = 5;
+    }
+    public void StartWorker()
+    {
+        parentResources.MakeWorker();
     }
 
-    public bool StartWorker()
+    // Update is called once per frame
+    public override void Update()
     {
-        Debug.Log("Second Step");
-        if (parentResources.MakeWorker())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        base.Update();
+    }
+
+    public override void Action()
+    {
+        base.Action();
+    }
+
+    public override void ActionCompleted()
+    {
+        StartWorker();
+        base.ActionCompleted();
+    }
+
+    private void StopWorking()
+    {
     }
 
 }
