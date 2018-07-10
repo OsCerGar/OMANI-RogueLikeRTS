@@ -68,7 +68,6 @@ public class Robot : NPC
         if (AI != null)
         {
             AI.enabled = true;
-            Nav.enabled = true;
         }
         life = startLife;
         //this.gameObject.GetComponent<Collider>().enabled = true;
