@@ -19,12 +19,12 @@ public class Tutorial_War : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.playerDead += Fade;
+       // Player.playerDead += Fade;
     }
 
     private void OnDisable()
     {
-        Player.playerDead -= Fade;
+        //Player.playerDead -= Fade;
     }
 
     private void Start()

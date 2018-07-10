@@ -42,6 +42,7 @@ public class NPC : MonoBehaviour
 
     public bool RootMotion;
     public int peopl;
+    [SerializeField] ParticleSystem[] hitEffects;
     #endregion
 
     #region GETTERSETTERS
@@ -152,19 +153,7 @@ public class NPC : MonoBehaviour
             {
                 disabled = false;
                 anim.SetBool("KnockBack", false);
-            }
-        }
-        if (KnockBackParabola)
-        {
-            if (k < 0.93f)
-            {
-                k += Time.deltaTime;
-                transform.position = MathParabola.Parabola(initialPosition, LandingPosition, 2, k);
-            }
-            else
-            {
-                k = 0;
-                KnockBackParabola = false;
+                disabledCountdown = 0;
             }
         }
         GameObject enem = AI_GetEnemy();
@@ -175,7 +164,7 @@ public class NPC : MonoBehaviour
                 AI_SetEnemy(null);
             }
         }
-
+        
 
         //Animspeed conected to navmesh speed 
         if (anim != null)
@@ -191,7 +180,7 @@ public class NPC : MonoBehaviour
     {
         if (state == "Alive")
         {
-
+            GetHitEffect();
             anim.SetTrigger("Hit");
             life -= damage;
             if (life <= 0)
@@ -203,45 +192,27 @@ public class NPC : MonoBehaviour
             {
                 if (knockback)
                 {
-                    if (!disabled)
-                    {
+                        disabled = true;
                         disabledTime = knockbackTime;
                         anim.SetBool("KnockBack", true);
-                        DisableNPC();
                         perpetrator = _perpetrator;
-                    }
                 }
             }
 
-        }
 
-    }
-    public void EnableNPC()
-    {
-        disabled = false;
-        if (AI != null)
-        {
-            AI.enabled = true;
         }
-        Nav.enabled = true;
-    }
-    public void DisableNPC()
-    {
-        disabled = true;
-        if (AI != null)
-        {
-            AI.enabled = false;
-        }
-        Nav.enabled = false;
 
     }
     //Simple way to take damage
     public void TakeDamage(int damage)
     {
+        GetHitEffect();
         if (state == "Alive")
         {
-
-            anim.SetTrigger("Hit");
+            if (anim != null)
+            {
+                anim.SetTrigger("Hit");
+            }
             life -= damage;
             if (life <= 0)
             {
@@ -249,24 +220,6 @@ public class NPC : MonoBehaviour
                 state = "Dead";
             }
         }
-
-    }
-    public void KnockBack()
-    {
-        Vector3 tempLandingPosition;
-        if (perpetrator != null)
-        {
-            transform.LookAt(perpetrator);
-            tempLandingPosition = transform.position + perpetrator.forward * 3;
-        }
-        else
-        {
-            tempLandingPosition = transform.forward * -2;
-        }
-        LandingPosition = new Vector3(tempLandingPosition.x, tempLandingPosition.y, tempLandingPosition.z);
-        initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        k = 0;
-        KnockBackParabola = true;
 
     }
 
@@ -348,6 +301,13 @@ public class NPC : MonoBehaviour
         AI_SetState("SpecialAttack");
     }
 
+    private void GetHitEffect()
+    {
+        if (hitEffects.Length > 0)
+        {
+            hitEffects[UnityEngine.Random.Range(0, hitEffects.Length)].Play();
+        }
+    }
     //Old, remove !?
     public virtual void ChargedOrderFullfilled(GameObject attackPosition)
     {

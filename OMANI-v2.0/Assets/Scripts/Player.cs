@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Player : NPC
 {
-
+    /*
     public delegate void OnDeath();
     public static event OnDeath playerDead;
+    */
 
     void Awake()
     {
@@ -15,7 +16,7 @@ public class Player : NPC
 
     public override void Die()
     {
-        playerDead();
+       // playerDead();
     }
 
     public override void Update()

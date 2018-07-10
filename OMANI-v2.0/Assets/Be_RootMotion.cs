@@ -12,24 +12,21 @@ public class Be_RootMotion : StateMachineBehaviour {
     {
 
         npcScript = animator.GetComponent<NPC>();
-        NAgent = animator.GetComponent<NavMeshAgent>();
 
         animator.applyRootMotion = true;
-
-        //NAgent.isStopped = true;
+        
 
         npcScript.RootMotion = true;
 
-        animator.GetComponent<BehaviorTree>().enabled = false;
+        animator.GetComponent<BehaviorTree>().DisableBehavior();
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //NAgent.isStopped = false;
         animator.applyRootMotion = false;
         npcScript.RootMotion = false;
-        animator.GetComponent<BehaviorTree>().enabled = true;
+        animator.GetComponent<BehaviorTree>().EnableBehavior();
     }
    
 

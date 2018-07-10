@@ -23,7 +23,6 @@ public class MeleAttack : MonoBehaviour {
         {
             PowerUpEffect = transform.parent.Find("PowerUpEffect").GetComponent<ParticleSystem>();
             PowerUpHitEffect = transform.parent.Find("PowerUpHit").GetComponent<ParticleSystem>();
-
             tagToAttack = "Enemy";
             secondTagToAttack = "Enemy";
         }
@@ -50,12 +49,15 @@ public class MeleAttack : MonoBehaviour {
             if (Knockback)
             {
                 EnemyNPC.TakeDamage(attackDamage, true, 5,transform.parent.transform);
-            }else
+
+                Knockback = false;
+            }
+            else
             {
                 EnemyNPC.TakeDamage(attackDamage);
             }
             //Set his Enemy to this
-            EnemyNPC.AI_SetEnemy(transform.parent.gameObject);
+            EnemyNPC.AI_SetEnemy(thisNpcScript.gameObject);
             //If he's dead, then forget about him
             missed = false;
            
@@ -105,6 +107,7 @@ public class MeleAttack : MonoBehaviour {
     }
     public void DeactivateBoostAttack()
     {
+
         PowerUpEffect.Stop();
     }
     public void PowerUpHit()
