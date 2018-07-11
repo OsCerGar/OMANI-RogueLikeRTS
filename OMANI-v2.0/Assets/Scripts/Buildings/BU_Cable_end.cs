@@ -6,9 +6,9 @@ public class BU_Cable_end : Interactible
 {
     private CableComponent cable;
     private SpringJoint spring;
-    private Transform lastParent;
-    private bool collecting = false, collectingStarters = false;
-    private float maxDistance;
+    private Transform lastParent, destination;
+    private bool collecting = false, collectingStarters = false, launching = false;
+    private float maxDistance, speed = 0.2f, startTime, journeyLength, timer;
 
     // Use this for initialization
     public override void Start()
@@ -23,37 +23,8 @@ public class BU_Cable_end : Interactible
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-
-        if (cable.energy == true)
-        {
-            this.transform.tag = "Interactible";
-        }
-        // Disengage from whatever was attached.
-        else
-        {
-            cable.CableLength(0);
-            this.transform.tag = "Untagged";
-
-            if (this.transform.parent != null && this.transform.parent != cable.transform)
-            {
-                if (this.transform.root.CompareTag("Player"))
-                {
-                    this.transform.root.GetComponent<BoyMovement>().grabbedObject.Remove(this);
-                }
-
-                if (this.transform.parent != null && this.transform.parent.GetComponent<BU_Plug>())
-                {
-                    this.transform.parent.GetComponent<BU_Plug>().ChangeColor(Color.white);
-                }
-
-                enableRigid();
-                this.transform.SetParent(null);
-                collecting = true;
-            }
-        }
-
         //Starts Collecting
         if (collecting == true)
         {
@@ -64,7 +35,6 @@ public class BU_Cable_end : Interactible
                 maxDistance = Vector3.Distance(this.transform.position, cable.transform.position);
                 spring.maxDistance = maxDistance;
                 collectingStarters = true;
-
             }
 
             float distRatio = (maxDistance) / (Vector3.Distance(this.transform.position, cable.transform.position));
@@ -88,91 +58,53 @@ public class BU_Cable_end : Interactible
                 this.transform.position = cable.transform.position;
                 this.transform.parent = cable.transform;
                 collecting = false;
+                collectingStarters = false;
                 spring.maxDistance = maxDistance;
             }
         }
+        if (launching == true)
+        {
+            timer += Time.unscaledDeltaTime;
+            if (timer > 2f)
+            {
+                cable.CableLength(journeyLength - 4f);
+
+                // Distance moved = time * speed.
+                float distCovered = (Time.time - startTime) * speed;
+
+                // Fraction of journey completed = current distance divided by total distance.
+                float fracJourney = distCovered / journeyLength;
+
+                // Set our position as a fraction of the distance between the markers.
+
+                transform.position = Vector3.Lerp(this.transform.position, destination.transform.position + new Vector3(0, 1f, 0), fracJourney);
+            }
+        }
     }
-    /*
-    public override void Action(BoyMovement _boy)
+
+    public void PullBack()
     {
-        bool alreadyGrabbedObject = false;
+        // Disengage from whatever was attached.
+        cable.CableLength(0);
 
-        foreach (Interactible interact in _boy.grabbedObject)
-        {
-            if (interact.gameObject == this.gameObject)
-            {
-                alreadyGrabbedObject = true;
-            }
-        }
+        enableRigid();
+        this.transform.SetParent(null);
+        collecting = true;
+    }
 
-        if (alreadyGrabbedObject == false && _boy.grabbedObject.Count < 3)
-        {
-            disableRigid();
+    public void Launch(GameObject _destination)
+    {
 
-            if (this.transform.parent != null && this.transform.parent.GetComponent<BU_Plug>())
-            {
+        disableRigid();
+        launching = true;
+        // Calculate the journey length.
 
-                this.transform.parent.GetComponent<BU_Plug>().ChangeColor(Color.white);
-            }
+        this.transform.SetParent(null);
+        journeyLength = Vector3.Distance(this.transform.position, _destination.transform.position);
 
-            //Grabs
-            _boy.grabbedObject.Add(this);
-            lastParent = this.transform.parent;
-            this.transform.SetParent(_boy.hand.transform);
-            this.transform.localPosition = Vector3.zero;
-
-        }
-
-        else
-        {
-            Collider[] objectsInArea = null;
-            objectsInArea = Physics.OverlapSphere(transform.position, 3f, 1 << 14);
-
-            float minDistance = 0;
-            GameObject closest = null;
-
-            //Checks if there are possible parents, like plugs.
-            if (objectsInArea.Length > 1)
-            {
-                for (int i = 0; i < objectsInArea.Length; i++)
-                {
-                    if (objectsInArea[i].GetComponent<BU_Plug>() != null && objectsInArea[i].transform.childCount < 1)
-                    {
-                        float distance = Vector3.Distance(objectsInArea[i].transform.position, this.gameObject.transform.position);
-
-                        if (minDistance == 0 || minDistance > distance)
-                        {
-                            minDistance = distance;
-                            closest = objectsInArea[i].gameObject;
-                        }
-                    }
-                }
-
-                if (closest != null)
-                {
-                    disableRigid();
-                    cable.CableLength(13);
-
-                    this.transform.SetParent(closest.transform);
-                    this.transform.localPosition = Vector3.zero;
-
-                    _boy.grabbedObject.Remove(this);
-
-
-                }
-
-            }
-
-            else
-            {
-                enableRigid();
-                cable.CableLength(2);
-                collecting = true;
-                this.transform.SetParent(null);
-                _boy.grabbedObject.Remove(this);
-            }
-        }
+        startTime = Time.time;
+        timer = 0;
+        destination = _destination.transform;
 
     }
-    */
 }

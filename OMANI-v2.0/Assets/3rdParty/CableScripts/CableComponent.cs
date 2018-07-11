@@ -27,7 +27,7 @@ public class CableComponent : MonoBehaviour
     private LineRenderer line;
     private CableParticle[] points;
 
-    BU_PowerPlant powerPlant;
+    public BU_Cable_end cableEnd;
     public bool energy;
     Color32 lineMaterial;
 
@@ -39,7 +39,7 @@ public class CableComponent : MonoBehaviour
 
     void Start()
     {
-        powerPlant = FindObjectOfType<BU_PowerPlant>();
+        cableEnd = GetComponentInChildren<BU_Cable_end>();
 
         InitCableParticles();
         InitLineRenderer();
@@ -100,16 +100,6 @@ public class CableComponent : MonoBehaviour
     void Update()
     {
         RenderCable();
-
-        if (energy)
-        {
-            line.material.color = Color.yellow;
-        }
-
-        else
-        {
-            line.material.color = Color.grey;
-        }
     }
 
     /**

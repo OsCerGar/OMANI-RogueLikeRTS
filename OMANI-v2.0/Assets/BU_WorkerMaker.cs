@@ -49,7 +49,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
     void SpinningStructure()
     {
 
-        desiredRotation = -((biggestClock() * (-180)) + 90);
+        desiredRotation = biggestClock() * (180) - 90;
         spinningStructure.transform.eulerAngles = new Vector3(0, desiredRotation, 0);
 
     }

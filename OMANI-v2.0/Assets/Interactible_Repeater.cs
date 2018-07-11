@@ -6,13 +6,18 @@ public class Interactible_Repeater : Interactible
 {
     Animator animator;
     public bool energy = false;
+    GameObject top;
+    BU_Energy energyBU;
+
 
     // Use this for initialization
     public override void Start()
     {
         base.Start();
+        energyBU = this.transform.root.GetComponentInChildren<BU_Energy>();
         price = 5;
         animator = this.GetComponent<Animator>();
+        top = this.transform.Find("Stick/Top").gameObject;
     }
 
     // Update is called once per frame
@@ -36,8 +41,14 @@ public class Interactible_Repeater : Interactible
     }
     public override void ActionCompleted()
     {
+
         base.ActionCompleted();
         animator.SetBool("Energy", true);
+
+        if (energyBU != null)
+        {
+            energyBU.RequestCable(top);
+        }
     }
 
     private void StopWorking()
