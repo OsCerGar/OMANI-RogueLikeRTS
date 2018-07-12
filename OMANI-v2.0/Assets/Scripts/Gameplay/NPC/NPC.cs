@@ -43,6 +43,8 @@ public class NPC : MonoBehaviour
     public bool RootMotion;
     public int peopl;
     [SerializeField] ParticleSystem[] hitEffects;
+
+    
     #endregion
 
     #region GETTERSETTERS
@@ -169,7 +171,10 @@ public class NPC : MonoBehaviour
         //Animspeed conected to navmesh speed 
         if (anim != null)
         {
-            anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
+            if (!RootMotion)
+            {
+                anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
+            }
         }
 
 
@@ -414,13 +419,21 @@ public class NPC : MonoBehaviour
         }
 
     }
+    
     void OnAnimatorMove()
     {
         if (RootMotion)
         {
-            Nav.velocity = anim.deltaPosition;
+            // Update position based on animation movement using navigation surface height
+            Vector3 position = anim.rootPosition;
+            position.y = Nav.nextPosition.y;
+            transform.position = position;
+            Nav.nextPosition = transform.position;
         }
+
+
     }
+    
 
 
 }
