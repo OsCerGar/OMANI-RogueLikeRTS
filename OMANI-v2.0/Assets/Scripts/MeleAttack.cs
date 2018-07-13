@@ -34,6 +34,10 @@ public class MeleAttack : MonoBehaviour {
         
         if ( other.tag == tagToAttack || other.tag == secondTagToAttack)
         {
+            if (Sounds != null)
+            {
+                Sounds.AttackHit();
+            }
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             var attackDamage = thisNpcScript.Damage;
@@ -93,10 +97,8 @@ public class MeleAttack : MonoBehaviour {
             if (missed)
             {
                 Sounds.AttackMiss();
-            }else
-            {
-                Sounds.AttackHit();
             }
+            
         }
         transform.gameObject.SetActive(false);
     }
