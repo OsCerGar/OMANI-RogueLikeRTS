@@ -39,10 +39,13 @@ public class CableComponent : MonoBehaviour
 
     void Start()
     {
-        cableEnd = GetComponentInChildren<BU_Cable_end>();
-
         InitCableParticles();
         InitLineRenderer();
+
+    }
+    private void OnEnable()
+    {
+        cableEnd = GetComponentInChildren<BU_Cable_end>();
     }
 
     /**

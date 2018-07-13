@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZObjectPools;
 
 public class BU_Energy : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject cablePrefab;
-
-    [SerializeField]
-    List<CableComponent> cables = new List<CableComponent>();
-    public int energy = 0, usedEnergy = 0;
+    public int energy = 3, usedEnergy = 0;
 
     public MeshRenderer[] buttons;
 
     GameObject top;
+    EZObjectPool cables;
+    GameObject Spawned;
+
+    List<CableComponent> cablesOut = new List<CableComponent>();
 
     // Use this for initialization
     void Start()
@@ -23,10 +23,13 @@ public class BU_Energy : MonoBehaviour
         // Searches buttons
         //buttons = this.transform.Find("Office").GetChild(0).GetComponentsInChildren<MeshRenderer>();
 
-        foreach (CableComponent cable in this.transform.Find("Cables").GetComponentsInChildren<CableComponent>())
+        var AllPoolers = FindObjectsOfType<EZObjectPool>();
+        foreach (EZObjectPool item in AllPoolers)
         {
-            cables.Add(cable);
-            energy++;
+            if (item.PoolName == "Cables")
+            {
+                cables = item;
+            }
         }
 
     }
@@ -48,18 +51,24 @@ public class BU_Energy : MonoBehaviour
 
     public void pullBackCable(Transform repeater)
     {
-        foreach (CableComponent cable in cables)
+
+        for (int i = 0; i < cablesOut.Count; i++)
         {
-            if (cable.cableEnd.destination == repeater)
+            if (cablesOut[i].cableEnd.destination == repeater)
             {
-                cable.cableEnd.PullBack();
-                usedEnergy--;
+                cablesOut[i].cableEnd.PullBack();
+                cablesOut.Remove(cablesOut[i]);
             }
         }
+
     }
 
     private void LaunchCable(GameObject _position)
     {
-        cables[usedEnergy].cableEnd.Launch(_position.transform, true);
+        cables.TryGetNextObject(top.transform.position, top.transform.rotation, out Spawned);
+        CableComponent cabl = Spawned.GetComponent<CableComponent>();
+        cabl.cableEnd.Launch(_position.transform, true);
+        cablesOut.Add(cabl);
     }
+
 }

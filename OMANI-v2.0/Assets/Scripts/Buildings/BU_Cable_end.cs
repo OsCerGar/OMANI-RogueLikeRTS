@@ -14,6 +14,7 @@ public class BU_Cable_end : Interactible
     // Tops
     List<Transform> tops = new List<Transform>();
     List<BU_Cable_end> cables = new List<BU_Cable_end>();
+    BU_Energy buEnergy;
 
     [SerializeField]
     int terrainLayer;
@@ -24,6 +25,7 @@ public class BU_Cable_end : Interactible
     public override void Start()
     {
         base.Start();
+        buEnergy = FindObjectOfType<BU_Energy>();
         //tops
         foreach (Transform child in transform)
         {
@@ -34,11 +36,14 @@ public class BU_Cable_end : Interactible
 
         disableRigid();
 
-        cable = this.transform.parent.GetComponent<CableComponent>();
-        spring = this.transform.parent.GetComponent<SpringJoint>();
 
         maxDistance = spring.maxDistance;
         terrainLayer = (1 << LayerMask.NameToLayer("Terrain"));
+    }
+    public void OnEnable()
+    {
+        cable = this.transform.parent.GetComponent<CableComponent>();
+        spring = this.transform.parent.GetComponent<SpringJoint>();
     }
 
     // Update is called once per frame
@@ -67,7 +72,7 @@ public class BU_Cable_end : Interactible
 
             float distance = Vector3.Distance(this.transform.position, cable.transform.position);
 
-            if (distance < 6f)
+            if (distance < 7f)
             {
                 disableRigid();
                 this.transform.position = Vector3.Lerp(this.transform.position, cable.transform.position, 0.4f);
@@ -80,7 +85,12 @@ public class BU_Cable_end : Interactible
                 collecting = false;
                 collectingStarters = false;
                 launching = false;
+
+                //Removes energy from being used at the building.
+                buEnergy.usedEnergy--;
                 spring.maxDistance = maxDistance;
+
+                this.transform.parent.gameObject.SetActive(false);
             }
         }
         if (launching == true && collecting != true)
