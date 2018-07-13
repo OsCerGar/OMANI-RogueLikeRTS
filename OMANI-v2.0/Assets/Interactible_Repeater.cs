@@ -30,8 +30,19 @@ public class Interactible_Repeater : Interactible
     {
         if (energy == false)
         {
-            base.Action();
-            energy = true;
+            if (energyBU != null)
+            {
+                if (energyBU.RequestCable(top))
+                {
+                    base.Action();
+                    energy = true;
+                }
+            }
+            else
+            {
+                base.Action();
+                energy = true;
+            }
         }
         else
         {
@@ -44,15 +55,11 @@ public class Interactible_Repeater : Interactible
 
         base.ActionCompleted();
         animator.SetBool("Energy", true);
-
-        if (energyBU != null)
-        {
-            energyBU.RequestCable(top);
-        }
     }
 
     private void StopWorking()
     {
+        energyBU.pullBackCable(top.transform);
         animator.SetBool("Energy", false);
     }
 

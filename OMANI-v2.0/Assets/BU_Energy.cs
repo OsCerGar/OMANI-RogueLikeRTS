@@ -9,7 +9,7 @@ public class BU_Energy : MonoBehaviour
 
     [SerializeField]
     List<CableComponent> cables = new List<CableComponent>();
-    public int energy = 0;
+    public int energy = 0, usedEnergy = 0;
 
     public MeshRenderer[] buttons;
 
@@ -26,18 +26,40 @@ public class BU_Energy : MonoBehaviour
         foreach (CableComponent cable in this.transform.Find("Cables").GetComponentsInChildren<CableComponent>())
         {
             cables.Add(cable);
+            energy++;
         }
 
     }
 
-    public void RequestCable(GameObject _position)
+    public bool RequestCable(GameObject _position)
     {
         //ifenergyright
-        LaunchCable(_position);
+        if (usedEnergy < energy)
+        {
+            LaunchCable(_position);
+            usedEnergy++;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void pullBackCable(Transform repeater)
+    {
+        foreach (CableComponent cable in cables)
+        {
+            if (cable.cableEnd.destination == repeater)
+            {
+                cable.cableEnd.PullBack();
+                usedEnergy--;
+            }
+        }
     }
 
     private void LaunchCable(GameObject _position)
     {
-        cables[1].cableEnd.Launch(_position);
+        cables[usedEnergy].cableEnd.Launch(_position.transform, true);
     }
 }
