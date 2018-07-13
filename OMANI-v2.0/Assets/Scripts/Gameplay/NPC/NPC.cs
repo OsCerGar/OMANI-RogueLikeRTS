@@ -237,6 +237,8 @@ public class NPC : MonoBehaviour
             if (!AI_GetEnemy().activeSelf)
             {
                 //Turn it null, and set and stop your order
+
+                Debug.Log("buscando el wtf");
                 AI_SetEnemy(null);
                 AI_SetState("Free");
             }

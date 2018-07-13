@@ -14,7 +14,7 @@ public class Be_RootMotion : StateMachineBehaviour {
         NAgent = animator.GetComponent<NavMeshAgent>();
         npcScript = animator.GetComponent<NPC>();
         
-        NAgent.updatePosition = false;
+       // NAgent.updatePosition = false;
         npcScript.RootMotion = true;
 
         animator.GetComponent<BehaviorTree>().DisableBehavior();
@@ -26,7 +26,7 @@ public class Be_RootMotion : StateMachineBehaviour {
         if (Restore)
         {
 
-            NAgent.updatePosition = true;
+            //NAgent.updatePosition = true;
             npcScript.RootMotion = false;
             animator.GetComponent<BehaviorTree>().EnableBehavior();
         }
