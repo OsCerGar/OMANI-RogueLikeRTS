@@ -258,11 +258,12 @@ public class NPC : MonoBehaviour
     {
         if (AI != null)
         {
-            AI.enabled = false;
+            AI.DisableBehavior();
         }
         life = 0;
         anim.SetTrigger("Die");
 
+        Nav.updatePosition = false;
         //this.gameObject.GetComponent<Collider>().enabled = false;
         this.gameObject.GetComponent<Collider>().isTrigger = true;
         this.gameObject.layer = 0;

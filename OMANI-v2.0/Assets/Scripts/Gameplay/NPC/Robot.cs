@@ -67,8 +67,9 @@ public class Robot : NPC
 
         if (AI != null)
         {
-            AI.enabled = true;
+            AI.EnableBehavior();
         }
+        Nav.updatePosition = true;
         life = startLife;
         //this.gameObject.GetComponent<Collider>().enabled = true;
         this.gameObject.GetComponent<Collider>().isTrigger = false;
