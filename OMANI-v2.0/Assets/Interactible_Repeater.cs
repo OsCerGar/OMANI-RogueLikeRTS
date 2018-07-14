@@ -32,7 +32,7 @@ public class Interactible_Repeater : Interactible
         {
             if (energyBU != null)
             {
-                if (energyBU.RequestCable(top))
+                if (energyBU.energyCheck())
                 {
                     base.Action();
                     energy = true;
@@ -55,6 +55,7 @@ public class Interactible_Repeater : Interactible
 
         base.ActionCompleted();
         animator.SetBool("Energy", true);
+        energyBU.RequestCable(top);
     }
 
     private void StopWorking()

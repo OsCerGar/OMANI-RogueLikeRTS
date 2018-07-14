@@ -96,7 +96,7 @@ public class BU_Cable_end : Interactible
         if (launching == true && collecting != true)
         {
             timer += Time.unscaledDeltaTime;
-            if (timer > 2f)
+            if (timer > 0.5f)
             {
                 /*
                 if (topYesorNo)

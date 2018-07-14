@@ -16,7 +16,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     float hrj, vrj;
 
-    public float viewRadius, mouseRadius = 3;
+    public float viewRadius, mouseRadius = 1;
     [Range(0, 360)]
     public float viewAngle;
 
@@ -39,6 +39,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public bool playingOnController;
 
     //NEW UI
+    PowerManager UIPool;
+    GameObject UISelectionSpawned;
     UI_PointerDirection pointerDirection;
     UI_PointerSelection pointerSelection;
     GameObject pointerOrder, headArm;
@@ -55,12 +57,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
     void Start()
     {
         commander = FindObjectOfType<Army>();
+        UIPool = FindObjectOfType<PowerManager>();
         reclute = this.GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
 
 
         pointerDirection = this.transform.Find("PointerDirection").GetComponent<UI_PointerDirection>();
-        pointerSelection = this.transform.Find("PointerSelection").GetComponent<UI_PointerSelection>();
+        //pointerSelection = this.transform.Find("PointerSelection").GetComponent<UI_PointerSelection>();
 
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
         headArm = this.transform.Find("HeadArm").gameObject;
@@ -148,33 +151,36 @@ public class LookDirectionsAndOrder : MonoBehaviour
     {
         if (closestTarget != null)
         {
-            pointerSelection.transform.position = closestTarget.ui_information.transform.position;
-            pointerSelection.transform.localScale = closestTarget.ui_information.transform.localScale;
-
             if (closestTarget != latestClosestTarget)
             {
-                pointerSelection.OnTop();
+                UISelectionSpawned = UIPool.SpawnSelectionAnimation(closestTarget.ui_information.transform);
+
             }
+
+            UISelectionSpawned.transform.position = closestTarget.ui_information.transform.position;
+            UISelectionSpawned.transform.localScale = closestTarget.ui_information.transform.localScale;
 
             latestClosestTarget = closestTarget;
         }
 
         else if (closestBUTarget != null && closestBUTarget.numberOfWorkers > 0)
         {
-            pointerSelection.transform.position = closestBUTarget.ui_information.transform.position;
-            pointerSelection.transform.localScale = closestBUTarget.ui_information.transform.localScale;
+            //pointerSelection.transform.position = closestBUTarget.ui_information.transform.position;
+            //pointerSelection.transform.localScale = closestBUTarget.ui_information.transform.localScale;
 
         }
 
         else
         {
-            pointerSelection.NotOnTop();
+            //pointerSelection.NotOnTop();
         }
     }
 
     private void GUI_RegularPointer()
     {
         pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
+        //pointerSelection.gameObject.SetActive(true);
+        pointerDirection.gameObject.SetActive(true);
 
         headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
 
@@ -186,10 +192,35 @@ public class LookDirectionsAndOrder : MonoBehaviour
     {
         pointerDirection.transform.position = miradaposition;
 
+        //pointerSelection.gameObject.SetActive(true);
+        pointerDirection.gameObject.SetActive(true);
+
         headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
 
         headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
-        pointerOrder.SetActive(false);
+
+        if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
+        {
+            if (closestEnemyTarget != null)
+            {
+                headArm.transform.LookAt(closestEnemyTarget.transform);
+
+                pointerOrder.transform.position = closestEnemyTarget.transform.position;
+
+                pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
+                //pointerSelection.gameObject.SetActive(false);
+                pointerOrder.SetActive(true);
+            }
+            else
+            {
+                pointerOrder.SetActive(false);
+            }
+        }
+        else
+        {
+            pointerOrder.SetActive(false);
+        }
+
     }
 
     private void GUI_SpecialPointer()
@@ -216,7 +247,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
             pointerOrder.transform.position = closestEnemyTarget.transform.position;
 
             pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
-            pointerSelection.enabled = false;
+            pointerSelection.gameObject.SetActive(false);
+            pointerDirection.gameObject.SetActive(false);
             pointerOrder.SetActive(true);
         }
 
@@ -235,7 +267,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
 
                     pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
-                    pointerSelection.enabled = false;
+                    //pointerSelection.enabled = false;
                     pointerOrder.SetActive(true);
                 }
             }
@@ -243,7 +275,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         else
         {
             pointerOrder.SetActive(false);
-            pointerSelection.enabled = true;
+            //pointerSelection.enabled = true;
         }
     }
     #endregion
@@ -480,6 +512,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
 
                     commander.Reclute(closestTarget);
+                    //pointerSelection.Selected();
                     reclute.Play();
                 }
 
@@ -564,19 +597,17 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     Transform target = col.transform;
 
                     //Distance to target
-                    float dstToTarget = Vector3.Distance(transform.position, target.position);
+                    float dstToTarget = Vector3.Distance(miradaposition, target.position);
 
                     //Check if its following already.
                     if (colNPC.AI_GetState() != "Follow")
                     {
                         //If the closestTarget is null he is the closest target.
                         // If the distance is smaller than the distance to the closestTarget.
-                        if (closestTarget == null || dstToTarget < Vector3.Distance(transform.position, miradaposition))
-                        {
-                            closestTarget = colNPC;
-                        }
-                    }
+                        if (closestTarget == null || dstToTarget < Vector3.Distance(miradaposition, target.position))
 
+                            closestTarget = colNPC;
+                    }
                 }
 
                 else if (col.CompareTag("Building"))
@@ -607,10 +638,14 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         }
                     }
                 }
+
+
             }
 
-
         }
+
+
+
 
         // if there is a building in the range, enemies wont be selected for order.
         if (closestEnemyTarget != null)

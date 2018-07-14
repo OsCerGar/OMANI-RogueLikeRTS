@@ -26,7 +26,7 @@ public class Army : MonoBehaviour
 
         for (int i = 0; i < 50; i++)
         {
-            SpriteRenderer pooled = Instantiate(UI, this.transform).GetComponent<SpriteRenderer>();
+            SpriteRenderer pooled = Instantiate(UI, this.transform).GetComponentInChildren<SpriteRenderer>();
             GameUI.Add(pooled);
         }
 
@@ -525,14 +525,13 @@ public class Army : MonoBehaviour
     {
         //Gives a priority circle to the npc that is going to get the order.
 
-
         for (int i = _list.Count - 1; i >= 0; i--)
         {
             if (i == _list.Count - 1)
             {
 
                 GameUI[i].transform.position = _list[i].ui_information.transform.position;
-                GameUI[i].transform.localScale = _list[i].ui_information.transform.localScale;
+                GameUI[i].transform.parent.localScale = _list[i].ui_information.transform.localScale;
                 //Priority, guy who gets the order
                 GameUI[i].color = Color.yellow;
             }
@@ -540,7 +539,7 @@ public class Army : MonoBehaviour
             {
 
                 GameUI[i].transform.position = _list[i].ui_information.transform.position;
-                GameUI[i].transform.localScale = _list[i].ui_information.transform.localScale;
+                GameUI[i].transform.parent.localScale = _list[i].ui_information.transform.localScale;
                 GameUI[i].color = Color.white;
 
             }
@@ -551,10 +550,9 @@ public class Army : MonoBehaviour
 
     public void GUI_ListDisableCircle()
     {
-
-        foreach (SpriteRenderer gui in GameUI)
+        for (int i = 0; i < GameUI.Count; i++)
         {
-            gui.transform.position = new Vector3(1000, 1000, 1000);
+            GameUI[i].transform.parent.transform.position = new Vector3(1000, 1000, 1000);
         }
     }
 

@@ -34,6 +34,17 @@ public class BU_Energy : MonoBehaviour
 
     }
 
+    public bool energyCheck()
+    {
+        if (usedEnergy < energy)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public bool RequestCable(GameObject _position)
     {
         //ifenergyright
@@ -60,7 +71,6 @@ public class BU_Energy : MonoBehaviour
                 cablesOut.Remove(cablesOut[i]);
             }
         }
-
     }
 
     private void LaunchCable(GameObject _position)

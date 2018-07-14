@@ -6,7 +6,7 @@ using EZObjectPools;
 public class PowerManager : MonoBehaviour
 {
 
-    EZObjectPool BasicPower, UpgradedPower, Link;
+    EZObjectPool BasicPower, UpgradedPower, Link, SelectionAnimation;
     GameObject Spawned;
     [SerializeField] bool PressUToBasic, PressIToUpgraded;
     Transform Player;
@@ -28,6 +28,10 @@ public class PowerManager : MonoBehaviour
             if (item.PoolName == "Link")
             {
                 Link = item;
+            }
+            if (item.PoolName == "SelectionAnimation")
+            {
+                SelectionAnimation = item;
             }
         }
     }
@@ -64,6 +68,11 @@ public class PowerManager : MonoBehaviour
     {
         Link.TryGetNextObject(tr.position, tr.rotation, out Spawned);
         Debug.Log("Spawned");
+        return Spawned;
+    }
+    public GameObject SpawnSelectionAnimation(Transform tr)
+    {
+        SelectionAnimation.TryGetNextObject(tr.position, tr.rotation, out Spawned);
         return Spawned;
     }
 }
