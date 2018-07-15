@@ -8,11 +8,11 @@ public class UI_PointerSelection : MonoBehaviour
     [SerializeField]
     GameObject selectionAnimation, firstAnimation;
     [SerializeField]
-    ParticleSystem selectionAnimationParticleSystem, firstAnimationParticleSystem;
+    ParticleSystem selectionAnimationParticleSystem, firstAnimationParticleSystem, fadeAnimationPArticleSystem;
     GameObject anim;
     GameObject arrow, selected;
 
-    bool timer;
+    bool timer, fading;
     float timerAnimation;
     Army commander;
     LookDirectionsAndOrder lookDirections;
@@ -27,7 +27,7 @@ public class UI_PointerSelection : MonoBehaviour
         selected.SetActive(false);
 
         //Play Spawn animation
-
+        firstAnimationParticleSystem.Play();
     }
 
     // Update is called once per frame
@@ -45,12 +45,66 @@ public class UI_PointerSelection : MonoBehaviour
         //If Spawn animation over
         //Arrow SetActive
 
-        //If no longer 
-        if (lookDirections.closestTarget != null)
+        if (firstAnimationParticleSystem.time > 0.29)
         {
-            if (lookDirections.closestTarget != lookDirections.latestClosestTarget)
+            firstAnimationParticleSystem.Pause();
+        }
+
+        //If no longer 
+        if (lookDirections.closestTarget == null)
+        {
+            if (!fading)
             {
-                //Play Spawn animation
+                Debug.Log(0.3f - firstAnimationParticleSystem.time);
+
+                fading = true;
+
+                fadeAnimationPArticleSystem.Simulate(0.3f - firstAnimationParticleSystem.time);
+                fadeAnimationPArticleSystem.Play();
+                Debug.Log(fadeAnimationPArticleSystem.time);
+
+                firstAnimationParticleSystem.Stop();
+                firstAnimationParticleSystem.Clear();
+            }
+
+            else
+            {
+                if (fadeAnimationPArticleSystem.time >= 0.29)
+                {
+                    fading = false;
+                    this.gameObject.SetActive(false);
+                    lookDirections.latestClosestTarget = null;
+                }
+            }
+
+        }
+
+        else
+        {
+            if (lookDirections.UISelectionSpawned != this.gameObject)
+            {
+
+                if (!fading)
+                {
+
+                    fading = true;
+                    fadeAnimationPArticleSystem.Simulate(0.3f - firstAnimationParticleSystem.time);
+                    fadeAnimationPArticleSystem.Play();
+
+                    firstAnimationParticleSystem.Stop();
+                    firstAnimationParticleSystem.Clear();
+
+                }
+                else
+                {
+                    if (fadeAnimationPArticleSystem.time > 0.28)
+                    {
+                        Debug.Log(2);
+                        fading = false;
+                        this.gameObject.SetActive(false);
+                        lookDirections.latestClosestTarget = null;
+                    }
+                }
             }
         }
         #endregion

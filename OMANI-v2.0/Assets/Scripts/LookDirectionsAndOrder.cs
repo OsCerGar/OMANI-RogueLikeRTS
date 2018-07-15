@@ -40,7 +40,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     //NEW UI
     PowerManager UIPool;
-    GameObject UISelectionSpawned;
+    public GameObject UISelectionSpawned;
     UI_PointerDirection pointerDirection;
     UI_PointerSelection pointerSelection;
     GameObject pointerOrder, headArm;
@@ -154,7 +154,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (closestTarget != latestClosestTarget)
             {
                 UISelectionSpawned = UIPool.SpawnSelectionAnimation(closestTarget.ui_information.transform);
-
             }
 
             UISelectionSpawned.transform.position = closestTarget.ui_information.transform.position;
@@ -579,7 +578,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         closestEnemyTarget = null;
 
         //Each collider hitted by the Sphere in the TargetMask
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(miradaposition, mouseRadius, targetMask);
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(miradaposition, 1, targetMask);
         foreach (Collider col in targetsInViewRadius)
         {
             // Save the col as an NPC

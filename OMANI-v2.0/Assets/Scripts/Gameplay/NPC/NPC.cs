@@ -427,7 +427,6 @@ public class NPC : MonoBehaviour
     {
         if (RootMotion)
         {
-            Debug.Log(anim.rootPosition);
             // Update position based on animation movement using navigation surface height
             Vector3 position = anim.rootPosition;
             position.y = Nav.nextPosition.y;
