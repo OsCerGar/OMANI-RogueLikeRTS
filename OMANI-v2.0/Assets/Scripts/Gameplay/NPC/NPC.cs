@@ -291,7 +291,7 @@ public class NPC : MonoBehaviour
         anim.SetBool("SpecialAttack", false);
     }
 
-    public void AttackHit()
+    public virtual void AttackHit()
     {
         Attackzone.SetActive(true);
     }
