@@ -144,8 +144,10 @@ public class LocomotionBrain : MonoBehaviour
         if (Physics.Raycast(new Vector3(tr.position.x, tr.position.y + 10, tr.position.z), -Vector3.up, out hit, layer_mask))
         {
             return new Vector3(hit.point.x, hit.point.y, hit.point.z);
+        }else
+        {
+            return transform.position;
         }
-        return transform.position;
     }
 
     public void SlowMotionValues()
