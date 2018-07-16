@@ -13,9 +13,9 @@ public class TaskReclute : Action
     {
         //Creates a Sphere around himself and makes the target of every Ally the same as his
         var thisTarget = (SharedGameObject)transform.gameObject.GetComponent<BehaviorTree>().GetVariable("Enemy");
-           if (thisTarget.Value.GetComponent<Creep>()!= null)
+           if (thisTarget.Value.GetComponent<SurkaMelee>()!= null)
         {
-            thisTarget.Value.GetComponent<Creep>().SetMaster(transform.gameObject);
+            thisTarget.Value.GetComponent<SurkaMelee>().SetMaster(transform.gameObject);
         }
         
         
