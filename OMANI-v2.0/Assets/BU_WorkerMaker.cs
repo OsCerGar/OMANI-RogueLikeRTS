@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BU_WorkerMaker : BU_UniqueBuilding
 {
-    private BU_Resources_Workers workerMaker;
+    private BU_Building_Action workerMaker;
     private float timeToSpawnWorker = 45, desiredRotation;
     private float[] timeToSpawnWorkerCounter = new float[3];
     List<Image> workerClocks = new List<Image>();
@@ -18,7 +18,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
     {
         base.Start();
 
-        workerMaker = this.transform.Find("WorkerMaker").GetComponent<BU_Resources_Workers>();
+        workerMaker = this.transform.GetComponentInChildren<BU_Building_Action>();
         spinningStructure = this.transform.Find("BU_UI/SpinningStructure").gameObject;
 
         foreach (Image clock in this.transform.Find("BU_UI/Production_Clocks").GetComponentsInChildren<Image>())
@@ -45,6 +45,10 @@ public class BU_WorkerMaker : BU_UniqueBuilding
         SpinningStructure();
     }
 
+    public override void BuildingAction()
+    {
+        MakeWorker();
+    }
 
     void SpinningStructure()
     {

@@ -8,7 +8,7 @@ public class BU_Resources : BU_UniqueBuilding
     //State of the lever.
     public bool state = false;
     private Transform scrapMaker;
-    private BU_Resources_Workers workerMaker;
+    private BU_Building_Action workerMaker;
 
     [SerializeField]
     private GameObject scrap, worker;
@@ -27,7 +27,7 @@ public class BU_Resources : BU_UniqueBuilding
         base.Start();
 
         scrapMaker = this.transform.Find("ScrapMaker");
-        workerMaker = this.transform.Find("WorkerMaker").GetComponent<BU_Resources_Workers>();
+        workerMaker = this.transform.GetComponentInChildren<BU_Building_Action>();
 
         foreach (Image clock in this.transform.Find("BU_UI/Scrap_Clocks").GetComponentsInChildren<Image>())
         {

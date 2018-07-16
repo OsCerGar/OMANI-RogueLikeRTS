@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EZObjectPools;
+using UnityEngine.UI;
 
 public class EnnuiSpawnerManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class EnnuiSpawnerManager : MonoBehaviour
     GameObject Spawned;
     [SerializeField] bool PressUtoSpawn;
     Transform Player;
+
     // Use this for initialization
     void Start()
     {
@@ -26,6 +28,7 @@ public class EnnuiSpawnerManager : MonoBehaviour
                 Ennui = item;
             }
         }
+
     }
     private void Update()
     {

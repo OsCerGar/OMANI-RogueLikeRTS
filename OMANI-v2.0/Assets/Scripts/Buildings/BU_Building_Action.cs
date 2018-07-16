@@ -1,22 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class BU_Resources_Workers : Interactible
+public class BU_Building_Action : Interactible
 {
 
-    BU_WorkerMaker parentResources;
+    BU_UniqueBuilding parentResources;
+    private float timeToSpawnEnnui = 45;
+    private float timeToSpawnEnnuiCounter, biggestClockValue;
+    Image ennuiClocks;
 
     // Use this for initialization
     public override void Start()
     {
         base.Start();
-        parentResources = this.transform.parent.GetComponent<BU_WorkerMaker>();
+        parentResources = this.transform.parent.GetComponent<BU_UniqueBuilding>();
         price = 5;
     }
-    public void StartWorker()
+    public void BuildingAction()
     {
-        parentResources.MakeWorker();
+        parentResources.BuildingAction();
     }
 
     // Update is called once per frame
@@ -32,7 +36,7 @@ public class BU_Resources_Workers : Interactible
 
     public override void ActionCompleted()
     {
-        StartWorker();
+        BuildingAction();
         base.ActionCompleted();
     }
 

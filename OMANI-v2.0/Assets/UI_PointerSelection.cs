@@ -55,13 +55,10 @@ public class UI_PointerSelection : MonoBehaviour
         {
             if (!fading)
             {
-                Debug.Log(0.3f - firstAnimationParticleSystem.time);
-
                 fading = true;
 
                 fadeAnimationPArticleSystem.Simulate(0.3f - firstAnimationParticleSystem.time);
                 fadeAnimationPArticleSystem.Play();
-                Debug.Log(fadeAnimationPArticleSystem.time);
 
                 firstAnimationParticleSystem.Stop();
                 firstAnimationParticleSystem.Clear();
@@ -99,10 +96,8 @@ public class UI_PointerSelection : MonoBehaviour
                 {
                     if (fadeAnimationPArticleSystem.time > 0.28)
                     {
-                        Debug.Log(2);
                         fading = false;
                         this.gameObject.SetActive(false);
-                        lookDirections.latestClosestTarget = null;
                     }
                 }
             }
@@ -120,29 +115,11 @@ public class UI_PointerSelection : MonoBehaviour
             //Should be the npc.
             anim.transform.position = this.transform.position;
         }
-        /*
-        if (timer)
-        {
-            timerAnimation += Time.deltaTime;
-        }
-        */
-        /*
-        if (firstAnimationParticleSystem.IsAlive())
-        {
-            timerAnimation = 0;
-            //Turns dots again.
-            arrow.SetActive(true);
-            anim = null;
-            timer = false;
-        }
-        */
     }
     public void OnTop()
     {
-        Debug.Log("On top");
         arrow.SetActive(false);
         //Debug.Break();
-        //anim = Instantiate(firstAnimation, this.transform.position, this.transform.rotation);
         timer = true;
     }
 

@@ -58,6 +58,11 @@ public class BU_UniqueBuilding : BU
 
     }
 
+    public virtual void BuildingAction()
+    {
+
+    }
+
     public void TurnToRed()
     {
         int redPlugs = 0;
@@ -107,6 +112,5 @@ public class BU_UniqueBuilding : BU
             }
         }
     }
-
 
 }
