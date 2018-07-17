@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LocomotionBrain : MonoBehaviour
 {
-    private float Loop = 0, loopCycle = 100, armSpeed = 2;
+    private float Loop = 0, loopCycle = 50, armSpeed = 3f;
     private int footControler = 0;
 
     public bool ikActive = false;
@@ -35,7 +35,7 @@ public class LocomotionBrain : MonoBehaviour
     void Start()
     {
         playerRB = transform.parent.GetComponentInChildren<CharacterController>();
-        layer_mask = LayerMask.GetMask("Terrain", "Obstacle");
+        layer_mask = LayerMask.GetMask("Terrain");
         RightHandBrain = rightHandPos.GetComponent<ArmBrain>();
         LeftHandBrain = leftHandPos.GetComponent<ArmBrain>();
         RightFootBrain = rightFootPos.GetComponent<ArmBrain>();
@@ -109,9 +109,10 @@ public class LocomotionBrain : MonoBehaviour
         {
             //TODO
         }
-        ArmPositions.transform.position = playerRB.transform.position + playerRB.velocity / armSpeed; //adjust to rB velocity
 
-        var MaxDistance = 2.5f;
+        ArmPositions.transform.position = playerRB.transform.position + playerRB.velocity / armSpeed; //adjust to rB velocity
+        
+        var MaxDistance = 5f;
         if (Vector3.Distance(IKrightHandPos, ShootRaycast(rightHandPos)) > MaxDistance)
         {
             IKrightHandPos = ShootRaycast(rightHandPos);
@@ -132,7 +133,7 @@ public class LocomotionBrain : MonoBehaviour
             IKleftFootPos = ShootRaycast(leftFootPos);
             LeftFootBrain.SetTargetPos(IKleftFootPos);
         }
-
+        
 
 
 
@@ -146,7 +147,7 @@ public class LocomotionBrain : MonoBehaviour
             return new Vector3(hit.point.x, hit.point.y, hit.point.z);
         }else
         {
-            return transform.position;
+            return tr.position;
         }
     }
 
