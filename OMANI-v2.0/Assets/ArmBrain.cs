@@ -31,10 +31,10 @@ public class ArmBrain : MonoBehaviour {
     }
     public void SetTargetPos(Vector3 _targetPos)
     {
-        if (Vector3.Distance(_targetPos,TargetPos) > 1)
+        if (Vector3.Distance(_targetPos,TargetPos) > 1.5)
         {
             startPos = new Vector3(ArmTarget.position.x, ArmTarget.position.y, ArmTarget.position.z);
-               TargetPos = _targetPos;
+            TargetPos = _targetPos;
             moving = true;
             x = 0;
         }

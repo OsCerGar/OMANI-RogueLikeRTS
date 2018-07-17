@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class LocomotionBrain : MonoBehaviour
 {
-    private float Loop = 0, loopCycle = 50, armSpeed = 3f;
+    private float Loop = 0, loopCycle = 100, armSpeed = 3f;
     private int footControler = 0;
 
     public bool ikActive = false;
 
 
+    public Transform Throne = null;
     public Transform lookObj = null;
 
     public Transform rightHandPos = null;
@@ -142,8 +143,8 @@ public class LocomotionBrain : MonoBehaviour
     Vector3 ShootRaycast(Transform tr)
     {
         RaycastHit hit;
-        if (Physics.Raycast(new Vector3(tr.position.x, tr.position.y + 10, tr.position.z), -Vector3.up, out hit, layer_mask))
-        {
+        if (Physics.Raycast(new Vector3(tr.position.x, tr.position.y + 10, tr.position.z), -Vector3.up, out hit))
+        {   
             return new Vector3(hit.point.x, hit.point.y, hit.point.z);
         }else
         {

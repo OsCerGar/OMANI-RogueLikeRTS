@@ -13,7 +13,7 @@ public class CopyTransform : MonoBehaviour {
         }
         if (rotation)
         {
-            transform.rotation = Follow.rotation;
+            transform.rotation = Quaternion.Lerp(transform.rotation, new Quaternion (transform.rotation.x, Follow.rotation.y, transform.rotation.z, transform.rotation.w), Time.unscaledDeltaTime);
 
         }
 	}
