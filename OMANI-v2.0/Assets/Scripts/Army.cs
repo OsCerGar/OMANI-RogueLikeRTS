@@ -11,27 +11,10 @@ public class Army : MonoBehaviour
     [SerializeField]
     private GameObject OrderPositionObject;
 
-
-    //G_UI
-    private List<SpriteRenderer> GameUI = new List<SpriteRenderer>();
-
     [SerializeField]
     GameObject UI;
 
     float alphaTarget = 0.111f;
-
-
-    void Start()
-    {
-
-        for (int i = 0; i < 50; i++)
-        {
-            SpriteRenderer pooled = Instantiate(UI, this.transform).GetComponentInChildren<SpriteRenderer>();
-            GameUI.Add(pooled);
-        }
-
-
-    }
 
     //Adds the boy to the Army and makes it follow the Army commander.
     public void Reclute(NPC barroBoy)
@@ -494,8 +477,8 @@ public class Army : MonoBehaviour
             case "Swordsman":
                 if (swordsmans.Count > 0)
                 {
-                    GUI_ListDisableCircle();
-
+                    GUI_ListDisableCircle(musketeers);
+                    GUI_ListDisableCircle(workers);
                     GUI_ListActivateCircle(swordsmans);
                 }
 
@@ -503,8 +486,8 @@ public class Army : MonoBehaviour
             case "Musketeer":
                 if (musketeers.Count > 0)
                 {
-                    GUI_ListDisableCircle();
-
+                    GUI_ListDisableCircle(swordsmans);
+                    GUI_ListDisableCircle(workers);
                     GUI_ListActivateCircle(musketeers);
 
                 }
@@ -512,15 +495,13 @@ public class Army : MonoBehaviour
             case "Worker":
                 if (workers.Count > 0)
                 {
-                    GUI_ListDisableCircle();
-
+                    GUI_ListDisableCircle(swordsmans);
+                    GUI_ListDisableCircle(musketeers);
                     GUI_ListActivateCircle(workers);
-
                 }
                 break;
         }
     }
-
     private void GUI_ListActivateCircle(List<NPC> _list)
     {
         //Gives a priority circle to the npc that is going to get the order.
@@ -529,30 +510,27 @@ public class Army : MonoBehaviour
         {
             if (i == _list.Count - 1)
             {
-
-                GameUI[i].transform.position = _list[i].ui_information.transform.position;
-                GameUI[i].transform.parent.localScale = _list[i].ui_information.transform.localScale;
-                //Priority, guy who gets the order
-                GameUI[i].color = Color.yellow;
+                _list[i].GUI_Script.ActivateCircle();
+                _list[i].GUI_Script.PriorityMaterial();
             }
             else
             {
 
-                GameUI[i].transform.position = _list[i].ui_information.transform.position;
-                GameUI[i].transform.parent.localScale = _list[i].ui_information.transform.localScale;
-                GameUI[i].color = Color.white;
+                _list[i].GUI_Script.ActivateCircle();
+                _list[i].GUI_Script.RegularMaterial();
 
             }
         }
-
-
     }
-
-    public void GUI_ListDisableCircle()
+    private void GUI_ListDisableCircle(List<NPC> _list)
     {
-        for (int i = 0; i < GameUI.Count; i++)
+        //Gives a priority circle to the npc that is going to get the order.
+
+        for (int i = _list.Count - 1; i >= 0; i--)
         {
-            GameUI[i].transform.parent.transform.position = new Vector3(1000, 1000, 1000);
+            _list[i].GUI_Script.DisableCircle();
+            //Priority, guy who gets the order
+            //GameUI[i].color = Color.yellow;
         }
     }
 

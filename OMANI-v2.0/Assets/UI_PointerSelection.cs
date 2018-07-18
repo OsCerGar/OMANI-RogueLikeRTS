@@ -8,28 +8,27 @@ public class UI_PointerSelection : MonoBehaviour
     [SerializeField]
     GameObject selectionAnimation, firstAnimation;
     [SerializeField]
-    ParticleSystem selectionAnimationParticleSystem, firstAnimationParticleSystem, fadeAnimationPArticleSystem;
-    GameObject anim;
-    GameObject arrow, selected;
+    public ParticleSystem selectionAnimationParticleSystem, firstAnimationParticleSystem, fadeAnimationPArticleSystem;
+    [SerializeField]
+    private ParticleSystemRenderer selectionAnimationParticleRenderer;
+    [SerializeField]
+    Material PrioritySelectedMaterial, regularMaterial;
 
-    bool timer, fading;
+    bool timer, fading, selected;
     float timerAnimation;
     Army commander;
     LookDirectionsAndOrder lookDirections;
+
     // Use this for initialization
     void OnEnable()
     {
-        arrow = this.transform.Find("SelectionArrow").gameObject;
-        selected = this.transform.Find("SelectedCircle").gameObject;
         commander = FindObjectOfType<Army>();
         lookDirections = FindObjectOfType<LookDirectionsAndOrder>();
-        arrow.SetActive(false);
-        selected.SetActive(false);
 
         //Play Spawn animation
         firstAnimationParticleSystem.Play();
-    }
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -39,101 +38,126 @@ public class UI_PointerSelection : MonoBehaviour
 
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = rotation;
+        #region CircleAnimation
 
-
-        #region SpawnAnimation
-        //If Spawn animation over
-        //Arrow SetActive
-
-        if (firstAnimationParticleSystem.time > 0.29)
+        if (selected)
         {
-            firstAnimationParticleSystem.Pause();
-        }
-
-        //If no longer 
-        if (lookDirections.closestTarget == null)
-        {
-            if (!fading)
+            if (selectionAnimationParticleSystem.time >= 0.29)
             {
-                fading = true;
-
-                fadeAnimationPArticleSystem.Simulate(0.3f - firstAnimationParticleSystem.time);
-                fadeAnimationPArticleSystem.Play();
-
-                firstAnimationParticleSystem.Stop();
-                firstAnimationParticleSystem.Clear();
+                selectionAnimationParticleSystem.Pause();
             }
-
-            else
-            {
-                if (fadeAnimationPArticleSystem.time >= 0.29)
-                {
-                    fading = false;
-                    this.gameObject.SetActive(false);
-                    lookDirections.latestClosestTarget = null;
-                }
-            }
-
         }
-
         else
         {
-            if (lookDirections.UISelectionSpawned != this.gameObject)
+            #region SpawnAnimation
+            //If Spawn animation over
+            //Arrow SetActive
+            if (firstAnimationParticleSystem.time > 0.29)
             {
-
+                firstAnimationParticleSystem.Pause();
+            }
+            //If no longer 
+            if (lookDirections.closestTarget == null)
+            {
                 if (!fading)
                 {
-
                     fading = true;
+
                     fadeAnimationPArticleSystem.Simulate(0.3f - firstAnimationParticleSystem.time);
                     fadeAnimationPArticleSystem.Play();
 
                     firstAnimationParticleSystem.Stop();
                     firstAnimationParticleSystem.Clear();
-
                 }
+
                 else
                 {
-                    if (fadeAnimationPArticleSystem.time > 0.28)
+                    if (fadeAnimationPArticleSystem.time >= 0.29)
                     {
                         fading = false;
                         this.gameObject.SetActive(false);
+                        lookDirections.latestClosestTarget = null;
+                    }
+                }
+
+            }
+            else
+            {
+                if (lookDirections.UISelectionSpawned != this.gameObject)
+                {
+
+                    if (!fading)
+                    {
+
+                        fading = true;
+                        fadeAnimationPArticleSystem.Simulate(0.3f - firstAnimationParticleSystem.time);
+                        fadeAnimationPArticleSystem.Play();
+
+                        firstAnimationParticleSystem.Stop();
+                        firstAnimationParticleSystem.Clear();
+
+                    }
+                    else
+                    {
+                        if (fadeAnimationPArticleSystem.time > 0.28)
+                        {
+                            fading = false;
+                            this.gameObject.SetActive(false);
+                        }
                     }
                 }
             }
         }
         #endregion
 
+
+        #endregion
+
         //If no longer the selectable unit, start dissapearing
         //If Spawnanimation is still alive, get time and start dissapearing animation
         //If Spawnanimation is over, Start dissapearing from full.
-
-        if (anim != null)
-        {
-            anim.transform.LookAt(commander.transform);
-
-            //Should be the npc.
-            anim.transform.position = this.transform.position;
-        }
     }
     public void OnTop()
     {
-        arrow.SetActive(false);
-        //Debug.Break();
-        timer = true;
+    }
+    public void ActivateCircle()
+    {
+        if (!selected)
+        {
+            //Play Spawn animation
+            selectionAnimationParticleSystem.Play();
+
+            //
+            firstAnimationParticleSystem.Stop();
+            firstAnimationParticleSystem.Clear();
+            selected = true;
+        }
+
+    }
+
+    public void DisableCircle()
+    {
+        if (selected)
+        {
+            selected = false;
+            fading = false;
+            lookDirections.latestClosestTarget = null;
+            this.gameObject.SetActive(false);
+        }
     }
 
     public void NotOnTop()
     {
-        arrow.SetActive(false);
         timer = true;
     }
 
-    public void Selected()
+    public void PriorityMaterial()
     {
-        arrow.SetActive(false);
-        anim = Instantiate(selectionAnimation, this.transform.position, this.transform.rotation);
+        selectionAnimationParticleRenderer.material = PrioritySelectedMaterial;
     }
 
-
+    public void RegularMaterial()
+    {
+        selectionAnimationParticleRenderer.material = regularMaterial;
+    }
 }

@@ -68,7 +68,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
         headArm = this.transform.Find("HeadArm").gameObject;
     }
-
     void Update()
     {
         // LOOK
@@ -100,7 +99,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         SelectedType();
         Order();
     }
-
     private void LateUpdate()
     {
         UI_Hologram();
@@ -146,18 +144,15 @@ public class LookDirectionsAndOrder : MonoBehaviour
             GUI_MousePointer();
         }
     }
-
     private void GUI_SelectionUI()
     {
         if (closestTarget != null)
         {
             if (closestTarget != latestClosestTarget)
             {
-                UISelectionSpawned = UIPool.SpawnSelectionAnimation(closestTarget.ui_information.transform);
+                closestTarget.GUI_Activate();
+                UISelectionSpawned = closestTarget.GUI;
             }
-
-            UISelectionSpawned.transform.position = closestTarget.ui_information.transform.position;
-            UISelectionSpawned.transform.localScale = closestTarget.ui_information.transform.localScale;
 
             latestClosestTarget = closestTarget;
         }
@@ -174,7 +169,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             //pointerSelection.NotOnTop();
         }
     }
-
     private void GUI_RegularPointer()
     {
         pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
@@ -186,7 +180,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
         pointerOrder.SetActive(false);
     }
-
     private void GUI_MousePointer()
     {
         pointerDirection.transform.position = miradaposition;
@@ -221,7 +214,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
 
     }
-
     private void GUI_SpecialPointer()
     {
         pointerDirection.transform.position = miradaposition;
@@ -234,7 +226,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         //pointerOrder.transform.position = this.transform.position;
     }
-
     private void GUI_BUOrder()
     {
         if (closestEnemyTarget != null)
@@ -279,7 +270,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
     #endregion
     #endregion
-
     private void SelectedType()
     {
         if (selectedTypeList.Count > 0)
@@ -293,7 +283,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             {
                 selectedTypeInt = selectedTypeList.Count - 1;
             }
-
             if (Input.GetAxis("Mouse ScrollWheel") > 0f || Input.GetKeyDown("joystick button 7")) // forward
             {
                 if (selectedTypeInt + 1 > selectedTypeList.Count - 1)
@@ -491,11 +480,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             #endregion
 
         }
-
-        else
-        {
-            commander.GUI_ListDisableCircle();
-        }
         #endregion
         #region Reclute
         if (Input.GetKey(KeyCode.LeftShift) == false)
@@ -550,7 +534,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
         #endregion
     }
-
     #region FindVisibleTargets
     IEnumerator FindTargetsWithDelay(float delay)
     {
@@ -752,7 +735,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
     }
     #endregion
-
     void LookAt(float _hrj, float _vrj)
     {
         Cursor.visible = false;
@@ -841,7 +823,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             transform.LookAt(miradaposition);
         }
     }
-
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {
 
@@ -852,7 +833,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

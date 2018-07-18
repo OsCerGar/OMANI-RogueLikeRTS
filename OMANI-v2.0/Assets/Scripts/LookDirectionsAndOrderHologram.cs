@@ -456,11 +456,6 @@ public class LookDirectionsAndOrderHologram : MonoBehaviour
             #endregion
 
         }
-
-        else
-        {
-            commander.GUI_ListDisableCircle();
-        }
         #endregion
         #region Reclute
 

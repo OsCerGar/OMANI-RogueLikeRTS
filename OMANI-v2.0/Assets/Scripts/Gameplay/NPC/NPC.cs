@@ -42,9 +42,13 @@ public class NPC : MonoBehaviour
 
     public bool RootMotion;
     public int peopl;
+    [SerializeField]
+    public GameObject GUI;
+    public UI_PointerSelection GUI_Script;
+
     [SerializeField] ParticleSystem[] hitEffects;
 
-    
+
     #endregion
 
     #region GETTERSETTERS
@@ -116,6 +120,17 @@ public class NPC : MonoBehaviour
     }
     #endregion
 
+
+
+    public void GUI_Activate()
+    {
+        GUI.SetActive(true);
+    }
+    public void GUI_Disable()
+    {
+        GUI.SetActive(false);
+    }
+
     // Use this for initialization
     public virtual void Start()
     {
@@ -126,7 +141,8 @@ public class NPC : MonoBehaviour
         circle = this.gameObject.GetComponentInChildren<SpriteRenderer>();
         if (this.transform.Find("UI") != null)
         {
-
+            GUI = this.transform.Find("UI/SelectionAnimationParent").gameObject;
+            GUI_Script = this.transform.Find("UI/SelectionAnimationParent").GetComponent<UI_PointerSelection>();
             ui_information = this.transform.Find("UI").gameObject;
 
         }
@@ -135,6 +151,7 @@ public class NPC : MonoBehaviour
         {
             Attackzone = transform.FindDeepChild("AttackZone").gameObject;
         }
+
 
         startLife = life;
         //Nav.updateRotation = true;
@@ -166,7 +183,7 @@ public class NPC : MonoBehaviour
                 AI_SetEnemy(null);
             }
         }
-        
+
 
         //Animspeed conected to navmesh speed 
         if (anim != null)
@@ -177,7 +194,8 @@ public class NPC : MonoBehaviour
             }
         }
 
-
+        //DisablesCircle when given an order.
+        if (AI_GetState() != "Follow") { GUI_Script.DisableCircle(); }
 
     }
     //take damage with knockBack
@@ -197,10 +215,10 @@ public class NPC : MonoBehaviour
             {
                 if (knockback)
                 {
-                        disabled = true;
-                        disabledTime = knockbackTime;
-                        anim.SetBool("KnockBack", true);
-                        perpetrator = _perpetrator;
+                    disabled = true;
+                    disabledTime = knockbackTime;
+                    anim.SetBool("KnockBack", true);
+                    perpetrator = _perpetrator;
                 }
             }
 
@@ -422,7 +440,7 @@ public class NPC : MonoBehaviour
         }
 
     }
-    
+
     void OnAnimatorMove()
     {
         if (RootMotion)
@@ -436,7 +454,7 @@ public class NPC : MonoBehaviour
 
 
     }
-    
+
 
 
 }

@@ -59,7 +59,6 @@ public class Robot : NPC
                 }
             }
         }
-
     }
 
     public void Resurrect()
