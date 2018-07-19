@@ -240,10 +240,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //If building close and Worker selected.
         else if (closestBUTarget != null)
         {
-            Debug.Log("Jejejeje 1");
             if (closestBUTarget.workerInside == false || selectedTypeList[selectedTypeInt] == "Worker")
             {
-                Debug.Log("Jejejeje 2");
                 // UI ENABLED
                 closestBUTarget.GUI_Enabled();
                 latestclosestBUTarget = closestBUTarget;

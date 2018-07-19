@@ -10,7 +10,6 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
     private float timeToSpawnWeapons = 45, desiredRotation;
     private float[] timeToSpawnWorkerCounter = new float[3];
     List<Image> weaponsClock = new List<Image>();
-    private bool[] weaponsReady = new bool[3];
 
     private List<BU_Cabin> weaponsCabins = new List<BU_Cabin>();
 
@@ -65,9 +64,9 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
             //Used to see how many workers are going to be build.
             int calcTotalEnergy = totalEnergy;
 
-            for (int i = 0; i < weaponsReady.Length; i++)
+            for (int i = 0; i < weaponsCabins.Count; i++)
             {
-                if (calcTotalEnergy > 0 && weaponsReady[i] == false)
+                if (calcTotalEnergy > 0 && weaponsCabins[i].ready == false)
                 {
                     if (timeToSpawnWorkerCounter[i] < timeToSpawnWeapons)
                     {
@@ -77,7 +76,7 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
                     }
                     if (timeToSpawnWorkerCounter[i] > timeToSpawnWeapons)
                     {
-                        weaponsReady[i] = true;
+                        weaponsCabins[i].CabinReady();
                         WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWeapons, i, Color.cyan);
                     }
                     calcTotalEnergy -= 1;
@@ -90,11 +89,10 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
     {
         for (int i = 0; i < 3; i++)
         {
-            if (weaponsReady[i])
+            if (weaponsCabins[i].workerInside)
             {
-                //Should be a pool later on
-                Instantiate(weapons, weaponsCabins[i].transform.position, Quaternion.identity);
-                weaponsReady[i] = false;
+                weaponsCabins[i].TurnWorker();
+                weaponsCabins[i].CabinNotReady();
                 timeToSpawnWorkerCounter[i] = 0;
                 //restart
                 biggestClockValue = 0;
