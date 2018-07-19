@@ -11,7 +11,9 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
     private float[] timeToSpawnWorkerCounter = new float[3];
     List<Image> weaponsClock = new List<Image>();
     private bool[] weaponsReady = new bool[3];
-    private List<GameObject> weaponsPositions = new List<GameObject>();
+
+    private List<BU_Cabin> weaponsCabins = new List<BU_Cabin>();
+
     [SerializeField]
     private GameObject weapons;
     private GameObject spinningStructure;
@@ -22,9 +24,9 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
         base.Start();
 
         workerMaker = this.transform.GetComponentInChildren<BU_Building_Action>();
-        foreach (Transform child in this.transform.Find("WeaponsPosition"))
+        foreach (BU_Cabin child in this.transform.Find("Cabins").gameObject.GetComponentsInChildren<BU_Cabin>())
         {
-            weaponsPositions.Add(child.gameObject);
+            weaponsCabins.Add(child);
         }
 
         foreach (Image clock in this.transform.Find("BU_UI/Production_Clocks").GetComponentsInChildren<Image>())
@@ -91,7 +93,7 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
             if (weaponsReady[i])
             {
                 //Should be a pool later on
-                Instantiate(weapons, weaponsPositions[i].transform.position, Quaternion.identity);
+                Instantiate(weapons, weaponsCabins[i].transform.position, Quaternion.identity);
                 weaponsReady[i] = false;
                 timeToSpawnWorkerCounter[i] = 0;
                 //restart

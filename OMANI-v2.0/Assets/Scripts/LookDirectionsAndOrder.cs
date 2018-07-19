@@ -23,7 +23,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     //Gameplay
     public Army commander;
     public NPC closestTarget, closestEnemyTarget, latestClosestTarget;
-    public BU closestBUTarget;
+    public BU_Cabin closestBUTarget, latestclosestBUTarget;
 
     public LayerMask targetMask, obstacleMask;
     private int terrain = 1 << 8;
@@ -142,6 +142,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
         else
         {
             GUI_MousePointer();
+
+            if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
+            {
+                GUI_BUOrder();
+            }
+
         }
     }
     private void GUI_SelectionUI()
@@ -155,13 +161,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             }
 
             latestClosestTarget = closestTarget;
-        }
-
-        else if (closestBUTarget != null && closestBUTarget.numberOfWorkers > 0)
-        {
-            //pointerSelection.transform.position = closestBUTarget.ui_information.transform.position;
-            //pointerSelection.transform.localScale = closestBUTarget.ui_information.transform.localScale;
-
         }
 
         else
@@ -220,11 +219,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
 
         headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
-        //point order material and position reset.
-
-        //Doesnt return, for now.
-
-        //pointerOrder.transform.position = this.transform.position;
     }
     private void GUI_BUOrder()
     {
@@ -246,26 +240,21 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //If building close and Worker selected.
         else if (closestBUTarget != null)
         {
-            if (closestBUTarget.notOnlyWorkers == true || selectedTypeList[selectedTypeInt] == "Worker")
+            Debug.Log("Jejejeje 1");
+            if (closestBUTarget.workerInside == false || selectedTypeList[selectedTypeInt] == "Worker")
             {
-                if (closestBUTarget.ui_information != null)
-                {
-                    pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestBUTarget.transform.position, 0.4f);
-
-                    headArm.transform.LookAt(closestBUTarget.transform);
-
-                    pointerOrder.transform.position = closestBUTarget.ui_information.transform.position;
-
-                    pointerOrder.transform.localScale = closestBUTarget.ui_information.transform.localScale;
-                    //pointerSelection.enabled = false;
-                    pointerOrder.SetActive(true);
-                }
+                Debug.Log("Jejejeje 2");
+                // UI ENABLED
+                closestBUTarget.GUI_Enabled();
+                latestclosestBUTarget = closestBUTarget;
             }
         }
         else
         {
-            pointerOrder.SetActive(false);
-            //pointerSelection.enabled = true;
+            if (latestclosestBUTarget != null)
+            {
+                latestclosestBUTarget.GUI_Disabled();
+            }
         }
     }
     #endregion
@@ -498,12 +487,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     //pointerSelection.Selected();
                     reclute.Play();
                 }
-
-                else if (closestBUTarget != null)
-                {
-                    closestBUTarget.RemoveWorker();
-                    reclute.Play();
-                }
             }
 
             if (Input.GetKey("joystick button 4") || Input.GetMouseButton(0))
@@ -523,11 +506,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                         commander.Reclute(closestTarget);
 
-                    }
-
-                    else if (closestBUTarget != null)
-                    {
-                        closestBUTarget.RemoveWorker();
                     }
                 }
             }
@@ -567,7 +545,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             // Save the col as an NPC
             NPC colNPC;
             NPC colEnemy;
-            BU colBU;
+            BU_Cabin colBU;
 
             if (col.gameObject != commander.gameObject)
             {
@@ -592,9 +570,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
                 }
 
-                else if (col.CompareTag("Building"))
+                else if (col.CompareTag("Interactible"))
                 {
-                    colBU = col.GetComponent<BU>();
+                    colBU = col.GetComponent<BU_Cabin>();
+
                     if (colBU != null)
                     {
                         closestBUTarget = colBU;
@@ -648,7 +627,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             // Save the col as an NPC
             NPC colNPC;
             NPC colEnemy;
-            BU colBU;
+            BU_Cabin colBU;
 
             if (col.gameObject != commander.gameObject)
             {
@@ -680,9 +659,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
                 }
 
-                else if (col.CompareTag("Building"))
+                else if (col.CompareTag("Interactible"))
                 {
-                    colBU = col.GetComponent<BU>();
+                    colBU = col.GetComponent<BU_Cabin>();
                     if (colBU != null)
                     {
                         Transform target = col.transform;
