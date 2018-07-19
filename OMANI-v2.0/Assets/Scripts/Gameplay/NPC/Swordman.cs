@@ -21,10 +21,6 @@ public class Swordman : NPC
         Die();
         anim.applyRootMotion = false;
     }
-    public void AttackHit()
-    {
-       transform.Find("AttackZone").gameObject.SetActive(true);
-    }
     public void Enrage()
     {
         RageElectricity.Play();
