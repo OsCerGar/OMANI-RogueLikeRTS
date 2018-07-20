@@ -6,8 +6,8 @@ public class LocomotionBrain : MonoBehaviour
 {
     private float Loop = 0, loopCycle = 100, armSpeed = 3f;
     private int footControler = 0;
-
     public bool ikActive = false;
+    public LayerMask mask ;
 
 
     public Transform Throne = null;
@@ -113,7 +113,7 @@ public class LocomotionBrain : MonoBehaviour
 
         ArmPositions.transform.position = playerRB.transform.position + playerRB.velocity / armSpeed; //adjust to rB velocity
         
-        var MaxDistance = 5f;
+        var MaxDistance = 3f;
         if (Vector3.Distance(IKrightHandPos, ShootRaycast(rightHandPos)) > MaxDistance)
         {
             IKrightHandPos = ShootRaycast(rightHandPos);
@@ -143,9 +143,9 @@ public class LocomotionBrain : MonoBehaviour
     Vector3 ShootRaycast(Transform tr)
     {
         RaycastHit hit;
-        if (Physics.Raycast(new Vector3(tr.position.x, tr.position.y + 10, tr.position.z), -Vector3.up, out hit))
+        if (Physics.Raycast(new Vector3(tr.position.x, tr.position.y + 10, tr.position.z), -Vector3.up, out hit, 100, mask.value))
         {   
-            return new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            return new Vector3(hit.point.x, Mathf.Clamp(hit.point.y,transform.position.y-5, transform.position.y - 1), hit.point.z);
         }else
         {
             return tr.position;

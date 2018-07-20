@@ -19,7 +19,7 @@ public class ArmBrain : MonoBehaviour {
     {
         if (moving)
         {
-            x += (Time.unscaledDeltaTime * 3f);
+            x += (Time.unscaledDeltaTime * 4f);
             ArmTarget.position = MathParabola.Parabola(startPos, TargetPos, 1f,  x);
             if (x>0.95)
             {
@@ -31,7 +31,7 @@ public class ArmBrain : MonoBehaviour {
     }
     public void SetTargetPos(Vector3 _targetPos)
     {
-        if (Vector3.Distance(_targetPos,TargetPos) > 1.5)
+        if (Vector3.Distance(_targetPos,TargetPos) > 1)
         {
             startPos = new Vector3(ArmTarget.position.x, ArmTarget.position.y, ArmTarget.position.z);
             TargetPos = _targetPos;

@@ -33,7 +33,10 @@ public class Electric : MonoBehaviour
 
     private void Update()
     {
-        CalculatePoints();
+        if (transformPointA != null && transformPointB != null)
+        {
+            CalculatePoints();
+        }
     }
 
     private void CalculatePoints()
