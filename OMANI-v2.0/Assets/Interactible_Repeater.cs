@@ -29,6 +29,8 @@ public class Interactible_Repeater : Interactible
             if (!energy)
             {
                 energyBU.pullBackCable(top.transform);
+                //DestroyLink();
+                StopWorking();
             }
         }
     }
@@ -54,9 +56,11 @@ public class Interactible_Repeater : Interactible
         else
         {
             StopWorking();
+            DestroyLink();
             energy = false;
         }
     }
+
     public override void ActionCompleted()
     {
 

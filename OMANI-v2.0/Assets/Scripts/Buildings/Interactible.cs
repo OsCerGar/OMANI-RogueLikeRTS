@@ -6,11 +6,11 @@ public class Interactible : MonoBehaviour
 {
 
     Rigidbody myRigidBody;
-    bool hasRigid = false, link = false;
+    public bool hasRigid = false, link = false;
     public float price, powerReduced = 0, linkPrice = 1;
     Powers powers = null;
     PowerManager powerManager;
-    Link linky;
+    public Link linky;
 
     // Use this for initialization
     public virtual void Start()
@@ -61,7 +61,7 @@ public class Interactible : MonoBehaviour
         powerReduced = 0;
     }
 
-    private void CreateLink()
+    public void CreateLink()
     {
         //CreatesLink
         linky = powerManager.CreateLink(this.transform, powers).GetComponent<Link>();
@@ -71,7 +71,7 @@ public class Interactible : MonoBehaviour
         link = true;
     }
 
-    private void DestroyLink()
+    public void DestroyLink()
     {
         linky.Failed();
         link = false;

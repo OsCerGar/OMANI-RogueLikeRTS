@@ -46,11 +46,11 @@ public class BU_UniqueBuilding : BU
         {
             if (requiredEnergy > totalEnergy)
             {
-                TurnToRed();
+                //TurnToRed();
             }
             else
             {
-                TurnToWhite();
+                //TurnToWhite();
             }
         }
 
