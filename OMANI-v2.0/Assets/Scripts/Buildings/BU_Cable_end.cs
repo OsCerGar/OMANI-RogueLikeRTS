@@ -86,8 +86,6 @@ public class BU_Cable_end : Interactible
                 collectingStarters = false;
                 launching = false;
 
-                //Removes energy from being used at the building.
-                buEnergy.usedEnergy--;
                 spring.maxDistance = maxDistance;
 
                 this.transform.parent.gameObject.SetActive(false);

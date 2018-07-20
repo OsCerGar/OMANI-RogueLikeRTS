@@ -24,11 +24,18 @@ public class Interactible_Repeater : Interactible
     public override void Update()
     {
         base.Update();
+        if (energyBU != null)
+        {
+            if (!energy)
+            {
+                energyBU.pullBackCable(top.transform);
+            }
+        }
     }
 
     public override void Action()
     {
-        if (energy == false)
+        if (!energy)
         {
             if (energyBU != null)
             {

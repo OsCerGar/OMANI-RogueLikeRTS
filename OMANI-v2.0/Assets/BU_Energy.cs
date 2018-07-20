@@ -7,18 +7,19 @@ public class BU_Energy : MonoBehaviour
 {
     public int energy = 3, usedEnergy = 0;
 
-    public MeshRenderer[] buttons;
-
     GameObject top;
     EZObjectPool cables;
     GameObject Spawned;
 
     List<CableComponent> cablesOut = new List<CableComponent>();
+    public MeshRenderer[] buttons;
 
     // Use this for initialization
     void Start()
     {
         top = this.transform.Find("Top").gameObject;
+        // Searches buttons
+        buttons = this.transform.Find("Buttons").GetComponentsInChildren<MeshRenderer>();
 
         // Searches buttons
         //buttons = this.transform.Find("Office").GetChild(0).GetComponentsInChildren<MeshRenderer>();
@@ -48,9 +49,10 @@ public class BU_Energy : MonoBehaviour
     public bool RequestCable(GameObject _position)
     {
         //ifenergyright
-        if (usedEnergy < energy)
+        if (energyCheck())
         {
             LaunchCable(_position);
+            buttons[usedEnergy].material.color = Color.yellow;
             usedEnergy++;
             return true;
         }
@@ -68,9 +70,17 @@ public class BU_Energy : MonoBehaviour
             if (cablesOut[i].cableEnd.destination == repeater)
             {
                 cablesOut[i].cableEnd.PullBack();
+                cablePulled();
                 cablesOut.Remove(cablesOut[i]);
             }
         }
+    }
+
+    public void cablePulled()
+    {
+        //Removes energy from being used at the building.
+        usedEnergy--;
+        buttons[usedEnergy].material.color = Color.white;
     }
 
     private void LaunchCable(GameObject _position)
