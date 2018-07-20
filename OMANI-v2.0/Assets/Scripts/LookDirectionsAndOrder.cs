@@ -39,7 +39,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public bool playingOnController;
 
     //NEW UI
-    PowerManager UIPool;
     public GameObject UISelectionSpawned;
     UI_PointerDirection pointerDirection;
     UI_PointerSelection pointerSelection;
@@ -57,13 +56,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
     void Start()
     {
         commander = FindObjectOfType<Army>();
-        UIPool = FindObjectOfType<PowerManager>();
         reclute = this.GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
 
 
         pointerDirection = this.transform.Find("PointerDirection").GetComponent<UI_PointerDirection>();
-        //pointerSelection = this.transform.Find("PointerSelection").GetComponent<UI_PointerSelection>();
 
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
         headArm = this.transform.Find("HeadArm").gameObject;
@@ -312,7 +309,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (Input.GetKeyDown("joystick button 0") || Input.GetMouseButtonDown(2))
             {
                 commander.Order(selectedTypeList[selectedTypeInt], this.transform.position);
-
             }
 
             #region Direct Order

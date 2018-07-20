@@ -59,6 +59,15 @@ public class Robot : NPC
                 }
             }
         }
+
+        //DisablesCircle when given an order.
+
+
+        if (state != "Alive")
+        {
+            Debug.Log("Dead");
+            GUI_Script.DisableCircle();
+        }
     }
 
     public void Resurrect()

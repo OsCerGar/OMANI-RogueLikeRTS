@@ -197,14 +197,6 @@ public class NPC : MonoBehaviour
             }
         }
 
-        //DisablesCircle when given an order.
-        if (this.GetType() == typeof(Robot))
-        {
-            if (state != "Alive"){GUI_Script.DisableCircle();}
-
-            if (AI_GetState() != "Follow") { GUI_Script.DisableCircle(); }
-        }
-
     }
     //take damage with knockBack
     public void TakeDamage(int damage, bool knockback, float knockbackTime, Transform _perpetrator)
@@ -376,7 +368,6 @@ public class NPC : MonoBehaviour
     public virtual string AI_GetState()
     {
         var stateVariable = (SharedString)AI.GetVariable("State");
-        Debug.Log(stateVariable.Value);
         return stateVariable.Value;
     }
     public virtual void AI_SetEnemy(GameObject target)

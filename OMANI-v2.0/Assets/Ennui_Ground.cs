@@ -28,14 +28,12 @@ public class Ennui_Ground : Interactible
         {
             timer = 0;
             this.transform.gameObject.SetActive(false);
-            Debug.Log("Disabled by time");
         }
 
     }
     public void Action(Powers _powerPool)
     {
         _powerPool.addPower(energy);
-        Debug.Log("PowerDone");
         this.transform.gameObject.SetActive(false);
     }
 }

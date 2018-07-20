@@ -14,6 +14,7 @@ public class UI_PointerSelection : MonoBehaviour
     [SerializeField]
     Material PrioritySelectedMaterial, regularMaterial;
 
+    [SerializeField]
     bool timer, fading, selected;
     float timerAnimation;
     Army commander;
@@ -39,7 +40,6 @@ public class UI_PointerSelection : MonoBehaviour
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = rotation;
         #region CircleAnimation
-
         if (selected)
         {
             if (selectionAnimationParticleSystem.time >= 0.29)
@@ -88,7 +88,6 @@ public class UI_PointerSelection : MonoBehaviour
 
                     if (!fading)
                     {
-
                         fading = true;
                         fadeAnimationPArticleSystem.Simulate(0.3f - firstAnimationParticleSystem.time);
                         fadeAnimationPArticleSystem.Play();
@@ -117,9 +116,6 @@ public class UI_PointerSelection : MonoBehaviour
         //If Spawnanimation is still alive, get time and start dissapearing animation
         //If Spawnanimation is over, Start dissapearing from full.
     }
-    public void OnTop()
-    {
-    }
     public void ActivateCircle()
     {
         if (!selected)
@@ -127,7 +123,6 @@ public class UI_PointerSelection : MonoBehaviour
             //Play Spawn animation
             selectionAnimationParticleSystem.Play();
 
-            //
             firstAnimationParticleSystem.Stop();
             firstAnimationParticleSystem.Clear();
             selected = true;

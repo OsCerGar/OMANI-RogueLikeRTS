@@ -130,6 +130,7 @@ public class Army : MonoBehaviour
                     orderPositionVar.transform.position = orderPosition;
 
                     barroBoy = swordsmans[swordsmans.Count - 1];
+                    barroBoy.GUI_Script.DisableCircle();
                     swordsmans.Remove(barroBoy);
 
                     orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
@@ -144,6 +145,7 @@ public class Army : MonoBehaviour
                     orderPositionVar.transform.position = orderPosition;
 
                     barroBoy = archers[archers.Count - 1];
+                    barroBoy.GUI_Script.DisableCircle();
                     archers.Remove(barroBoy);
 
                     orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
@@ -158,6 +160,7 @@ public class Army : MonoBehaviour
                     orderPositionVar.transform.position = orderPosition;
 
                     barroBoy = musketeers[musketeers.Count - 1];
+                    barroBoy.GUI_Script.DisableCircle();
                     musketeers.Remove(barroBoy);
 
                     orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
@@ -173,6 +176,7 @@ public class Army : MonoBehaviour
                     orderPositionVar.transform.position = orderPosition;
 
                     barroBoy = workers[workers.Count - 1];
+                    barroBoy.GUI_Script.DisableCircle();
                     workers.Remove(barroBoy);
 
                     orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
@@ -189,6 +193,7 @@ public class Army : MonoBehaviour
                     orderPositionVar.transform.position = orderPosition;
 
                     barroBoy = shieldmans[shieldmans.Count - 1];
+                    barroBoy.GUI_Script.DisableCircle();
                     shieldmans.Remove(barroBoy);
 
                     orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
@@ -203,6 +208,7 @@ public class Army : MonoBehaviour
                     orderPositionVar.transform.position = orderPosition;
 
                     barroBoy = rogues[rogues.Count - 1];
+                    barroBoy.GUI_Script.DisableCircle();
                     rogues.Remove(barroBoy);
 
                     orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
@@ -222,6 +228,7 @@ public class Army : MonoBehaviour
                 {
                     barroBoy = swordsmans[swordsmans.Count - 1];
                     swordsmans.Remove(barroBoy);
+                    barroBoy.GUI_Script.DisableCircle();
 
                     barroBoy.Order(orderPosition);
                 }
@@ -233,6 +240,7 @@ public class Army : MonoBehaviour
 
                     barroBoy = archers[archers.Count - 1];
                     archers.Remove(barroBoy);
+                    barroBoy.GUI_Script.DisableCircle();
 
                     barroBoy.Order(orderPosition);
 
@@ -244,6 +252,7 @@ public class Army : MonoBehaviour
 
                     barroBoy = workers[workers.Count - 1];
                     workers.Remove(barroBoy);
+                    barroBoy.GUI_Script.DisableCircle();
 
                     barroBoy.Order(orderPosition);
 
@@ -255,6 +264,7 @@ public class Army : MonoBehaviour
 
                     barroBoy = musketeers[musketeers.Count - 1];
                     musketeers.Remove(barroBoy);
+                    barroBoy.GUI_Script.DisableCircle();
 
                     barroBoy.Order(orderPosition);
 
@@ -268,6 +278,7 @@ public class Army : MonoBehaviour
 
                     barroBoy = shieldmans[shieldmans.Count - 1];
                     shieldmans.Remove(barroBoy);
+                    barroBoy.GUI_Script.DisableCircle();
 
                     barroBoy.Order(orderPosition);
 
@@ -279,6 +290,7 @@ public class Army : MonoBehaviour
 
                     barroBoy = rogues[rogues.Count - 1];
                     rogues.Remove(barroBoy);
+                    barroBoy.GUI_Script.DisableCircle();
 
                     barroBoy.Order(orderPosition);
 
@@ -510,27 +522,24 @@ public class Army : MonoBehaviour
         {
             if (i == _list.Count - 1)
             {
+                _list[i].GUI_Script.gameObject.SetActive(true);
                 _list[i].GUI_Script.ActivateCircle();
                 _list[i].GUI_Script.PriorityMaterial();
             }
             else
             {
-
+                _list[i].GUI_Script.gameObject.SetActive(true);
                 _list[i].GUI_Script.ActivateCircle();
                 _list[i].GUI_Script.RegularMaterial();
-
             }
         }
     }
-    private void GUI_ListDisableCircle(List<NPC> _list)
+    public void GUI_ListDisableCircle(List<NPC> _list)
     {
         //Gives a priority circle to the npc that is going to get the order.
-
         for (int i = _list.Count - 1; i >= 0; i--)
         {
             _list[i].GUI_Script.DisableCircle();
-            //Priority, guy who gets the order
-            //GameUI[i].color = Color.yellow;
         }
     }
 
