@@ -28,8 +28,8 @@ public class Electric : MonoBehaviour
     {
         lRend = GetComponent<LineRenderer>();
         linky = GetComponent<Link>();
-        transformPointA = linky.power.transform;
-        transformPointB = linky.interactible.transform;
+        if (linky.power != null) { transformPointA = linky.power.transform; }
+        if (linky.interactible != null) { transformPointB = linky.interactible.transform; }
         points = new Vector3[pointsCount];
         lRend.positionCount = pointsCount;
     }

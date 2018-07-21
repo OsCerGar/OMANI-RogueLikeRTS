@@ -42,7 +42,7 @@ public class UI_PointerSelection : MonoBehaviour
         #region CircleAnimation
         if (selected)
         {
-            if (selectionAnimationParticleSystem.time >= 0.29)
+            if (selectionAnimationParticleSystem.time >= 0.39)
             {
                 selectionAnimationParticleSystem.Pause();
             }

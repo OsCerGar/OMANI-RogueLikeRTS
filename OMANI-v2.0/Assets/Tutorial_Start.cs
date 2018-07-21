@@ -33,10 +33,6 @@ public class Tutorial_Start : MonoBehaviour
     [SerializeField]
     bool lightsIn = false, lightsOut = false, gameplay = false, tutorial = false, doorbool = false;
 
-
-
-
-
     // Use this for initialization
     void Start()
     {
@@ -99,7 +95,7 @@ public class Tutorial_Start : MonoBehaviour
             explicative = GameObject.Instantiate(masterWorker, this.transform);
             Destroy(masterWorker.gameObject);
         }
-
+        /*
         if (lookDirections.playingOnController)
         {
             explicative.ActivateMovementTut(masterWorkerObjective, "LeftStick");
@@ -109,6 +105,7 @@ public class Tutorial_Start : MonoBehaviour
         {
             explicative.ActivateMovementTut(masterWorkerObjective, "WASD");
         }
+        */
         tutorial = false;
     }
 
