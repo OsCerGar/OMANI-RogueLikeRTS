@@ -217,6 +217,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Restore: 0
+--- !u!114 &114445035214597166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc89dcb13fc3a7546893dccad945e835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggername: Attack
 --- !u!114 &114571232334271084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1882,7 +1894,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: 1101886256419432808}
   - {fileID: 1101178314756142070}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114445035214597166}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
