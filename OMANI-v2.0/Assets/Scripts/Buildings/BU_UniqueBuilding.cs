@@ -2,34 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BU_UniqueBuilding : BU
+public class BU_UniqueBuilding : MonoBehaviour
 {
-
-    public int lastTotalEnergy, totalEnergy, requiredEnergy;
-
+    public int lastTotalEnergy { get; set; }
+    public int totalEnergy { get; set; }
+    public int requiredEnergy { get; set; }
 
     [SerializeField]
-    public Interactible_Repeater[] plugs;
-
-    public List<MeshRenderer> plugMaterial = new List<MeshRenderer>();
-
-
+    public Interactible_Repeater[] plugs { get; set; }
     // Use this for initialization
     public virtual void Start()
     {
         //Makes sure it checks for energy on the first run.
         lastTotalEnergy = 100;
+
         plugs = this.transform.Find("Electricity").GetComponentsInChildren<Interactible_Repeater>();
-
-
-        foreach (Interactible_Repeater plug in plugs)
-        {
-            plugMaterial.Add(plug.transform.Find("Base").GetComponent<MeshRenderer>());
-        }
-
     }
 
-    public virtual void Update()
+    //THIS SHOULDN'T BE IN AN UPDATE
+    public virtual void LateUpdate()
+    {
+        EnergyCalc();
+    }
+
+    private void EnergyCalc()
     {
         totalEnergy = 0;
 
@@ -41,76 +37,11 @@ public class BU_UniqueBuilding : BU
             }
         }
 
-        //Checks if there have been changes in the plugs
-        if (totalEnergy != lastTotalEnergy)
-        {
-            if (requiredEnergy > totalEnergy)
-            {
-                //TurnToRed();
-            }
-            else
-            {
-                //TurnToWhite();
-            }
-        }
-
         lastTotalEnergy = totalEnergy;
-
     }
 
     public virtual void BuildingAction()
     {
 
     }
-
-    public void TurnToRed()
-    {
-        int redPlugs = 0;
-        int energyDifference = requiredEnergy - totalEnergy;
-
-        foreach (MeshRenderer plugMaterials in plugMaterial)
-        {
-            if (plugMaterials.material.color == Color.red)
-            {
-                redPlugs++;
-            }
-        }
-
-        foreach (MeshRenderer plugMaterials in plugMaterial)
-        {
-            if (redPlugs < energyDifference)
-            {
-                if (plugMaterials.material.color == Color.white)
-                {
-                    plugMaterials.material.color = Color.red;
-                    redPlugs++;
-                }
-            }
-        }
-    }
-
-
-    public void TurnToAllRed()
-    {
-        foreach (MeshRenderer plugMaterials in plugMaterial)
-        {
-            if (plugMaterials.material.color == Color.white)
-            {
-                plugMaterials.material.color = Color.red;
-            }
-
-        }
-    }
-
-    public void TurnToWhite()
-    {
-        foreach (MeshRenderer plugMaterials in plugMaterial)
-        {
-            if (plugMaterials.material.color != Color.yellow)
-            {
-                plugMaterials.material.color = Color.white;
-            }
-        }
-    }
-
 }

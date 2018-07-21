@@ -15,7 +15,7 @@ public class Task_GetPosEnergy : Action
         var thisTarget = (SharedGameObject)transform.gameObject.GetComponent<BehaviorTree>().GetVariable("Enemy");
 
 
-        if (thisTarget.Value.GetComponentInParent<BU_PowerPlant>())
+        if (thisTarget.Value.GetComponentInParent<BU_Energy>())
         {
             //var PositiontoGo = thisTarget.Value.GetComponentInParent<BU_PowerPlant>().givePosition();
             //thisTarget.Value = PositiontoGo.gameObject;

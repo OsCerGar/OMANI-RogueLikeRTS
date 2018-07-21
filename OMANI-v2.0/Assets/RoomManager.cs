@@ -12,7 +12,7 @@ public class RoomManager : MonoBehaviour {
     List<GameObject> ActiveEnemies = new List<GameObject>();
     // Use this for initialization
     void Start () {
-        DangerPoints = (int)Vector3.Distance(FindObjectOfType<BU_PowerPlant>().transform.position,this.transform.position);
+        DangerPoints = (int)Vector3.Distance(FindObjectOfType<BU_Energy>().transform.position,this.transform.position);
         EPooler = FindObjectOfType<EnemyPooler>();
         var EnemyPos = GetComponentsInChildren<WorldSpawnPos>();
         foreach (var item in EnemyPos)

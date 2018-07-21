@@ -15,10 +15,8 @@ public class BU_Radar : BU_UniqueBuilding
     }
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-        base.Update();
-
         if (requiredEnergy > totalEnergy)
         {
             radar.RemoveAllBlips();

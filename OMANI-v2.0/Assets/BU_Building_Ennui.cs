@@ -33,9 +33,8 @@ public class BU_Building_Ennui : BU_UniqueBuilding
         requiredEnergy = 1;
     }
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
         if (totalEnergy >= requiredEnergy)
         {
             EnnuiMaker();

@@ -5,15 +5,21 @@ using UnityEngine.UI;
 
 public class BU_WorkerMaker : BU_UniqueBuilding
 {
+    #region Vars
     private BU_Building_Action workerMaker;
+
     private float timeToSpawnWorker = 45, desiredRotation;
+    private float biggestClockValue;
+
     private float[] timeToSpawnWorkerCounter = new float[3];
-    List<Image> workerClocks = new List<Image>();
     private bool[] workersReady = new bool[3];
+
+    List<Image> workerClocks = new List<Image>();
+
     [SerializeField]
     private GameObject worker, spinningStructure;
-    float biggestClockValue;
 
+    #endregion
     public override void Start()
     {
         base.Start();
@@ -32,11 +38,10 @@ public class BU_WorkerMaker : BU_UniqueBuilding
         requiredEnergy = 1;
     }
 
-    // Update is called once per frame
-    public override void Update()
-    {
-        base.Update();
 
+    // Update is called once per frame
+    public void Update()
+    {
         if (totalEnergy >= requiredEnergy)
         {
             WorkerMaker();

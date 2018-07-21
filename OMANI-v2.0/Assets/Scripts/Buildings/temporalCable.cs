@@ -7,7 +7,6 @@ public class temporalCable : MonoBehaviour
     [SerializeField]
     Transform cableEnd, cableStart;
     LineRenderer lineRenderer;
-    BU_PowerPlant powerPlant;
     public bool energy;
     Color32 lineMaterial;
 
@@ -27,7 +26,6 @@ public class temporalCable : MonoBehaviour
         lineRenderer = this.gameObject.GetComponent<LineRenderer>();
         //Adding heigh because the elevator starts at the ground
         lineRenderer.SetPosition(0, cableStart.transform.position);
-        powerPlant = FindObjectOfType<BU_PowerPlant>();
         lineMaterial = lineRenderer.material.color;
     }
 

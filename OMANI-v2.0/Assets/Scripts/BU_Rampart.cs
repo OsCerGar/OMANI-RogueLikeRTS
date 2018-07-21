@@ -11,17 +11,14 @@ public class BU_Rampart : BU_UniqueBuilding
     {
         base.Start();
 
-        maxnumberOfWorkers = 0;
         requiredEnergy = 1;
 
         turrets = this.transform.Find("Turrets").GetComponentsInChildren<Turret>();
     }
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-        base.Update();
-
         switch (totalEnergy)
         {
             case 0:

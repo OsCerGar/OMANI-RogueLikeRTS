@@ -6,19 +6,34 @@ public class Interactible : MonoBehaviour
 {
 
     Rigidbody myRigidBody;
-    public bool hasRigid = false, link = false;
-    public float price, powerReduced = 0, linkPrice = 1;
+
+    public bool hasRigid { get; set; }
+    public bool link { get; set; }
+
+    public float price { get; set; }
+    public float powerReduced { get; set; }
+    private float linkPrice = 5;
+
     Powers powers = null;
     PowerManager powerManager;
-    public Link linky;
+    public Link linky { get; set; }
 
-    // Use this for initialization
-    public virtual void Start()
+    public virtual void Initialize()
     {
         myRigidBody = this.GetComponent<Rigidbody>();
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();
 
+    }
+
+    public virtual void Awake()
+    {
+        Initialize();
+    }
+
+    // Use this for initialization
+    public virtual void Start()
+    {
         if (myRigidBody != null)
         {
             hasRigid = true;

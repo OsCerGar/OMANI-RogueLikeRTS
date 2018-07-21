@@ -21,9 +21,6 @@ public class BU_Healer : BU_UniqueBuilding
     public override void Start()
     {
         base.Start();
-
-        notOnlyWorkers = true;
-        maxnumberOfWorkers = 8;
         requiredEnergy = 2;
 
         //Positions where the workers will go
@@ -39,12 +36,8 @@ public class BU_Healer : BU_UniqueBuilding
     }
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-        base.Update();
-
-        numberOfWorkers = workers.Count;
-
         switch (totalEnergy)
         {
             case 2:
@@ -77,16 +70,6 @@ public class BU_Healer : BU_UniqueBuilding
 
 
             healingGUI.ChangeHealingClock(0);
-        }
-    }
-
-    public override void AddWorker(NPC _worker)
-    {
-        if (numberOfWorkers < maxnumberOfWorkers)
-        {
-            _worker.GetComponent<NavMeshAgent>().Warp(healPositions[numberOfWorkers].transform.position);
-            workers.Add(_worker);
-            addedWorker.Play();
         }
     }
 

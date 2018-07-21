@@ -18,8 +18,6 @@ public class BU_Teleport : BU_UniqueBuilding
     public override void Start()
     {
         base.Start();
-        notOnlyWorkers = true;
-        maxnumberOfWorkers = 0;
         requiredEnergy = 1;
         gUI_Teleport = this.transform.Find("GUI_Teleport").gameObject;
 
@@ -30,10 +28,8 @@ public class BU_Teleport : BU_UniqueBuilding
     }
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-        base.Update();
-
         if (totalEnergy >= requiredEnergy)
         {
             teleport.energy = true;

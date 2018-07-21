@@ -30,20 +30,6 @@ public class BU_BuildingType : MonoBehaviour
 
     public virtual void Update()
     {
-        switch (weaponsBay.numberOfWorkers)
-        {
-            case 0:
-                timeToSpawn = 45;
-                break;
-
-            case 1:
-                timeToSpawn = 35;
-                break;
-
-            case 2:
-                timeToSpawn = 20;
-                break;
-        }
 
         if (timeToSpawnCounter < timeToSpawn)
         {

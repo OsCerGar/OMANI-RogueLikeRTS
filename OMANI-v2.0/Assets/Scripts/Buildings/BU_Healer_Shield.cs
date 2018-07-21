@@ -22,8 +22,6 @@ public class BU_Healer_Shield : BU_UniqueBuilding
     {
         base.Start();
         baseCenter = this.transform.parent;
-        notOnlyWorkers = true;
-        maxnumberOfWorkers = 0;
         requiredEnergy = 2;
 
         BU_HealingTexture = this.transform.Find("BU_HealingTexture").gameObject;
@@ -37,11 +35,8 @@ public class BU_Healer_Shield : BU_UniqueBuilding
     }
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-        base.Update();
-
-        numberOfWorkers = workers.Count;
 
         switch (totalEnergy)
         {
@@ -77,11 +72,6 @@ public class BU_Healer_Shield : BU_UniqueBuilding
 
             healingGUI.ChangeHealingClock(0);
         }
-    }
-
-    public override void AddWorker(NPC _worker)
-    {
-
     }
 
     void Healer(int _heal)

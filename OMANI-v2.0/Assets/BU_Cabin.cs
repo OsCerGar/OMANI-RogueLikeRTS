@@ -5,19 +5,21 @@ using UnityEngine;
 public class BU_Cabin : MonoBehaviour
 {
 
-    public bool workerInside = false, ready = false;
-    [SerializeField]
-    public GameObject UI;
-    public GameObject direction;
+    public bool workerInside { get; set; }
+    public bool ready { get; set; }
 
-    PeoplePool peoplePool;
-    Animator doorAnimation;
+    public GameObject UI { get; set; }
+    public GameObject direction { get; set; }
+    private PeoplePool peoplePool;
+    private Animator doorAnimation;
 
     // Use this for initialization
     void Start()
     {
         peoplePool = FindObjectOfType<PeoplePool>();
         doorAnimation = this.transform.Find("Door").GetComponent<Animator>();
+        direction = this.transform.Find("Direction").gameObject;
+        UI = this.transform.Find("OrderDirection").gameObject;
     }
 
     // Update is called once per frame
