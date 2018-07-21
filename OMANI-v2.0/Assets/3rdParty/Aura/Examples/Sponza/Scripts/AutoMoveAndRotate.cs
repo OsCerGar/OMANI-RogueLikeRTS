@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace UnityStandardAssets.Utility
+namespace /*UnityStandardAssets.Utility*/AuraAPI //Original from Unity, changed namespace to avoid conflicts when importing official packages
 {
     public class AutoMoveAndRotate : MonoBehaviour
     {

@@ -105,7 +105,7 @@ namespace AuraAPI
 #if UNITY_EDITOR
         private void Reset()
         {
-            gizmoColor = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
+            gizmoColor = UnityEngine.Random.ColorHSV(0, 1, 0.5f, 0.5f, 1, 1);
         }
 #endif
 
@@ -376,13 +376,25 @@ namespace AuraAPI
         #endregion
 
         #region GameObject constructor
-#if UNITY_EDITOR /// <summary>
-/// Generic method for crating a GameObject with a AuraVolume component assigned
-/// </summary>
-/// <param name="menuCommand">Data relative to the invoked menu</param>
-/// <param name="name">Name of the created GameObject</param>
-/// <param name="shape">Desired volume shape</param>
-        private static void CreateGameObject(MenuCommand menuCommand, string name, VolumeTypeEnum shape)
+#if UNITY_EDITOR
+        /// <summary>
+        /// Generic method for crating a GameObject with a AuraVolume component assigned
+        /// </summary>
+        /// <param name="name">Name of the created GameObject</param>
+        /// <param name="shape">Desired volume shape</param>
+        /// <returns>The created AuraVolume gameObject</returns>
+        public static GameObject CreateGameObject(string name, VolumeTypeEnum shape)
+        {
+            return CreateGameObject(new MenuCommand(null), name, shape);
+        }
+        /// <summary>
+        /// Generic method for crating a GameObject with a AuraVolume component assigned
+        /// </summary>
+        /// <param name="menuCommand">Data relative to the invoked menu</param>
+        /// <param name="name">Name of the created GameObject</param>
+        /// <param name="shape">Desired volume shape</param>
+        /// <returns>The created AuraVolume gameObject</returns>
+        private static GameObject CreateGameObject(MenuCommand menuCommand, string name, VolumeTypeEnum shape)
         {
             GameObject newGameObject = new GameObject(name);
             GameObjectUtility.SetParentAndAlign(newGameObject, menuCommand.context as GameObject);
@@ -391,7 +403,7 @@ namespace AuraAPI
 
             newGameObject.AddComponent<AuraVolume>();
             newGameObject.GetComponent<AuraVolume>().volumeShape.shape = shape;
-            
+
             newGameObject.GetComponent<AuraVolume>().volumeShape.fading.falloffExponent = 2.75f;
             newGameObject.GetComponent<AuraVolume>().volumeShape.fading.xPositiveCubeFade = 0.25f;
             newGameObject.GetComponent<AuraVolume>().volumeShape.fading.xNegativeCubeFade = 0.25f;
@@ -415,12 +427,12 @@ namespace AuraAPI
 
             newGameObject.GetComponent<AuraVolume>().noiseMask.speed = 0.125f;
             newGameObject.GetComponent<AuraVolume>().noiseMask.transform.scale = Vector3.one;
-            
+
             newGameObject.GetComponent<AuraVolume>().density.injectionParameters.textureMaskLevelParameters.SetDefaultValues();
             newGameObject.GetComponent<AuraVolume>().density.injectionParameters.noiseMaskLevelParameters.SetDefaultValues();
             newGameObject.GetComponent<AuraVolume>().density.injectionParameters.enable = true;                                         // To have something visible when a volume is added
             newGameObject.GetComponent<AuraVolume>().density.injectionParameters.strength = 1;                                          // To have something visible when a volume is added
-            
+
             newGameObject.GetComponent<AuraVolume>().anisotropy.injectionParameters.textureMaskLevelParameters.SetDefaultValues();
             newGameObject.GetComponent<AuraVolume>().anisotropy.injectionParameters.noiseMaskLevelParameters.SetDefaultValues();
             newGameObject.GetComponent<AuraVolume>().anisotropy.injectionParameters.strength = 0.1f;
@@ -429,7 +441,9 @@ namespace AuraAPI
             newGameObject.GetComponent<AuraVolume>().color.injectionParameters.noiseMaskLevelParameters.SetDefaultValues();
             newGameObject.GetComponent<AuraVolume>().color.injectionParameters.enable = true;                                           // To have something visible when a volume is added
             newGameObject.GetComponent<AuraVolume>().color.injectionParameters.strength = 1;                                            // To have something visible when a volume is added
-            newGameObject.GetComponent<AuraVolume>().color.color = UnityEngine.Random.ColorHSV(0,1,1,1,1,1);                            // To have something visible when a volume is added
+            newGameObject.GetComponent<AuraVolume>().color.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);                            // To have something visible when a volume is added
+
+            return newGameObject;
         }
 
         /// <summary>
@@ -496,9 +510,10 @@ namespace AuraAPI
     }
 
     #region Custom gizmo drawer
-#if UNITY_EDITOR /// <summary>
-/// Allows to draw custom gizmos for AuraVolume objects
-/// </summary>
+#if UNITY_EDITOR 
+    /// <summary>
+    /// Allows to draw custom gizmos for AuraVolume objects
+    /// </summary>
     public class AuraVolumeGizmoDrawer
     {
         /// <summary>
@@ -537,8 +552,24 @@ namespace AuraAPI
         static void DrawGizmoForAuraVolume(AuraVolume component, GizmoType gizmoType)
         {
             bool isFaded = (int)gizmoType == (int)GizmoType.NonSelected || (int)gizmoType == (int)GizmoType.NotInSelectionHierarchy || (int)gizmoType == (int)GizmoType.NonSelected + (int)GizmoType.NotInSelectionHierarchy;
-            float opacity = isFaded ? 0.25f : 1.0f;
+            float opacity = isFaded ? 0.5f : 1.0f;
+            
+            // Draws the gizmo only if depth > pixel's
+            Handles.zTest = UnityEngine.Rendering.CompareFunction.Greater;
+            DrawGizmo(component, opacity * 0.25f);
 
+            // Then draws the gizmo only if depth <= pixel's
+            Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
+            DrawGizmo(component, opacity);
+        }
+
+        /// <summary>
+        /// Draws the gizmo
+        /// </summary>
+        /// <param name="component">The target component</param>
+        /// <param name="opacity">The gizmo opacity</param>
+        private static void DrawGizmo(AuraVolume component, float opacity)
+        {
             switch (component.volumeShape.shape)
             {
                 case VolumeTypeEnum.Global:
@@ -546,31 +577,31 @@ namespace AuraAPI
                         DrawGlobal(component, opacity);
                     }
                     break;
-        
+
                 case VolumeTypeEnum.Planar:
                     {
                         DrawPlanar(component, opacity);
                     }
                     break;
-        
+
                 case VolumeTypeEnum.Box:
                     {
                         DrawBox(component, opacity);
                     }
                     break;
-        
+
                 case VolumeTypeEnum.Sphere:
                     {
                         DrawSphere(component, opacity);
                     }
                     break;
-        
+
                 case VolumeTypeEnum.Cylinder:
                     {
                         DrawCylinder(component, opacity);
                     }
                     break;
-        
+
                 case VolumeTypeEnum.Cone:
                     {
                         DrawCone(component, opacity);
@@ -728,8 +759,10 @@ namespace AuraAPI
             CustomGizmo.DrawLineSegment(Vector3.right * 0.5f, Vector3.right * x * 0.5f, component.transform.localToWorldMatrix, color, GetThickness(component.transform.position));
             CustomGizmo.DrawLineSegment(Vector3.back * 0.5f, Vector3.back * x * 0.5f, component.transform.localToWorldMatrix, color, GetThickness(component.transform.position));
             CustomGizmo.DrawLineSegment(Vector3.forward * 0.5f, Vector3.forward * x * 0.5f, component.transform.localToWorldMatrix, color, GetThickness(component.transform.position));
-        
-            CustomGizmo.DrawSphere(component.transform.localToWorldMatrix, Vector3.zero, Quaternion.identity, Vector3.one * x, component.gizmoColor, GetThickness(component.transform.position) * 0.6666666666666f);
+            
+            color = component.gizmoColor;
+            color.a *= alpha;
+            CustomGizmo.DrawSphere(component.transform.localToWorldMatrix, Vector3.zero, Quaternion.identity, Vector3.one * x, color, GetThickness(component.transform.position) * 0.6666666666666f);
         }
 
         /// <summary>

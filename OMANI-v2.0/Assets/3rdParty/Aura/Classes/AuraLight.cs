@@ -715,13 +715,25 @@ namespace AuraAPI
         #endregion
 
         #region GameObject constructor
-#if UNITY_EDITOR /// <summary>
-/// Method allowing to add a MenuItem to quickly build GameObjects with the component assigned
-/// </summary>
-/// <param name="menuCommand">Stuff that Unity automatically fills with some editor's contextual infos</param>
-/// <param name="name">The name of the new GameObject</param>
-/// <param name="type">The desired light's type</param>
-        private static void CreateGameObject(MenuCommand menuCommand, string name, LightType type)
+#if UNITY_EDITOR 
+        /// <summary>
+        /// Method allowing to add a MenuItem to quickly build GameObjects with the component assigned
+        /// </summary>
+        /// <param name="name">The name of the new GameObject</param>
+        /// <param name="type">The desired light's type</param>
+        /// <returns>The created AuraLight gameObject</returns>
+        public static GameObject CreateGameObject(string name, LightType type)
+        {
+            return CreateGameObject(new MenuCommand(null), name, type);
+        }
+        /// <summary>
+        /// Method allowing to add a MenuItem to quickly build GameObjects with the component assigned
+        /// </summary>
+        /// <param name="menuCommand">Stuff that Unity automatically fills with some editor's contextual infos</param>
+        /// <param name="name">The name of the new GameObject</param>
+        /// <param name="type">The desired light's type</param>
+        /// <returns>The created AuraLight gameObject</returns>
+        private static GameObject CreateGameObject(MenuCommand menuCommand, string name, LightType type)
         {
             GameObject newGameObject = new GameObject(name);
             GameObjectUtility.SetParentAndAlign(newGameObject, menuCommand.context as GameObject);
@@ -732,6 +744,8 @@ namespace AuraAPI
             newGameObject.GetComponent<Light>().type = type;
             newGameObject.GetComponent<Light>().shadows = LightShadows.Soft;
             newGameObject.AddComponent<AuraLight>();
+
+            return newGameObject;
         }
 
         /// <summary>
