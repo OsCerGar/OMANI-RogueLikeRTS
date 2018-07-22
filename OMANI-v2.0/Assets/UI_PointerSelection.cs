@@ -61,52 +61,55 @@ public class UI_PointerSelection : MonoBehaviour
             {
                 firstAnimationParticleSystem.Pause();
             }
-            //If no longer 
-            if (lookDirections.closestTarget == null)
+            if (lookDirections != null)
             {
-                if (!fading)
+                //If no longer 
+                if (lookDirections.closestTarget == null)
                 {
-                    fading = true;
-
-                    fadeAnimationPArticleSystem.Simulate(0.3f - firstAnimationParticleSystem.time);
-                    fadeAnimationPArticleSystem.Play();
-
-                    firstAnimationParticleSystem.Stop();
-                    firstAnimationParticleSystem.Clear();
-                }
-
-                else
-                {
-                    if (fadeAnimationPArticleSystem.time >= 0.29)
-                    {
-                        fading = false;
-                        this.gameObject.SetActive(false);
-                        lookDirections.latestClosestTarget = null;
-                    }
-                }
-
-            }
-            else
-            {
-                if (lookDirections.UISelectionSpawned != this.gameObject)
-                {
-
                     if (!fading)
                     {
                         fading = true;
+
                         fadeAnimationPArticleSystem.Simulate(0.3f - firstAnimationParticleSystem.time);
                         fadeAnimationPArticleSystem.Play();
 
                         firstAnimationParticleSystem.Stop();
                         firstAnimationParticleSystem.Clear();
-
                     }
+
                     else
                     {
-                        if (fadeAnimationPArticleSystem.time > 0.28)
+                        if (fadeAnimationPArticleSystem.time >= 0.29)
                         {
                             fading = false;
                             this.gameObject.SetActive(false);
+                            lookDirections.latestClosestTarget = null;
+                        }
+                    }
+
+                }
+                else
+                {
+                    if (lookDirections.UISelectionSpawned != this.gameObject)
+                    {
+
+                        if (!fading)
+                        {
+                            fading = true;
+                            fadeAnimationPArticleSystem.Simulate(0.3f - firstAnimationParticleSystem.time);
+                            fadeAnimationPArticleSystem.Play();
+
+                            firstAnimationParticleSystem.Stop();
+                            firstAnimationParticleSystem.Clear();
+
+                        }
+                        else
+                        {
+                            if (fadeAnimationPArticleSystem.time > 0.28)
+                            {
+                                fading = false;
+                                this.gameObject.SetActive(false);
+                            }
                         }
                     }
                 }

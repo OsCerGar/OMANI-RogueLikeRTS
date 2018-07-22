@@ -33,38 +33,34 @@ public class Tutorial_Start : MonoBehaviour
     [SerializeField]
     bool lightsIn = false, lightsOut = false, gameplay = false, tutorial = false, doorbool = false;
 
-    // Use this for initialization
-    void Start()
+    private void Awake()
     {
-        cameraFX = FindObjectOfType<Cinemachine.PostFX.CinemachinePostFX>();
+        Initalize();
+    }
 
-        spotLight = this.transform.Find("Lights/SpotLight").gameObject;
-        backgroundLights = this.transform.Find("Lights/backgroundLight").gameObject;
-        backgroundLights2 = this.transform.Find("Lights/backgroundLight2").gameObject;
-        directionalLight = this.transform.Find("Lights/Aura Directional Light").GetComponent<Light>();
+    private void Initalize()
+    {
+        door = this.transform.Find("Props/Door").GetComponent<Animator>();
+        cameraFX = FindObjectOfType<Cinemachine.PostFX.CinemachinePostFX>();
         locomotion = FindObjectOfType<LocomotionBrain>();
         control = FindObjectOfType<CharacterMovement>();
         lookDirections = FindObjectOfType<LookDirectionsAndOrder>();
-
-        int i = 0;
-
-        foreach (Light light in lights)
-        {
-            oldColors[i] = light.color;
-            i++;
-        }
-
-        //save normal values
-        oldIntensity = directionalLight.intensity;
-        oldFogStart = RenderSettings.fogStartDistance;
-        oldFogEnd = RenderSettings.fogEndDistance;
         masterWorker = FindObjectOfType<exPlicativoTreeControler>();
         player = FindObjectOfType<Player>();
-        door = this.transform.Find("Props/Door").GetComponent<Animator>();
+
+        startCamera = this.transform.Find("Timeline/Cameras/StartCamera").GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        spotLight = this.transform.Find("Lights/SpotLight").gameObject;
+
+        backgroundLights = this.transform.Find("Lights/backgroundLight").gameObject;
+        backgroundLights2 = this.transform.Find("Lights/backgroundLight2").gameObject;
+        directionalLight = this.transform.Find("Lights/Aura Directional Light").GetComponent<Light>();
+
+    }
+    // Use this for initialization
+    void Start()
+    {
 
         LightsOff();
-        startCamera = this.transform.Find("Timeline/Cameras/StartCamera").GetComponent<Cinemachine.CinemachineVirtualCamera>();
-
     }
 
     private void Update()
@@ -73,6 +69,7 @@ public class Tutorial_Start : MonoBehaviour
         if (lightsOut) { LightsOff(); }
         if (gameplay) { Gameplay(); }
         if (tutorial) { Tutorial(); }
+
         if (doorbool)
         {
             if (timer < totalTimer)
@@ -112,6 +109,7 @@ public class Tutorial_Start : MonoBehaviour
 
     public void Gameplay()
     {
+
         startCamera.gameObject.SetActive(false);
         control.enabled = true;
         locomotion.enabled = true;
@@ -121,30 +119,23 @@ public class Tutorial_Start : MonoBehaviour
 
     public void LightsOn()
     {
-        cameraFX.m_Profile = postFX;
-        RenderSettings.fogEndDistance = oldFogEnd;
-        RenderSettings.fogStartDistance = oldFogStart;
         spotLight.SetActive(true);
         backgroundLights.SetActive(true);
         backgroundLights2.SetActive(true);
         directionalLight.intensity = oldIntensity;
-        int i = 0;
-        foreach (Light light in lights)
-        {
-            light.color = oldColors[i];
-            i++;
-        }
+
+        cameraFX.m_Profile = postFX;
+        RenderSettings.fogEndDistance = oldFogEnd;
+        RenderSettings.fogStartDistance = oldFogStart;
     }
     public void LightsOff()
     {
-        RenderSettings.fogStartDistance = 105;
-        RenderSettings.fogEndDistance = 200;
+        oldFogEnd = RenderSettings.fogEndDistance;
+        oldFogStart = RenderSettings.fogStartDistance;
+
         directionalLight.intensity = 0.01f;
         spotLight.SetActive(false);
-
-        foreach (Light light in lights)
-        {
-            light.color = Color.red;
-        }
+        RenderSettings.fogStartDistance = 105;
+        RenderSettings.fogEndDistance = 200;
     }
 }
