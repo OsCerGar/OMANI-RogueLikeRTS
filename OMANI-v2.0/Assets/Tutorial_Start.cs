@@ -90,12 +90,13 @@ public class Tutorial_Start : MonoBehaviour
     public void Tutorial()
     {
         doorbool = true;
+        /*
         if (masterWorker != null)
         {
             explicative = GameObject.Instantiate(masterWorker, this.transform);
             Destroy(masterWorker.gameObject);
         }
-        /*
+        
         if (lookDirections.playingOnController)
         {
             explicative.ActivateMovementTut(masterWorkerObjective, "LeftStick");

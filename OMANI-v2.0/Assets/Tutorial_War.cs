@@ -16,7 +16,7 @@ public class Tutorial_War : MonoBehaviour
     Player player;
 
     bool reclute = false;
-
+    /*
     private void OnEnable()
     {
        // Player.playerDead += Fade;
@@ -85,5 +85,5 @@ public class Tutorial_War : MonoBehaviour
             }
         }
     }
-
+    */
 }

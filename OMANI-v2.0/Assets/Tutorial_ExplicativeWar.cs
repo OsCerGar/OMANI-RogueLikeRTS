@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tutorial_ExplicativeWar : MonoBehaviour
 {
-
+    /*
     exPlicativoTreeControler masterWorker;
     LookDirectionsAndOrder lookDirections;
 
@@ -37,4 +37,5 @@ public class Tutorial_ExplicativeWar : MonoBehaviour
             }
         }
     }
+    */
 }

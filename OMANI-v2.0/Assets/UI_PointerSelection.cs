@@ -28,8 +28,13 @@ public class UI_PointerSelection : MonoBehaviour
 
         //Play Spawn animation
         firstAnimationParticleSystem.Play();
-
     }
+
+    private void Start()
+    {
+        lookDirections = FindObjectOfType<LookDirectionsAndOrder>();
+    }
+
     // Update is called once per frame
     void Update()
     {
