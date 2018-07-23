@@ -27,9 +27,9 @@ public class PeoplePool : MonoBehaviour
 
     }
 
-    public void WorkerSpawn(Transform tr)
+    public void WorkerSpawn(Transform tr, Vector3 ps)
     {
-        Worker.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+        Worker.TryGetNextObject(ps, tr.rotation, out Spawned);
 
     }
     public void SpearWarriorSpawn(Transform tr)

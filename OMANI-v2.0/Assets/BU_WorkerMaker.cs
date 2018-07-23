@@ -15,7 +15,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
     private bool[] workersReady = new bool[3];
 
     List<Image> workerClocks = new List<Image>();
-
+    PeoplePool peoplePool;
     [SerializeField]
     private GameObject worker, spinningStructure;
 
@@ -26,7 +26,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
 
         workerMaker = this.transform.GetComponentInChildren<BU_Building_Action>();
         spinningStructure = this.transform.Find("BU_UI/SpinningStructure").gameObject;
-
+        peoplePool = FindObjectOfType<PeoplePool>();
         foreach (Image clock in this.transform.Find("BU_UI/Production_Clocks").GetComponentsInChildren<Image>())
         {
             if (clock.name == "Clock")
@@ -102,7 +102,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
             if (workersReady[i])
             {
                 //Should be a pool later on
-                Instantiate(worker, new Vector3(workerMaker.transform.position.x + Random.Range(-2f, 2f), workerMaker.transform.position.y, workerMaker.transform.position.z - 3f), Quaternion.identity);
+                peoplePool.WorkerSpawn(this.transform, new Vector3(workerMaker.transform.position.x + Random.Range(-2f, 2f), workerMaker.transform.position.y, workerMaker.transform.position.z - 3f));
                 workersReady[i] = false;
                 timeToSpawnWorkerCounter[i] = 0;
                 //restart

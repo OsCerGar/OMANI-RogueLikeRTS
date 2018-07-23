@@ -18,6 +18,7 @@ public class BU_Building_Action : Interactible
         parentResources = this.transform.parent.GetComponent<BU_UniqueBuilding>();
         price = 5;
     }
+
     public void BuildingAction()
     {
         parentResources.BuildingAction();

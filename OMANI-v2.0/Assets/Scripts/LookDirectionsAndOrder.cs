@@ -11,7 +11,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     private Vector3 mousePosition, direction, tpoint;
     public Vector3 miradaposition;
-    float visibleCursorTimer = 10.0f, timeLeft = 1;
+    float visibleCursorTimer = 10.0f, timeLeft;
     float cursorPosition;
     bool catchCursor = true;
 
@@ -568,6 +568,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         Collider[] targetsInViewRadius = Physics.OverlapSphere(miradaposition, 1, targetMask);
         foreach (Collider col in targetsInViewRadius)
         {
+            Debug.Log(col);
             // Save the col as an NPC
             NPC colNPC;
             NPC colEnemy;
@@ -773,7 +774,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
 
                     miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
-                    //transform.LookAt(new Vector3(miradaposition.x, miradaposition.y, miradaposition.z));
+                    transform.LookAt(miradaposition);
                 }
             }
 
@@ -809,7 +810,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
 
             miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
-            transform.LookAt(new Vector3(miradaposition.x, miradaposition.y, miradaposition.z));
+            transform.LookAt(miradaposition);
         }
 
         this.transform.position = commander.transform.position;
@@ -835,5 +836,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
 
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(miradaposition, 1);
     }
 }
