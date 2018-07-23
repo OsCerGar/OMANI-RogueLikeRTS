@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 114528997071473914}
   - component: {fileID: 114284194385085780}
   - component: {fileID: 114334998363315556}
+  - component: {fileID: 114865868639116594}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -145,8 +146,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913247413246696}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.5637296, y: -0.014385175, z: 0.009814739, w: -0.8257758}
+  m_LocalPosition: {x: 167.8, y: 38.7, z: 88.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4751720345526546}
@@ -160,8 +161,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1342121331043184}
-  m_LocalRotation: {x: 0.38268346, y: -0.00000040836596, z: 0.00000039023868, w: 0.92387956}
-  m_LocalPosition: {x: -34.73176, y: 11.536, z: 1.2936783}
+  m_LocalRotation: {x: 0.5637296, y: 0.014385175, z: -0.009814739, w: -0.8257758}
+  m_LocalPosition: {x: -164.60973, y: -102.09416, z: 1.6248398}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4957399474078094}
@@ -175,14 +176,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1566935266198636}
-  m_LocalRotation: {x: 0.38268346, y: -0.00000040836596, z: 0.00000039023868, w: 0.92387956}
-  m_LocalPosition: {x: -34.73176, y: 11.536, z: 1.2936783}
+  m_LocalRotation: {x: -0.0038050115, y: -0.0064778607, z: -0.0013107685, w: 0.999971}
+  m_LocalPosition: {x: -39.21952, y: 1.0141811, z: 12.830335}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4024144524862212}
   m_Father: {fileID: 4639389947632810}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 63.430004, y: -0.11400001, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.052, y: -0.79800004, z: -0.007}
 --- !u!4 &4957399474078094
 Transform:
   m_ObjectHideFlags: 1
@@ -214,7 +215,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60
+  field of view: 40
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -358,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 4ce371d22c5fb384ca77d8234e0d9904, type: 2}
+  profile: {fileID: 0}
 --- !u!114 &114334998363315556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -370,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 360979aafebd332448626a2236bafdb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Profile: {fileID: 11400000, guid: 4ce371d22c5fb384ca77d8234e0d9904, type: 2}
+  m_Profile: {fileID: 0}
   m_FocusTracksTarget: 0
   m_FocusOffset: 0
 --- !u!114 &114528997071473914
@@ -388,7 +389,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
@@ -439,13 +440,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 10, z: -10}
+  m_FollowOffset: {x: 0, y: 25, z: -10}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
   m_PitchDamping: 0
   m_YawDamping: 0
   m_RollDamping: 0
+--- !u!114 &114865868639116594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1342121331043184}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdcd06815c47d30489f70df42db56a48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frustum:
+    settings:
+      enableVolumes: 1
+      enableVolumesTextureMask: 1
+      enableVolumesNoiseMask: 1
+      enableDirectionalLights: 1
+      enableDirectionalLightsShadows: 1
+      enableSpotLights: 1
+      enableSpotLightsShadows: 1
+      enablePointLights: 1
+      enablePointLightsShadows: 1
+      enableLightsCookies: 1
+      enableOcclusionCulling: 1
+      occlusionCullingAccuracy: 2
+      enableTemporalReprojection: 1
+      temporalReprojectionFactor: 0.9
+      resolution: {x: 160, y: 90, z: 128}
+      farClipPlaneDistance: 50
+      density: 0.25
+      anisotropy: 0.5
+      color: {r: 0.25, g: 0.25, b: 0.25, a: 1}
+      colorStrength: 0.25
+    _computeMaximumDepthComputeShader: {fileID: 0}
+    _processOcclusionMapShader: {fileID: 0}
+    _computeDataComputeShader: {fileID: 0}
+    _computeAccumulationComputeShader: {fileID: 0}
+  applyAsPostProcess: 1
+  computeMaximumDepthComputeShader: {fileID: 0}
+  processOcclusionMapShader: {fileID: 0}
+  computeDataComputeShader: {fileID: 0}
+  computeAccumulationComputeShader: {fileID: 0}
+  postProcessShader: {fileID: 0}
+  blueNoiseTexturesArray: {fileID: 0}
+  _hasBeenAssigned: 0
 --- !u!124 &124326381614031386
 Behaviour:
   m_ObjectHideFlags: 1

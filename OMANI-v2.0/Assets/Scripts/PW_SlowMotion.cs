@@ -9,24 +9,18 @@ public class PW_SlowMotion : Power
 
     private float slowdownFactor = 0.25f;
     private float slowdownLength = 1.5f, waste = 10f, viewRadius = 2f, regularSpeed, powerToReduce;
-    private bool active = false;
+    private bool active = false, backToNormal = false;
     private int targetMask = 1 << 10;
 
     [SerializeField]
     PostProcessingProfile slowmo;
     PostProcessingProfile normal;
     CinemachinePostFX postFx;
-    CharacterMovement player;
-    Animator animatorSpeed;
-    Powers powers;
-    LocomotionBrain locomotionBrain;
 
-    private void Start()
+    public override void Awake()
     {
+        base.Awake();
         postFx = FindObjectOfType<CinemachinePostFX>();
-        locomotionBrain = FindObjectOfType<LocomotionBrain>();
-        player = GetComponent<CharacterMovement>();
-        powers = FindObjectOfType<Powers>();
         normal = postFx.m_Profile;
         regularSpeed = player.speed;
     }
@@ -35,13 +29,18 @@ public class PW_SlowMotion : Power
     {
         if (active == false)
         {
-            postFx.m_Profile = normal;
             Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
-            Time.fixedDeltaTime = 0.02F;
 
-            // turns speed back
-            player.speed = regularSpeed;
+            if (!backToNormal)
+            {
+                postFx.m_Profile = normal;
+                Time.fixedDeltaTime = 0.02F;
+
+                // turns speed back
+                player.speed = regularSpeed;
+                backToNormal = true;
+            }
         }
         else
         {
@@ -60,6 +59,7 @@ public class PW_SlowMotion : Power
     {
         if (active == false)
         {
+            backToNormal = false;
             // if inactive becomes active and loads the slowmo postfx added in inspector.
             active = true;
             locomotionBrain.SlowMotionValues();

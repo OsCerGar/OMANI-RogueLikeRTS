@@ -11,16 +11,18 @@ public class PW_Hearthstone : Power
 
     private Image hearthstoneUI;
     private ParticleSystem hearthstoneExplosionUI;
-    Powers powers;
-    CharacterMovement movement;
     [SerializeField]
     Transform teleportBasePosition;
+
+    public override void Awake()
+    {
+        base.Awake();
+
+    }
 
     // Use this for initialization
     void Start()
     {
-        powers = this.GetComponent<Powers>();
-        movement = this.GetComponent<CharacterMovement>();
         hearthstoneUI = this.transform.Find("Player_UI/GUI_Teleport").GetComponent<Image>();
         hearthstoneExplosionUI = hearthstoneUI.transform.GetChild(0).GetComponent<ParticleSystem>();
     }
@@ -51,7 +53,7 @@ public class PW_Hearthstone : Power
         if (teleporting == true)
         {
             //Disables Movement
-            movement.enabled = false;
+            player.enabled = false;
             timeToTeleport += Time.deltaTime;
             hearthstoneUI.enabled = true;
             hearthstoneUI.transform.Rotate(Vector3.up * Time.deltaTime * 5, Space.World);
@@ -115,7 +117,7 @@ public class PW_Hearthstone : Power
         hearthstoneExplosionUI.Play();
 
         //Restores movement
-        movement.enabled = true;
+        player.enabled = true;
 
     }
 }

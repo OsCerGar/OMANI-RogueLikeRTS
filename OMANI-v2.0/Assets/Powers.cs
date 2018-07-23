@@ -11,19 +11,27 @@ public class Powers : MonoBehaviour
     PW_Hearthstone hearthStone;
     LookDirectionsAndOrder lookDirection;
     PowerManager powerManager;
+    PW_Dash dash;
 
     [SerializeField]
     public float maxpowerPool = 100, powerPool = 100, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1;
 
     float radius = 3;
 
-    private void Start()
+    private void Awake()
+    {
+        Initializer();
+    }
+
+    void Initializer()
     {
         ennuisMask = 1 << LayerMask.NameToLayer("Interactible");
         slowMo = this.transform.GetComponent<PW_SlowMotion>();
         hearthStone = this.transform.GetComponent<PW_Hearthstone>();
         lookDirection = FindObjectOfType<LookDirectionsAndOrder>();
         powerManager = FindObjectOfType<PowerManager>();
+        dash = FindObjectOfType<PW_Dash>();
+
     }
 
     // Update is called once per frame
@@ -96,6 +104,13 @@ public class Powers : MonoBehaviour
             hearthStone.StopCast();
         }
 
+        #endregion
+        #region Dash
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            dash.Dash();
+        }
         #endregion
 
         #endregion
