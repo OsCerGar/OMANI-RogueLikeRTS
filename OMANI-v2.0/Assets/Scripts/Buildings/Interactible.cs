@@ -12,7 +12,8 @@ public class Interactible : MonoBehaviour
 
     public float price { get; set; }
     public float powerReduced { get; set; }
-    private float linkPrice = 5;
+    public float linkPrice = 5;
+    
 
     Powers powers = null;
     PowerManager powerManager;

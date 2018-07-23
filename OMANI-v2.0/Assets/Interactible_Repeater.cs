@@ -5,19 +5,26 @@ using UnityEngine;
 public class Interactible_Repeater : Interactible
 {
     Animator animator;
-    public bool energy = false;
+    public bool energy { get; set; }
     GameObject top;
     BU_Energy energyBU;
+    private int repeaterPrice = 15;
 
 
+    private void Initializer()
+    {
+        energyBU = this.transform.root.GetComponentInChildren<BU_Energy>();
+        animator = this.GetComponent<Animator>();
+        top = this.transform.Find("Stick/Top").gameObject;
+
+        linkPrice = 10;
+        price = repeaterPrice;
+    }
     // Use this for initialization
     public override void Start()
     {
         base.Start();
-        energyBU = this.transform.root.GetComponentInChildren<BU_Energy>();
-        price = 5;
-        animator = this.GetComponent<Animator>();
-        top = this.transform.Find("Stick/Top").gameObject;
+        Initializer();
     }
 
     // Update is called once per frame

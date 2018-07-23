@@ -9,6 +9,8 @@ public class UI_Powers : MonoBehaviour
     List<Image> clocks = new List<Image>();
     Powers powers;
     Camera mainCamera;
+    float lastPowerPool;
+    bool clocksHidden;
 
     // Use this for initialization
     void Start()
@@ -28,11 +30,27 @@ public class UI_Powers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        for (int i = 0; i < clocks.Count; i++)
+        if (lastPowerPool != powers.powerPool)
         {
-            clocks[i].fillAmount = powers.powerPool / powers.maxpowerPool;
-            clocks[i].transform.LookAt(mainCamera.transform);
+            clocksHidden = false;
+            for (int i = 0; i < clocks.Count; i++)
+            {
+                clocks[i].enabled = true;
+                clocks[i].fillAmount = powers.powerPool / powers.maxpowerPool;
+                clocks[i].transform.LookAt(mainCamera.transform);
+                lastPowerPool = powers.powerPool;
+            }
+        }
+        else
+        {
+            if (!clocksHidden)
+            {
+                for (int i = 0; i < clocks.Count; i++)
+                {
+                    clocks[i].enabled = false;
+                }
+                clocksHidden = true;
+            }
         }
     }
 }
