@@ -15,7 +15,7 @@ public class RangedSpear : MonoBehaviour
     bool missed;
     ParticleSystem PowerUpEffect, PowerUpHitEffect;
     Vector3 destination,startPos;
-    bool go;
+    bool go = true;
     float x = 0;
     // Use this for initialization
 
