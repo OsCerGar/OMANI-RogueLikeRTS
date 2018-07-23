@@ -8,9 +8,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
     //Movement Related
     //Look variables
     //Vector3 that keeps track of the LookPositions
+
     private Vector3 mousePosition, direction, tpoint;
     public Vector3 miradaposition;
-    float visibleCursorTimer = 10.0f, timeLeft;
+    float visibleCursorTimer = 10.0f, timeLeft = 1;
     float cursorPosition;
     bool catchCursor = true;
 
@@ -95,10 +96,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         SelectedType();
         Order();
+        UI_Hologram();
     }
     private void LateUpdate()
     {
-        UI_Hologram();
     }
     #region GUI
     private void UI_Hologram()
@@ -109,6 +110,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #endregion
 
         #region OrderUI
+        //UI FOR CONTROLLER
         if (playingOnController)
         {
             if (controllerLookModel == false)
@@ -136,13 +138,14 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 GUI_SpecialPointer();
             }
         }
+        //UI FOR MOUSE
         else
         {
             GUI_MousePointer();
 
             if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
             {
-                GUI_BUOrder();
+                GUI_BUMouseOrder();
             }
 
         }
@@ -252,6 +255,35 @@ public class LookDirectionsAndOrder : MonoBehaviour
             }
         }
     }
+    private void GUI_BUMouseOrder()
+    {
+        if (closestEnemyTarget != null)
+        {
+            pointerOrder.transform.position = closestEnemyTarget.transform.position;
+            pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
+            pointerOrder.SetActive(true);
+        }
+
+        //^OrderTarget
+        //If building close and Worker selected.
+        else if (closestBUTarget != null)
+        {
+            if (closestBUTarget.workerInside == false || selectedTypeList[selectedTypeInt] == "Worker")
+            {
+                // UI ENABLED
+                closestBUTarget.GUI_Enabled();
+                latestclosestBUTarget = closestBUTarget;
+            }
+        }
+        else
+        {
+            if (latestclosestBUTarget != null)
+            {
+                latestclosestBUTarget.GUI_Disabled();
+            }
+        }
+    }
+
     #endregion
     #endregion
     private void SelectedType()
@@ -741,8 +773,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
 
                     miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
-
-                    transform.LookAt(new Vector3(miradaposition.x, miradaposition.y, miradaposition.z));
+                    //transform.LookAt(new Vector3(miradaposition.x, miradaposition.y, miradaposition.z));
                 }
             }
 
@@ -778,11 +809,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
 
             miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
-
             transform.LookAt(new Vector3(miradaposition.x, miradaposition.y, miradaposition.z));
         }
 
-        this.transform.position = new Vector3(commander.transform.position.x, commander.transform.position.y, commander.transform.position.z);
+        this.transform.position = commander.transform.position;
 
     }
     public void LookAtWhileMoving(float _playerHrj, float _playerVrj)
@@ -805,10 +835,5 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
 
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(miradaposition, 1);
     }
 }

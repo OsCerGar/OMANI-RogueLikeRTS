@@ -9,7 +9,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
     private BU_Building_Action workerMaker;
 
     private float timeToSpawnWorker = 45, desiredRotation;
-    private float biggestClockValue;
+    private float biggestClockValue, oldbiggestClockValue = 10000;
 
     private float[] timeToSpawnWorkerCounter = new float[3];
     private bool[] workersReady = new bool[3];
@@ -57,10 +57,12 @@ public class BU_WorkerMaker : BU_UniqueBuilding
 
     void SpinningStructure()
     {
-
-        desiredRotation = biggestClock() * (180) - 90;
-        spinningStructure.transform.eulerAngles = new Vector3(0, desiredRotation, 0);
-
+        if (biggestClock() != oldbiggestClockValue)
+        {
+            oldbiggestClockValue = biggestClock();
+            desiredRotation = biggestClock() * (180) - 90;
+            spinningStructure.transform.localEulerAngles = new Vector3(0, desiredRotation, 0);
+        }
     }
 
     //Makes Workers
