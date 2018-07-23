@@ -66,8 +66,7 @@ public class PowerManager : MonoBehaviour
     }
     public GameObject CreateLink(Transform tr, Powers _powers)
     {
-        Link.TryGetNextObject(tr.position, tr.rotation, out Spawned);
-        Debug.Log("Spawned");
+        Link.TryGetNextObject(Vector3.zero, Quaternion.identity, out Spawned);
         return Spawned;
     }
     public GameObject SpawnSelectionAnimation(Transform tr)
