@@ -10,7 +10,6 @@ public class Electric : MonoBehaviour
     private readonly int half = 2;
     private float randomness;
     private Vector3[] points;
-    private Link linky;
     private readonly int pointIndexA = 0;
     private readonly int pointIndexB = 1;
     private readonly int pointIndexC = 2;
@@ -24,12 +23,9 @@ public class Electric : MonoBehaviour
     private float timer;
     private float timerTimeOut = 0.05f;
 
-    private void Start()
+    private void Awake()
     {
         lRend = GetComponent<LineRenderer>();
-        linky = GetComponent<Link>();
-        if (linky.power != null) { transformPointA = linky.power.transform; }
-        if (linky.interactible != null) { transformPointB = linky.interactible.transform; }
         points = new Vector3[pointsCount];
         lRend.positionCount = pointsCount;
     }

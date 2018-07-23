@@ -61,7 +61,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
         StartCoroutine("FindTargetsWithDelay", .05f);
 
 
-        pointerDirection = this.transform.Find("PointerDirection").GetComponent<UI_PointerDirection>();
+        //pointerDirection = this.transform.Find("PointerDirection").GetComponent<UI_PointerDirection>();
+        pointerDirection = FindObjectOfType<UI_PointerDirection>();
 
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
         headArm = this.transform.Find("HeadArm").gameObject;
@@ -96,13 +97,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         SelectedType();
         Order();
-        UI_Hologram();
     }
     private void LateUpdate()
     {
+        GUI();
     }
     #region GUI
-    private void UI_Hologram()
+    private void GUI()
     {
         #region SelectionUI
         GUI_SelectionUI();
@@ -113,7 +114,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //UI FOR CONTROLLER
         if (playingOnController)
         {
-            if (controllerLookModel == false)
+            if (!controllerLookModel)
             {
                 if (closestEnemyTarget == null && closestBUTarget == null)
                 {
@@ -181,10 +182,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
     private void GUI_MousePointer()
     {
-        pointerDirection.transform.position = miradaposition;
-
-        //pointerSelection.gameObject.SetActive(true);
         pointerDirection.gameObject.SetActive(true);
+        pointerDirection.transform.position = miradaposition;
 
         headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
 
@@ -283,7 +282,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             }
         }
     }
-
     #endregion
     #endregion
     private void SelectedType()
@@ -568,7 +566,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         Collider[] targetsInViewRadius = Physics.OverlapSphere(miradaposition, 1, targetMask);
         foreach (Collider col in targetsInViewRadius)
         {
-            Debug.Log(col);
             // Save the col as an NPC
             NPC colNPC;
             NPC colEnemy;
@@ -775,6 +772,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                     miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
                     transform.LookAt(miradaposition);
+
                 }
             }
 

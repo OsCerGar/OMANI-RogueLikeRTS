@@ -13,7 +13,7 @@ public class Interactible : MonoBehaviour
     public float price { get; set; }
     public float powerReduced { get; set; }
     public float linkPrice = 5;
-    
+
 
     Powers powers = null;
     PowerManager powerManager;
@@ -83,6 +83,7 @@ public class Interactible : MonoBehaviour
         linky = powerManager.CreateLink(this.transform, powers).GetComponent<Link>();
         linky.power = powers.gameObject;
         linky.interactible = this.transform.gameObject;
+        linky.visualLink();
         link = true;
     }
 
