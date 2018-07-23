@@ -8,12 +8,14 @@ public class Robot : NPC
     Link linky;
     Powers powers = null;
     PowerManager powerManager;
+    DissolveEffectController dissolveEffect;
 
     public float powerReduced = 0, linkPrice = 1;
 
     public void StartResurrection()
     {
         anim.SetTrigger("GetUp");
+        dissolveEffect.StartRevert();
     }
 
     public override void Start()
@@ -21,6 +23,7 @@ public class Robot : NPC
         base.Start();
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();
+        dissolveEffect = GetComponentInChildren<DissolveEffectController>();
 
     }
 
@@ -69,7 +72,11 @@ public class Robot : NPC
             GUI_Script.DisableCircle();
         }
     }
-
+    public override void Die()
+    {
+        base.Die();
+        dissolveEffect.StartDissolve();
+    }
     public void Resurrect()
     {
 

@@ -282,10 +282,8 @@ public class NPC : MonoBehaviour
         anim.SetTrigger("Die");
 
         Nav.updatePosition = false;
-        //this.gameObject.GetComponent<Collider>().enabled = false;
         this.gameObject.GetComponent<Collider>().isTrigger = true;
         this.gameObject.layer = 0;
-        //this.enabled = false;
     }
 
     public virtual void Heal(int _heal)
