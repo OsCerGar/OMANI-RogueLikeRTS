@@ -4,5 +4,9 @@ using UnityEngine;
 
 public class Enemy : NPC {
 
-	
+    public override void Die()
+    {
+        base.Die();
+        Nav.enabled = false;
+    }
 }

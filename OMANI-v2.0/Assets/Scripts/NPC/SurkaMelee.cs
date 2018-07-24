@@ -13,8 +13,4 @@ public class SurkaMelee : Enemy {
 
     }
    
-    public override void Die()
-    {
-        transform.gameObject.SetActive(false);
-    }
 }

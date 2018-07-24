@@ -282,6 +282,7 @@ public class NPC : MonoBehaviour
         anim.SetTrigger("Die");
 
         Nav.updatePosition = false;
+        Nav.updateRotation = false;
         this.gameObject.GetComponent<Collider>().isTrigger = true;
         this.gameObject.layer = 0;
     }
