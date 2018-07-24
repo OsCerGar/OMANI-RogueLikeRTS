@@ -19,6 +19,7 @@ public class Tutorial_Start : MonoBehaviour
     PostProcessingProfile postFX;
     LocomotionBrain locomotion;
     CharacterMovement control;
+    UI_PointerDirection pointer_Direction;
     LookDirectionsAndOrder lookDirections;
     Animator door;
 
@@ -47,6 +48,7 @@ public class Tutorial_Start : MonoBehaviour
         lookDirections = FindObjectOfType<LookDirectionsAndOrder>();
         masterWorker = FindObjectOfType<exPlicativoTreeControler>();
         player = FindObjectOfType<Player>();
+        pointer_Direction = FindObjectOfType<UI_PointerDirection>();
 
         startCamera = this.transform.Find("Timeline/Cameras/StartCamera").GetComponent<Cinemachine.CinemachineVirtualCamera>();
         spotLight = this.transform.Find("Lights/SpotLight").gameObject;
@@ -66,7 +68,7 @@ public class Tutorial_Start : MonoBehaviour
     private void Update()
     {
         if (lightsIn) { LightsOn(); }
-        if (lightsOut) { LightsOff(); }
+        if (lightsOut) { LightsOff();  }
         if (gameplay) { Gameplay(); }
         if (tutorial) { Tutorial(); }
 
@@ -123,7 +125,7 @@ public class Tutorial_Start : MonoBehaviour
         backgroundLights.SetActive(true);
         backgroundLights2.SetActive(true);
         directionalLight.intensity = oldIntensity;
-
+        pointer_Direction.gameObject.SetActive(true);
         cameraFX.m_Profile = postFX;
         RenderSettings.fogEndDistance = oldFogEnd;
         RenderSettings.fogStartDistance = oldFogStart;
@@ -132,7 +134,7 @@ public class Tutorial_Start : MonoBehaviour
     {
         oldFogEnd = RenderSettings.fogEndDistance;
         oldFogStart = RenderSettings.fogStartDistance;
-
+        pointer_Direction.gameObject.SetActive(false);
         directionalLight.intensity = 0.01f;
         spotLight.SetActive(false);
         RenderSettings.fogStartDistance = 105;

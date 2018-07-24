@@ -41,6 +41,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     //NEW UI
     public GameObject UISelectionSpawned;
+    [SerializeField]
     UI_PointerDirection pointerDirection;
     UI_PointerSelection pointerSelection;
     GameObject pointerOrder, headArm;
@@ -54,15 +55,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
     #endregion
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         commander = FindObjectOfType<Army>();
         reclute = this.GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
-
-
-        //pointerDirection = this.transform.Find("PointerDirection").GetComponent<UI_PointerDirection>();
-        pointerDirection = FindObjectOfType<UI_PointerDirection>();
+        //pointerDirection = GetComponent<UI_PointerDirection>();
 
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
         headArm = this.transform.Find("HeadArm").gameObject;
@@ -171,20 +169,24 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
     private void GUI_RegularPointer()
     {
-        pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
-        //pointerSelection.gameObject.SetActive(true);
-        pointerDirection.gameObject.SetActive(true);
+        if (pointerDirection.enabled)
+        {
+            pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
+            //pointerSelection.gameObject.SetActive(true);
+            pointerDirection.gameObject.SetActive(true);
 
-        headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
+            headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
 
-        headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
-        pointerOrder.SetActive(false);
+            headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
+            pointerOrder.SetActive(false);
+        }
     }
     private void GUI_MousePointer()
     {
-        pointerDirection.gameObject.SetActive(true);
-        pointerDirection.transform.position = miradaposition;
-
+        if (pointerDirection.enabled)
+        {
+            pointerDirection.transform.position = miradaposition;
+        }
         headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
 
         headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
@@ -468,8 +470,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         {
                             commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
                         }
-
-
                     }
 
                 }
