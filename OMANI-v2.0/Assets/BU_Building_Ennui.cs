@@ -11,8 +11,8 @@ public class BU_Building_Ennui : BU_UniqueBuilding
     Transform EnnuiSpawn;
 
     private bool ennuisReady;
-    private float timeToSpawnEnnui = 20;
-    private float ennuisToSpawn;
+    private float timeToSpawnEnnui = 120;
+    private float ennuisToSpawn = 20;
     private float timeToSpawnEnnuiCounter, biggestClockValue;
     Image ennuiClocks;
 
@@ -48,8 +48,7 @@ public class BU_Building_Ennui : BU_UniqueBuilding
 
     private void SpitEnnuis()
     {
-        int ennuisToSpawnFinal = Mathf.RoundToInt(timeToSpawnEnnuiCounter);
-        Debug.Log(ennuisToSpawnFinal);
+        int ennuisToSpawnFinal = Mathf.RoundToInt((timeToSpawnEnnuiCounter / timeToSpawnEnnui) * ennuisToSpawn);
         timeToSpawnEnnuiCounter = 0;
         ennuisReady = false;
         for (int i = 0; i < ennuisToSpawnFinal; i++)
@@ -79,7 +78,6 @@ public class BU_Building_Ennui : BU_UniqueBuilding
                     if (timeToSpawnEnnuiCounter > timeToSpawnEnnui)
                     {
                         ennuisReady = true;
-                        ennuisToSpawn = 20;
                         EnnuiClocks(timeToSpawnEnnuiCounter / timeToSpawnEnnui, Color.cyan);
                     }
                 }

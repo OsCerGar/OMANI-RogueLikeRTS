@@ -6,7 +6,7 @@ public class Ennui_Ground : Interactible
 {
 
     [SerializeField]
-    private int energy = 25;
+    private int energy = 5;
     private float timer, totalTimer = 5;
     int build, mask, peopl;
     public override void Start()
