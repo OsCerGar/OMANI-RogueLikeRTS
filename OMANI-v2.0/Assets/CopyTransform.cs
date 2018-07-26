@@ -5,11 +5,12 @@ using UnityEngine;
 public class CopyTransform : MonoBehaviour {
     [SerializeField] Transform Follow;
     [SerializeField] bool position,rotation;
+    [SerializeField] Vector3 positionOffset = Vector3.zero;
     // Update is called once per frame
     void Update () {
         if (position)
         {
-            transform.position = Follow.position;
+            transform.position = new Vector3(Follow.position.x + positionOffset.x, Follow.position.y + positionOffset.y, Follow.position.z + positionOffset.z);
         }
         if (rotation)
         {
