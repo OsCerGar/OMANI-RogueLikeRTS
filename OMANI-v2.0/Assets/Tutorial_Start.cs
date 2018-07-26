@@ -68,7 +68,7 @@ public class Tutorial_Start : MonoBehaviour
     private void Update()
     {
         if (lightsIn) { LightsOn(); }
-        if (lightsOut) { LightsOff();  }
+        if (lightsOut) { LightsOff(); }
         if (gameplay) { Gameplay(); }
         if (tutorial) { Tutorial(); }
 

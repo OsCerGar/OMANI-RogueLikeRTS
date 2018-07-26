@@ -5,8 +5,8 @@ using UnityEngine;
 public class PW_Dash : Power
 {
 
-    float regularSpeed, dashSpeed, startTime, timer, timerSpeed = 2;
-    bool dashin;
+    float regularSpeed, dashSpeed, startTime, timer, timerSpeed = 0.2f, endTimer = 2.5f, energyCost = 10;
+    bool dashin, normalValuesDone;
     public override void Awake()
     {
         base.Awake();
@@ -20,26 +20,45 @@ public class PW_Dash : Power
         if (dashin)
         {
             timer += Time.fixedDeltaTime;
-            dashSpeed -= timer * timerSpeed;
-            player.speed = dashSpeed;
+
+            if (dashSpeed > regularSpeed)
+            {
+                dashSpeed -= timer * timerSpeed;
+                player.speed = dashSpeed;
+            }
 
             if (dashSpeed < regularSpeed)
             {
-                timer = 0;
-                dashin = false;
                 player.speed = regularSpeed;
 
+                if (!normalValuesDone)
+                {
+                    locomotionBrain.normalValues();
+                    normalValuesDone = true;
+                }
+            }
+
+            if (timer > endTimer)
+            {
+                timer = 0;
+                dashin = false;
             }
         }
     }
 
     public void Dash()
     {
+
         if (!dashin)
         {
-            dashSpeed = player.speed * 10;
-            startTime = Time.time;
-            dashin = true;
+            if (powers.reducePower(energyCost))
+            {
+                dashSpeed = player.speed * 8;
+                startTime = Time.time;
+                dashin = true;
+                normalValuesDone = false;
+                locomotionBrain.DashValues();
+            }
         }
     }
 }

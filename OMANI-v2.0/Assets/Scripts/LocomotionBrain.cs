@@ -152,6 +152,12 @@ public class LocomotionBrain : MonoBehaviour
         }
     }
 
+    public void DashValues()
+    {
+        loopCycle = loopCycle * 5;
+        armSpeed = armSpeed * 5;
+    }
+
     public void SlowMotionValues()
     {
         loopCycle = loopCycle * 5;
