@@ -165,9 +165,5 @@ public class ConLaser : MonoBehaviour
     public  void SetGlobalProgress()
     {
         globalProgress = 0f;
-        if (CLaser != null)
-        {
-            CLaser.SetGlobalProgress();
-        }
     }
 }

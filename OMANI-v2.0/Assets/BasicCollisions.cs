@@ -7,6 +7,7 @@ public class BasicCollisions : Power
 
     [SerializeField] ParticleSystem PS;
     bool hit = false;
+
     private void OnTriggerEnter(Collider other)
     {
         Enemy enemy;

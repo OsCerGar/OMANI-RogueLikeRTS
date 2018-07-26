@@ -12,6 +12,7 @@ public class Powers : MonoBehaviour
     LookDirectionsAndOrder lookDirection;
     PowerManager powerManager;
     PW_Dash dash;
+    Power_Laser lasers;
 
     [SerializeField]
     public float maxpowerPool = 100, powerPool = 100, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1;
@@ -31,6 +32,7 @@ public class Powers : MonoBehaviour
         lookDirection = FindObjectOfType<LookDirectionsAndOrder>();
         powerManager = FindObjectOfType<PowerManager>();
         dash = FindObjectOfType<PW_Dash>();
+        lasers = FindObjectOfType<Power_Laser>();
 
     }
 
@@ -42,10 +44,16 @@ public class Powers : MonoBehaviour
         //Controller
         if (Input.GetKeyDown("joystick button 7"))
         {
+            lasers.StartEffects();
+        }
+
+        if (Input.GetKey("joystick button 7"))
+        {
             if (this.reducePower(smallLazerAmount))
             {
                 //Energy Beam
-                powerManager.ShootBasicPower(lookDirection.transform);
+
+                lasers.EmitLaser();
             }
         }
 
@@ -58,7 +66,7 @@ public class Powers : MonoBehaviour
                 if (this.reducePower(bigLazerAmount))
                 {
                     //Attack Beam
-                    powerManager.ShootUpgradedPower(lookDirection.transform);
+                    lasers.EmitOffensiveLaser();
                 }
             }
         }
@@ -67,13 +75,16 @@ public class Powers : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             //Attack mode
-
             if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                lasers.StartEffects();
+            }
+            if (Input.GetKey(KeyCode.Mouse0))
             {
                 if (this.reducePower(smallLazerAmount))
                 {
                     //Energy Beam
-                    powerManager.ShootBasicPower(lookDirection.transform);
+                    lasers.EmitLaser();
                 }
             }
             if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -81,7 +92,7 @@ public class Powers : MonoBehaviour
                 if (this.reducePower(bigLazerAmount))
                 {
                     //Attack Beam
-                    powerManager.ShootUpgradedPower(lookDirection.transform);
+                    lasers.EmitOffensiveLaser();
                 }
             }
         }

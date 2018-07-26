@@ -9,7 +9,7 @@ public class BU_Cable_end : Interactible
     public Transform destination;
     private Transform lastParent, top1FinalPosition, top2FinalPosition;
     private bool collecting = false, collectingStarters = false, launching = false, topDeployed = false, topYesorNo = false;
-    private float maxDistance, speed = 0.2f, startTime, journeyLength, timer;
+    private float maxDistance, speed = 0.2f, startTimess, journeyLength, timer;
 
     // Tops
     List<Transform> tops = new List<Transform>();
@@ -113,7 +113,7 @@ public class BU_Cable_end : Interactible
                 cable.CableLength(journeyLength - 4f);
 
                 // Distance moved = time * speed.
-                float distCovered = (Time.time - startTime) * speed;
+                float distCovered = (Time.time - startTimess) * speed;
 
                 // Fraction of journey completed = current distance divided by total distance.
                 float fracJourney = distCovered / journeyLength;
@@ -215,7 +215,7 @@ public class BU_Cable_end : Interactible
         //Tops or not.
         topYesorNo = tops;
 
-        startTime = Time.time;
+        startTimess = Time.time;
         timer = 0;
         destination = _destination;
     }
