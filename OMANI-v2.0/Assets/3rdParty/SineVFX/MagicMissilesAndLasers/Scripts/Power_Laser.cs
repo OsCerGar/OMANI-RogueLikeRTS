@@ -15,10 +15,12 @@ public class Power_Laser : MonoBehaviour {
     private Animator anim;
     private float contador = 0;
     ConLaser CLaser;
+    LookDirectionsAndOrder lookdir;
 
     void Start () {
         anim = GetComponent<Animator>();
         CLaser = GetComponentInChildren<ConLaser>();
+        lookdir = FindObjectOfType<LookDirectionsAndOrder>();
     }
 
     private void Update()
@@ -33,26 +35,32 @@ public class Power_Laser : MonoBehaviour {
         }
         
     }
-
-    public  void EmitOffensiveLaser(Vector3 mouse)
+    private void LateUpdate()
     {
-        transform.LookAt(mouse);
+
+        transform.LookAt(lookdir.miradaposition);
+    }
+
+    public  void EmitOffensiveLaser()
+    {
         contador = 1;
         anim.SetBool("Fire", true);
-        startWavePS.Emit(1);
-        startParticles.Emit(startParticlesCount);
         Instantiate(laserShotPrefab, laserShotPosition.position, transform.rotation);
     }
 
-    public  void EmitLaser(Vector3 mouse)
+    public  void StartEffects()
+    {
+        startWavePS.Emit(1);
+        startParticles.Emit(startParticlesCount);
+    }
+
+    public  void EmitLaser()
     {
 
-        transform.LookAt(mouse);
+        transform.LookAt(lookdir);
         CLaser.SetGlobalProgress();
         contador = 1;
         anim.SetBool("Fire", true);
-        startWavePS.Emit(1);
-        startParticles.Emit(startParticlesCount);
     }
 
 }
