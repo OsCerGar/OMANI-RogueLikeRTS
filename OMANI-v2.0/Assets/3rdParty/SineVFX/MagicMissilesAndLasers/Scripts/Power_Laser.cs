@@ -37,12 +37,14 @@ public class Power_Laser : MonoBehaviour {
     }
     private void LateUpdate()
     {
-
-        transform.LookAt(lookdir.miradaposition);
+        Quaternion toRotation = Quaternion.LookRotation(lookdir.miradaposition - transform.position);
+        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
+        
     }
 
     public  void EmitOffensiveLaser()
     {
+        StartEffects();
         contador = 1;
         anim.SetBool("Fire", true);
         Instantiate(laserShotPrefab, laserShotPosition.position, transform.rotation);
@@ -56,8 +58,7 @@ public class Power_Laser : MonoBehaviour {
 
     public  void EmitLaser()
     {
-
-        transform.LookAt(lookdir);
+        
         CLaser.SetGlobalProgress();
         contador = 1;
         anim.SetBool("Fire", true);
