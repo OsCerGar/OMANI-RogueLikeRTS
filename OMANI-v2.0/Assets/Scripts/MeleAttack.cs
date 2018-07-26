@@ -61,7 +61,7 @@ public class MeleAttack : MonoBehaviour {
                 EnemyNPC.TakeDamage(attackDamage);
             }
             //Set his Enemy to this
-            //EnemyNPC.AI_SetEnemy(thisNpcScript.gameObject);
+            EnemyNPC.AI_SetTarget(thisNpcScript.gameObject);
             //If he's dead, then forget about him
             missed = false;
            
