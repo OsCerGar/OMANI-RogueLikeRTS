@@ -8,7 +8,7 @@ public class PW_SlowMotion : Power
 {
 
     private float slowdownFactor = 0.25f;
-    private float slowdownLength = 1.5f, waste = 10f, viewRadius = 2f, regularSpeed, powerToReduce;
+    private float slowdownLength = 1.5f, waste = 10f, viewRadius = 2f, regularSpeed, energyCost = 15;
     private bool active = false, backToNormal = false;
     private int targetMask = 1 << 10;
 
@@ -27,54 +27,48 @@ public class PW_SlowMotion : Power
 
     public override void Update()
     {
-        if (active == false)
+        if (!active)
         {
             Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
             Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
 
-            if (!backToNormal)
-            {
-                postFx.m_Profile = normal;
-                Time.fixedDeltaTime = 0.02F;
-
-                // turns speed back
-                player.speed = regularSpeed;
-                backToNormal = true;
-            }
         }
         else
         {
-
-            if (!powers.reducePower(7.5f * Time.unscaledDeltaTime))
+            if (!powers.reducePower(energyCost))
             {
                 active = false;
             }
-
-            // Player goes faster
-            player.speed = 0.1f;
         }
     }
 
     private void SlowMotion()
     {
-        if (active == false)
+        if (!active)
         {
-            backToNormal = false;
             // if inactive becomes active and loads the slowmo postfx added in inspector.
+            backToNormal = false;
             active = true;
-            locomotionBrain.SlowMotionValues();
             Time.timeScale = slowdownFactor;
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
             postFx.m_Profile = slowmo;
+
+            // Player goes faster
+            player.speed = 0.1f;
+
+            locomotionBrain.SlowMotionValues();
         }
         else
         {
-            locomotionBrain.normalValues();
-
             // if already active becomes inactive and loads the regular postfx.
             active = false;
             postFx.m_Profile = normal;
+            Time.fixedDeltaTime = 0.02F;
 
+            // turns speed back
+            player.speed = regularSpeed;
+
+            locomotionBrain.StopSlowMotionValues();
         }
     }
 

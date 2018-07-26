@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class LocomotionBrain : MonoBehaviour
 {
-    private float Loop = 0, loopCycle = 100, armSpeed = 3f, loopCycleNormalValue, armSpeedNormalValue;
+    private float Loop = 0, loopCycle = 100, armSpeed = 3f, runningValue = 1f, slowmoValue = 5f;
     private int footControler = 0;
     public bool ikActive = false;
-    public LayerMask mask ;
+    public LayerMask mask;
 
 
     public Transform Throne = null;
@@ -45,8 +45,6 @@ public class LocomotionBrain : MonoBehaviour
         IKleftHandPos = new Vector3(leftHandPos.position.x, leftHandPos.position.y, leftHandPos.position.z);
         IKrightFootPos = new Vector3(rightFootPos.position.x, rightFootPos.position.y, rightFootPos.position.z);
         IKleftFootPos = new Vector3(leftFootPos.position.x, leftFootPos.position.y, leftFootPos.position.z);
-        loopCycleNormalValue = loopCycle;
-        armSpeedNormalValue = armSpeed;
     }
 
     private void Update()
@@ -114,7 +112,7 @@ public class LocomotionBrain : MonoBehaviour
         }
 
         ArmPositions.transform.position = playerRB.transform.position + playerRB.velocity / armSpeed; //adjust to rB velocity
-        
+
         var MaxDistance = 3f;
         if (Vector3.Distance(IKrightHandPos, ShootRaycast(rightHandPos)) > MaxDistance)
         {
@@ -136,7 +134,7 @@ public class LocomotionBrain : MonoBehaviour
             IKleftFootPos = ShootRaycast(leftFootPos);
             LeftFootBrain.SetTargetPos(IKleftFootPos);
         }
-        
+
 
 
 
@@ -146,29 +144,24 @@ public class LocomotionBrain : MonoBehaviour
     {
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(tr.position.x, tr.position.y + 10, tr.position.z), -Vector3.up, out hit, 100, mask.value))
-        {   
-            return new Vector3(hit.point.x, Mathf.Clamp(hit.point.y,transform.position.y-5, transform.position.y - 1), hit.point.z);
-        }else
+        {
+            return new Vector3(hit.point.x, Mathf.Clamp(hit.point.y, transform.position.y - 5, transform.position.y - 1), hit.point.z);
+        }
+        else
         {
             return tr.position;
         }
     }
 
-    public void DashValues()
-    {
-        loopCycle = loopCycle * 10;
-        armSpeed = armSpeed * 10;
-    }
-
     public void SlowMotionValues()
     {
-        loopCycle = loopCycle * 5;
-        armSpeed = armSpeed * 5;
-    }
-    public void normalValues()
-    {
-        loopCycle = loopCycleNormalValue;
-        armSpeed = armSpeedNormalValue;
+        loopCycle = loopCycle * slowmoValue;
+        armSpeed = armSpeed * slowmoValue;
     }
 
+    public void StopSlowMotionValues()
+    {
+        loopCycle = loopCycle / slowmoValue;
+        armSpeed = armSpeed / slowmoValue;
+    }
 }

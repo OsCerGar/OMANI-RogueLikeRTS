@@ -107,10 +107,16 @@ public class Powers : MonoBehaviour
         #endregion
         #region Dash
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey("joystick button 1"))
         {
-            dash.Dash();
+            dash.CastPower();
         }
+
+        else if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp("joystick button 1"))
+        {
+            dash.StopRunning();
+        }
+
         #endregion
 
         #endregion
@@ -144,7 +150,7 @@ public class Powers : MonoBehaviour
     {
         if (powerPool - amount >= 0)
         {
-            powerPool -= amount;
+            powerPool -= amount * Time.unscaledDeltaTime;
             return true;
         }
         else
