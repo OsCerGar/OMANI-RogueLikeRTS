@@ -42,7 +42,6 @@ public class BasicCollisions : Power
             PS.Play();
             ally.Action();
             hit = true;
-
         }
     }
 

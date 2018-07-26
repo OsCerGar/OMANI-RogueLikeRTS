@@ -8,16 +8,15 @@ public class Interactible : MonoBehaviour
     Rigidbody myRigidBody;
 
     public bool hasRigid { get; set; }
-    public bool link { get; set; }
 
     public float price { get; set; }
     public float powerReduced { get; set; }
     public float linkPrice = 5;
+    private float startTime;
 
 
     Powers powers = null;
     PowerManager powerManager;
-    public Link linky { get; set; }
 
     public virtual void Initialize()
     {
@@ -43,55 +42,34 @@ public class Interactible : MonoBehaviour
 
     public virtual void Update()
     {
-        if (link)
+        if (Time.time - startTime > 3f && powerReduced > 1)
         {
-            if (powers.reducePower(linkPrice * Time.unscaledDeltaTime))
-            {
-                powerReduced += linkPrice * Time.unscaledDeltaTime;
-            }
+            ReducePower();
+        }
 
-            else
-            {
-                DestroyLink();
-            }
-
-            if (powerReduced >= price)
-            {
-                ActionCompleted();
-            }
+        if (powerReduced >= price)
+        {
+            ActionCompleted();
         }
     }
 
     public virtual void Action()
     {
-        if (!link)
+        startTime = Time.time;
+        if (powers.reducePower(linkPrice * Time.unscaledDeltaTime))
         {
-            CreateLink();
+            powerReduced += linkPrice * Time.unscaledDeltaTime;
         }
     }
 
     public virtual void ActionCompleted()
     {
-        linky.Completed();
-        link = false;
         powerReduced = 0;
     }
 
-    public void CreateLink()
+    public void ReducePower()
     {
-        //CreatesLink
-        linky = powerManager.CreateLink(this.transform, powers).GetComponent<Link>();
-        linky.power = powers.gameObject;
-        linky.interactible = this.transform.gameObject;
-        linky.visualLink();
-        link = true;
-    }
-
-    public void DestroyLink()
-    {
-        linky.Failed();
-        link = false;
-        powerReduced = 0;
+        powerReduced -= 1 * Time.unscaledDeltaTime;
     }
 
     public void enableRigid()

@@ -86,14 +86,12 @@ public class Powers : MonoBehaviour
             }
         }
         #endregion
-
         #region SlowMotion
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown("joystick button 3"))
         {
             slowMo.CastPower();
         }
         #endregion
-
         #region Hearthstone
         if (Input.GetKey(KeyCode.Q) || Input.GetKey("joystick button 0"))
         {

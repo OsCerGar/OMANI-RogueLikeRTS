@@ -63,7 +63,6 @@ public class Interactible_Repeater : Interactible
         else
         {
             StopWorking();
-            DestroyLink();
             energy = false;
         }
     }
