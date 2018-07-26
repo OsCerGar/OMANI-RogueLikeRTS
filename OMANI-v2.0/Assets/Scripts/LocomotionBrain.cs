@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LocomotionBrain : MonoBehaviour
 {
-    private float Loop = 0, loopCycle = 100, armSpeed = 3f;
+    private float Loop = 0, loopCycle = 100, armSpeed = 3f, loopCycleNormalValue, armSpeedNormalValue;
     private int footControler = 0;
     public bool ikActive = false;
     public LayerMask mask ;
@@ -45,6 +45,8 @@ public class LocomotionBrain : MonoBehaviour
         IKleftHandPos = new Vector3(leftHandPos.position.x, leftHandPos.position.y, leftHandPos.position.z);
         IKrightFootPos = new Vector3(rightFootPos.position.x, rightFootPos.position.y, rightFootPos.position.z);
         IKleftFootPos = new Vector3(leftFootPos.position.x, leftFootPos.position.y, leftFootPos.position.z);
+        loopCycleNormalValue = loopCycle;
+        armSpeedNormalValue = armSpeed;
     }
 
     private void Update()
@@ -154,8 +156,8 @@ public class LocomotionBrain : MonoBehaviour
 
     public void DashValues()
     {
-        loopCycle = loopCycle * 5;
-        armSpeed = armSpeed * 5;
+        loopCycle = loopCycle * 10;
+        armSpeed = armSpeed * 10;
     }
 
     public void SlowMotionValues()
@@ -165,8 +167,8 @@ public class LocomotionBrain : MonoBehaviour
     }
     public void normalValues()
     {
-        loopCycle = loopCycle / 5;
-        armSpeed = armSpeed / 5;
+        loopCycle = loopCycleNormalValue;
+        armSpeed = armSpeedNormalValue;
     }
 
 }

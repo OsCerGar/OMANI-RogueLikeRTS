@@ -53,7 +53,7 @@ public class PW_Dash : Power
         {
             if (powers.reducePower(energyCost))
             {
-                dashSpeed = player.speed * 8;
+                dashSpeed = player.speed * 5;
                 startTime = Time.time;
                 dashin = true;
                 normalValuesDone = false;

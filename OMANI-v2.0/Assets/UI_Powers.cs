@@ -25,6 +25,7 @@ public class UI_Powers : MonoBehaviour
                 clocks.Add(realClock);
             }
         }
+
         powers = this.transform.root.GetComponentInChildren<Powers>();
         mainCamera = Camera.main;
     }
