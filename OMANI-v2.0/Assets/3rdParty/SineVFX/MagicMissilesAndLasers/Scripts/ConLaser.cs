@@ -24,8 +24,11 @@ public class ConLaser : MonoBehaviour
     private Vector3 hitPosition;
     private Vector3 currentPosition;
 
+    ConLaser CLaser;
+
     void Start()
     {
+        CLaser = GetComponentInChildren<ConLaser>();
         globalProgress = 1f;
         lr = this.GetComponent<LineRenderer>();
         lr.positionCount = segmentCount;
@@ -128,10 +131,7 @@ public class ConLaser : MonoBehaviour
         GetComponent<Renderer>().material.SetFloat("_Distance", dist);
         GetComponent<Renderer>().material.SetVector("_Position", transform.position);
 
-        if (Input.GetMouseButton(0))
-        {
-            globalProgress = 0f;
-        }
+       
 
         if (globalProgress <= 1f)
         {
@@ -160,5 +160,14 @@ public class ConLaser : MonoBehaviour
             hitPsArray[1].Emit(100);
         }
 
+    }
+
+    public  void SetGlobalProgress()
+    {
+        globalProgress = 0f;
+        if (CLaser != null)
+        {
+            CLaser.SetGlobalProgress();
+        }
     }
 }
