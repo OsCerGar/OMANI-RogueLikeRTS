@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UI_Powers : MonoBehaviour
 {
 
-    List<Image> clocks = new List<Image>();
+    public List<Image> clocks = new List<Image>();
     Powers powers;
     Camera mainCamera;
     float lastPowerPool;
@@ -19,7 +19,7 @@ public class UI_Powers : MonoBehaviour
         {
             if (ui_clock.name == "PowerClock")
             {
-                Image realClock = ui_clock.transform.GetComponent<Image>();
+                Image realClock = ui_clock.transform.GetChild(0).GetComponent<Image>();
                 clocks.Add(realClock);
                 realClock = ui_clock.transform.GetComponent<Image>();
                 clocks.Add(realClock);
