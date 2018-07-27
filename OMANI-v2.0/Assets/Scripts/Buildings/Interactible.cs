@@ -10,7 +10,8 @@ public class Interactible : MonoBehaviour
     public bool hasRigid { get; set; }
 
     public float price { get; set; }
-    public float powerReduced { get; set; }
+    [SerializeField]
+    public float powerReduced;
     public float linkPrice = 5;
     private float startTime;
 
@@ -56,11 +57,10 @@ public class Interactible : MonoBehaviour
     public virtual void Action()
     {
         startTime = Time.time;
-        if (powers.reducePower(linkPrice * Time.unscaledDeltaTime))
+
+        if (powers.reducePower(linkPrice))
         {
             powerReduced += linkPrice * Time.unscaledDeltaTime;
-            Debug.Log("action" + powerReduced);
-
         }
     }
 

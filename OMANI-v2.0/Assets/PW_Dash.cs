@@ -6,7 +6,7 @@ public class PW_Dash : Power
 {
 
     float regularSpeed, runningSpeed, energyCost = 7;
-    bool runnin;
+    bool runnin = false;
     public override void Awake()
     {
         base.Awake();
@@ -27,6 +27,7 @@ public class PW_Dash : Power
 
     public override void CastPower()
     {
+        Debug.Log("running");
         Running();
     }
 

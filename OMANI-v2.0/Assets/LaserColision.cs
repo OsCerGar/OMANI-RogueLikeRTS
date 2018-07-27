@@ -4,72 +4,97 @@ using UnityEngine;
 
 public class LaserColision : MonoBehaviour
 {
+    public bool laserEnabled { get; set; }
 
-    Enemy enemy, lastEnemy;
-    Interactible interactible, lastInteractible;
-    Robot ally, lastAlly;
-
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Building"))
+        if (laserEnabled)
         {
-            if (interactible != null)
-            {
-                if (interactible != lastInteractible)
-                {
-                    interactible = other.GetComponent<Interactible>();
-                    lastInteractible = interactible;
-                }
-
-                interactible.Action();
-            }
-            else
-            {
-                interactible = other.GetComponent<Interactible>();
-                interactible.Action();
-            }
-
+            LaserCollisions();
         }
-
-        else if (other.CompareTag("Enemy"))
-        {
-            if (enemy != null)
-            {
-                if (enemy != lastEnemy)
-                {
-                    enemy = other.GetComponent<Enemy>();
-                    lastEnemy = enemy;
-                }
-
-                enemy.TakeDamage(1);
-            }
-            else
-            {
-                enemy = other.GetComponent<Enemy>();
-                enemy.TakeDamage(1);
-            }
-        }
-
-        else if (other.CompareTag("People"))
-        {
-            if (ally != null)
-            {
-                if (ally != lastAlly)
-                {
-                    ally = other.GetComponent<Robot>();
-                    ally = lastAlly;
-                }
-
-                ally.Action();
-            }
-            else
-            {
-                ally = other.GetComponent<Robot>();
-                ally.Action();
-            }
-        }
-
     }
 
+    private void LaserCollisions()
+    {
+        Enemy enemy, closestEnemyTarget = null;
+        Interactible interactible, closestBUTarget = null;
+        Robot ally, closestTarget = null;
 
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(this.transform.position, 0.5f);
+        foreach (Collider other in targetsInViewRadius)
+        {
+            if (other.CompareTag("Building"))
+            {
+                interactible = other.GetComponent<Interactible>();
+
+                if (interactible != null)
+                {
+                    Transform target = other.transform;
+
+                    //Distance to target
+                    float dstToTarget = Vector3.Distance(this.transform.position, target.position);
+                    //If the closestTarget is null he is the closest target.
+                    // If the distance is smaller than the distance to the closestTarget.
+                    if (closestBUTarget == null || dstToTarget < Vector3.Distance(this.transform.position, target.position))
+                    {
+                        closestBUTarget = interactible;
+                    }
+                }
+            }
+
+            else if (other.CompareTag("Enemy"))
+            {
+
+                enemy = other.GetComponent<Enemy>();
+
+                if (enemy != null)
+                {
+                    Transform target = other.transform;
+
+                    //Distance to target
+                    float dstToTarget = Vector3.Distance(this.transform.position, target.position);
+                    //If the closestTarget is null he is the closest target.
+                    // If the distance is smaller than the distance to the closestTarget.
+                    if (closestBUTarget == null || dstToTarget < Vector3.Distance(this.transform.position, target.position))
+                    {
+                        closestEnemyTarget = enemy;
+                    }
+                }
+            }
+
+            else if (other.CompareTag("People"))
+            {
+
+                ally = other.GetComponent<Robot>();
+
+                if (ally != null)
+                {
+                    Transform target = other.transform;
+
+                    //Distance to target
+                    float dstToTarget = Vector3.Distance(this.transform.position, target.position);
+                    //If the closestTarget is null he is the closest target.
+                    // If the distance is smaller than the distance to the closestTarget.
+                    if (closestBUTarget == null || dstToTarget < Vector3.Distance(this.transform.position, target.position))
+                    {
+                        closestTarget = ally;
+                    }
+                }
+            }
+        }
+
+        if (closestBUTarget != null)
+        {
+            closestBUTarget.Action();
+        }
+        if (closestTarget != null)
+        {
+            closestTarget.Action();
+        }
+        if (closestEnemyTarget != null)
+        {
+            closestEnemyTarget.TakeDamage(1);
+        }
+    }
 }
+

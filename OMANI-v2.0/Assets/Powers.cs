@@ -5,7 +5,6 @@ using UnityEngine;
 public class Powers : MonoBehaviour
 {
     [SerializeField]
-    public List<Power> power = new List<Power>();
     int ennuisMask;
     PW_SlowMotion slowMo;
     PW_Hearthstone hearthStone;
@@ -49,12 +48,11 @@ public class Powers : MonoBehaviour
 
         if (Input.GetKey("joystick button 7"))
         {
-            if (this.reducePower(smallLazerAmount))
-            {
-                //Energy Beam
 
-                lasers.EmitLaser();
-            }
+            //Energy Beam
+
+            lasers.EmitLaser();
+
         }
 
         if (Input.GetKey("joystick button 6"))
@@ -81,11 +79,10 @@ public class Powers : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.Mouse0))
             {
-                if (this.reducePower(smallLazerAmount))
-                {
-                    //Energy Beam
-                    lasers.EmitLaser();
-                }
+
+                //Energy Beam
+                lasers.EmitLaser();
+
             }
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
@@ -157,9 +154,10 @@ public class Powers : MonoBehaviour
 
     public bool reducePower(float amount)
     {
-        if (powerPool - amount >= 0)
+        float finalAmount = amount * Time.unscaledDeltaTime;
+        if (powerPool - finalAmount >= 0)
         {
-            powerPool -= amount * Time.unscaledDeltaTime;
+            powerPool -= finalAmount;
             return true;
         }
         else

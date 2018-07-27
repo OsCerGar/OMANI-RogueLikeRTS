@@ -5,10 +5,11 @@ using UnityEngine;
 public class Interactible_Repeater : Interactible
 {
     Animator animator;
-    public bool energy { get; set; }
+    [SerializeField]
+    public bool energy;
     GameObject top;
     BU_Energy energyBU;
-    private int repeaterPrice = 15;
+    private float startTimeRepeater = 0, stopTimeRepeater = 0;
 
 
     private void Initializer()
@@ -17,8 +18,8 @@ public class Interactible_Repeater : Interactible
         animator = this.GetComponent<Animator>();
         top = this.transform.Find("Stick/Top").gameObject;
 
-        linkPrice = 10;
-        price = repeaterPrice;
+        linkPrice = 25;
+        price = 15;
     }
     // Use this for initialization
     public override void Start()
@@ -36,7 +37,6 @@ public class Interactible_Repeater : Interactible
             if (!energy)
             {
                 energyBU.pullBackCable(top.transform);
-                //DestroyLink();
                 StopWorking();
             }
         }
@@ -44,35 +44,43 @@ public class Interactible_Repeater : Interactible
 
     public override void Action()
     {
-        if (!energy)
+        if (Time.time - startTimeRepeater > 3)
         {
             if (energyBU != null)
             {
-                if (energyBU.energyCheck())
+                if (energyBU.energyCheck() || energy)
                 {
                     base.Action();
-                    energy = true;
                 }
             }
             else
             {
                 base.Action();
-                energy = true;
             }
-        }
-        else
-        {
-            StopWorking();
-            energy = false;
         }
     }
 
     public override void ActionCompleted()
     {
-
         base.ActionCompleted();
-        animator.SetBool("Energy", true);
-        energyBU.RequestCable(top);
+        if (!energy)
+        {
+            animator.SetBool("Energy", true);
+            energyBU.RequestCable(top);
+            energy = true;
+            linkPrice = 10;
+            price = 2;
+
+        }
+        else
+        {
+            StopWorking();
+            energy = false;
+            linkPrice = 25;
+            price = 15;
+        }
+
+        startTimeRepeater = Time.time;
     }
 
     private void StopWorking()
@@ -80,5 +88,4 @@ public class Interactible_Repeater : Interactible
         energyBU.pullBackCable(top.transform);
         animator.SetBool("Energy", false);
     }
-
 }

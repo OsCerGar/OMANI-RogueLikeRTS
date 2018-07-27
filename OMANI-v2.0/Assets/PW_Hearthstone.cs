@@ -17,7 +17,6 @@ public class PW_Hearthstone : Power
     public override void Awake()
     {
         base.Awake();
-
     }
 
     // Use this for initialization

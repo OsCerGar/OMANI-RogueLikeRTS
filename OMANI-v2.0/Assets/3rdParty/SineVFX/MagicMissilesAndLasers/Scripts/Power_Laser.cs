@@ -10,7 +10,7 @@ public class Power_Laser : MonoBehaviour {
     public ParticleSystem startParticles;
     public int startParticlesCount = 100;
     public GameObject laserShotPrefab;
-
+    public LaserColision laserColision;
     private Vector3 mouseWorldPosition;
     private Animator anim;
     private float contador = 0;
@@ -21,6 +21,7 @@ public class Power_Laser : MonoBehaviour {
         anim = GetComponent<Animator>();
         CLaser = GetComponentInChildren<ConLaser>();
         lookdir = FindObjectOfType<LookDirectionsAndOrder>();
+        laserColision = FindObjectOfType<LaserColision>();
     }
 
     private void Update()
@@ -32,8 +33,9 @@ public class Power_Laser : MonoBehaviour {
         } else
         {
             anim.SetBool("Fire", false);
+            laserColision.laserEnabled = false;
         }
-        
+
     }
     private void LateUpdate()
     {
@@ -58,10 +60,10 @@ public class Power_Laser : MonoBehaviour {
 
     public  void EmitLaser()
     {
-        
         CLaser.SetGlobalProgress();
         contador = 1;
         anim.SetBool("Fire", true);
+        laserColision.laserEnabled = true;
     }
 
 }
