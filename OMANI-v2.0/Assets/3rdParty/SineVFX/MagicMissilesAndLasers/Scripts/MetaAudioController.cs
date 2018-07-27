@@ -10,7 +10,8 @@ public class MetaAudioController : MonoBehaviour
     public GameObject[] waveSfxPrefabs;
     public GameObject[] explosionSfxPregabs;
     public GameObject[] smallExplosionSfxPregabs;
-    public float globalProgressSpeed = 1f;
+    public float globalProgressSpeed = 1f, startTimer;
+
 
     private float globalProgress;
 
@@ -54,5 +55,17 @@ public class MetaAudioController : MonoBehaviour
 
         loopingSFX.volume = globalProgress;
 
+        if (Time.time - startTimer > 0.5)
+        {
+            loopingSFX.pitch = 1;
+        }
+    }
+
+    public void energyTransmisionSound(float value)
+    {
+        startTimer = Time.time;
+        loopingSFX.pitch += (value / 8) * Time.unscaledDeltaTime;
+        Debug.Log((value / 8) * Time.unscaledDeltaTime);
+        loopingSFX.pitch = Mathf.Clamp(loopingSFX.pitch, 1, 3f);
     }
 }

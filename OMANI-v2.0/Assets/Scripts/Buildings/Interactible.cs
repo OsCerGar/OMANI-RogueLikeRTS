@@ -18,13 +18,14 @@ public class Interactible : MonoBehaviour
 
     Powers powers = null;
     PowerManager powerManager;
+    MetaAudioController laserAudio;
 
     public virtual void Initialize()
     {
         myRigidBody = this.GetComponent<Rigidbody>();
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();
-
+        laserAudio = FindObjectOfType<MetaAudioController>();
     }
 
     public virtual void Awake()
@@ -60,6 +61,7 @@ public class Interactible : MonoBehaviour
 
         if (powers.reducePower(linkPrice))
         {
+            laserAudio.energyTransmisionSound(linkPrice);
             powerReduced += linkPrice * Time.unscaledDeltaTime;
         }
     }
