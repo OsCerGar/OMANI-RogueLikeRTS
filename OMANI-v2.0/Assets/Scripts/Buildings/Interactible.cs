@@ -56,10 +56,11 @@ public class Interactible : MonoBehaviour
     public virtual void Action()
     {
         startTime = Time.time;
-
         if (powers.reducePower(linkPrice * Time.unscaledDeltaTime))
         {
             powerReduced += linkPrice * Time.unscaledDeltaTime;
+            Debug.Log("action" + powerReduced);
+
         }
     }
 
