@@ -15,11 +15,13 @@ public class Power_Laser : MonoBehaviour {
     private Animator anim;
     private float contador = 0;
     ConLaser CLaser;
+    MetaAudioController AudioControl;
     LookDirectionsAndOrder lookdir;
 
     void Start () {
         anim = GetComponent<Animator>();
         CLaser = GetComponentInChildren<ConLaser>();
+        AudioControl = GetComponentInChildren<MetaAudioController>();
         lookdir = FindObjectOfType<LookDirectionsAndOrder>();
         laserColision = FindObjectOfType<LaserColision>();
     }
@@ -46,6 +48,7 @@ public class Power_Laser : MonoBehaviour {
 
     public  void EmitOffensiveLaser()
     {
+        AudioControl.ResetLaserProgress();
         StartEffects();
         contador = 1;
         anim.SetBool("Fire", true);
@@ -54,12 +57,14 @@ public class Power_Laser : MonoBehaviour {
 
     public  void StartEffects()
     {
+        AudioControl.StartSound();
         startWavePS.Emit(1);
         startParticles.Emit(startParticlesCount);
     }
 
     public  void EmitLaser()
     {
+        AudioControl.ResetLaserProgress();
         CLaser.SetGlobalProgress();
         contador = 1;
         anim.SetBool("Fire", true);

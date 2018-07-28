@@ -37,28 +37,28 @@ public class MetaAudioController : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetMouseButton(0))
-        {
-            globalProgress = 1f;
-        }
-
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-        {
-            Instantiate(waveSfxPrefabs[Random.Range(0, waveSfxPrefabs.Length)], transform.position, transform.rotation);
-        }
-
+        
         if (globalProgress >= 0f)
         {
             globalProgress -= Time.deltaTime * globalProgressSpeed;
         }
 
-        loopingSFX.volume = globalProgress;
+        loopingSFX.volume = globalProgress -0.1f ;
 
         if (Time.time - startTimer > 0.5)
         {
             loopingSFX.pitch = 1;
         }
+    }
+
+    public void ResetLaserProgress()
+    {
+        globalProgress = 1f;
+    }
+
+    public void StartSound()
+    {
+        Instantiate(waveSfxPrefabs[Random.Range(0, waveSfxPrefabs.Length)], transform.position, transform.rotation);
     }
 
     public void energyTransmisionSound(float value)
