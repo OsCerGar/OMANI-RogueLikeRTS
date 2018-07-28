@@ -40,6 +40,10 @@ public class Interactible_Repeater : Interactible
                 StopWorking();
             }
         }
+        if (powerReduced <= price)
+        {
+            animator.SetFloat("Blend", (powerReduced * price )/100);
+        }
     }
 
     public override void Action()

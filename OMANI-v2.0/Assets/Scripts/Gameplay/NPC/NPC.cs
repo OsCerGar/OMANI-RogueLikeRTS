@@ -276,7 +276,7 @@ public class NPC : MonoBehaviour
     {
         if (AI != null)
         {
-            AI.DisableBehavior();
+            AI.enabled = false;
         }
         life = 0;
         anim.SetTrigger("Die");
