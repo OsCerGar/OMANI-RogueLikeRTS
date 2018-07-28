@@ -63,8 +63,10 @@ public class Powers : MonoBehaviour
             {
                 if (this.reducePower(bigLazerAmount))
                 {
-                    //Attack Beam
-                    lasers.EmitOffensiveLaser();
+                    if (reducePowerNow(10))
+                    {   //Attack Beam
+                        lasers.EmitOffensiveLaser();
+                    }
                 }
             }
         }
@@ -88,8 +90,10 @@ public class Powers : MonoBehaviour
             {
                 if (this.reducePower(bigLazerAmount))
                 {
-                    //Attack Beam
-                    lasers.EmitOffensiveLaser();
+                    if (reducePowerNow(10))
+                    {   //Attack Beam
+                        lasers.EmitOffensiveLaser();
+                    }
                 }
             }
         }
@@ -166,6 +170,18 @@ public class Powers : MonoBehaviour
         }
     }
 
+    public bool reducePowerNow(float amount)
+    {
+        if (powerPool - amount >= 0)
+        {
+            powerPool -= amount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     private void FixedUpdate()
     {
         FindEnnuis();

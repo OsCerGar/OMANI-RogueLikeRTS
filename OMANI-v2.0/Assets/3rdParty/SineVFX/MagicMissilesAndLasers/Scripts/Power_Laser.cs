@@ -17,6 +17,7 @@ public class Power_Laser : MonoBehaviour {
     ConLaser CLaser;
     MetaAudioController AudioControl;
     LookDirectionsAndOrder lookdir;
+    float widthToSend = 1;
 
     void Start () {
         anim = GetComponent<Animator>();
@@ -40,17 +41,20 @@ public class Power_Laser : MonoBehaviour {
 
     }
     private void LateUpdate()
-    {
+    { /*
         Quaternion toRotation = Quaternion.LookRotation(lookdir.miradaposition - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
-        
+        */
+        transform.LookAt(lookdir.miradaposition);
+
+
     }
 
     public  void EmitOffensiveLaser()
     {
         AudioControl.ResetLaserProgress();
         StartEffects();
-        contador = 1;
+        contador = 0.1f;
         anim.SetBool("Fire", true);
         Instantiate(laserShotPrefab, laserShotPosition.position, transform.rotation);
     }
@@ -69,6 +73,19 @@ public class Power_Laser : MonoBehaviour {
         contador = 1;
         anim.SetBool("Fire", true);
         laserColision.laserEnabled = true;
+    }
+    public void setWidth(float _width)
+    {
+        if (_width > widthToSend)
+        {
+            widthToSend += Time.unscaledDeltaTime * 3;
+        }
+        else if (_width < widthToSend)
+        {
+            widthToSend -= Time.unscaledDeltaTime * 10;
+        }
+        widthToSend = Mathf.Clamp(widthToSend,0.5f,5f);
+        CLaser.WidthMultiplayer = widthToSend;
     }
 
 }

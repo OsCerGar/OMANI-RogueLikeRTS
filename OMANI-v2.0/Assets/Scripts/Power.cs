@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Power : MonoBehaviour
 {
-    [SerializeField] public ParticleSystem mainParticleSystem;
+    [HideInInspector]
     public CharacterMovement player;
+    [HideInInspector]
     public Powers powers;
+    [HideInInspector]
     public LocomotionBrain locomotionBrain;
 
     public virtual void Awake()
@@ -18,10 +20,6 @@ public class Power : MonoBehaviour
 
     public virtual void Update()
     {
-        if (mainParticleSystem.IsAlive() == false)
-        {
-            transform.parent.gameObject.SetActive(false);
-        }
     }
 
     public virtual void CastPower()

@@ -5,7 +5,12 @@ using UnityEngine;
 public class LaserColision : MonoBehaviour
 {
     public bool laserEnabled { get; set; }
+    Power_Laser powerLaser;
 
+    private void Awake()
+    {
+        powerLaser = FindObjectOfType<Power_Laser>();
+    }
     private void Update()
     {
         if (laserEnabled)
@@ -86,15 +91,32 @@ public class LaserColision : MonoBehaviour
         if (closestBUTarget != null)
         {
             closestBUTarget.Action();
+            if (closestBUTarget.actionBool)
+            {
+                powerLaser.setWidth(closestBUTarget.linkPrice);
+            }
         }
         if (closestTarget != null)
         {
             closestTarget.Action();
+            /*
+            if (closestTarget.actionBool)
+            {
+                powerLaser.setWidth(closestTarget.linkPrice);
+            }
+            */
         }
         if (closestEnemyTarget != null)
         {
             closestEnemyTarget.TakeDamage(1);
+            //powerLaser.setWidth(closestEnemyTarget.linkPrice);
         }
+
+        if (closestBUTarget == null && closestTarget == null && closestEnemyTarget == null)
+        {
+            powerLaser.setWidth(1);
+        }
+
     }
 }
 

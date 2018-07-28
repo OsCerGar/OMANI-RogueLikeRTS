@@ -16,7 +16,7 @@ public class ConLaser : MonoBehaviour
     public AnimationCurve lineWidthCurve;
     public Light pl;
     public float moveHitToSource;
-
+    public float WidthMultiplayer;
     private LineRenderer lr;
     private Vector3[] resultVectors;
     private float dist;
@@ -152,7 +152,7 @@ public class ConLaser : MonoBehaviour
             meshRenderer2.material.SetFloat("_Progress", progress);
         }       
 
-        float width = lineWidthCurve.Evaluate(globalProgress);
+        float width = lineWidthCurve.Evaluate(globalProgress) * WidthMultiplayer;
         lr.widthMultiplier = width;
 
         if (Input.GetMouseButtonDown(0) && hitEffect)

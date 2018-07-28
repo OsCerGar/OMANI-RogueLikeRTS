@@ -14,7 +14,7 @@ public class Interactible : MonoBehaviour
     public float powerReduced;
     public float linkPrice = 5;
     private float startTime;
-
+    public bool actionBool { get; set; }
 
     Powers powers = null;
     PowerManager powerManager;
@@ -63,8 +63,14 @@ public class Interactible : MonoBehaviour
         {
             laserAudio.energyTransmisionSound(linkPrice);
             powerReduced += linkPrice * Time.unscaledDeltaTime;
+            actionBool = true;
+        }
+        else
+        {
+            actionBool = false;
         }
     }
+
 
     public virtual void ActionCompleted()
     {
