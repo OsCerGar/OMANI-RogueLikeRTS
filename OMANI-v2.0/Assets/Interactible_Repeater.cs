@@ -42,7 +42,7 @@ public class Interactible_Repeater : Interactible
         }
         if (powerReduced <= price)
         {
-            animator.SetFloat("Blend", (powerReduced * price )/100);
+            animator.SetFloat("Blend", powerReduced / price);
         }
     }
 

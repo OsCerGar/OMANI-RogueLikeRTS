@@ -6,16 +6,20 @@ using UnityEngine.UI;
 public class BU_Building_Action : Interactible
 {
 
+    [SerializeField]
     BU_UniqueBuilding parentResources;
     private float timeToSpawnEnnui = 45;
     private float timeToSpawnEnnuiCounter, biggestClockValue;
     Image ennuiClocks;
+    Animator animator;
 
     // Use this for initialization
     public override void Start()
     {
         base.Start();
         parentResources = this.transform.parent.GetComponent<BU_UniqueBuilding>();
+        animator = this.GetComponentInChildren<Animator>();
+        linkPrice = 1;
         price = 5;
     }
 
@@ -28,6 +32,11 @@ public class BU_Building_Action : Interactible
     public override void Update()
     {
         base.Update();
+
+        if (powerReduced <= price && animator != null)
+        {
+            animator.SetFloat("Blend", (powerReduced / price));
+        }
     }
 
     public override void Action()
