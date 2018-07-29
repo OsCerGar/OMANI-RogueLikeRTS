@@ -129,6 +129,7 @@ public class NPC : MonoBehaviour
     public void GUI_Disable()
     {
         GUI.SetActive(false);
+        Debug.Log("Disabled by that");
     }
 
     // Use this for initialization

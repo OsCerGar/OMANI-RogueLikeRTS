@@ -522,13 +522,13 @@ public class Army : MonoBehaviour
         {
             if (i == _list.Count - 1)
             {
-                _list[i].GUI_Script.gameObject.SetActive(true);
+                //_list[i].GUI_Script.gameObject.SetActive(true);
                 _list[i].GUI_Script.ActivateCircle();
                 _list[i].GUI_Script.PriorityMaterial();
             }
             else
             {
-                _list[i].GUI_Script.gameObject.SetActive(true);
+                //_list[i].GUI_Script.gameObject.SetActive(true);
                 _list[i].GUI_Script.ActivateCircle();
                 _list[i].GUI_Script.RegularMaterial();
             }
