@@ -8,9 +8,7 @@ public class BU_Building_Action : Interactible
 
     [SerializeField]
     BU_UniqueBuilding parentResources;
-    private float timeToSpawnEnnui = 45;
-    private float timeToSpawnEnnuiCounter, biggestClockValue;
-    Image ennuiClocks;
+    public bool readyToSpawn{ get; set; }
     Animator animator;
 
     // Use this for initialization
@@ -41,7 +39,10 @@ public class BU_Building_Action : Interactible
 
     public override void Action()
     {
-        base.Action();
+        if (readyToSpawn)
+        {
+            base.Action();
+        }
     }
 
     public override void ActionCompleted()

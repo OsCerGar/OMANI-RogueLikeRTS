@@ -44,7 +44,7 @@ public class Interactible : MonoBehaviour
 
     public virtual void Update()
     {
-        if (Time.time - startTime > 3f && powerReduced > 1)
+        if (Time.time - startTime > 3f && powerReduced > 0)
         {
             ReducePower();
         }

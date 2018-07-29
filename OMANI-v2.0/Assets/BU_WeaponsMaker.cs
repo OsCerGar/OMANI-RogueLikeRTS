@@ -74,6 +74,7 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
                     }
                     if (timeToSpawnWorkerCounter[i] > timeToSpawnWeapons)
                     {
+                        workerMaker.readyToSpawn = true;
                         weaponsCabins[i].CabinReady();
                         WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWeapons, i, Color.cyan);
                     }
@@ -95,6 +96,7 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
                 //restart
                 biggestClockValue = 0;
                 WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWeapons, i, Color.green);
+                workerMaker.readyToSpawn = false;
             }
         }
 

@@ -39,6 +39,14 @@ public class BU_Building_Ennui : BU_UniqueBuilding
         {
             EnnuiMaker();
         }
+        if (timeToSpawnEnnuiCounter > 0)
+        {
+            workerMaker.readyToSpawn = true;
+        }
+        else
+        {
+            workerMaker.readyToSpawn = false;
+        }
     }
 
     public override void BuildingAction()

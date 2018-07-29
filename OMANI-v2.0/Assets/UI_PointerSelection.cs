@@ -15,7 +15,7 @@ public class UI_PointerSelection : MonoBehaviour
     Material PrioritySelectedMaterial, regularMaterial;
 
     [SerializeField]
-    bool fading, selected;
+    bool fading, selected, temporalUIfix;
     float timerAnimation;
     Army commander;
     LookDirectionsAndOrder lookDirections;
@@ -51,10 +51,12 @@ public class UI_PointerSelection : MonoBehaviour
             {
                 selectionAnimationParticleSystem.Pause();
             }
-            if (Time.time - timerAnimation > 0.4f)
+            if (Time.time - timerAnimation > 0.4f && !temporalUIfix)
             {
+                Debug.Log("ui");
                 selectionAnimationParticleSystem.Simulate(0.38f);
                 selectionAnimationParticleSystem.Pause();
+                temporalUIfix = true;
             }
         }
         else
@@ -141,6 +143,7 @@ public class UI_PointerSelection : MonoBehaviour
             firstAnimationParticleSystem.Clear();
             selected = true;
             fading = false;
+            temporalUIfix = false;
         }
 
     }
@@ -151,7 +154,10 @@ public class UI_PointerSelection : MonoBehaviour
         {
             selected = false;
             fading = false;
+            temporalUIfix = false;
             lookDirections.latestClosestTarget = null;
+            selectionAnimationParticleSystem.Stop();
+            selectionAnimationParticleSystem.Clear();
             this.gameObject.SetActive(false);
             Debug.Log("Disabled by this");
         }

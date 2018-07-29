@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class BU_WorkerMaker : BU_UniqueBuilding
 {
     #region Vars
-    private BU_Building_Action workerMaker;
-
     private float timeToSpawnWorker = 45, desiredRotation;
     private float biggestClockValue, oldbiggestClockValue = 10000;
 
@@ -24,7 +22,6 @@ public class BU_WorkerMaker : BU_UniqueBuilding
     {
         base.Start();
 
-        workerMaker = this.transform.GetComponentInChildren<BU_Building_Action>();
         spinningStructure = this.transform.Find("BU_UI/SpinningStructure").gameObject;
         peoplePool = FindObjectOfType<PeoplePool>();
         foreach (Image clock in this.transform.Find("BU_UI/Production_Clocks").GetComponentsInChildren<Image>())
@@ -88,6 +85,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
                     {
                         workersReady[i] = true;
                         WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWorker, i, Color.cyan);
+                        workerMaker.readyToSpawn = true;
                     }
                     calcTotalEnergy -= 1;
                 }
@@ -110,6 +108,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
                 WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWorker, i, Color.green);
             }
         }
+        workerMaker.readyToSpawn = false;
 
     }
 
