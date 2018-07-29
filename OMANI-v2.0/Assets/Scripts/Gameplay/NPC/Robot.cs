@@ -82,7 +82,7 @@ public class Robot : NPC
 
         if (AI != null)
         {
-            AI.enabled = true;
+            AI.EnableBehavior();
         }
         Nav.updatePosition = true;
         Nav.updateRotation = true;
