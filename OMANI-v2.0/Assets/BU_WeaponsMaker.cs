@@ -108,7 +108,6 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
         {
             if (weaponsCabins[i].workerInside)
             {
-
                 weaponsCabins[i].TurnWorker();
                 timeToSpawnWorkerCounter[i] = 0;
                 atleastOneWorkerInside = false;
@@ -117,7 +116,6 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
                 WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWeapons, i, Color.green);
             }
         }
-
     }
 
     private float biggestClock()

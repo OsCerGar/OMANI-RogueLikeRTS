@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class EnnuiSpawnerManager : MonoBehaviour
 {
 
-    EZObjectPool EnnuiParabola, Ennui, SwordsmanPool, ArcherPool;
+    EZObjectPool Ennui, SwordsmanPool, ArcherPool;
     GameObject Spawned;
     [SerializeField] bool PressUtoSpawn;
     Transform Player;
@@ -19,10 +19,6 @@ public class EnnuiSpawnerManager : MonoBehaviour
         var AllPoolers = FindObjectsOfType<EZObjectPool>();
         foreach (EZObjectPool item in AllPoolers)
         {
-            if (item.PoolName == "EnnuiParabola")
-            {
-                EnnuiParabola = item;
-            }
             if (item.PoolName == "Ennui")
             {
                 Ennui = item;
@@ -44,8 +40,8 @@ public class EnnuiSpawnerManager : MonoBehaviour
 
     public void SpawnEnnuiParabola(Transform tr)
     {
-        EnnuiParabola.TryGetNextObject(tr.position, tr.rotation, out Spawned);
-        Spawned.GetComponent<Animator>().SetBool("KnockBack", true);
+        Ennui.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+        Spawned.GetComponent<Rigidbody>().AddForce(transform.forward * 2, ForceMode.Impulse);
     }
     public void SpawnEnnui(Transform tr)
     {

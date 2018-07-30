@@ -48,7 +48,10 @@ public class Interactible : MonoBehaviour
         {
             ReducePower();
         }
+    }
 
+    public virtual void LateUpdate()
+    {
         if (powerReduced >= price)
         {
             ActionCompleted();

@@ -46,6 +46,5 @@ public class BU_UniqueBuilding : MonoBehaviour
     public virtual void BuildingAction()
     {
         workerMaker.StopWorkingAnimator();
-
     }
 }
