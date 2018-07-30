@@ -56,8 +56,8 @@ public class Tutorial_Start : MonoBehaviour
         backgroundLights = this.transform.Find("Lights/backgroundLight").gameObject;
         backgroundLights2 = this.transform.Find("Lights/backgroundLight2").gameObject;
         directionalLight = this.transform.Find("Lights/Aura Directional Light").GetComponent<Light>();
-
     }
+
     // Use this for initialization
     void Start()
     {
@@ -72,6 +72,7 @@ public class Tutorial_Start : MonoBehaviour
         if (gameplay) { Gameplay(); }
         if (tutorial) { Tutorial(); }
 
+        /*
         if (doorbool)
         {
             if (timer < totalTimer)
@@ -84,6 +85,7 @@ public class Tutorial_Start : MonoBehaviour
                 doorbool = false;
             }
         }
+        */
     }
 
     public void Tutorial()
@@ -129,6 +131,7 @@ public class Tutorial_Start : MonoBehaviour
         cameraFX.m_Profile = postFX;
         RenderSettings.fogEndDistance = oldFogEnd;
         RenderSettings.fogStartDistance = oldFogStart;
+        door.gameObject.SetActive(false);
     }
     public void LightsOff()
     {
