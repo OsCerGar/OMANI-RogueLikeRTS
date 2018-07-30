@@ -19,9 +19,14 @@ public class UI_PointerDirection : MonoBehaviour
 
     public void Click()
     {
-        dots.enabled = false;
-        Instantiate(dotsAnimation, dots.transform.position, dots.transform.rotation);
-        timer = true;
+        if (dots != null)
+        {
+            dots.enabled = false;
+
+            Instantiate(dotsAnimation, dots.transform.position, dots.transform.rotation);
+
+            timer = true;
+        }
     }
 
     // Update is called once per frame
