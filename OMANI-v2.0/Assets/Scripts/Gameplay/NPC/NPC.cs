@@ -284,6 +284,7 @@ public class NPC : MonoBehaviour
 
         Nav.updatePosition = false;
         Nav.updateRotation = false;
+        Nav.isStopped = true;
         this.gameObject.GetComponent<Collider>().isTrigger = true;
         this.gameObject.layer = 0;
     }

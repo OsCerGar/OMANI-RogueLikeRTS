@@ -19,10 +19,6 @@ public class SurkaRanged : Enemy {
 
     }
    
-    public override void Die()
-    {
-        transform.gameObject.SetActive(false);
-    }
     public override void AttackHit()
     {
 
