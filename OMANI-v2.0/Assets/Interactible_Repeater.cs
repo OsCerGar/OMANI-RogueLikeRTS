@@ -18,7 +18,7 @@ public class Interactible_Repeater : Interactible
         animator = this.GetComponent<Animator>();
         top = this.transform.Find("Stick/Top").gameObject;
 
-        linkPrice = 25;
+        linkPrice = 8;
         price = 15;
     }
     // Use this for initialization
