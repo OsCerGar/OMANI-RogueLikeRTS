@@ -41,7 +41,7 @@ public class EnnuiSpawnerManager : MonoBehaviour
     public void SpawnEnnuiParabola(Transform tr)
     {
         Ennui.TryGetNextObject(tr.position, tr.rotation, out Spawned);
-        Spawned.GetComponent<Rigidbody>().AddForce(transform.forward * 2, ForceMode.Impulse);
+        Spawned.GetComponent<Rigidbody>().AddForce(transform.forward * Random.Range(2,3), ForceMode.Impulse);
     }
     public void SpawnEnnui(Transform tr)
     {
