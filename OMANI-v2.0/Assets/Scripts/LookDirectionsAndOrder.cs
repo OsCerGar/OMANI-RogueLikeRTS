@@ -241,7 +241,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //If building close and Worker selected.
         else if (closestBUTarget != null)
         {
-            if (closestBUTarget.workerInside == false || selectedTypeList[selectedTypeInt] == "Worker")
+            if (closestBUTarget.workerInside == false && selectedTypeList[selectedTypeInt] == "Worker")
             {
                 // UI ENABLED
                 closestBUTarget.GUI_Enabled();
@@ -269,7 +269,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //If building close and Worker selected.
         else if (closestBUTarget != null)
         {
-            if (closestBUTarget.workerInside == false || selectedTypeList[selectedTypeInt] == "Worker")
+            if (closestBUTarget.workerInside == false && selectedTypeList[selectedTypeInt] == "Worker")
             {
                 // UI ENABLED
                 closestBUTarget.GUI_Enabled();
