@@ -28,7 +28,11 @@ public class Be_RootMotion : StateMachineBehaviour {
 
             //NAgent.updatePosition = true;
             npcScript.RootMotion = false;
-            animator.GetComponent<BehaviorTree>().EnableBehavior();
+            if (animator.GetComponent<BehaviorTree>()!= null)
+            {
+                animator.GetComponent<BehaviorTree>().EnableBehavior();
+            }
+            
         }
     }
    

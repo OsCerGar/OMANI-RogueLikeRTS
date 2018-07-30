@@ -354,8 +354,11 @@ public class NPC : MonoBehaviour
 
     public virtual void AI_SetTarget(GameObject target)
     {
-        var targetVariable = (SharedGameObject)AI.GetVariable("Target");
-        targetVariable.Value = target;
+        if (AI != null)
+        {
+            var targetVariable = (SharedGameObject)AI.GetVariable("Target");
+            targetVariable.Value = target;
+        }
     }
 
     public virtual void AI_GoToPoint(GameObject _target, float _speed)
