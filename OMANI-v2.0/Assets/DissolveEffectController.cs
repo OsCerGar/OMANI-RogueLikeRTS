@@ -5,7 +5,7 @@ using UnityEngine;
 public class DissolveEffectController : MonoBehaviour {
     bool Dissolve;
     // Use this for initialization
-    float Progress;
+    float Progress = 1;
     Renderer[] Renderers;
 	void Start () {
         Renderers = GetComponentsInChildren<Renderer>();
@@ -43,9 +43,7 @@ public class DissolveEffectController : MonoBehaviour {
             Progress += Time.deltaTime;
             foreach (var item in Renderers)
             {
-                var color = item.material.color;
-                color.a = Progress;
-                item.material.color = color;
+                //nothin
             }
         }
     }
