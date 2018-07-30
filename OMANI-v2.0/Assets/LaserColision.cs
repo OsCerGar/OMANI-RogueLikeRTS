@@ -108,7 +108,7 @@ public class LaserColision : MonoBehaviour
         }
         if (closestEnemyTarget != null)
         {
-            closestEnemyTarget.TakeDamage(1);
+            //closestEnemyTarget.TakeDamage(1);
             //powerLaser.setWidth(closestEnemyTarget.linkPrice);
         }
 
