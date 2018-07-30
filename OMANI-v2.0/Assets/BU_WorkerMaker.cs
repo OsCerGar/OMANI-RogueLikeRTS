@@ -49,6 +49,8 @@ public class BU_WorkerMaker : BU_UniqueBuilding
 
     public override void BuildingAction()
     {
+        base.BuildingAction();
+
         MakeWorker();
     }
 

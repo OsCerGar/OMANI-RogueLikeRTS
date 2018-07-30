@@ -8,8 +8,6 @@ public class BU_Resources : BU_UniqueBuilding
     //State of the lever.
     public bool state = false;
     private Transform scrapMaker;
-    private BU_Building_Action workerMaker;
-
     [SerializeField]
     private GameObject scrap, worker;
 

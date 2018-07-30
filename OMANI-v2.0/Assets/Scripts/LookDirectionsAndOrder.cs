@@ -250,7 +250,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
         else
         {
-            if (latestclosestBUTarget != null)
+            if (latestclosestBUTarget != null || latestclosestBUTarget != closestBUTarget)
             {
                 latestclosestBUTarget.GUI_Disabled();
             }
@@ -278,7 +278,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
         else
         {
-            if (latestclosestBUTarget != null)
+            if (latestclosestBUTarget != null || latestclosestBUTarget != closestBUTarget)
             {
                 latestclosestBUTarget.GUI_Disabled();
             }
@@ -600,6 +600,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                     if (colBU != null)
                     {
+                        if (closestBUTarget != null)
+                        {
+                            closestBUTarget.GUI_Disabled();
+                        }
                         closestBUTarget = colBU;
                     }
                 }
@@ -693,6 +697,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         // Check if its inside the selection angle.
                         Vector3 dirToTarget = (target.position - transform.position).normalized;
 
+                        if (closestBUTarget != null)
+                        {
+                            closestBUTarget.GUI_Disabled();
+                        }
                         if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
                         {
                             closestBUTarget = colBU;

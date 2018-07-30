@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class BU_WeaponsMaker : BU_UniqueBuilding
 {
-
-    private BU_Building_Action workerMaker;
     private float timeToSpawnWeapons = 45, desiredRotation;
     private float[] timeToSpawnWorkerCounter = new float[3];
     List<Image> weaponsClock = new List<Image>();
 
     private List<BU_Cabin> weaponsCabins = new List<BU_Cabin>();
 
+    bool atleastOneWorkerInside;
     [SerializeField]
     private GameObject weapons;
     private GameObject spinningStructure;
@@ -23,6 +22,7 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
         base.Start();
 
         workerMaker = this.transform.GetComponentInChildren<BU_Building_Action>();
+
         foreach (BU_Cabin child in this.transform.Find("Cabins").gameObject.GetComponentsInChildren<BU_Cabin>())
         {
             weaponsCabins.Add(child);
@@ -46,10 +46,29 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
         {
             weaponsMaker();
         }
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (weaponsCabins[i].workerInside)
+            {
+                atleastOneWorkerInside = true;
+            }
+        }
+
+        if (atleastOneWorkerInside)
+        {
+            workerMaker.readyToSpawn = true;
+        }
+        else
+        {
+            workerMaker.readyToSpawn = false;
+        }
+
     }
 
     public override void BuildingAction()
     {
+        base.BuildingAction();
         ShowWeapons();
     }
 
@@ -74,7 +93,6 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
                     }
                     if (timeToSpawnWorkerCounter[i] > timeToSpawnWeapons)
                     {
-                        workerMaker.readyToSpawn = true;
                         weaponsCabins[i].CabinReady();
                         WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWeapons, i, Color.cyan);
                     }
@@ -90,13 +108,13 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
         {
             if (weaponsCabins[i].workerInside)
             {
+
                 weaponsCabins[i].TurnWorker();
-                weaponsCabins[i].CabinNotReady();
                 timeToSpawnWorkerCounter[i] = 0;
+                atleastOneWorkerInside = false;
                 //restart
                 biggestClockValue = 0;
                 WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWeapons, i, Color.green);
-                workerMaker.readyToSpawn = false;
             }
         }
 

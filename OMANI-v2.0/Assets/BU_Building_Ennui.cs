@@ -51,6 +51,7 @@ public class BU_Building_Ennui : BU_UniqueBuilding
 
     public override void BuildingAction()
     {
+        base.BuildingAction();
         SpitEnnuis();
     }
 

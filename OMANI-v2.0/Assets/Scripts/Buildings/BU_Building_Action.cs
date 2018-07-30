@@ -51,8 +51,9 @@ public class BU_Building_Action : Interactible
         base.ActionCompleted();
     }
 
-    private void StopWorking()
+    public void StopWorkingAnimator()
     {
+        animator.SetTrigger("Stop");
     }
 
 }

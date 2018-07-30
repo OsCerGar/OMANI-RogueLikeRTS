@@ -53,7 +53,6 @@ public class UI_PointerSelection : MonoBehaviour
             }
             if (Time.time - timerAnimation > 0.4f && !temporalUIfix)
             {
-                Debug.Log("ui");
                 selectionAnimationParticleSystem.Simulate(0.38f);
                 selectionAnimationParticleSystem.Pause();
                 temporalUIfix = true;
@@ -159,7 +158,6 @@ public class UI_PointerSelection : MonoBehaviour
             selectionAnimationParticleSystem.Stop();
             selectionAnimationParticleSystem.Clear();
             this.gameObject.SetActive(false);
-            Debug.Log("Disabled by this");
         }
     }
 

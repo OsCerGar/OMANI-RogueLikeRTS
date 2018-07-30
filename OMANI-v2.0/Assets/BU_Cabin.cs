@@ -7,7 +7,8 @@ public class BU_Cabin : MonoBehaviour
 
     public bool workerInside { get; set; }
     public bool ready { get; set; }
-
+    public bool alreadyReady;
+    private float uiTimer;
     public GameObject UI { get; set; }
     public GameObject direction { get; set; }
     private PeoplePool peoplePool;
@@ -17,7 +18,7 @@ public class BU_Cabin : MonoBehaviour
     void Start()
     {
         peoplePool = FindObjectOfType<PeoplePool>();
-        doorAnimation = this.transform.Find("Door").GetComponent<Animator>();
+        doorAnimation = this.transform.GetComponent<Animator>();
         direction = this.transform.Find("Direction").gameObject;
         UI = this.transform.Find("OrderDirection").gameObject;
     }
@@ -27,13 +28,21 @@ public class BU_Cabin : MonoBehaviour
     {
         if (workerInside) { GUI_Disabled(); }
         if (!ready) { GUI_Disabled(); }
+        if (Time.time - uiTimer > 0.05f)
+        {
+            GUI_Disabled();
+        }
     }
 
     public void CabinReady()
     {
-        ready = true;
-        doorAnimation.SetBool("Open", true);
-        //Anim play
+        if (!alreadyReady)
+        {
+            ready = true;
+            doorAnimation.SetBool("Open", true);
+            //Anim play
+            alreadyReady = true;
+        }
     }
 
     public void CabinNotReady()
@@ -46,11 +55,8 @@ public class BU_Cabin : MonoBehaviour
     {
         if (ready)
         {
+            uiTimer = Time.time;
             UI.SetActive(true);
-        }
-        else
-        {
-            UI.SetActive(false);
         }
     }
 
@@ -65,6 +71,7 @@ public class BU_Cabin : MonoBehaviour
         {
             _worker.AI_SetTarget(null);
             _worker.gameObject.SetActive(false);
+            CabinNotReady();
             workerInside = true;
         }
     }
@@ -72,6 +79,8 @@ public class BU_Cabin : MonoBehaviour
     public virtual void TurnWorker()
     {
         peoplePool.SpearWarriorSpawn(direction.transform);
+        workerInside = false;
+        alreadyReady = false;
     }
 
     private void OnTriggerEnter(Collider other)
