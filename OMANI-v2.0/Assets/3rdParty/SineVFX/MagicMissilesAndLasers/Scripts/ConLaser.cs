@@ -155,10 +155,7 @@ public class ConLaser : MonoBehaviour
         float width = lineWidthCurve.Evaluate(globalProgress) * WidthMultiplayer;
         lr.widthMultiplier = width;
 
-        if (Input.GetMouseButtonDown(0) && hitEffect)
-        {
-            hitPsArray[1].Emit(100);
-        }
+       
 
     }
 

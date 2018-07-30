@@ -7,5 +7,7 @@ public class Enemy : NPC {
     public override void Die()
     {
         base.Die();
+        Nav.enabled = false;
+        this.enabled = false;
     }
 }
