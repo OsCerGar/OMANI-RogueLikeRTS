@@ -103,17 +103,21 @@ public class LookDirectionsAndOrder : MonoBehaviour
     #region GUI
     private void GUI()
     {
+        //Mouse on top of things friendly unselected units
         #region SelectionUI
         GUI_SelectionUI();
 
         #endregion
 
+        //UI for orders when unit selected.
         #region OrderUI
         //UI FOR CONTROLLER
         if (playingOnController)
         {
+            // If controller in regular mode.
             if (!controllerLookModel)
             {
+                //If there aren't any targets regular pointer
                 if (closestEnemyTarget == null && closestBUTarget == null)
                 {
                     GUI_RegularPointer();
@@ -121,6 +125,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                 else
                 {
+                    //If there are units following you, UI for Orders enables
                     if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
                     {
                         GUI_BUOrder();
@@ -132,6 +137,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
                 }
             }
+            // Pointer when precision mode is enabled.
             else
             {
                 GUI_SpecialPointer();
@@ -161,23 +167,25 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
             latestClosestTarget = closestTarget;
         }
-
-        else
-        {
-            //pointerSelection.NotOnTop();
-        }
     }
     private void GUI_RegularPointer()
     {
         if (pointerDirection.enabled)
         {
-            pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
-            //pointerSelection.gameObject.SetActive(true);
-            pointerDirection.gameObject.SetActive(true);
+            pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position,
+                this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
 
-            headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
+
+            headArm.transform.position = Vector3.Lerp(headArm.transform.position,
+                new Vector3(commander.transform.position.x, 4, commander.transform.position.z) +
+                (this.transform.forward * (viewRadius / 20)), 0.4f);
 
             headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
+
+            //Just in case
+            pointerDirection.gameObject.SetActive(true);
+
+            //Just in case
             pointerOrder.SetActive(false);
         }
     }
@@ -223,15 +231,19 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
     private void GUI_BUOrder()
     {
+        //If there is an enemy
         if (closestEnemyTarget != null)
         {
             pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.6f);
 
             headArm.transform.LookAt(closestEnemyTarget.transform);
 
-            pointerOrder.transform.position = closestEnemyTarget.transform.position;
 
+            //TODO
+            //UI is now in the character position.
+            pointerOrder.transform.position = closestEnemyTarget.transform.position;
             pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
+
             pointerSelection.gameObject.SetActive(false);
             pointerDirection.gameObject.SetActive(false);
             pointerOrder.SetActive(true);
@@ -248,6 +260,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 latestclosestBUTarget = closestBUTarget;
             }
         }
+        //TODO
+        //Understand this.
         else
         {
             if (latestclosestBUTarget != null || latestclosestBUTarget != closestBUTarget)
@@ -256,10 +270,14 @@ public class LookDirectionsAndOrder : MonoBehaviour
             }
         }
     }
+
     private void GUI_BUMouseOrder()
     {
         if (closestEnemyTarget != null)
         {
+            //TODO
+            //UI is now in the character position.
+
             pointerOrder.transform.position = closestEnemyTarget.transform.position;
             pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
             pointerOrder.SetActive(true);
@@ -276,6 +294,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 latestclosestBUTarget = closestBUTarget;
             }
         }
+        //TODO
+        //Understand this.
         else
         {
             if (latestclosestBUTarget != null || latestclosestBUTarget != closestBUTarget)
@@ -284,6 +304,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             }
         }
     }
+
     #endregion
     #endregion
     private void SelectedType()
@@ -334,7 +355,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             pointerDirection.Click();
         }
-
         if (selectedTypeList.Count > 0)
         {
             //The boy will stop following you
@@ -843,7 +863,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

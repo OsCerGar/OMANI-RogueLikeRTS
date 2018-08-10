@@ -21,7 +21,10 @@ public class PW_SlowMotion : Power
     {
         base.Awake();
         postFx = FindObjectOfType<CinemachinePostFX>();
-        normal = postFx.m_Profile;
+        if (postFx != null)
+        {
+            normal = postFx.m_Profile;
+        }
         regularSpeed = player.speed;
     }
 
