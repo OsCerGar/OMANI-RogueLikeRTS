@@ -21,7 +21,7 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
     {
         base.Start();
 
-        workerMaker = this.transform.GetComponentInChildren<BU_Building_Action>();
+        buildingActionMesh = this.transform.GetComponentInChildren<BU_Building_Action>();
 
         foreach (BU_Cabin child in this.transform.Find("Cabins").gameObject.GetComponentsInChildren<BU_Cabin>())
         {
@@ -57,11 +57,11 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
 
         if (atleastOneWorkerInside)
         {
-            workerMaker.readyToSpawn = true;
+            buildingActionMesh.readyToSpawn = true;
         }
         else
         {
-            workerMaker.readyToSpawn = false;
+            buildingActionMesh.readyToSpawn = false;
         }
 
     }

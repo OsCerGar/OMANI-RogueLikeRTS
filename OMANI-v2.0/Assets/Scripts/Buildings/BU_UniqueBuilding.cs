@@ -7,7 +7,7 @@ public class BU_UniqueBuilding : MonoBehaviour
     public int lastTotalEnergy { get; set; }
     public int totalEnergy { get; set; }
     public int requiredEnergy { get; set; }
-    public BU_Building_Action workerMaker;
+    public BU_Building_Action buildingActionMesh;
 
     [SerializeField]
     public Interactible_Repeater[] plugs { get; set; }
@@ -17,8 +17,11 @@ public class BU_UniqueBuilding : MonoBehaviour
         //Makes sure it checks for energy on the first run.
         lastTotalEnergy = 100;
 
-        plugs = this.transform.Find("Electricity").GetComponentsInChildren<Interactible_Repeater>();
-        workerMaker = this.transform.GetComponentInChildren<BU_Building_Action>();
+        if (this.transform.Find("Electricity") != null)
+        {
+            plugs = this.transform.Find("Electricity").GetComponentsInChildren<Interactible_Repeater>();
+        }
+        buildingActionMesh = this.transform.GetComponentInChildren<BU_Building_Action>();
 
     }
 
@@ -45,6 +48,6 @@ public class BU_UniqueBuilding : MonoBehaviour
 
     public virtual void BuildingAction()
     {
-        workerMaker.StopWorkingAnimator();
+        buildingActionMesh.StopWorkingAnimator();
     }
 }

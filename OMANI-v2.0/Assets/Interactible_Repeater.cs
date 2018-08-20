@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Interactible_Repeater : Interactible
 {
-    Animator animator;
+
+    public Animator animator;
     [SerializeField]
     public bool energy;
     GameObject top;
@@ -17,9 +18,6 @@ public class Interactible_Repeater : Interactible
         energyBU = this.transform.root.GetComponentInChildren<BU_Energy>();
         animator = this.GetComponent<Animator>();
         top = this.transform.Find("Stick/Top").gameObject;
-
-        linkPrice = 8;
-        price = 15;
     }
     // Use this for initialization
     public override void Start()
@@ -36,7 +34,6 @@ public class Interactible_Repeater : Interactible
         {
             if (!energy)
             {
-                energyBU.pullBackCable(top.transform);
                 StopWorking();
             }
         }
@@ -72,16 +69,14 @@ public class Interactible_Repeater : Interactible
             animator.SetBool("Energy", true);
             energyBU.RequestCable(top);
             energy = true;
-            linkPrice = 10;
+            linkPrice = 1;
             price = 2;
-
         }
+
         else
         {
             StopWorking();
             energy = false;
-            linkPrice = 25;
-            price = 15;
         }
 
         startTimeRepeater = Time.time;
@@ -91,5 +86,19 @@ public class Interactible_Repeater : Interactible
     {
         energyBU.pullBackCable(top.transform);
         animator.SetBool("Energy", false);
+        energy = false;
+        linkPrice = 12;
+        price = 15;
+    }
+
+
+    //This is for the energy BU
+    public void StopWorkingComplete()
+    {
+        base.ActionCompleted();
+        animator.SetBool("Energy", false);
+        energy = false;
+        linkPrice = 12;
+        price = 15;
     }
 }

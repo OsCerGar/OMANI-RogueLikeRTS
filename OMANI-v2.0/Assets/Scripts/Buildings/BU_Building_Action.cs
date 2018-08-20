@@ -8,7 +8,7 @@ public class BU_Building_Action : Interactible
 
     [SerializeField]
     BU_UniqueBuilding parentResources;
-    public bool readyToSpawn{ get; set; }
+    public bool readyToSpawn { get; set; }
     Animator animator;
 
     // Use this for initialization
@@ -16,8 +16,9 @@ public class BU_Building_Action : Interactible
     {
         base.Start();
         parentResources = this.transform.parent.GetComponent<BU_UniqueBuilding>();
+
         animator = this.GetComponentInChildren<Animator>();
-        linkPrice = 1;
+        linkPrice = 3;
         price = 5;
     }
 

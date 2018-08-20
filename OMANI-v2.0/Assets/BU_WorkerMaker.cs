@@ -89,7 +89,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
                     {
                         workersReady[i] = true;
                         WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWorker, i, Color.cyan);
-                        workerMaker.readyToSpawn = true;
+                        buildingActionMesh.readyToSpawn = true;
                     }
                     calcTotalEnergy -= 1;
                 }
@@ -112,7 +112,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
                 WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWorker, i, Color.green);
             }
         }
-        workerMaker.readyToSpawn = false;
+        buildingActionMesh.readyToSpawn = false;
 
     }
 

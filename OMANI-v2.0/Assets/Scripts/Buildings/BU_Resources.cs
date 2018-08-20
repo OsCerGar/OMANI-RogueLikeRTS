@@ -25,7 +25,7 @@ public class BU_Resources : BU_UniqueBuilding
         base.Start();
 
         scrapMaker = this.transform.Find("ScrapMaker");
-        workerMaker = this.transform.GetComponentInChildren<BU_Building_Action>();
+        buildingActionMesh = this.transform.GetComponentInChildren<BU_Building_Action>();
 
         foreach (Image clock in this.transform.Find("BU_UI/Scrap_Clocks").GetComponentsInChildren<Image>())
         {
@@ -140,7 +140,7 @@ public class BU_Resources : BU_UniqueBuilding
             if (spawned == false && workersReady[i])
             {
                 //Should be a pool later on
-                Instantiate(worker, new Vector3(workerMaker.transform.position.x + Random.Range(-2f, 2f), workerMaker.transform.position.y, workerMaker.transform.position.z - 3f), Quaternion.identity);
+                Instantiate(worker, new Vector3(buildingActionMesh.transform.position.x + Random.Range(-2f, 2f), buildingActionMesh.transform.position.y, buildingActionMesh.transform.position.z - 3f), Quaternion.identity);
                 workersReady[i] = false;
                 timeToSpawnWorkerCounter[i] = 0;
                 WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWorker, i, Color.green);

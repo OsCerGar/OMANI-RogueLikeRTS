@@ -11,8 +11,6 @@ public class BU_Cable_end : Interactible
     private bool collecting = false, collectingStarters = false, launching = false, topDeployed = false, topYesorNo = false;
     private float maxDistance, speed = 0.2f, startTimess, journeyLength, timer;
 
-    // Tops
-    List<Transform> tops = new List<Transform>();
     List<BU_Cable_end> cables = new List<BU_Cable_end>();
     BU_Energy buEnergy;
 
@@ -26,17 +24,7 @@ public class BU_Cable_end : Interactible
     {
         base.Start();
         buEnergy = FindObjectOfType<BU_Energy>();
-        //tops
-        foreach (Transform child in transform)
-        {
-            //child is your child transform
-            tops.Add(child);
-            cables.Add(child.GetChild(0).GetComponent<BU_Cable_end>());
-        }
-
         disableRigid();
-
-
         maxDistance = spring.maxDistance;
         terrainLayer = (1 << LayerMask.NameToLayer("Terrain"));
     }
@@ -96,19 +84,6 @@ public class BU_Cable_end : Interactible
             timer += Time.unscaledDeltaTime;
             if (timer > 0.5f)
             {
-                /*
-                if (topYesorNo)
-                {
-                    if (!topDeployed)
-                    {
-                        deployTops();
-                    }
-                    else
-                    {
-                        moveTops();
-                    }
-                }
-                */
 
                 cable.CableLength(journeyLength - 4f);
 
@@ -135,72 +110,17 @@ public class BU_Cable_end : Interactible
         collecting = true;
     }
 
-    private void deployTops()
+    public void PullBackStopWorking()
     {
-        int i = 0;
+        destination.parent.parent.GetComponent<Interactible_Repeater>().StopWorkingComplete();
+        // Disengage from whatever was attached.
+        cable.CableLength(0);
 
-        //tops
-        foreach (Transform top in tops)
-        {
-            top.transform.parent = null;
-            if (i == 0)
-            {
-                //top.transform.position = (transform.position + _destination.transform.position) / 2;
-                top.transform.position = Vector3.Lerp(transform.position, destination.transform.position, 0.3f);
-                top1FinalPosition = top.transform;
-                top.transform.position -= new Vector3(0f, 15f, 0f);
-            }
-            else
-            {
-                top.transform.position = Vector3.Lerp(transform.position, destination.transform.position, 0.6f);
-                top2FinalPosition = top.transform;
-                top.transform.position -= new Vector3(0f, 15f, 0f);
-            }
-            i++;
-        }
-
-        topDeployed = true;
-    }
-    private void moveTops()
-    {
-        int i = 0;
-
-        //tops
-        foreach (Transform top in tops)
-        {
-            if (i == 0)
-            {
-                top.transform.position = Vector3.Lerp(top.transform.position, top1FinalPosition.transform.position, 0.5f * Time.unscaledDeltaTime);
-            }
-            else
-            {
-                top.transform.position = Vector3.Lerp(top.transform.position, top2FinalPosition.transform.position, 0.5f * Time.unscaledDeltaTime);
-            }
-
-            i++;
-        }
-    }
-
-    private void deployCables()
-    {
-        int i = 0;
-        //tops
-        foreach (BU_Cable_end cable in cables)
-        {
-            if (i == 0)
-            {
-                cable.Launch(top1FinalPosition, false);
-            }
-            else
-            {
-                cable.Launch(top2FinalPosition, false);
-            }
-
-            i++;
-        }
+        enableRigid();
+        this.transform.SetParent(null);
+        collecting = true;
 
     }
-
 
     public void Launch(Transform _destination, bool tops)
     {
@@ -218,6 +138,7 @@ public class BU_Cable_end : Interactible
         startTimess = Time.time;
         timer = 0;
         destination = _destination;
+
     }
 }
 

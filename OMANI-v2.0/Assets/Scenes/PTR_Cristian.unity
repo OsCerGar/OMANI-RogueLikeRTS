@@ -160,7 +160,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4253464030770690, guid: 1afeda425ae2d884aa0a51feb72749db, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -11.8
+      value: -8.539993
       objectReference: {fileID: 0}
     - target: {fileID: 4253464030770690, guid: 1afeda425ae2d884aa0a51feb72749db, type: 2}
       propertyPath: m_LocalPosition.y
@@ -168,7 +168,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4253464030770690, guid: 1afeda425ae2d884aa0a51feb72749db, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 26
+      value: 26.859993
       objectReference: {fileID: 0}
     - target: {fileID: 4253464030770690, guid: 1afeda425ae2d884aa0a51feb72749db, type: 2}
       propertyPath: m_LocalRotation.x
@@ -188,7 +188,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4253464030770690, guid: 1afeda425ae2d884aa0a51feb72749db, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1896205353716724, guid: 1afeda425ae2d884aa0a51feb72749db, type: 2}
       propertyPath: m_Name
@@ -621,7 +621,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 801425656}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f01d29d88278f45458d99e6b5199e920, type: 3}
   m_Name: 
@@ -630,7 +630,7 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 0.9999, g: 0.9999, b: 0.9999, a: 0.9999}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 925585189}
+  shadowMapRenderTexture: {fileID: 0}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
@@ -638,7 +638,7 @@ MonoBehaviour:
   outOfPhaseColor: {r: 0, g: 1, b: 1, a: 1}
   storeShadowDataShader: {fileID: 4800000, guid: fff19db2423616b4dbabe995cd97279e,
     type: 3}
-  shadowDataRenderTexture: {fileID: 1510661747}
+  shadowDataRenderTexture: {fileID: 0}
   customDistanceFalloffThreshold: 0.5
   customDistanceFalloffPower: 2
   storeDirectionalSpotLightCookieMapShader: {fileID: 4800000, guid: ffdac5434c39f7545b910c253007c8fc,
@@ -749,37 +749,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f35d160c984d9949a8fc674034274e6, type: 2}
   m_IsPrefabParent: 0
---- !u!84 &925585189
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 512
-  m_Height: 512
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!4 &936764178 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4407063793638010, guid: 82e63961db90dec41b03cec85b670994,
@@ -864,6 +833,21 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4683834572828670, guid: f632932c9941da6469d94abda3e187bc, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114057050931048086, guid: f632932c9941da6469d94abda3e187bc,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114280709848600092, guid: f632932c9941da6469d94abda3e187bc,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114358629055917010, guid: f632932c9941da6469d94abda3e187bc,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1330,37 +1314,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4683834572828670, guid: f632932c9941da6469d94abda3e187bc,
     type: 2}
   m_PrefabInternal: {fileID: 1005439515}
---- !u!84 &1510661747
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 32
-  m_Height: 1
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &1637484090
 Prefab:
   m_ObjectHideFlags: 0
@@ -1739,8 +1692,8 @@ Transform:
   m_LocalPosition: {x: 131.84, y: 5.43, z: 121.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1476472316}
   - {fileID: 94999661}
+  - {fileID: 1476472316}
   - {fileID: 148092018}
   - {fileID: 1154937016}
   m_Father: {fileID: 0}
