@@ -23,7 +23,6 @@ public class TutorialWarEvent : MonoBehaviour {
             if (item.GetType() ==  typeof(Enemy))
             {
                 item.Damage = 20;
-                item.AI_SetTarget(Player);
             }
         }
     }

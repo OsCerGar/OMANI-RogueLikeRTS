@@ -28,7 +28,8 @@ public class NPC : MonoBehaviour
     public SpriteRenderer circle;
 
     [HideInInspector]
-    public BehaviorTree AI;
+    public BehaviorTree[] AllBehaviour;
+    public BehaviorTree IdleTree,FollowTree,AttackTree;
 
     //Variables for when disabled (knockback)
     bool disabled;
@@ -131,12 +132,25 @@ public class NPC : MonoBehaviour
         GUI.SetActive(false);
         Debug.Log("Disabled by that");
     }
-
+    
     // Use this for initialization
     public virtual void Start()
     {
         peopl = LayerMask.NameToLayer("People");
-        AI = this.gameObject.GetComponent<BehaviorTree>();
+        //We get all behaviourTrees
+        AllBehaviour = GetComponents<BehaviorTree>();
+        foreach (var item in AllBehaviour)
+        {
+            if (item.BehaviorName == "Idle")
+            {
+                IdleTree = item;
+            }
+            if (item.BehaviorName == "Follow")
+            {
+                FollowTree = item;
+            }
+        }
+        enableTree("Idle");
         anim = this.gameObject.GetComponent<Animator>();
         Nav = this.gameObject.GetComponent<NavMeshAgent>();
         circle = this.gameObject.GetComponentInChildren<SpriteRenderer>();
@@ -259,25 +273,18 @@ public class NPC : MonoBehaviour
 
                 Debug.Log("buscando el wtf");
                 AI_SetEnemy(null);
-                AI_SetState("Free");
-            }
-        }
-        //Same with target
-        if (AI_GetTarget() != null)
-        {
-            if (!AI_GetTarget().activeSelf)
-            {
-                AI_SetTarget(null);
-                AI_SetState("Free");
             }
         }
     }
 
     public virtual void Die()
     {
-        if (AI != null)
+        if (AllBehaviour != null)
         {
-            AI.enabled = false;
+            foreach (var item in AllBehaviour)
+            {
+                item.DisableBehavior(false);
+            }
         }
         life = 0;
         anim.SetTrigger("Die");
@@ -302,12 +309,15 @@ public class NPC : MonoBehaviour
         }
     }
 
-    public virtual void Follow(GameObject player)
+    public virtual void Follow(GameObject _position)
     {
-        AI.EnableBehavior();
-        AI_SetState("Follow");
-        AI_SetTarget(player);
-        anim.SetBool("SpecialAttack", false);
+        enableTree("Follow");
+        var stateVariable = (SharedGameObject)FollowTree.GetVariable("Position");
+        stateVariable.Value = _position;
+    }
+    public virtual void Idle()
+    {
+        IdleTree.EnableBehavior();
     }
 
     public virtual void AttackHit()
@@ -317,16 +327,10 @@ public class NPC : MonoBehaviour
 
     public virtual void Order(GameObject attackPosition)
     {
-        AI.EnableBehavior();
-        AI_SetState("Attack");
-        AI_SetTarget(attackPosition);
+        AttackTree.EnableBehavior();
+        //set information here
     }
-
-    public virtual void ChargedOrder()
-    {
-        AI.EnableBehavior();
-        AI_SetState("SpecialAttack");
-    }
+   
 
     private void GetHitEffect()
     {
@@ -335,23 +339,13 @@ public class NPC : MonoBehaviour
             hitEffects[UnityEngine.Random.Range(0, hitEffects.Length)].Play();
         }
     }
-    //Old, remove !?
-    public virtual void ChargedOrderFullfilled(GameObject attackPosition)
-    {
-        AI.EnableBehavior();
-
-        var stateVariable = (SharedBool)AI.GetVariable("Go");
-        stateVariable.Value = true;
-        AI_SetTarget(attackPosition);
-
-    }
-
+    
+    /*
     public virtual void AI_SetState(string state)
     {
         var stateVariable = (SharedString)AI.GetVariable("State");
         stateVariable.Value = state;
     }
-
     public virtual void AI_SetTarget(GameObject target)
     {
         if (AI != null)
@@ -360,48 +354,31 @@ public class NPC : MonoBehaviour
             targetVariable.Value = target;
         }
     }
+    */
 
-    public virtual void AI_GoToPoint(GameObject _target, float _speed)
-    {
-        var speed = (SharedGameObject)AI.GetVariable("AnimSpeed");
-        var targetVariable = (SharedGameObject)AI.GetVariable("Target");
-        targetVariable.Value = _target;
-
-    }
-
-    public virtual string AI_GetState()
-    {
-        var stateVariable = (SharedString)AI.GetVariable("State");
-        return stateVariable.Value;
-    }
+   
     public virtual void AI_SetEnemy(GameObject target)
     {
-        if (AI != null)
-        {
-            var targetVariable = (SharedGameObject)AI.GetVariable("Enemy");
+        
+            var targetVariable = (SharedGameObject)GetComponent<BehaviorTree>().GetVariable("Enemy");
             targetVariable.Value = target;
-        }
+        
 
     }
     public virtual GameObject AI_GetEnemy()
     {
-        if (checkAI())
-        {
-            var targetVariable = (SharedGameObject)AI.GetVariable("Enemy");
+        
+            var targetVariable = (SharedGameObject)GetComponent<BehaviorTree>().GetVariable("Enemy");
             return targetVariable.Value;
-        }
-        else
-        {
-            return null;
-        }
+       
 
     }
     public virtual GameObject AI_GetTarget()
     {
-        var targetVariable = (SharedGameObject)AI.GetVariable("Target");
+        var targetVariable = (SharedGameObject)GetComponent<BehaviorTree>().GetVariable("Target");
         return targetVariable.Value;
     }
-
+    /*
     public virtual void Mutate(GameObject _mutation)
     {
         GameObject mutant = Instantiate(_mutation, this.transform.position, this.transform.rotation);
@@ -414,35 +391,19 @@ public class NPC : MonoBehaviour
         Destroy(this.gameObject);
 
     }
-
-    private bool checkAI()
+    */
+    private void enableTree(string _name)
     {
-        if (AI != null)
+        foreach (var item in AllBehaviour)
         {
-            if (AI.isActiveAndEnabled)
+            if (item.BehaviorName == _name)
             {
-                return true;
-            }
-            else
+                item.EnableBehavior();
+            } else
             {
-                var allAI = GetComponents<BehaviorTree>();
-                foreach (BehaviorTree item in allAI)
-                {
-                    if (item.isActiveAndEnabled)
-                    {
-                        AI = item;
-
-                        return true;
-                    }
-                }
-                return false;
+                item.DisableBehavior();
             }
         }
-        else
-        {
-            return false;
-        }
-
     }
 
     void OnAnimatorMove()
@@ -457,6 +418,17 @@ public class NPC : MonoBehaviour
         }
 
 
+    }
+    public string getState()
+    {
+        foreach (var item in AllBehaviour)
+        {
+            if (item.isActiveAndEnabled)
+            {
+                return item.name;
+            }
+        }
+        return null;
     }
 
 

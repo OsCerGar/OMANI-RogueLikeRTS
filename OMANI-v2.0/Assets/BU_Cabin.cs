@@ -69,7 +69,6 @@ public class BU_Cabin : MonoBehaviour
     {
         if (!workerInside && _worker.boyType == "Worker")
         {
-            _worker.AI_SetTarget(null);
             _worker.gameObject.SetActive(false);
             CabinNotReady();
             workerInside = true;

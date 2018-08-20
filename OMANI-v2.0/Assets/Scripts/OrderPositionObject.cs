@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OrderPositionObject : MonoBehaviour
 {
-
+    /*
     public NPC npc = null;
 
     int layermask1 = 1 << 9;
@@ -81,5 +81,5 @@ public class OrderPositionObject : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(this.transform.position, 0.5f);
     }
-
+    */
 }

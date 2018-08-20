@@ -7,7 +7,6 @@ public class Enemy : NPC {
     public override void Die()
     {
         base.Die();
-        Destroy(AI);
         this.enabled = false;
     }
 }

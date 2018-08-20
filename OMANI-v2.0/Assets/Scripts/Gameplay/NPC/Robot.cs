@@ -79,11 +79,7 @@ public class Robot : NPC
     }
     public void Resurrect()
     {
-
-        if (AI != null)
-        {
-            AI.enabled = true;
-        }
+        
         Nav.updatePosition = true;
         Nav.updateRotation = true;
         life = startLife;

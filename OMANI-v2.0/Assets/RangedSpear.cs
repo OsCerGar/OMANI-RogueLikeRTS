@@ -67,11 +67,7 @@ public class RangedSpear : MonoBehaviour
             {
                 EnemyNPC.TakeDamage(attackDamage);
             }
-            //Set his Enemy to this
-            if (EnemyNPC != null)
-            {
-                EnemyNPC.AI_SetTarget(thisNpcScript.gameObject);
-            }
+           
             //If he's dead, then forget about him
             missed = false;
             Hit();

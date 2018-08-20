@@ -24,7 +24,7 @@ public class DreamBoss : Enemy {
     }
     public void Stun()
     {
-        var stateVariable = (SharedBool)AI.GetVariable("Stunned");
+        var stateVariable = (SharedBool)GetComponent<BehaviorTree>().GetVariable("Stunned");
         stateVariable.Value = true;
     }
     void activateWeakspot()

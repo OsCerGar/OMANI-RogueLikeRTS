@@ -82,7 +82,7 @@ public class SavageCamp : MonoBehaviour {
     {
         foreach (GameObject baddie in currentBaddies)
         {
-            baddie.GetComponent<NPC>().AI_SetTarget(protagonist);
+            //Attack protagonist
         }
         currentBaddies.Clear();
     }
@@ -94,37 +94,10 @@ public class SavageCamp : MonoBehaviour {
             alarm = true;
             for (int i = 0; i < currentBaddies.Count; i++)
             {
-                currentBaddies[i].GetComponent<NPC>().AI_SetTarget(intruder);
+                //intruder?
             }
         }
     }
     
-
-  
-    private void OnTriggerEnter(Collider other)
-    {
-        
-        if (other.tag == "Enemy") 
-        {
-            if (other.GetComponent<ShepHerd>() != null) //If a Shepherd enters, then he's home
-            {
-                other.GetComponent<ShepHerd>().SetHome(true);
-            }
-        }
-        if (other.tag == "People") //If people enters, set alarm!!
-        {
-            Alarm(other.gameObject);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Enemy")
-        {
-            if (other.GetComponent<ShepHerd>() != null)
-            {
-                other.GetComponent<ShepHerd>().SetHome(false);
-            }
-        }
-    }
 
 }

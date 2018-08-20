@@ -496,13 +496,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                 orderInOrder = false;
             }
-
-            #region SpecialOrder
-            if (Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("q"))
-            {
-                commander.ArmyChargedOrder(selectedTypeList[selectedTypeInt]);
-            }
-            #endregion
+            
 
             if (commander.ListSize(selectedTypeList[selectedTypeInt]) < 1)
             {
@@ -604,7 +598,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     float dstToTarget = Vector3.Distance(miradaposition, target.position);
 
                     //Check if its following already.
-                    if (colNPC.AI_GetState() != "Follow")
+                    if (colNPC.getState() != "Follow")
                     {
                         //If the closestTarget is null he is the closest target.
                         // If the distance is smaller than the distance to the closestTarget.
@@ -695,7 +689,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         float dstToTarget = Vector3.Distance(transform.position, target.position);
 
                         //Check if its following already.
-                        if (colNPC.AI_GetState() != "Follow")
+                        if (colNPC.getState() != "Follow")
                         {
                             //If the closestTarget is null he is the closest target.
                             // If the distance is smaller than the distance to the closestTarget.
