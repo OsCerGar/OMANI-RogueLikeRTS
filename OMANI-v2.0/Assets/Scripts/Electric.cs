@@ -23,11 +23,26 @@ public class Electric : MonoBehaviour
     private float timer;
     private float timerTimeOut = 0.05f;
 
+    //fade
+    bool fading;
+
     private void Awake()
     {
         lRend = GetComponent<LineRenderer>();
         points = new Vector3[pointsCount];
         lRend.positionCount = pointsCount;
+    }
+    private void OnEnable()
+    {
+        fading = true;
+        Color color = lRend.material.GetColor("_TintColor");
+        color.a = 0;
+        lRend.material.SetColor("_TintColor", color);
+
+    }
+    private void OnDisable()
+    {
+        fading = false;
     }
 
     private void Update()
@@ -36,7 +51,16 @@ public class Electric : MonoBehaviour
         {
             CalculatePoints();
         }
+        if (fading) { ColorReverseFade(); }
     }
+
+    private void ColorReverseFade()
+    {
+        Color color = lRend.material.GetColor("_TintColor");
+        color.a += 0.2f * Time.unscaledDeltaTime;
+        lRend.material.SetColor("_TintColor", color);
+    }
+
 
     private void CalculatePoints()
     {
@@ -45,7 +69,6 @@ public class Electric : MonoBehaviour
         if (timer > timerTimeOut)
         {
             timer = 0;
-
             points[pointIndexA] = transformPointA.position;
             points[pointIndexE] = transformPointB.position;
             points[pointIndexC] = GetCenter(points[pointIndexA], points[pointIndexE]);
@@ -57,7 +80,6 @@ public class Electric : MonoBehaviour
             mainTextureOffset.x = Random.Range(-randomness, randomness);
             lRend.material.SetTextureScale(mainTexture, mainTextureScale);
             lRend.material.SetTextureOffset(mainTexture, mainTextureOffset);
-
             randomness = distance / (pointsCount * half);
 
             SetRandomness();

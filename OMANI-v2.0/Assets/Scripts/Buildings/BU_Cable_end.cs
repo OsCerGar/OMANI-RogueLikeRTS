@@ -19,6 +19,10 @@ public class BU_Cable_end : Interactible
     Vector3 finalPositions;
     RaycastHit hit;
 
+    // Electric part
+    [SerializeField]
+    Electric electric;
+
     // Use this for initialization
     public override void Start()
     {
@@ -74,6 +78,7 @@ public class BU_Cable_end : Interactible
                 collectingStarters = false;
                 launching = false;
 
+
                 spring.maxDistance = maxDistance;
 
                 this.transform.parent.gameObject.SetActive(false);
@@ -83,7 +88,7 @@ public class BU_Cable_end : Interactible
         {
             timer += Time.unscaledDeltaTime;
             if (timer > 0.5f)
-            {
+            {                
 
                 cable.CableLength(journeyLength - 4f);
 
@@ -104,6 +109,7 @@ public class BU_Cable_end : Interactible
     {
         // Disengage from whatever was attached.
         cable.CableLength(0);
+        electric.gameObject.SetActive(false);
 
         enableRigid();
         this.transform.SetParent(null);
@@ -115,6 +121,7 @@ public class BU_Cable_end : Interactible
         destination.parent.parent.GetComponent<Interactible_Repeater>().StopWorkingComplete();
         // Disengage from whatever was attached.
         cable.CableLength(0);
+        electric.gameObject.SetActive(false);
 
         enableRigid();
         this.transform.SetParent(null);
@@ -128,6 +135,8 @@ public class BU_Cable_end : Interactible
         disableRigid();
         launching = true;
         // Calculate the journey length.
+        electric.gameObject.SetActive(true);
+        electric.transformPointB = _destination;
 
         this.transform.SetParent(null);
         journeyLength = Vector3.Distance(this.transform.position, _destination.transform.position);
