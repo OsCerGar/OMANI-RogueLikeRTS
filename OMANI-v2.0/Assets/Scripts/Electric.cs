@@ -57,7 +57,7 @@ public class Electric : MonoBehaviour
     private void ColorReverseFade()
     {
         Color color = lRend.material.GetColor("_TintColor");
-        color.a += 0.2f * Time.unscaledDeltaTime;
+        color.a += 0.15f * Time.unscaledDeltaTime;
         lRend.material.SetColor("_TintColor", color);
     }
 
