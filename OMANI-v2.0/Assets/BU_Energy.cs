@@ -14,11 +14,17 @@ public class BU_Energy : BU_UniqueBuilding
     public List<CableComponent> cablesOut = new List<CableComponent>();
     public MeshRenderer[] buttons;
 
+    //Animations
+    Animator energyAnimator;
+    float animationValue;
+
     // Use this for initialization
     public override void Start()
     {
         base.Start();
         top = this.transform.Find("Top").gameObject;
+        energyAnimator = this.transform.Find("Animations").GetComponent<BU_Electricity_Animations>().anim;
+
         // Searches buttons
         buttons = this.transform.Find("Buttons").GetComponentsInChildren<MeshRenderer>();
 
@@ -45,6 +51,26 @@ public class BU_Energy : BU_UniqueBuilding
         else
         {
             buildingActionMesh.readyToSpawn = false;
+        }
+
+        switch (usedEnergy)
+        {
+            case 0:
+                //animationValue = Mathf.Lerp(animationValue, 0, 0.2f * Time.unscaledDeltaTime);
+                energyAnimator.SetFloat("Blend", 0);
+                break;
+            case 1:
+                //animationValue = Mathf.Lerp(animationValue, 0.3f, 0.2f * Time.unscaledDeltaTime);
+                energyAnimator.SetFloat("Blend", 0.3f);
+                break;
+            case 2:
+                //animationValue = Mathf.Lerp(animationValue, 0.6f, 0.2f * Time.unscaledDeltaTime);
+                energyAnimator.SetFloat("Blend", 0.6f);
+                break;
+            case 3:
+                //animationValue = Mathf.Lerp(animationValue, 1f, 0.2f * Time.unscaledDeltaTime);
+                energyAnimator.SetFloat("Blend", 1f);
+                break;
         }
     }
 
