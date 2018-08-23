@@ -94,7 +94,6 @@ public class CharacterMovement : MonoBehaviour
             desiredDirection.y -= 1 * Time.deltaTime;
 
             controller.Move(desiredDirection * speed);
-            Rotate(desiredDirection);
 
             LookDirection.LookAtWhileMoving(horizontalJoystick, verticalJoystick);
 
@@ -106,8 +105,6 @@ public class CharacterMovement : MonoBehaviour
     void Rotate(Vector3 desiredDirection)
     {
         desiredDirection.y = 0.0f;
-        desiredDirection = Camera.main.transform.TransformDirection(desiredDirection);
-        desiredDirection.y = 0.0f;
 
         // Calculates the rotation at which the character is directed.
         Quaternion desiredRotation = Quaternion.LookRotation(desiredDirection, Vector3.up);
@@ -117,6 +114,7 @@ public class CharacterMovement : MonoBehaviour
 
         // Uses the rigidbody function  "MoveRotation" which sets the new rotation of the Rigidbody. 
         transform.rotation = smoothedRotation;
+
     }
 }
 
