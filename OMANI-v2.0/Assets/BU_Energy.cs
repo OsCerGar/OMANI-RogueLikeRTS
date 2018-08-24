@@ -15,7 +15,7 @@ public class BU_Energy : BU_UniqueBuilding
     public MeshRenderer[] buttons;
 
     //Animations
-    Animator energyAnimator;
+    BU_Electricity_Animations energyAnimator;
     float animationValue;
 
     // Use this for initialization
@@ -23,7 +23,7 @@ public class BU_Energy : BU_UniqueBuilding
     {
         base.Start();
         top = this.transform.Find("Top").gameObject;
-        energyAnimator = this.transform.Find("Animations").GetComponent<BU_Electricity_Animations>().anim;
+        energyAnimator = this.transform.Find("Animations").GetComponent<BU_Electricity_Animations>();
 
         // Searches buttons
         buttons = this.transform.Find("Buttons").GetComponentsInChildren<MeshRenderer>();
@@ -53,25 +53,7 @@ public class BU_Energy : BU_UniqueBuilding
             buildingActionMesh.readyToSpawn = false;
         }
 
-        switch (usedEnergy)
-        {
-            case 0:
-                //animationValue = Mathf.Lerp(animationValue, 0, 0.2f * Time.unscaledDeltaTime);
-                energyAnimator.SetFloat("Blend", 0);
-                break;
-            case 1:
-                //animationValue = Mathf.Lerp(animationValue, 0.3f, 0.2f * Time.unscaledDeltaTime);
-                energyAnimator.SetFloat("Blend", 0.3f);
-                break;
-            case 2:
-                //animationValue = Mathf.Lerp(animationValue, 0.6f, 0.2f * Time.unscaledDeltaTime);
-                energyAnimator.SetFloat("Blend", 0.6f);
-                break;
-            case 3:
-                //animationValue = Mathf.Lerp(animationValue, 1f, 0.2f * Time.unscaledDeltaTime);
-                energyAnimator.SetFloat("Blend", 1f);
-                break;
-        }
+        energyAnimator.buildingAnimations(usedEnergy);
     }
 
     public bool energyCheck()
