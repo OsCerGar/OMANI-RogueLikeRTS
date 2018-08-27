@@ -99,7 +99,6 @@ public class BU_Cable_end : Interactible
                 float fracJourney = distCovered / journeyLength;
 
                 // Set our position as a fraction of the distance between the markers.
-
                 transform.position = Vector3.Lerp(this.transform.position, destination.transform.position + new Vector3(0, 1f, 0), fracJourney);
             }
         }
@@ -149,5 +148,34 @@ public class BU_Cable_end : Interactible
         destination = _destination;
 
     }
+
+    public void LaunchVector3(Transform _destination, bool tops)
+    {
+        //Made this function just to add a freaking offset so i don't have to make the freaking animation again
+        disableRigid();
+        launching = true;
+        // Calculate the journey length.
+        electric.gameObject.SetActive(true);
+
+        Transform finalDestination = _destination;
+        Debug.Log("hello");
+        Debug.Log(finalDestination.position);
+        finalDestination.position = new Vector3(_destination.position.x, _destination.position.y + 2f, _destination.position.z);
+        Debug.Log(finalDestination.position);
+
+        electric.transformPointB = finalDestination;
+
+        this.transform.SetParent(null);
+        journeyLength = Vector3.Distance(this.transform.position, _destination.transform.position);
+
+        //Tops or not.
+        topYesorNo = tops;
+
+        startTimess = Time.time;
+        timer = 0;
+        destination = _destination;
+
+    }
+
 }
 

@@ -17,9 +17,13 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
     private GameObject spinningStructure;
     float biggestClockValue;
 
+    BU_WeaponsMaker_Animation animator;
+
+
     public override void Start()
     {
         base.Start();
+        animator = this.transform.Find("Animations").GetComponent<BU_WeaponsMaker_Animation>();
 
         buildingActionMesh = this.transform.GetComponentInChildren<BU_Building_Action>();
 
@@ -64,6 +68,12 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
             buildingActionMesh.readyToSpawn = false;
         }
 
+    }
+
+    public override void LateUpdate()
+    {
+        base.LateUpdate();
+        animator.buildingAnimations(totalEnergy);
     }
 
     public override void BuildingAction()

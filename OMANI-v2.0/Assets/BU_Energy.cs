@@ -107,7 +107,7 @@ public class BU_Energy : BU_UniqueBuilding
     {
         cables.TryGetNextObject(top.transform.position, top.transform.rotation, out Spawned);
         CableComponent cabl = Spawned.GetComponent<CableComponent>();
-        cabl.cableEnd.Launch(_position.transform, true);
+        cabl.cableEnd.LaunchVector3(_position.transform, true);
         cablesOut.Add(cabl);
     }
 
