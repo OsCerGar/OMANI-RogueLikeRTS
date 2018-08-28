@@ -29,7 +29,7 @@ public class NPC : MonoBehaviour
 
     [HideInInspector]
     public BehaviorTree[] AllBehaviour;
-    public BehaviorTree IdleTree,FollowTree,AttackTree;
+    public BehaviorTree IdleTree,FollowTree,AttackTree,GoTree;
 
     //Variables for when disabled (knockback)
     bool disabled;
@@ -148,6 +148,14 @@ public class NPC : MonoBehaviour
             if (item.BehaviorName == "Follow")
             {
                 FollowTree = item;
+            }
+            if (item.BehaviorName == "Attack")
+            {
+                AttackTree = item;
+            }
+            if (item.BehaviorName == "Go")
+            {
+                GoTree = item;
             }
         }
         enableTree("Idle");
@@ -327,10 +335,19 @@ public class NPC : MonoBehaviour
 
     public virtual void Order(GameObject attackPosition)
     {
-        AttackTree.EnableBehavior();
+        enableTree("Go");
+        var stateVariable = (SharedGameObject)GoTree.GetVariable("Position");
+        stateVariable.Value = attackPosition;
         //set information here
     }
-   
+    public virtual void Attack(GameObject attackPosition)
+    {
+        var stateVariable = (SharedGameObject)AttackTree.GetVariable("Enemy");
+        stateVariable.Value = attackPosition;
+        enableTree("Attack");
+        //set information here
+    }
+
 
     private void GetHitEffect()
     {
@@ -398,6 +415,7 @@ public class NPC : MonoBehaviour
         {
             if (item.BehaviorName == _name)
             {
+                Debug.Log("Activated   " + item);
                 item.EnableBehavior();
             } else
             {
@@ -415,9 +433,9 @@ public class NPC : MonoBehaviour
             position.y = Nav.nextPosition.y;
             transform.position = position;
             Nav.nextPosition = transform.position;
+
         }
-
-
+        
     }
     public string getState()
     {

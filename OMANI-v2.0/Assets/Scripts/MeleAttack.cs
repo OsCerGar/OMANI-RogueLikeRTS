@@ -21,8 +21,6 @@ public class MeleAttack : MonoBehaviour {
         }
         else
         {
-            PowerUpEffect = transform.parent.Find("PowerUpEffect").GetComponent<ParticleSystem>();
-            PowerUpHitEffect = transform.parent.Find("PowerUpHit").GetComponent<ParticleSystem>();
             tagToAttack = "Enemy";
             secondTagToAttack = "Enemy";
         }
@@ -101,18 +99,22 @@ public class MeleAttack : MonoBehaviour {
         transform.gameObject.SetActive(false);
     }
     public void ActivateBoostAttack()
-    {
+    { /*
         PowerUpEffect.Play();
         PowerUp = true;
+        */
     }
     public void DeactivateBoostAttack()
     {
-
+        /*
         PowerUpEffect.Stop();
+        */
     }
     public void PowerUpHit()
     {
+        /*
         DeactivateBoostAttack();
         PowerUpHitEffect.Play();
+        */
     }
 }

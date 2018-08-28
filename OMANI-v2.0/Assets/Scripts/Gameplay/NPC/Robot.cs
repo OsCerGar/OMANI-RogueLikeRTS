@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BehaviorDesigner.Runtime;
 
 public class Robot : NPC
 {
@@ -9,7 +10,8 @@ public class Robot : NPC
     Powers powers = null;
     PowerManager powerManager;
     DissolveEffectController dissolveEffect;
-
+    UI_RobotAttack UI_Attack;
+    public float energycap = 100,currentenergy = 0;
     public float powerReduced = 0, linkPrice = 1;
 
     public void StartResurrection()
@@ -24,7 +26,7 @@ public class Robot : NPC
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();
         dissolveEffect = GetComponentInChildren<DissolveEffectController>();
-
+        UI_Attack = GetComponentInChildren<UI_RobotAttack>();
     }
 
     public override void Update()
@@ -129,4 +131,9 @@ public class Robot : NPC
         Mattack.ActivateBoostAttack();
 
     }
+    public void ShowAttackUI(GameObject Enemy)
+    {
+        UI_Attack.Show(Enemy);
+    }
+    
 }
