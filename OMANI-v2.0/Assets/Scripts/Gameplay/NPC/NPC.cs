@@ -49,7 +49,7 @@ public class NPC : MonoBehaviour
 
     [SerializeField] ParticleSystem[] hitEffects;
 
-
+    UI_RobotAttack UI_Attack;
     #endregion
 
     #region GETTERSETTERS
@@ -181,6 +181,9 @@ public class NPC : MonoBehaviour
 
         startLife = life;
         //Nav.updateRotation = true;
+
+        UI_Attack = GetComponentInChildren<UI_RobotAttack>();
+
     }
 
     // Update is called once per frame
@@ -449,6 +452,10 @@ public class NPC : MonoBehaviour
         return null;
     }
 
-
+    public void ShowAttackUI(GameObject Enemy)
+    {
+        Debug.Log("Show");
+        UI_Attack.Show(Enemy);
+    }
 
 }

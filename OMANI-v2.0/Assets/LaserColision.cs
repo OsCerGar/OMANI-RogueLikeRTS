@@ -98,13 +98,7 @@ public class LaserColision : MonoBehaviour
         }
         if (closestTarget != null)
         {
-            closestTarget.Action();
-            /*
-            if (closestTarget.actionBool)
-            {
-                powerLaser.setWidth(closestTarget.linkPrice);
-            }
-            */
+            closestTarget.robot_energy.Action();
         }
         if (closestEnemyTarget != null)
         {

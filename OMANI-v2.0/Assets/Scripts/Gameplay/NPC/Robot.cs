@@ -10,64 +10,28 @@ public class Robot : NPC
     Powers powers = null;
     PowerManager powerManager;
     DissolveEffectController dissolveEffect;
-    UI_RobotAttack UI_Attack;
+    public Robot_Energy robot_energy;
+
     public float energycap = 100,currentenergy = 0;
     public float powerReduced = 0, linkPrice = 1;
-
+    
     public void StartResurrection()
     {
         anim.SetTrigger("GetUp");
         dissolveEffect.StartRevert();
     }
-
     public override void Start()
     {
         base.Start();
+        robot_energy = this.transform.GetComponent<Robot_Energy>();
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();
         dissolveEffect = GetComponentInChildren<DissolveEffectController>();
-        UI_Attack = GetComponentInChildren<UI_RobotAttack>();
     }
-
     public override void Update()
     {
         base.Update();
-
-        //Powers Link
-        if (link)
-        {
-            if (powers.reducePower(linkPrice * Time.unscaledDeltaTime))
-            {
-                powerReduced += linkPrice * Time.unscaledDeltaTime;
-            }
-
-            else
-            {
-                DestroyLink();
-            }
-
-            if (state == "Alive")
-            {
-                if (powerReduced >= powerUpCost)
-                {
-                    ActionCompleted();
-                    //PowerUP
-                    BoostAttack();
-                }
-            }
-            else
-            {
-                if (powerReduced >= resurrectCost)
-                {
-                    ActionCompleted();
-                    StartResurrection();
-                }
-            }
-        }
-
         //DisablesCircle when given an order.
-
-
         if (state != "Alive")
         {
             Debug.Log("Dead");
@@ -93,21 +57,6 @@ public class Robot : NPC
         //cambiar tag y layer
     }
 
-    public virtual void Action()
-    {
-        if (!link)
-        {
-            CreateLink();
-        }
-    }
-
-    public virtual void ActionCompleted()
-    {
-        linky.Completed();
-        link = false;
-        powerReduced = 0;
-    }
-
     private void CreateLink()
     {
         //CreatesLink
@@ -131,9 +80,6 @@ public class Robot : NPC
         Mattack.ActivateBoostAttack();
 
     }
-    public void ShowAttackUI(GameObject Enemy)
-    {
-        UI_Attack.Show(Enemy);
-    }
+
     
 }

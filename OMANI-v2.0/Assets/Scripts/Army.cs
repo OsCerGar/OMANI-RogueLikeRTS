@@ -12,7 +12,7 @@ public class Army : MonoBehaviour
     [SerializeField]
     private GameObject OrderPositionObject;
 
-    
+
     [SerializeField]
     GameObject UI;
 
@@ -26,8 +26,8 @@ public class Army : MonoBehaviour
     [SerializeField]
     float armyseparation = 4;
     public void setFormation()
-    { 
-        
+    {
+
         positionCounter = 0;
         bool completed = false;
 
@@ -37,7 +37,7 @@ public class Army : MonoBehaviour
         checkNameAndOrganice(pointer);
 
 
-        
+
         while (completed != false)
         {
 
@@ -47,17 +47,18 @@ public class Army : MonoBehaviour
             {
                 //If the pointer got to the selected Type then everything has been checked
                 completed = true;
-            } else
+            }
+            else
             {
 
-                    if (pointer == look.selectedTypeList.Count)
-                    {
-                        //if the pointer is at the end of the list , go to the start again
-                        pointer = 0;
-                    }
-                    
-                    checkNameAndOrganice(pointer);
-                    
+                if (pointer == look.selectedTypeList.Count)
+                {
+                    //if the pointer is at the end of the list , go to the start again
+                    pointer = 0;
+                }
+
+                checkNameAndOrganice(pointer);
+
             }
         }
     }
@@ -76,7 +77,7 @@ public class Army : MonoBehaviour
                     }
                     else
                     {
-                        OrganiceRobots(swordsmans,false);
+                        OrganiceRobots(swordsmans, false);
                     }
                 }
 
@@ -163,7 +164,7 @@ public class Army : MonoBehaviour
         {
             for (int i = 0; i < robotsToCheck.Count; i++)
             {
-                if (i == robotsToCheck.Count-1) //If he's the last one, the give him an special position
+                if (i == robotsToCheck.Count - 1) //If he's the last one, the give him an special position
                 {
                     robotsToCheck[i].Follow(SpecialPosition);
                 }
@@ -182,14 +183,14 @@ public class Army : MonoBehaviour
                 positionCounter++;
             }
         }
-        
+
     }
 
     private void Start()
     {
         look = FindObjectOfType<LookDirectionsAndOrder>();
         SpecialPosition = Instantiate(new GameObject(), transform.position, transform.rotation, transform);
-        SpecialPosition.transform.localPosition = new Vector3(4,0,0);
+        SpecialPosition.transform.localPosition = new Vector3(4, 0, 0);
 
     }
 
@@ -198,12 +199,13 @@ public class Army : MonoBehaviour
         if (positions.Count > _position)
         {
             return positions[_position];
-        }else
+        }
+        else
         {
             //ccalculate and add a Gameobject that sets itself behind Omani
-            var newPosition = Instantiate(new GameObject(), transform.position,transform.rotation, transform);
+            var newPosition = Instantiate(new GameObject(), transform.position, transform.rotation, transform);
             var positionMod = (_position + 5) % 5;
-            var positionOffset = new Vector3 ((-armyseparation * 2) + (positionMod * armyseparation), 0, -(int)((_position + 5) / 5) - 2 );
+            var positionOffset = new Vector3((-armyseparation * 2) + (positionMod * armyseparation), 0, -(int)((_position + 5) / 5) - 2);
             newPosition.transform.localPosition = positionOffset;
             positions.Add(newPosition);
             return newPosition;
@@ -214,99 +216,99 @@ public class Army : MonoBehaviour
     public void Reclute(NPC barroBoy)
     {
         bool alreadyIn = false;
-        
-            switch (barroBoy.BoyType)
-            {
-                case "Swordsman":
-                    foreach (NPC boy in swordsmans)
-                    {
-                        if (boy == barroBoy)
-                        {
-                            alreadyIn = true;
-                        }
-                    }
-                    if (alreadyIn != true)
-                    {
-                        swordsmans.Add(barroBoy);
-                    }
-                    break;
-                case "Archer":
-                    foreach (NPC boy in archers)
-                    {
-                        if (boy == barroBoy)
-                        {
-                            alreadyIn = true;
-                        }
-                    }
-                    if (alreadyIn != true)
-                    {
-                        archers.Add(barroBoy);
-                    }
 
-                    break;
-                case "Musketeer":
-                    foreach (NPC boy in musketeers)
+        switch (barroBoy.BoyType)
+        {
+            case "Swordsman":
+                foreach (NPC boy in swordsmans)
+                {
+                    if (boy == barroBoy)
                     {
-                        if (boy == barroBoy)
-                        {
-                            alreadyIn = true;
-                        }
+                        alreadyIn = true;
                     }
-                    if (alreadyIn != true)
+                }
+                if (alreadyIn != true)
+                {
+                    swordsmans.Add(barroBoy);
+                }
+                break;
+            case "Archer":
+                foreach (NPC boy in archers)
+                {
+                    if (boy == barroBoy)
                     {
-                        musketeers.Add(barroBoy);
+                        alreadyIn = true;
                     }
+                }
+                if (alreadyIn != true)
+                {
+                    archers.Add(barroBoy);
+                }
 
-                    break;
-
-                case "Shieldman":
-                    foreach (NPC boy in shieldmans)
+                break;
+            case "Musketeer":
+                foreach (NPC boy in musketeers)
+                {
+                    if (boy == barroBoy)
                     {
-                        if (boy == barroBoy)
-                        {
-                            alreadyIn = true;
-                        }
+                        alreadyIn = true;
                     }
-                    if (alreadyIn != true)
+                }
+                if (alreadyIn != true)
+                {
+                    musketeers.Add(barroBoy);
+                }
+
+                break;
+
+            case "Shieldman":
+                foreach (NPC boy in shieldmans)
+                {
+                    if (boy == barroBoy)
                     {
-
-                        shieldmans.Add(barroBoy);
+                        alreadyIn = true;
                     }
-                    break;
-                case "Rogue":
-                    foreach (NPC boy in rogues)
+                }
+                if (alreadyIn != true)
+                {
+
+                    shieldmans.Add(barroBoy);
+                }
+                break;
+            case "Rogue":
+                foreach (NPC boy in rogues)
+                {
+                    if (boy == barroBoy)
                     {
-                        if (boy == barroBoy)
-                        {
-                            alreadyIn = true;
-                        }
+                        alreadyIn = true;
                     }
-                    if (alreadyIn != true)
+                }
+                if (alreadyIn != true)
+                {
+
+                    rogues.Add(barroBoy);
+                }
+                break;
+
+            case "Worker":
+                foreach (NPC boy in workers)
+                {
+                    if (boy == barroBoy)
                     {
-
-                        rogues.Add(barroBoy);
+                        alreadyIn = true;
                     }
-                    break;
+                }
+                if (alreadyIn != true)
+                {
 
-                case "Worker":
-                    foreach (NPC boy in workers)
-                    {
-                        if (boy == barroBoy)
-                        {
-                            alreadyIn = true;
-                        }
-                    }
-                    if (alreadyIn != true)
-                    {
+                    workers.Add(barroBoy);
+                }
+                break;
 
-                        workers.Add(barroBoy);
-                    }
-                    break;
+        }
+        setFormation();
 
-            }
-            setFormation();
 
-        
 
     }
 
@@ -326,7 +328,7 @@ public class Army : MonoBehaviour
                     barroBoy.GUI_Script.DisableCircle();
                     swordsmans.Remove(barroBoy);
 
-                 //   orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
+                    //   orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
                 }
 
@@ -341,7 +343,7 @@ public class Army : MonoBehaviour
                     barroBoy.GUI_Script.DisableCircle();
                     archers.Remove(barroBoy);
 
-                 //   orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
+                    //   orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
 
                 }
@@ -356,7 +358,7 @@ public class Army : MonoBehaviour
                     barroBoy.GUI_Script.DisableCircle();
                     musketeers.Remove(barroBoy);
 
-                //    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
+                    //    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
 
                 }
@@ -372,7 +374,7 @@ public class Army : MonoBehaviour
                     barroBoy.GUI_Script.DisableCircle();
                     workers.Remove(barroBoy);
 
-                //    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
+                    //    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
 
                 }
@@ -389,7 +391,7 @@ public class Army : MonoBehaviour
                     barroBoy.GUI_Script.DisableCircle();
                     shieldmans.Remove(barroBoy);
 
-                 //   orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
+                    //   orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
 
                 }
@@ -404,14 +406,14 @@ public class Army : MonoBehaviour
                     barroBoy.GUI_Script.DisableCircle();
                     rogues.Remove(barroBoy);
 
-                  //  orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
+                    //  orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
 
                 }
                 break;
         }
     }
-    public void OrderDirect(string type, GameObject orderPosition)
+    public void Attack(string type, GameObject attackPosition)
     {
         NPC barroBoy = null;
         switch (type)
@@ -419,47 +421,56 @@ public class Army : MonoBehaviour
             case "Swordsman":
                 if (swordsmans.Count > 0)
                 {
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = attackPosition.transform.position;
+
                     barroBoy = swordsmans[swordsmans.Count - 1];
                     swordsmans.Remove(barroBoy);
                     barroBoy.GUI_Script.DisableCircle();
 
-                    barroBoy.Order(orderPosition);
+                    barroBoy.Attack(orderPositionVar);
                 }
 
                 break;
             case "Archer":
                 if (archers.Count > 0)
                 {
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = attackPosition.transform.position;
 
                     barroBoy = archers[archers.Count - 1];
                     archers.Remove(barroBoy);
                     barroBoy.GUI_Script.DisableCircle();
 
-                    barroBoy.Order(orderPosition);
+                    barroBoy.Attack(orderPositionVar);
 
                 }
                 break;
             case "Worker":
                 if (workers.Count > 0)
                 {
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = attackPosition.transform.position;
 
                     barroBoy = workers[workers.Count - 1];
                     workers.Remove(barroBoy);
                     barroBoy.GUI_Script.DisableCircle();
 
-                    barroBoy.Order(orderPosition);
+                    barroBoy.Attack(orderPositionVar);
 
                 }
                 break;
             case "Musketeer":
                 if (musketeers.Count > 0)
                 {
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = attackPosition.transform.position;
 
                     barroBoy = musketeers[musketeers.Count - 1];
                     musketeers.Remove(barroBoy);
                     barroBoy.GUI_Script.DisableCircle();
 
-                    barroBoy.Order(orderPosition);
+                    barroBoy.Attack(orderPositionVar);
 
                 }
                 break;
@@ -468,24 +479,28 @@ public class Army : MonoBehaviour
                 if (shieldmans.Count > 0)
                 {
 
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = attackPosition.transform.position;
 
                     barroBoy = shieldmans[shieldmans.Count - 1];
                     shieldmans.Remove(barroBoy);
                     barroBoy.GUI_Script.DisableCircle();
 
-                    barroBoy.Order(orderPosition);
+                    barroBoy.Attack(orderPositionVar);
 
                 }
                 break;
             case "Rogue":
                 if (rogues.Count > 0)
                 {
+                    GameObject orderPositionVar = Instantiate(OrderPositionObject);
+                    orderPositionVar.transform.position = attackPosition.transform.position;
 
                     barroBoy = rogues[rogues.Count - 1];
                     rogues.Remove(barroBoy);
                     barroBoy.GUI_Script.DisableCircle();
 
-                    barroBoy.Order(orderPosition);
+                    barroBoy.Attack(orderPositionVar);
 
                 }
                 break;
@@ -519,6 +534,7 @@ public class Army : MonoBehaviour
 
         return barroBoy;
     }
+
     public List<NPC> GetArmy(string type)
     {
 
@@ -547,7 +563,7 @@ public class Army : MonoBehaviour
 
         return armyList;
     }
-    
+
     public int ListSize(string _type)
     {
         int size = 0;

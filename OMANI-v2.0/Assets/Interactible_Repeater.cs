@@ -19,6 +19,7 @@ public class Interactible_Repeater : Interactible
         animator = this.GetComponent<Animator>();
         top = this.transform.Find("Stick/Top").gameObject;
     }
+
     // Use this for initialization
     public override void Start()
     {

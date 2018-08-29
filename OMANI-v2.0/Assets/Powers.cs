@@ -155,7 +155,6 @@ public class Powers : MonoBehaviour
     {
         powerPool = Mathf.Clamp(powerPool + amount, 0, maxpowerPool);
     }
-
     public bool reducePower(float amount)
     {
         float finalAmount = amount * Time.unscaledDeltaTime;
@@ -169,7 +168,6 @@ public class Powers : MonoBehaviour
             return false;
         }
     }
-
     public bool reducePowerNow(float amount)
     {
         if (powerPool - amount >= 0)
@@ -182,6 +180,7 @@ public class Powers : MonoBehaviour
             return false;
         }
     }
+
     private void FixedUpdate()
     {
         FindEnnuis();

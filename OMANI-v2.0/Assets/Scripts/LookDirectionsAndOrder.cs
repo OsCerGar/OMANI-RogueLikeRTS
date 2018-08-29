@@ -238,6 +238,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
             headArm.transform.LookAt(closestEnemyTarget.transform);
 
+            commander.GetBoyArmy(selectedTypeList[selectedTypeInt]).ShowAttackUI(closestEnemyTarget.gameObject);
 
             //TODO
             //UI is now in the character position.
@@ -277,6 +278,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             //TODO
             //UI is now in the character position.
+            commander.GetBoyArmy(selectedTypeList[selectedTypeInt]).ShowAttackUI(closestEnemyTarget.gameObject);
 
             pointerOrder.transform.position = closestEnemyTarget.transform.position;
             pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
@@ -306,6 +308,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
 
     #endregion
+
     #endregion
     private void SelectedType()
     {
@@ -396,11 +399,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         {
                             if (closestBUTarget != null)
                             {
-                                commander.OrderDirect(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
+                                commander.Attack(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
                             }
                             else if (closestEnemyTarget != null)
                             {
-                                commander.OrderDirect(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
+                                commander.Attack(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
                             }
                         }
 
@@ -431,12 +434,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         {
                             if (closestBUTarget != null)
                             {
-                                commander.OrderDirect(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
+                                commander.Attack(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
 
                             }
                             else if (closestEnemyTarget != null)
                             {
-                                commander.OrderDirect(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
+                                commander.Attack(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
                             }
                         }
 

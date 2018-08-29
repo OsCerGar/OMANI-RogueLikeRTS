@@ -41,7 +41,7 @@ public class BasicCollisions : Power
             ally = other.GetComponent<Robot>();
             PS.transform.position = this.transform.position;
             PS.Play();
-            ally.Action();
+            //ally.Action();
             hit = true;
         }
     }
