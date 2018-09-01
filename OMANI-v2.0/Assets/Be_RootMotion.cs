@@ -16,8 +16,9 @@ public class Be_RootMotion : StateMachineBehaviour {
         
        // NAgent.updatePosition = false;
         npcScript.RootMotion = true;
-
-        animator.GetComponent<BehaviorTree>().DisableBehavior();
+        npcScript.Nav.updatePosition = false;
+        npcScript.Nav.updateRotation = false;
+        
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -28,10 +29,9 @@ public class Be_RootMotion : StateMachineBehaviour {
 
             //NAgent.updatePosition = true;
             npcScript.RootMotion = false;
-            if (animator.GetComponent<BehaviorTree>()!= null)
-            {
-                animator.GetComponent<BehaviorTree>().EnableBehavior();
-            }
+            npcScript.Nav.updateRotation = true;
+            npcScript.Nav.updatePosition = true;
+           
             
         }
     }

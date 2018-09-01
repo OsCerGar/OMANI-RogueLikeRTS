@@ -5,20 +5,22 @@ using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
 
 public class TaskCheckEnergy : Action {
-    Robot npc;
-    public SharedVector3 RightVector;
+    Robot_Energy rEnergy;
     float speed = 0.1f;
     // Use this for initialization
 
     public override TaskStatus OnUpdate()
     {
 
-        if (npc == null)
+        if (rEnergy == null)
         {
-            npc = transform.gameObject.GetComponent<Robot>();
+            rEnergy = transform.gameObject.GetComponent<Robot_Energy>();
         }
-        if (npc.currentenergy >= npc.energycap)
+        if (rEnergy.ready == true)
         {
+            rEnergy.powerReduced = 0;
+            rEnergy.ready = false;
+            
             return TaskStatus.Success;
         }
         else

@@ -29,7 +29,7 @@ public class NPC : MonoBehaviour
 
     [HideInInspector]
     public BehaviorTree[] AllBehaviour;
-    public BehaviorTree IdleTree,FollowTree,AttackTree,GoTree;
+    public BehaviorTree IdleTree,FollowTree,AttackTree,GoTree,CoolDownTree;
 
     //Variables for when disabled (knockback)
     bool disabled;
@@ -132,10 +132,14 @@ public class NPC : MonoBehaviour
         GUI.SetActive(false);
         Debug.Log("Disabled by that");
     }
-    
+    private void Awake()
+    {
+       
+    }
     // Use this for initialization
     public virtual void Start()
     {
+       
         peopl = LayerMask.NameToLayer("People");
         //We get all behaviourTrees
         AllBehaviour = GetComponents<BehaviorTree>();
@@ -157,6 +161,10 @@ public class NPC : MonoBehaviour
             {
                 GoTree = item;
             }
+            if (item.BehaviorName == "CoolDown")
+            {
+                CoolDownTree = item;
+            }
         }
         enableTree("Idle");
         anim = this.gameObject.GetComponent<Animator>();
@@ -173,10 +181,7 @@ public class NPC : MonoBehaviour
 
         }
         //Get AttackZone child Somewhere 
-        if (transform.FindDeepChild("AttackZone") != null)
-        {
-            Attackzone = transform.FindDeepChild("AttackZone").gameObject;
-        }
+       
 
 
         startLife = life;
@@ -412,7 +417,7 @@ public class NPC : MonoBehaviour
 
     }
     */
-    private void enableTree(string _name)
+    public  void enableTree(string _name)
     {
         foreach (var item in AllBehaviour)
         {
