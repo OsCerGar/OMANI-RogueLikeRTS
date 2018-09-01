@@ -53,8 +53,8 @@ public class Tutorial_Start : MonoBehaviour
         startCamera = this.transform.Find("Timeline/Cameras/StartCamera").GetComponent<Cinemachine.CinemachineVirtualCamera>();
         spotLight = this.transform.Find("Lights/SpotLight").gameObject;
 
-        backgroundLights = this.transform.Find("Lights/backgroundLight").gameObject;
-        backgroundLights2 = this.transform.Find("Lights/backgroundLight2").gameObject;
+        backgroundLights = this.transform.Find("Lights/AuraVolume").gameObject;
+        backgroundLights2 = this.transform.Find("Lights/AuraVolume2").gameObject;
         directionalLight = this.transform.Find("Lights/Aura Directional Light").GetComponent<Light>();
     }
 

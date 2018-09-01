@@ -27,7 +27,6 @@ public class PW_Dash : Power
 
     public override void CastPower()
     {
-        Debug.Log("running");
         Running();
     }
 

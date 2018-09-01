@@ -24,6 +24,7 @@ public class PW_Hearthstone : Power
     {
         hearthstoneUI = this.transform.Find("Player_UI/GUI_Teleport").GetComponent<Image>();
         hearthstoneExplosionUI = hearthstoneUI.transform.GetChild(0).GetComponent<ParticleSystem>();
+        teleportBasePosition = FindObjectOfType<Base>().teleportationField;
     }
 
     public override void CastPower()

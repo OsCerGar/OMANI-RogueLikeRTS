@@ -158,8 +158,6 @@ public class BU_Cable_end : Interactible
         electric.gameObject.SetActive(true);
 
         Transform finalDestination = _destination;
-        Debug.Log("hello");
-        Debug.Log(finalDestination.position);
         finalDestination.position = new Vector3(_destination.position.x, _destination.position.y + 2f, _destination.position.z);
         Debug.Log(finalDestination.position);
 
