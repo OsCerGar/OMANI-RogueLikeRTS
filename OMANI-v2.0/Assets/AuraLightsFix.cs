@@ -10,6 +10,9 @@ public class AuraLightsFix : MonoBehaviour
     [SerializeField]
     List<AuraLight> AuraLights;
 
+    [SerializeField]
+    List<AuraVolume> AuraLightVolume;
+
     private void Update()
     {
         if (!Application.isPlaying)
@@ -18,7 +21,10 @@ public class AuraLightsFix : MonoBehaviour
             {
                 light.enabled = true;
             }
-            Debug.Log("AuraLightFix in Update");
+            foreach (AuraVolume volume in AuraLightVolume)
+            {
+                volume.enabled = true;
+            }
         }
     }
 }
