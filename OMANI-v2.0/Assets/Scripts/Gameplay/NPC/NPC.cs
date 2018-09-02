@@ -132,10 +132,7 @@ public class NPC : MonoBehaviour
         GUI.SetActive(false);
         Debug.Log("Disabled by that");
     }
-    private void Awake()
-    {
-       
-    }
+
     // Use this for initialization
     public virtual void Start()
     {

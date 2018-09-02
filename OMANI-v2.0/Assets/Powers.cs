@@ -15,6 +15,7 @@ public class Powers : MonoBehaviour
 
     [SerializeField]
     public float maxpowerPool = 100, powerPool = 100, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1;
+    int quarter, half, quartandhalf;
 
     float radius = 3;
 
@@ -22,7 +23,6 @@ public class Powers : MonoBehaviour
     {
         Initializer();
     }
-
     void Initializer()
     {
         ennuisMask = 1 << LayerMask.NameToLayer("Interactible");
@@ -33,8 +33,11 @@ public class Powers : MonoBehaviour
         dash = FindObjectOfType<PW_Dash>();
         lasers = FindObjectOfType<Power_Laser>();
 
-    }
+        quarter = Mathf.RoundToInt(maxpowerPool * 0.25f);
+        half = Mathf.RoundToInt(maxpowerPool * 0.5f);
+        quartandhalf = Mathf.RoundToInt(maxpowerPool * 0.75f);
 
+    }
     // Update is called once per frame
     void Update()
     {
@@ -132,25 +135,24 @@ public class Powers : MonoBehaviour
         #endregion
 
         #region IncreasePowerPool
-        if (powerPool <= maxpowerPool * 0.25f)
+        if (powerPool < quarter)
         {
-            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, maxpowerPool * 0.25f);
+            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, quarter);
         }
-        else if (powerPool <= maxpowerPool * 0.5f)
+        else if (powerPool < half)
         {
-            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, maxpowerPool * 0.5f);
+            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, half);
         }
-        else if (powerPool <= maxpowerPool * 0.75f)
+        else if (powerPool < quartandhalf)
         {
-            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, maxpowerPool * 0.75f);
+            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, quartandhalf);
         }
-        else
+        else if (powerPool < maxpowerPool)
         {
             powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, maxpowerPool);
         }
         #endregion
     }
-
     public void addPower(float amount)
     {
         powerPool = Mathf.Clamp(powerPool + amount, 0, maxpowerPool);
