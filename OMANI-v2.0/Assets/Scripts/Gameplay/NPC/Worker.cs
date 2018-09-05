@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class Worker : Robot {
     public GameObject Scrap;
-    private ParticleSystem explosion;
+    [SerializeField]
+    private ParticleSystem TrailEffect;
     void Awake()
     {
         boyType = "Worker";
     }
-    public void Explode()
+    public void Trail()
     {
-        explosion.Play();
-        Instantiate(Scrap,transform.position,transform.rotation);
-        Instantiate(Scrap, transform.position, transform.rotation);
-        Instantiate(Scrap, transform.position, transform.rotation);
-        transform.gameObject.SetActive(false);
+        TrailEffect.Play();
     }
 }
