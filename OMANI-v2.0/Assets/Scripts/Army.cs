@@ -307,9 +307,6 @@ public class Army : MonoBehaviour
 
         }
         setFormation();
-
-
-
     }
 
     public void Order(string type, Vector3 orderPosition)
@@ -345,7 +342,6 @@ public class Army : MonoBehaviour
 
                     //   orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
-
                 }
                 break;
             case "Musketeer":
@@ -376,7 +372,6 @@ public class Army : MonoBehaviour
 
                     //    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
                     barroBoy.Order(orderPositionVar);
-
                 }
                 break;
             case "Shieldman":
@@ -412,6 +407,7 @@ public class Army : MonoBehaviour
                 }
                 break;
         }
+        setFormation();
     }
     public void Attack(string type, GameObject attackPosition)
     {
@@ -505,6 +501,8 @@ public class Army : MonoBehaviour
                 }
                 break;
         }
+        setFormation();
+
     }
 
     public NPC GetBoyArmy(string type)

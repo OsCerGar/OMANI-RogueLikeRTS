@@ -16,7 +16,7 @@ public class Interactible : MonoBehaviour
     private float startTime;
     public bool actionBool { get; set; }
 
-    Powers powers = null;
+    public Powers powers = null;
     PowerManager powerManager;
     MetaAudioController laserAudio;
 
@@ -80,7 +80,7 @@ public class Interactible : MonoBehaviour
         powerReduced = 0;
     }
 
-    public void ReducePower()
+    public virtual void ReducePower()
     {
         powerReduced -= 1 * Time.unscaledDeltaTime;
     }

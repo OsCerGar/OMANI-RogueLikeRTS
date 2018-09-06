@@ -133,7 +133,7 @@ public class Powers : MonoBehaviour
         #endregion
 
         #endregion
-
+        
         #region IncreasePowerPool
         if (powerPool < quarter)
         {

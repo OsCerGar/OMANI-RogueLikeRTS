@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Powers : MonoBehaviour
+public class NPC_UI : MonoBehaviour
 {
 
     public Image powerClock, lifeClock;
-    Powers powers;
-    Player player;
-    Camera mainCamera;
-    float lastPowerPool, lastLife;
+    NPC npc;
+    float lastPowerPool, lastLife, powerTimer;
     bool powerClockHidden, lifeClockHidden;
     Quaternion fixedRotation;
 
@@ -31,20 +29,18 @@ public class UI_Powers : MonoBehaviour
             }
         }
         fixedRotation = powerClock.transform.rotation;
-        player = this.transform.root.GetComponentInChildren<Player>();
-        powers = this.transform.root.GetComponentInChildren<Powers>();
-        mainCamera = Camera.main;
+        npc = this.transform.GetComponentInParent<NPC>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if (lastPowerPool != powers.powerPool)
+        if (lastPowerPool != npc.powerPool)
         {
             powerClockHidden = false;
             powerClock.enabled = true;
-            powerClock.fillAmount = powers.powerPool / powers.maxpowerPool;
-            lastPowerPool = powers.powerPool;
+            powerClock.fillAmount = npc.powerPool / npc.maxpowerPool;
+            lastPowerPool = npc.powerPool;
             //Restores rotation
             powerClock.transform.rotation = fixedRotation;
 
@@ -53,17 +49,20 @@ public class UI_Powers : MonoBehaviour
         {
             if (!powerClockHidden)
             {
-                powerClock.enabled = false;
-
+                powerTimer = Time.time;
                 powerClockHidden = true;
             }
+            if (Time.time - powerTimer > 3f)
+            {
+                powerClock.enabled = false;
+            }
         }
-        if (lastLife != player.life)
+        if (lastLife != npc.life)
         {
             lifeClockHidden = false;
             lifeClock.enabled = true;
-            lifeClock.fillAmount = player.life / player.startLife;
-            lastLife = player.life;
+            lifeClock.fillAmount = npc.life / npc.startLife;
+            lastLife = npc.life;
             //Restores rotation
             lifeClock.transform.rotation = fixedRotation;
 

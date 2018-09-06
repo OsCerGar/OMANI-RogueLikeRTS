@@ -17,7 +17,16 @@ public class NPC : MonoBehaviour
     public string state;
 
     [SerializeField]
-    public int startLife, life, damage, resurrectCost = 25, powerUpCost = 10;
+    public int startLife, life, damage, resurrectCost = 25, powerUpCost = 10, increaseAmount = 1;
+    public float maxpowerPool = 5, powerPool = 0;
+    public float powerReduced = 0, linkPrice = 1;
+    int quarter, half, quartandhalf;
+
+    float sumAmount, lastLife;
+    int lifeQuarter, lifeHalf, lifeQuarterAndHalf;
+
+
+
     //Required for run animations synced with NevMesh
     [HideInInspector]
     public Animator anim;
@@ -29,7 +38,7 @@ public class NPC : MonoBehaviour
 
     [HideInInspector]
     public BehaviorTree[] AllBehaviour;
-    public BehaviorTree IdleTree,FollowTree,AttackTree,GoTree,CoolDownTree;
+    public BehaviorTree IdleTree, FollowTree, AttackTree, GoTree, CoolDownTree;
 
     //Variables for when disabled (knockback)
     bool disabled;
@@ -46,7 +55,6 @@ public class NPC : MonoBehaviour
     [SerializeField]
     public GameObject GUI;
     public UI_PointerSelection GUI_Script;
-
     [SerializeField] ParticleSystem[] hitEffects;
 
     UI_RobotAttack UI_Attack;
@@ -136,7 +144,7 @@ public class NPC : MonoBehaviour
     // Use this for initialization
     public virtual void Start()
     {
-       
+
         peopl = LayerMask.NameToLayer("People");
         //We get all behaviourTrees
         AllBehaviour = GetComponents<BehaviorTree>();
@@ -178,13 +186,16 @@ public class NPC : MonoBehaviour
 
         }
         //Get AttackZone child Somewhere 
-       
-
 
         startLife = life;
         //Nav.updateRotation = true;
 
         UI_Attack = GetComponentInChildren<UI_RobotAttack>();
+
+        quarter = Mathf.RoundToInt(maxpowerPool * 0.25f);
+        half = Mathf.RoundToInt(maxpowerPool * 0.5f);
+        quartandhalf = Mathf.RoundToInt(maxpowerPool * 0.75f);
+
 
     }
 
@@ -192,7 +203,6 @@ public class NPC : MonoBehaviour
     public virtual void Update()
     {
         //He dies if life lowers 
-
         if (disabled)
         {
             if (disabledCountdown < disabledTime)
@@ -215,7 +225,6 @@ public class NPC : MonoBehaviour
             }
         }
 
-
         //Animspeed conected to navmesh speed 
         if (anim != null)
         {
@@ -225,7 +234,68 @@ public class NPC : MonoBehaviour
             }
         }
 
+        EnergyLifeCalc();
+
     }
+
+    private void EnergyLifeCalc()
+    {
+        #region ReducePowerPool
+
+        if (powerPool < quarter)
+        {
+            powerPool = Mathf.Clamp(powerPool, 0, quarter);
+        }
+        else if (powerPool < half)
+        {
+            powerPool = Mathf.Clamp(powerPool, quarter, half);
+        }
+        else if (powerPool < quartandhalf)
+        {
+            powerPool = Mathf.Clamp(powerPool, half, quartandhalf);
+        }
+        else if (powerPool <= maxpowerPool || powerPool > maxpowerPool)
+        {
+            powerPool = Mathf.Clamp(powerPool, quartandhalf, maxpowerPool);
+        }
+        #endregion
+        #region IncreaseLifePool
+        if (life < lifeQuarter)
+        {
+            sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+            if (sumAmount > 1)
+            {
+                life = Mathf.Clamp(life + 1, 0, lifeQuarter);
+            }
+        }
+        else if (life < lifeHalf)
+        {
+            sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+            if (sumAmount > 1)
+            {
+                life = Mathf.Clamp(life + 1, 0, lifeHalf);
+            }
+        }
+        else if (life < lifeQuarterAndHalf)
+        {
+            sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+            if (sumAmount > 1)
+            {
+                life = Mathf.Clamp(life + 1, 0, lifeQuarterAndHalf);
+            }
+        }
+        else if (life < startLife || life > startLife)
+        {
+            sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+            if (sumAmount > 1)
+            {
+                life = Mathf.Clamp(life + 1, 0, startLife);
+            }
+        }
+        sumAmount = 0;
+        #endregion
+    }
+
     //take damage with knockBack
     public void TakeDamage(int damage, bool knockback, float knockbackTime, Transform _perpetrator)
     {
@@ -336,8 +406,34 @@ public class NPC : MonoBehaviour
     public virtual void AttackHit()
     {
         Attackzone.SetActive(true);
+        reducePowerNow(maxpowerPool);
     }
 
+    public bool reducePower(float amount)
+    {
+        float finalAmount = amount * Time.unscaledDeltaTime;
+        if (powerPool - finalAmount >= 0)
+        {
+            powerPool -= finalAmount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public bool reducePowerNow(float amount)
+    {
+        if (powerPool - amount >= 0)
+        {
+            powerPool -= amount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public virtual void Order(GameObject attackPosition)
     {
         enableTree("Go");
@@ -352,8 +448,6 @@ public class NPC : MonoBehaviour
         enableTree("Attack");
         //set information here
     }
-
-
     private void GetHitEffect()
     {
         if (hitEffects.Length > 0)
@@ -361,7 +455,7 @@ public class NPC : MonoBehaviour
             hitEffects[UnityEngine.Random.Range(0, hitEffects.Length)].Play();
         }
     }
-    
+
     /*
     public virtual void AI_SetState(string state)
     {
@@ -378,21 +472,21 @@ public class NPC : MonoBehaviour
     }
     */
 
-   
+
     public virtual void AI_SetEnemy(GameObject target)
     {
-        
-            var targetVariable = (SharedGameObject)GetComponent<BehaviorTree>().GetVariable("Enemy");
-            targetVariable.Value = target;
-        
+
+        var targetVariable = (SharedGameObject)GetComponent<BehaviorTree>().GetVariable("Enemy");
+        targetVariable.Value = target;
+
 
     }
     public virtual GameObject AI_GetEnemy()
     {
-        
-            var targetVariable = (SharedGameObject)GetComponent<BehaviorTree>().GetVariable("Enemy");
-            return targetVariable.Value;
-       
+
+        var targetVariable = (SharedGameObject)GetComponent<BehaviorTree>().GetVariable("Enemy");
+        return targetVariable.Value;
+
 
     }
     public virtual GameObject AI_GetTarget()
@@ -414,21 +508,20 @@ public class NPC : MonoBehaviour
 
     }
     */
-    public  void enableTree(string _name)
+    public void enableTree(string _name)
     {
         foreach (var item in AllBehaviour)
         {
             if (item.BehaviorName == _name)
             {
-                Debug.Log("Activated   " + item);
                 item.EnableBehavior();
-            } else
+            }
+            else
             {
                 item.DisableBehavior();
             }
         }
     }
-
     void OnAnimatorMove()
     {
         if (RootMotion)
@@ -440,7 +533,7 @@ public class NPC : MonoBehaviour
             Nav.nextPosition = transform.position;
 
         }
-        
+
     }
     public string getState()
     {
@@ -453,10 +546,8 @@ public class NPC : MonoBehaviour
         }
         return null;
     }
-
     public void ShowAttackUI(GameObject Enemy)
     {
-        Debug.Log("Show");
         UI_Attack.Show(Enemy);
     }
 

@@ -12,8 +12,6 @@ public class Robot : NPC
     DissolveEffectController dissolveEffect;
     public Robot_Energy robot_energy;
 
-    public float energycap = 100,currentenergy = 0;
-    public float powerReduced = 0, linkPrice = 1;
     
     public void StartResurrection()
     {

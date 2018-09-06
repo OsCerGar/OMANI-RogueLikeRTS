@@ -18,9 +18,6 @@ public class TaskCheckEnergy : Action {
         }
         if (rEnergy.ready == true)
         {
-            rEnergy.powerReduced = 0;
-            rEnergy.ready = false;
-            
             return TaskStatus.Success;
         }
         else
