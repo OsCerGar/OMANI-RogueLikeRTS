@@ -86,6 +86,26 @@ public class LaserColision : MonoBehaviour
                     }
                 }
             }
+
+            else if (other.CompareTag("Inactive"))
+            {
+
+                ally = other.GetComponent<Robot>();
+
+                if (ally != null)
+                {
+                    Transform target = other.transform;
+
+                    //Distance to target
+                    float dstToTarget = Vector3.Distance(this.transform.position, target.position);
+                    //If the closestTarget is null he is the closest target.
+                    // If the distance is smaller than the distance to the closestTarget.
+                    if (closestBUTarget == null || dstToTarget < Vector3.Distance(this.transform.position, target.position))
+                    {
+                        closestTarget = ally;
+                    }
+                }
+            }
         }
 
         if (closestBUTarget != null)
