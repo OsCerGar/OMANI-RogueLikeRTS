@@ -20,10 +20,10 @@ public class NPC : MonoBehaviour
     public int startLife, life, damage, resurrectCost = 25, powerUpCost = 10, increaseAmount = 1;
     public float maxpowerPool = 5, powerPool = 0;
     public float powerReduced = 0, linkPrice = 1;
-    int quarter, half, quartandhalf;
+    public int quarter, half, quarterAndHalf;
 
-    float sumAmount, lastLife;
-    int lifeQuarter, lifeHalf, lifeQuarterAndHalf;
+    public float sumAmount, lastLife;
+    public int lifeQuarter, lifeHalf, lifeQuarterAndHalf;
 
 
 
@@ -55,7 +55,7 @@ public class NPC : MonoBehaviour
     [SerializeField]
     public GameObject GUI;
     public UI_PointerSelection GUI_Script;
-    [SerializeField] ParticleSystem[] hitEffects;
+    [SerializeField] public ParticleSystem[] hitEffects;
     [HideInInspector]public SoundsManager SM;
 
     UI_RobotAttack UI_Attack;
@@ -195,10 +195,9 @@ public class NPC : MonoBehaviour
 
         quarter = Mathf.RoundToInt(maxpowerPool * 0.25f);
         half = Mathf.RoundToInt(maxpowerPool * 0.5f);
-        quartandhalf = Mathf.RoundToInt(maxpowerPool * 0.75f);
-
-
+        quarterAndHalf = Mathf.RoundToInt(maxpowerPool * 0.75f);
     }
+
     public void AttackSound()
     {
         SM.AttackHit();
@@ -256,13 +255,13 @@ public class NPC : MonoBehaviour
         {
             powerPool = Mathf.Clamp(powerPool, quarter, half);
         }
-        else if (powerPool < quartandhalf)
+        else if (powerPool < quarterAndHalf)
         {
-            powerPool = Mathf.Clamp(powerPool, half, quartandhalf);
+            powerPool = Mathf.Clamp(powerPool, half, quarterAndHalf);
         }
         else if (powerPool <= maxpowerPool || powerPool > maxpowerPool)
         {
-            powerPool = Mathf.Clamp(powerPool, quartandhalf, maxpowerPool);
+            powerPool = Mathf.Clamp(powerPool, quarterAndHalf, maxpowerPool);
         }
         #endregion
         #region IncreaseLifePool
@@ -303,7 +302,7 @@ public class NPC : MonoBehaviour
     }
 
     //take damage with knockBack
-    public void TakeDamage(int damage, bool knockback, float knockbackTime, Transform _perpetrator)
+    public virtual void TakeDamage(int damage, bool knockback, float knockbackTime, Transform _perpetrator)
     {
         if (state == "Alive")
         {
@@ -331,7 +330,7 @@ public class NPC : MonoBehaviour
 
     }
     //Simple way to take damage
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         GetHitEffect();
         if (state == "Alive")
@@ -347,7 +346,6 @@ public class NPC : MonoBehaviour
                 state = "Dead";
             }
         }
-
     }
 
     protected void checkVariables()

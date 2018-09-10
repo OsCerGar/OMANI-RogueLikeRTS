@@ -8,8 +8,6 @@ public class Player : NPC
     public delegate void OnDeath();
     public static event OnDeath playerDead;
     */
-    float increaseAmount = 2, sumAmount, lastLife;
-    int quarter, half, quarterAndHalf;
 
     void Awake()
     {

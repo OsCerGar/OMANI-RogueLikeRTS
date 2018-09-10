@@ -13,7 +13,7 @@ public class Interactible : MonoBehaviour
     [SerializeField]
     public float powerReduced;
     public float linkPrice = 5;
-    private float startTime;
+    public float startTime;
     public bool actionBool { get; set; }
 
     public Powers powers = null;

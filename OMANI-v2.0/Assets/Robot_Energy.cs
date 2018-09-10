@@ -6,7 +6,6 @@ public class Robot_Energy : Interactible
 {
     [SerializeField]
     public bool ready { get; set; }
-    private float startTime;
     public NPC npc;
 
     public override void Start()
