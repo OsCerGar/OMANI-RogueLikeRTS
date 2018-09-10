@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Robot_Energy : Interactible
 {
+    [SerializeField]
     public bool ready { get; set; }
     private float startTime;
     public NPC npc;
@@ -44,6 +45,8 @@ public class Robot_Energy : Interactible
             ready = false;
         }
 
+        //LOSE ENERGY
+        /*
         if (!ready)
         {
             if (npc.getState() != "Follow")
@@ -61,16 +64,15 @@ public class Robot_Energy : Interactible
             {
                 if (Time.time - startTime > 10f)
                 {
-                    ready = false;
                     npc.reducePower(1);
                 }
             }
         }
+        */
     }
 
     public override void ActionCompleted()
     {
-        Debug.Log("true");
         startTime = Time.time;
         ready = true;
     }

@@ -56,6 +56,7 @@ public class NPC : MonoBehaviour
     public GameObject GUI;
     public UI_PointerSelection GUI_Script;
     [SerializeField] ParticleSystem[] hitEffects;
+    [HideInInspector]public SoundsManager SM;
 
     UI_RobotAttack UI_Attack;
     #endregion
@@ -144,7 +145,7 @@ public class NPC : MonoBehaviour
     // Use this for initialization
     public virtual void Start()
     {
-
+        SM = GetComponentInChildren<SoundsManager>();
         peopl = LayerMask.NameToLayer("People");
         //We get all behaviourTrees
         AllBehaviour = GetComponents<BehaviorTree>();
@@ -198,6 +199,11 @@ public class NPC : MonoBehaviour
 
 
     }
+    public void AttackSound()
+    {
+        SM.AttackHit();
+    }
+
 
     // Update is called once per frame
     public virtual void Update()
@@ -407,6 +413,7 @@ public class NPC : MonoBehaviour
     {
         Attackzone.SetActive(true);
         reducePowerNow(maxpowerPool);
+        enableTree("CoolDown");
     }
 
     public bool reducePower(float amount)
@@ -472,7 +479,7 @@ public class NPC : MonoBehaviour
     }
     */
 
-
+        
     public virtual void AI_SetEnemy(GameObject target)
     {
 
@@ -537,11 +544,11 @@ public class NPC : MonoBehaviour
     }
     public string getState()
     {
-        foreach (var item in AllBehaviour)
+        foreach (BehaviorTree item in AllBehaviour)
         {
             if (item.isActiveAndEnabled)
             {
-                return item.name;
+                return item.BehaviorName;
             }
         }
         return null;

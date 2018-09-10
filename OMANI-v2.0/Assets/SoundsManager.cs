@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackSoundsManager : MonoBehaviour {
-    AudioSource AS;
+public class SoundsManager : MonoBehaviour {
+    [HideInInspector]public AudioSource AS;
     [SerializeField] AudioClip[] HitClips;
     [SerializeField] AudioClip[] MissClips;
+    [SerializeField] AudioClip[] Steps;
 
     private void Start()
     {
@@ -21,5 +22,10 @@ public class AttackSoundsManager : MonoBehaviour {
         AS.clip = MissClips[Random.Range(0, HitClips.Length - 1)];
         AS.Play();
 
+    }
+    public void Step()
+    {
+        AS.clip = Steps[Random.Range(0, HitClips.Length - 1)];
+        AS.Play();
     }
 }

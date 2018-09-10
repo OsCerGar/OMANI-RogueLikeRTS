@@ -9,7 +9,7 @@ public class RangedSpear : MonoBehaviour
     [SerializeField] bool Knockback;
     [HideInInspector] public bool PowerUp;
      EZObjectPool Effect;
-    [SerializeField] AttackSoundsManager Sounds;
+    [SerializeField] SoundsManager Sounds;
     [SerializeField] NPC thisNpcScript;
     string tagToAttack, secondTagToAttack;
     bool missed;

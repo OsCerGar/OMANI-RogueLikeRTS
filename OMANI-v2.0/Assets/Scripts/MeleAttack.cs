@@ -7,7 +7,6 @@ public class MeleAttack : MonoBehaviour {
     [SerializeField] bool Knockback;
     [HideInInspector]public  bool PowerUp;
     [SerializeField] ParticleSystem Effect;
-    [SerializeField] AttackSoundsManager Sounds;
     [SerializeField] NPC thisNpcScript;
     string tagToAttack, secondTagToAttack;
     bool missed;
@@ -32,10 +31,7 @@ public class MeleAttack : MonoBehaviour {
         
         if ( other.tag == tagToAttack || other.tag == secondTagToAttack)
         {
-            if (Sounds != null)
-            {
-                Sounds.AttackHit();
-            }
+           
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             var attackDamage = thisNpcScript.Damage;
@@ -88,14 +84,7 @@ public class MeleAttack : MonoBehaviour {
     {
         
         yield return new WaitForSeconds(0.1f);
-        if (Sounds != null)
-        {
-            if (missed)
-            {
-                Sounds.AttackMiss();
-            }
-            
-        }
+        
         transform.gameObject.SetActive(false);
     }
     public void ActivateBoostAttack()

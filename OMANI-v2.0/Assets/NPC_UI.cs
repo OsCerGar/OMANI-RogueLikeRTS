@@ -45,18 +45,24 @@ public class NPC_UI : MonoBehaviour
             powerClock.transform.rotation = fixedRotation;
 
         }
+        //Energy bar dissapears
+        /*
         else
         {
-            if (!powerClockHidden)
+            if (npc.getState().Equals("Idle"))
             {
-                powerTimer = Time.time;
-                powerClockHidden = true;
-            }
-            if (Time.time - powerTimer > 3f)
-            {
-                powerClock.enabled = false;
+                if (!powerClockHidden)
+                {
+                    powerTimer = Time.time;
+                    powerClockHidden = true;
+                }
+                if (Time.time - powerTimer > 5f)
+                {
+                    powerClock.enabled = false;
+                }
             }
         }
+        */
         if (lastLife != npc.life)
         {
             lifeClockHidden = false;

@@ -14,4 +14,9 @@ public class Worker : Robot {
     {
         TrailEffect.Play();
     }
+    public void FlipSound()
+    {
+        WorkerSM wsm = (WorkerSM)SM;
+        wsm.Flip();
+    }
 }
