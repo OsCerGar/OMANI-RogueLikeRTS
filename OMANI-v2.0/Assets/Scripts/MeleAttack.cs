@@ -62,20 +62,13 @@ public class MeleAttack : MonoBehaviour {
     private void OnEnable()
     {
         missed = true; 
-        GameObject enem = thisNpcScript.AI_GetEnemy();
         if (Effect != null)
         {
 
             Debug.Log("EnemyParticle");
             Effect.Play();
         }
-        if (enem != null)
-        {
-            if (enem.tag == "Building")
-            {
-                enem.GetComponent<NPC>().Life -= transform.root.GetComponent<NPC>().Damage;
-            }
-        }
+        
         
         StartCoroutine(WaitandDisable());
     }

@@ -9,13 +9,17 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
     Canvas canvas;
     Image img;
 
-    float fadeCounter;
+    float fadeCounter,fillCounter, fillTime;
     public void Hide()
     {
         line.enabled = false;
         canvas.enabled = false;
     }
-
+    public void startFill(float _time)
+    {
+        fillTime = _time;
+        fillCounter = 0;
+    }
     public void Show(GameObject objective)
     {
         line.enabled = true;
@@ -47,6 +51,10 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
         
         line.startColor = tempColor;
         line.endColor = tempColor;
+
+
+        fillCounter += Time.deltaTime;
+        img.fillAmount = fillCounter / fillTime;
     }
 
 }

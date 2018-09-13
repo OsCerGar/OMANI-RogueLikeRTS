@@ -38,9 +38,9 @@ public class Interactible_Repeater : Interactible
                 StopWorking();
             }
         }
-        if (powerReduced <= price)
+        if (!energy)
         {
-            animator.SetFloat("Blend", powerReduced / price);
+            animator.Play("RepeaterUp", 0, powerReduced / price);
         }
     }
 

@@ -507,9 +507,8 @@ public class NPC : MonoBehaviour
     public virtual GameObject AI_GetEnemy()
     {
 
-        var targetVariable = (SharedGameObject)GetComponent<BehaviorTree>().GetVariable("Enemy");
+        var targetVariable = (SharedGameObject)AttackTree.GetVariable("Enemy");
         return targetVariable.Value;
-
 
     }
     public virtual GameObject AI_GetTarget()
@@ -573,5 +572,9 @@ public class NPC : MonoBehaviour
     {
         UI_Attack.Show(Enemy);
     }
-
+    public void StartFillAttackUI(float _time)
+    {
+        
+        UI_Attack.startFill(_time);
+    }
 }

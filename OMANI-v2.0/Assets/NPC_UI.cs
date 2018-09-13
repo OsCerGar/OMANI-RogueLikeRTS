@@ -7,11 +7,11 @@ public class NPC_UI : MonoBehaviour
 {
 
     public Image powerClock, lifeClock;
-    NPC npc;
+    public NPC npc;
     float lastPowerPool, lastLife, powerTimer;
     bool powerClockHidden, lifeClockHidden;
-    Quaternion fixedRotation;
-
+    public Quaternion fixedRotation;
+    
     // Use this for initialization
     void Start()
     {
@@ -28,13 +28,14 @@ public class NPC_UI : MonoBehaviour
                 lifeClock = realClock;
             }
         }
-        fixedRotation = powerClock.transform.rotation;
+        fixedRotation = lifeClock.transform.rotation;
         npc = this.transform.GetComponentInParent<NPC>();
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    public virtual void LateUpdate()
     {
+
         if (lastPowerPool != npc.powerPool)
         {
             powerClockHidden = false;
@@ -43,8 +44,8 @@ public class NPC_UI : MonoBehaviour
             lastPowerPool = npc.powerPool;
             //Restores rotation
             powerClock.transform.rotation = fixedRotation;
-
         }
+
         //Energy bar dissapears
         /*
         else
@@ -67,7 +68,7 @@ public class NPC_UI : MonoBehaviour
         {
             lifeClockHidden = false;
             lifeClock.enabled = true;
-            lifeClock.fillAmount = npc.life / npc.startLife;
+            lifeClock.fillAmount = (float)(npc.life / npc.startLife);
             lastLife = npc.life;
             //Restores rotation
             lifeClock.transform.rotation = fixedRotation;
