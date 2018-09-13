@@ -25,7 +25,7 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
         line.SetPosition(1, new Vector3(objective.transform.position.x, 0.1f, objective.transform.position.z));
         canvas.transform.forward = (new Vector3(objective.transform.position.x, 0.1f, objective.transform.position.z) - transform.position).normalized;
         canvas.transform.position = new Vector3(objective.transform.position.x, 0.1f, objective.transform.position.z);
-        fadeCounter = 1f;
+        fadeCounter = 0.5f;
     }
 
     // Use this for initialization

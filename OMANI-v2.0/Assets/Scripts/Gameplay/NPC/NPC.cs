@@ -58,7 +58,7 @@ public class NPC : MonoBehaviour
     [SerializeField] public ParticleSystem[] hitEffects;
     [HideInInspector]public SoundsManager SM;
 
-    UI_RobotAttack UI_Attack;
+    [HideInInspector] private UI_RobotAttack uI_Attack;
     #endregion
 
     #region GETTERSETTERS
@@ -128,6 +128,19 @@ public class NPC : MonoBehaviour
             state = value;
         }
     }
+
+    internal UI_RobotAttack UI_Attack
+    {
+        get
+        {
+            return uI_Attack;
+        }
+
+        set
+        {
+            uI_Attack = value;
+        }
+    }
     #endregion
 
 
@@ -148,6 +161,34 @@ public class NPC : MonoBehaviour
         SM = GetComponentInChildren<SoundsManager>();
         peopl = LayerMask.NameToLayer("People");
         //We get all behaviourTrees
+        SetTrees();
+        anim = this.gameObject.GetComponent<Animator>();
+        Nav = this.gameObject.GetComponent<NavMeshAgent>();
+        circle = this.gameObject.GetComponentInChildren<SpriteRenderer>();
+        if (this.transform.Find("UI") != null)
+        {
+            if (this.transform.Find("UI/SelectionAnimationParent") != null)
+            {
+                GUI = this.transform.Find("UI/SelectionAnimationParent").gameObject;
+                GUI_Script = this.transform.Find("UI/SelectionAnimationParent").GetComponent<UI_PointerSelection>();
+            }
+            ui_information = this.transform.Find("UI").gameObject;
+
+        }
+        //Get AttackZone child Somewhere 
+
+        startLife = life;
+        //Nav.updateRotation = true;
+
+        UI_Attack = GetComponentInChildren<UI_RobotAttack>();
+
+        quarter = Mathf.RoundToInt(maxpowerPool * 0.25f);
+        half = Mathf.RoundToInt(maxpowerPool * 0.5f);
+        quarterAndHalf = Mathf.RoundToInt(maxpowerPool * 0.75f);
+    }
+
+    virtual public void SetTrees()
+    {
         AllBehaviour = GetComponents<BehaviorTree>();
         foreach (var item in AllBehaviour)
         {
@@ -173,29 +214,6 @@ public class NPC : MonoBehaviour
             }
         }
         enableTree("Idle");
-        anim = this.gameObject.GetComponent<Animator>();
-        Nav = this.gameObject.GetComponent<NavMeshAgent>();
-        circle = this.gameObject.GetComponentInChildren<SpriteRenderer>();
-        if (this.transform.Find("UI") != null)
-        {
-            if (this.transform.Find("UI/SelectionAnimationParent") != null)
-            {
-                GUI = this.transform.Find("UI/SelectionAnimationParent").gameObject;
-                GUI_Script = this.transform.Find("UI/SelectionAnimationParent").GetComponent<UI_PointerSelection>();
-            }
-            ui_information = this.transform.Find("UI").gameObject;
-
-        }
-        //Get AttackZone child Somewhere 
-
-        startLife = life;
-        //Nav.updateRotation = true;
-
-        UI_Attack = GetComponentInChildren<UI_RobotAttack>();
-
-        quarter = Mathf.RoundToInt(maxpowerPool * 0.25f);
-        half = Mathf.RoundToInt(maxpowerPool * 0.5f);
-        quarterAndHalf = Mathf.RoundToInt(maxpowerPool * 0.75f);
     }
 
     public void AttackSound()

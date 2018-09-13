@@ -12,5 +12,9 @@ public class SurkaMelee : Enemy {
         thisTarget.Value = master;
 
     }
-   
+    public void ShowAttackUI()
+    {
+        UI_Attack.Show(transform.gameObject);
+    }
+
 }
