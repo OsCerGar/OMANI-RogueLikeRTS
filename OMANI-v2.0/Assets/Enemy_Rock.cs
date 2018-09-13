@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy_Rock : Enemy
 {
 
+    BoxCollider rockCollider;
     // Use this for initialization
     public override void Start()
     {
@@ -23,8 +24,7 @@ public class Enemy_Rock : Enemy
 
         }
         startLife = life;
-
-
+        rockCollider = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -36,6 +36,7 @@ public class Enemy_Rock : Enemy
     public override void Die()
     {
         this.enabled = false;
+        rockCollider.enabled = false;
     }
 
     //Simple way to take damage
