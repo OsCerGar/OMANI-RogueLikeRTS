@@ -68,7 +68,7 @@ public class NPC_UI : MonoBehaviour
         {
             lifeClockHidden = false;
             lifeClock.enabled = true;
-            lifeClock.fillAmount = (float)(npc.life / npc.startLife);
+            lifeClock.fillAmount = ((float)npc.life / (float)npc.startLife);
             lastLife = npc.life;
             //Restores rotation
             lifeClock.transform.rotation = fixedRotation;

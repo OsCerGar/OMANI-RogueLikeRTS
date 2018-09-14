@@ -6,7 +6,7 @@ public class Enemy_UI : NPC_UI {
 
     public override void LateUpdate()
     {
-        lifeClock.fillAmount = (float)(npc.life / npc.startLife);
+        lifeClock.fillAmount = ((float)npc.life / (float)npc.startLife);
         lifeClock.transform.rotation = fixedRotation;
 
     }

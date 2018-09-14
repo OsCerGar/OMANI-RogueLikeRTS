@@ -62,7 +62,7 @@ public class UI_Powers : MonoBehaviour
         {
             lifeClockHidden = false;
             lifeClock.enabled = true;
-            lifeClock.fillAmount = (float)(player.life / player.startLife);
+            lifeClock.fillAmount = ((float)player.life / (float)player.startLife);
             lastLife = player.life;
             //Restores rotation
             lifeClock.transform.rotation = fixedRotation;
