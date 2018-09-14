@@ -33,7 +33,6 @@ public class Army : MonoBehaviour
 
 
         int pointer = look.selectedTypeInt;
-
         checkNameAndOrganice(pointer);
 
 
@@ -66,6 +65,7 @@ public class Army : MonoBehaviour
     private void checkNameAndOrganice(int pointer)
     {
         var type = look.selectedTypeList[pointer];
+
         switch (type)
         {
             case "Swordsman":
@@ -156,6 +156,8 @@ public class Army : MonoBehaviour
                 }
                 break;
         }
+
+
     }
 
     private void OrganiceRobots(List<NPC> robotsToCheck, bool special)
@@ -215,6 +217,11 @@ public class Army : MonoBehaviour
     //Adds the boy to the Army and makes it follow the Army commander.
     public void Reclute(NPC barroBoy)
     {
+        if (ListSize(barroBoy.boyType) < 1)
+        {
+            look.selectedTypeList.Add(barroBoy.boyType);
+        }
+
         bool alreadyIn = false;
 
         switch (barroBoy.BoyType)

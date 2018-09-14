@@ -10,9 +10,10 @@ public class Robot : NPC
     Powers powers = null;
     PowerManager powerManager;
     DissolveEffectController dissolveEffect;
+    Army commander;
     public Robot_Energy robot_energy;
 
-    
+
     public void StartResurrection()
     {
         anim.SetTrigger("GetUp");
@@ -25,6 +26,7 @@ public class Robot : NPC
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();
         dissolveEffect = GetComponentInChildren<DissolveEffectController>();
+        commander = FindObjectOfType<Army>();
     }
     public override void Update()
     {
@@ -35,6 +37,7 @@ public class Robot : NPC
             Debug.Log("Dead");
             GUI_Script.DisableCircle();
         }
+
     }
     public override void Die()
     {
@@ -43,7 +46,7 @@ public class Robot : NPC
     }
     public void Resurrect()
     {
-        
+
         Nav.updatePosition = true;
         Nav.updateRotation = true;
         life = startLife;
@@ -53,6 +56,11 @@ public class Robot : NPC
         this.gameObject.layer = peopl;
         state = "Alive";
         //cambiar tag y layer
+    }
+
+    public void AutoReclute()
+    {
+        commander.Reclute(this);
     }
 
     private void CreateLink()
@@ -79,5 +87,5 @@ public class Robot : NPC
 
     }
 
-    
+
 }

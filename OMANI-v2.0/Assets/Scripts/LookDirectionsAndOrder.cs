@@ -499,7 +499,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                 orderInOrder = false;
             }
-            
+
 
             if (commander.ListSize(selectedTypeList[selectedTypeInt]) < 1)
             {
@@ -518,12 +518,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             {
                 if (closestTarget != null)
                 {
-
-                    if (commander.ListSize(closestTarget.boyType) < 1)
-                    {
-                        selectedTypeList.Add(closestTarget.boyType);
-                    }
-
                     commander.Reclute(closestTarget);
                     //pointerSelection.Selected();
                     reclute.Play();
@@ -539,11 +533,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                     if (closestTarget != null)
                     {
-
-                        if (commander.ListSize(closestTarget.boyType) < 1)
-                        {
-                            selectedTypeList.Add(closestTarget.boyType);
-                        }
 
                         commander.Reclute(closestTarget);
 
