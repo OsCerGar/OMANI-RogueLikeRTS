@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Power_Laser : MonoBehaviour {
+public class Power_Laser : MonoBehaviour
+{
 
     public Transform laserShotPosition;
     public float speed = 1f;
@@ -19,7 +20,8 @@ public class Power_Laser : MonoBehaviour {
     LookDirectionsAndOrder lookdir;
     float widthToSend = 1;
 
-    void Start () {
+    void Start()
+    {
         anim = GetComponent<Animator>();
         CLaser = GetComponentInChildren<ConLaser>();
         AudioControl = GetComponentInChildren<MetaAudioController>();
@@ -29,16 +31,17 @@ public class Power_Laser : MonoBehaviour {
 
     private void Update()
     {
-
+        
         if (contador > 0)
         {
             contador -= Time.deltaTime;
-        } else
+        }
+        else
         {
             anim.SetBool("Fire", false);
             laserColision.laserEnabled = false;
         }
-
+        
     }
     private void LateUpdate()
     { /*
@@ -50,7 +53,7 @@ public class Power_Laser : MonoBehaviour {
 
     }
 
-    public  void EmitOffensiveLaser()
+    public void EmitOffensiveLaser()
     {
         AudioControl.ResetLaserProgress();
         StartEffects();
@@ -59,21 +62,22 @@ public class Power_Laser : MonoBehaviour {
         Instantiate(laserShotPrefab, laserShotPosition.position, transform.rotation);
     }
 
-    public  void StartEffects()
+    public void StartEffects()
     {
         AudioControl.StartSound();
         startWavePS.Emit(1);
         startParticles.Emit(startParticlesCount);
     }
 
-    public  void EmitLaser()
+    public void EmitLaser()
     {
         AudioControl.ResetLaserProgress();
         CLaser.SetGlobalProgress();
-        contador = 1;
+        contador = 0.2f;
         anim.SetBool("Fire", true);
         laserColision.laserEnabled = true;
     }
+
     public void setWidth(float _width)
     {
         if (_width > widthToSend)
@@ -84,7 +88,7 @@ public class Power_Laser : MonoBehaviour {
         {
             widthToSend -= Time.unscaledDeltaTime * 10;
         }
-        widthToSend = Mathf.Clamp(widthToSend,0.5f,5f);
+        widthToSend = Mathf.Clamp(widthToSend, 0.5f, 5f);
         CLaser.WidthMultiplayer = widthToSend;
     }
 

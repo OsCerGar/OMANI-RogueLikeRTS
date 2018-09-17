@@ -85,7 +85,7 @@ public class Interactible : MonoBehaviour
 
     public virtual void ReducePower()
     {
-        powerReduced -= 1 * Time.unscaledDeltaTime;
+        powerReduced -= 5 * Time.unscaledDeltaTime;
     }
 
     public void enableRigid()

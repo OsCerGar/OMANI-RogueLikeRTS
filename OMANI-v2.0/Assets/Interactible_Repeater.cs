@@ -11,13 +11,21 @@ public class Interactible_Repeater : Interactible
     GameObject top;
     BU_Energy energyBU;
     private float startTimeRepeater = 0, stopTimeRepeater = 0;
-
+    private float linkPriceOn, linkPriceOff, priceOn, priceOff;
 
     private void Initializer()
     {
         energyBU = this.transform.root.GetComponentInChildren<BU_Energy>();
         animator = this.GetComponent<Animator>();
         top = this.transform.Find("Stick/Top").gameObject;
+
+        linkPriceOff = 15;
+        linkPriceOn = 25;
+        priceOn = 25;
+        priceOff = 50;
+
+        linkPrice = linkPriceOff;
+        price = priceOff;
     }
 
     // Use this for initialization
@@ -76,8 +84,8 @@ public class Interactible_Repeater : Interactible
             energy = true;
             animator.SetBool("Energy", true);
             energyBU.RequestCable(top);
-            linkPrice = 5;
-            price = 2;
+            linkPrice = linkPriceOn;
+            price = priceOn;
         }
 
         else
@@ -96,8 +104,8 @@ public class Interactible_Repeater : Interactible
         energyBU.pullBackCable(top.transform);
         animator.SetBool("Energy", false);
         energy = false;
-        linkPrice = 12;
-        price = 15;
+        linkPrice = linkPriceOff;
+        price = priceOff;
     }
 
 
@@ -107,7 +115,7 @@ public class Interactible_Repeater : Interactible
         base.ActionCompleted();
         animator.SetBool("Energy", false);
         energy = false;
-        linkPrice = 12;
-        price = 15;
+        linkPrice = linkPriceOff;
+        price = priceOff;
     }
 }

@@ -18,8 +18,8 @@ public class BU_Building_Action : Interactible
         parentResources = this.transform.parent.GetComponent<BU_UniqueBuilding>();
 
         animator = this.GetComponentInChildren<Animator>();
-        linkPrice = 3;
-        price = 5;
+        linkPrice = 25;
+        price = 75;
     }
 
     public void BuildingAction()
