@@ -31,10 +31,14 @@ public class BU_Building_Action : Interactible
     public override void Update()
     {
         base.Update();
+    }
 
-        if (powerReduced <= price && animator != null)
+    public override void LateUpdate()
+    {
+        base.LateUpdate();
+        if (!animator.GetBool("Energy") && powerReduced < price)
         {
-            animator.SetFloat("Blend", (powerReduced / price));
+            animator.Play("PilarDown", 0, powerReduced / price);
         }
     }
 
@@ -43,6 +47,10 @@ public class BU_Building_Action : Interactible
         if (readyToSpawn)
         {
             base.Action();
+        }
+        else
+        {
+            animator.SetTrigger("NotReady");
         }
     }
 
@@ -54,7 +62,7 @@ public class BU_Building_Action : Interactible
 
     public void StopWorkingAnimator()
     {
-        animator.SetTrigger("Stop");
+        animator.SetBool("Energy", true);
     }
 
 }

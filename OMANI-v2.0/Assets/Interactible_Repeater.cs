@@ -38,10 +38,17 @@ public class Interactible_Repeater : Interactible
                 StopWorking();
             }
         }
-        if (!energy)
+    }
+
+    public override void LateUpdate()
+    {
+        base.LateUpdate();
+
+        if (!energy && powerReduced < price)
         {
             animator.Play("RepeaterUp", 0, powerReduced / price);
         }
+
     }
 
     public override void Action()
@@ -64,7 +71,6 @@ public class Interactible_Repeater : Interactible
 
     public override void ActionCompleted()
     {
-        base.ActionCompleted();
         if (!energy)
         {
             energy = true;
@@ -79,6 +85,8 @@ public class Interactible_Repeater : Interactible
             StopWorking();
             energy = false;
         }
+
+        base.ActionCompleted();
 
         startTimeRepeater = Time.time;
     }

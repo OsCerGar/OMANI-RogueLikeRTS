@@ -48,6 +48,7 @@ public class Interactible : MonoBehaviour
         {
             ReducePower();
         }
+
     }
 
     public virtual void LateUpdate()
@@ -56,6 +57,8 @@ public class Interactible : MonoBehaviour
         {
             ActionCompleted();
         }
+
+        powerReduced = Mathf.Clamp(powerReduced, 0, price);
     }
 
     public virtual void Action()
