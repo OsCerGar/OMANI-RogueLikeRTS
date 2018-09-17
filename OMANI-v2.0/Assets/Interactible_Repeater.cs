@@ -67,9 +67,9 @@ public class Interactible_Repeater : Interactible
         base.ActionCompleted();
         if (!energy)
         {
+            energy = true;
             animator.SetBool("Energy", true);
             energyBU.RequestCable(top);
-            energy = true;
             linkPrice = 5;
             price = 2;
         }

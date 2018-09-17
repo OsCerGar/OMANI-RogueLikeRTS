@@ -13,12 +13,12 @@ public class BU_WeaponsMaker_Animation : MonoBehaviour
 
     private void Start()
     {
-        color1 = materials[0].GetColor("_EmissionColor");
-        color2 = materials[1].GetColor("_EmissionColor");
+     //   color1 = materials[0].GetColor("_EmissionColor");
+       // color2 = materials[1].GetColor("_EmissionColor");
     }
 
     public void buildingAnimations(int energy)
-    {
+    {/*
         switch (energy)
         {
             case 0:
@@ -84,16 +84,19 @@ public class BU_WeaponsMaker_Animation : MonoBehaviour
                 materials[1].SetColor("_EmissionColor", finalColor2);
                 break;
         }
+
+        */
     }
     public void OnDisable()
     {
+        /*
         Stuff[0].SetActive(false);
         Stuff[1].SetActive(false);
         Stuff[2].SetActive(false);
 
         materials[0].SetColor("_EmissionColor", color1);
         materials[1].SetColor("_EmissionColor", color2);
-
+        */
     }
 
 }

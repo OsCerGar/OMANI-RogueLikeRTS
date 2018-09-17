@@ -13,11 +13,13 @@ public class BU_Electricity_Animations : MonoBehaviour
 
     private void Start()
     {
+        /*
         color1 = materials[0].GetColor("_EmissionColor");
         color2 = materials[1].GetColor("_EmissionColor");
+        */
     }
     public void buildingAnimations(int energy)
-    {
+    {/*
         switch (energy)
         {
             case 0:
@@ -101,9 +103,10 @@ public class BU_Electricity_Animations : MonoBehaviour
                 materials[1].SetColor("_EmissionColor", finalColor2);
                 break;
         }
+        */
     }
     public void OnDisable()
-    {
+    {/*
         anim.SetInteger("Energy", 0);
 
         ElectricRays[0].SetActive(false);
@@ -115,5 +118,6 @@ public class BU_Electricity_Animations : MonoBehaviour
 
         materials[0].SetColor("_EmissionColor", color1);
         materials[1].SetColor("_EmissionColor", color2);
+        */
     }
 }
