@@ -18,13 +18,15 @@ public class UI_SurkaMAttack : MonoBehaviour, UI_RobotAttack
 
     public void Show(GameObject objective)
     {
-        var positionForCanvas = objective.transform.position + (objective.transform.forward * 4);
         canvas.enabled = true;
-        canvas.transform.parent = null;
-        canvas.transform.forward = (transform.position - new Vector3(positionForCanvas.x, 0.1f, positionForCanvas.z)).normalized;
-        canvas.transform.position = new Vector3(positionForCanvas.x, 0.1f, positionForCanvas.z);
         fadeCounter = 0.5f;
     }
+    public void Show()
+    {
+        canvas.enabled = true;
+        fadeCounter = 0.5f;
+    }
+
 
     public void startFill(float _time)
     {
@@ -36,7 +38,6 @@ public class UI_SurkaMAttack : MonoBehaviour, UI_RobotAttack
     void Start()
     {
         canvas = GetComponentInChildren<Canvas>();
-        canvas.transform.parent = null;
         img = canvas.GetComponentInChildren<Image>();
 
     }
@@ -49,7 +50,11 @@ public class UI_SurkaMAttack : MonoBehaviour, UI_RobotAttack
         tempColor.a = fadeCounter;
         img.color = tempColor;
 
-        fillCounter += Time.deltaTime;
+        if (fillCounter < fillTime)
+        {
+            fillCounter += Time.deltaTime;
+            Show();
+        }
         img.fillAmount = fillCounter / fillTime;
 
     }

@@ -6,6 +6,9 @@ using BehaviorDesigner.Runtime;
 
 public class SurkaMelee : Enemy {
     [SerializeField] ParticleSystem AttackTrail;
+    [SerializeField] private UI_SurkaMAttack uI_secondAttack;
+    [SerializeField] GameObject SecondAttackZone;
+   
     public void SetMaster(GameObject master)
     {
         var thisTarget = (SharedGameObject)transform.gameObject.GetComponent<BehaviorTree>().GetVariable("Master");
@@ -20,5 +23,14 @@ public class SurkaMelee : Enemy {
         {
              AttackTrail.Play();
         }
+    public void StartFillSecondAttackUI(float _time)
+    {
+
+        uI_secondAttack.startFill(_time);
+    }
+    public void SecondAttackHit()
+    {
+        Attackzone.SetActive(true);
+    }
 
 }
