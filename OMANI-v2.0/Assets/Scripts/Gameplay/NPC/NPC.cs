@@ -56,9 +56,11 @@ public class NPC : MonoBehaviour
     public GameObject GUI;
     public UI_PointerSelection GUI_Script;
     [SerializeField] public ParticleSystem[] hitEffects;
+    [SerializeField] public Renderer Renderer;
     [HideInInspector]public SoundsManager SM;
 
     [HideInInspector] private UI_RobotAttack uI_Attack;
+
     #endregion
 
     #region GETTERSETTERS
@@ -324,7 +326,8 @@ public class NPC : MonoBehaviour
     {
         if (state == "Alive")
         {
-            GetHitEffect();
+
+            StartCoroutine(gotHit());
             anim.SetTrigger("Hit");
             life -= damage;
             if (life <= 0)
@@ -350,7 +353,8 @@ public class NPC : MonoBehaviour
     //Simple way to take damage
     public virtual void TakeDamage(int damage)
     {
-        GetHitEffect();
+
+        StartCoroutine(gotHit());
         if (state == "Alive")
         {
             if (anim != null)
@@ -471,12 +475,19 @@ public class NPC : MonoBehaviour
         enableTree("Attack");
         //set information here
     }
-    private void GetHitEffect()
+    
+
+    IEnumerator gotHit()
     {
         if (hitEffects.Length > 0)
         {
             hitEffects[UnityEngine.Random.Range(0, hitEffects.Length)].Play();
         }
+        //Set the main Color of the Material to green
+        Renderer.material.SetColor("_Color", Color.red);
+        yield return new WaitForSeconds(0.1f);
+        //Set the main Color of the Material to green
+        Renderer.material.SetColor("_Color", Color.white);
     }
 
     /*
@@ -495,7 +506,7 @@ public class NPC : MonoBehaviour
     }
     */
 
-        
+
     public virtual void AI_SetEnemy(GameObject target)
     {
 

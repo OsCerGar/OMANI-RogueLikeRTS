@@ -333,7 +333,7 @@ public class Army : MonoBehaviour
                     swordsmans.Remove(barroBoy);
 
                     //   orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
-                    barroBoy.Order(orderPositionVar);
+                    barroBoy.Attack(orderPositionVar);
                 }
 
                 break;
@@ -348,7 +348,7 @@ public class Army : MonoBehaviour
                     archers.Remove(barroBoy);
 
                     //   orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
-                    barroBoy.Order(orderPositionVar);
+                    barroBoy.Attack(orderPositionVar);
                 }
                 break;
             case "Musketeer":
@@ -362,7 +362,7 @@ public class Army : MonoBehaviour
                     musketeers.Remove(barroBoy);
 
                     //    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
-                    barroBoy.Order(orderPositionVar);
+                    barroBoy.Attack(orderPositionVar);
 
                 }
                 break;
@@ -378,7 +378,7 @@ public class Army : MonoBehaviour
                     workers.Remove(barroBoy);
 
                     //    orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
-                    barroBoy.Order(orderPositionVar);
+                    barroBoy.Attack(orderPositionVar);
                 }
                 break;
             case "Shieldman":
@@ -394,7 +394,7 @@ public class Army : MonoBehaviour
                     shieldmans.Remove(barroBoy);
 
                     //   orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
-                    barroBoy.Order(orderPositionVar);
+                    barroBoy.Attack(orderPositionVar);
 
                 }
                 break;
@@ -409,7 +409,7 @@ public class Army : MonoBehaviour
                     rogues.Remove(barroBoy);
 
                     //  orderPositionVar.GetComponent<OrderPositionObject>().npc = barroBoy;
-                    barroBoy.Order(orderPositionVar);
+                    barroBoy.Attack(orderPositionVar);
 
                 }
                 break;

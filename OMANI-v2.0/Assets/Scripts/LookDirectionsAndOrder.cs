@@ -238,7 +238,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
             headArm.transform.LookAt(closestEnemyTarget.transform);
 
-            commander.GetBoyArmy(selectedTypeList[selectedTypeInt]).ShowAttackUI(closestEnemyTarget.gameObject);
+           // commander.GetBoyArmy(selectedTypeList[selectedTypeInt]).ShowAttackUI(closestEnemyTarget.gameObject);
 
             //TODO
             //UI is now in the character position.
@@ -277,8 +277,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (closestEnemyTarget != null)
         {
             //TODO
-            //UI is now in the character position.
-            commander.GetBoyArmy(selectedTypeList[selectedTypeInt]).ShowAttackUI(closestEnemyTarget.gameObject);
+            //UI is now in the character position. commented right now, has to be done again for new system
+         //   commander.GetBoyArmy(selectedTypeList[selectedTypeInt]).ShowAttackUI(closestEnemyTarget.gameObject);
 
             pointerOrder.transform.position = closestEnemyTarget.transform.position;
             pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
