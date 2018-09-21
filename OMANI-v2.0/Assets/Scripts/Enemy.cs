@@ -14,7 +14,10 @@ public class Enemy : NPC {
             }
         }
     }
-
+    public override void AttackHit()
+    {
+        Attackzone.SetActive(true);
+    }
     public override void Die()
     {
         base.Die();

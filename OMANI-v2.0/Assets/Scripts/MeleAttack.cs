@@ -35,20 +35,12 @@ public class MeleAttack : MonoBehaviour {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             var attackDamage = thisNpcScript.Damage;
-            if (PowerUp)
-            {
-                attackDamage = attackDamage * 2;
-                Knockback = true;
-                PowerUpHit();
-                PowerUp = false;
-            }
 
             //Make his take damage;
             if (Knockback)
             {
                 EnemyNPC.TakeDamage(attackDamage, true, 5,transform.parent.transform);
-
-                Knockback = false;
+                
             }
             else
             {
