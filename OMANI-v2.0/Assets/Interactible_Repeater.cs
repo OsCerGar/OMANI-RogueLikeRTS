@@ -11,7 +11,7 @@ public class Interactible_Repeater : Interactible
     GameObject top;
     BU_Energy energyBU;
     private float startTimeRepeater = 0, stopTimeRepeater = 0;
-    private float linkPriceOn, linkPriceOff, priceOn, priceOff;
+    public float linkPriceOn, linkPriceOff, priceOn, priceOff, currentLinkPrice, t;
 
     private void Initializer()
     {
@@ -19,13 +19,22 @@ public class Interactible_Repeater : Interactible
         animator = this.GetComponent<Animator>();
         top = this.transform.Find("Stick/Top").gameObject;
 
-        linkPriceOff = 15;
-        linkPriceOn = 25;
+        linkPriceOff = 20;
+        linkPriceOn = 30;
         priceOn = 25;
         priceOff = 50;
 
+        currentLinkPrice = 0;
+        t = 0.1f;
+
         linkPrice = linkPriceOff;
         price = priceOff;
+    }
+
+    private void linkPriceChart()
+    {
+        currentLinkPrice = Mathf.Lerp(linkPrice, 10, t);
+        t += t * Time.unscaledDeltaTime;
     }
 
     // Use this for initialization
@@ -52,7 +61,7 @@ public class Interactible_Repeater : Interactible
     {
         base.LateUpdate();
 
-        if (!energy && powerReduced < price)
+        if (animator.GetBool("Ready") && powerReduced < price && !energy)
         {
             animator.Play("RepeaterUp", 0, powerReduced / price);
         }
@@ -67,14 +76,35 @@ public class Interactible_Repeater : Interactible
             {
                 if (energyBU.energyCheck() || energy)
                 {
-                    base.Action();
+                    linkPriceChart();
+                    newAction();
+                    //base.Action();
                 }
             }
             else
             {
-                base.Action();
+                linkPriceChart();
+                newAction();
+                //base.Action();
             }
         }
+    }
+
+    private void newAction()
+    {
+        startTime = Time.time;
+
+        if (powers.reducePower(currentLinkPrice))
+        {
+            laserAudio.energyTransmisionSound(currentLinkPrice);
+            powerReduced += currentLinkPrice * Time.unscaledDeltaTime;
+            actionBool = true;
+        }
+        else
+        {
+            actionBool = false;
+        }
+
     }
 
     public override void ActionCompleted()
@@ -83,6 +113,7 @@ public class Interactible_Repeater : Interactible
         {
             energy = true;
             animator.SetBool("Energy", true);
+            animator.SetBool("Ready", false);
             energyBU.RequestCable(top);
             linkPrice = linkPriceOn;
             price = priceOn;
@@ -95,6 +126,10 @@ public class Interactible_Repeater : Interactible
         }
 
         base.ActionCompleted();
+
+        //Curve
+        currentLinkPrice = 0;
+        t = 0.1f;
 
         startTimeRepeater = Time.time;
     }

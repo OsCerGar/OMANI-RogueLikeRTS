@@ -17,8 +17,8 @@ public class Interactible : MonoBehaviour
     public bool actionBool { get; set; }
 
     public Powers powers = null;
-    PowerManager powerManager;
-    MetaAudioController laserAudio;
+    public PowerManager powerManager;
+    public MetaAudioController laserAudio;
 
     public virtual void Initialize()
     {
