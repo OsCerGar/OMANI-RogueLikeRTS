@@ -11,7 +11,7 @@ public class Interactible_Repeater : Interactible
     GameObject top;
     BU_Energy energyBU;
     private float startTimeRepeater = 0, stopTimeRepeater = 0;
-    public float linkPriceOn, linkPriceOff, priceOn, priceOff, currentLinkPrice, t;
+    public float linkPriceOn, linkPriceOff, priceOn, priceOff;
 
     private void Initializer()
     {
@@ -19,13 +19,14 @@ public class Interactible_Repeater : Interactible
         animator = this.GetComponent<Animator>();
         top = this.transform.Find("Stick/Top").gameObject;
 
-        linkPriceOff = 20;
-        linkPriceOn = 30;
+        linkPriceOff = 35;
+        linkPriceOn = 45;
         priceOn = 25;
         priceOff = 50;
 
         currentLinkPrice = 0;
-        t = 0.1f;
+        finalLinkPrice = 22;
+        t = 0.2f;
 
         linkPrice = linkPriceOff;
         price = priceOff;
@@ -33,7 +34,7 @@ public class Interactible_Repeater : Interactible
 
     private void linkPriceChart()
     {
-        currentLinkPrice = Mathf.Lerp(linkPrice, 10, t);
+        currentLinkPrice = Mathf.Lerp(linkPrice, finalLinkPrice, t);
         t += t * Time.unscaledDeltaTime;
     }
 
@@ -126,10 +127,6 @@ public class Interactible_Repeater : Interactible
         }
 
         base.ActionCompleted();
-
-        //Curve
-        currentLinkPrice = 0;
-        t = 0.1f;
 
         startTimeRepeater = Time.time;
     }

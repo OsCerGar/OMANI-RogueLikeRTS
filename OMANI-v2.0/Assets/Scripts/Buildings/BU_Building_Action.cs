@@ -18,8 +18,12 @@ public class BU_Building_Action : Interactible
         parentResources = this.transform.parent.GetComponent<BU_UniqueBuilding>();
 
         animator = this.GetComponentInChildren<Animator>();
-        linkPrice = 25;
+        linkPrice = 65;
         price = 75;
+        finalLinkPrice = 14;
+        currentLinkPrice = 0;
+        t = 0.2f;
+
     }
 
     public void BuildingAction()
@@ -57,6 +61,7 @@ public class BU_Building_Action : Interactible
     public override void ActionCompleted()
     {
         BuildingAction();
+
         base.ActionCompleted();
     }
 

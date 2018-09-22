@@ -12,18 +12,25 @@ public class Robot_Energy : Interactible
     {
         base.Start();
         npc = GetComponent<NPC>();
+
         price = 25;
+        finalLinkPrice = 12;
+        currentLinkPrice = 0;
+        t = 0.2f;
     }
 
     public override void Action()
     {
+        currentLinkPrice = Mathf.Lerp(linkPrice, finalLinkPrice, t);
+        t += t * Time.unscaledDeltaTime;
+
         if (!ready)
         {
             startTime = Time.time;
 
-            if (powers.reducePower(linkPrice))
+            if (powers.reducePower(currentLinkPrice))
             {
-                npc.powerPool += linkPrice * Time.unscaledDeltaTime;
+                npc.powerPool += currentLinkPrice * Time.unscaledDeltaTime;
                 actionBool = true;
             }
             else
@@ -74,6 +81,9 @@ public class Robot_Energy : Interactible
     {
         startTime = Time.time;
         ready = true;
+        currentLinkPrice = 0;
+        t = 0.2f;
+
     }
 
     public override void ReducePower()

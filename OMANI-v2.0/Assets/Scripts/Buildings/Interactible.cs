@@ -13,7 +13,7 @@ public class Interactible : MonoBehaviour
     [SerializeField]
     public float powerReduced;
     public float linkPrice = 5;
-    public float startTime;
+    public float startTime, currentLinkPrice, t, finalLinkPrice;
     public bool actionBool { get; set; }
 
     public Powers powers = null;
@@ -63,12 +63,16 @@ public class Interactible : MonoBehaviour
 
     public virtual void Action()
     {
+        currentLinkPrice = Mathf.Lerp(linkPrice, finalLinkPrice, t);
+        t += t * Time.unscaledDeltaTime;
+
+
         startTime = Time.time;
 
-        if (powers.reducePower(linkPrice))
+        if (powers.reducePower(currentLinkPrice))
         {
-            laserAudio.energyTransmisionSound(linkPrice);
-            powerReduced += linkPrice * Time.unscaledDeltaTime;
+            laserAudio.energyTransmisionSound(currentLinkPrice);
+            powerReduced += currentLinkPrice * Time.unscaledDeltaTime;
             actionBool = true;
         }
         else
@@ -81,6 +85,9 @@ public class Interactible : MonoBehaviour
     public virtual void ActionCompleted()
     {
         powerReduced = 0;
+        currentLinkPrice = 0;
+        t = 0.2f;
+
     }
 
     public virtual void ReducePower()
