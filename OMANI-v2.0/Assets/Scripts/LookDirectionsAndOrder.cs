@@ -44,7 +44,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     [SerializeField]
     UI_PointerDirection pointerDirection;
     UI_PointerSelection pointerSelection;
-    GameObject pointerOrder, headArm;
+    GameObject pointerOrder;
     float alphaTarget = 0.111f;
 
     [SerializeField]
@@ -63,7 +63,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //pointerDirection = GetComponent<UI_PointerDirection>();
 
         pointerOrder = this.transform.Find("OrderDirection").gameObject;
-        headArm = this.transform.Find("HeadArm").gameObject;
     }
     void Update()
     {
@@ -175,13 +174,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
             pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position,
                 this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
 
-
-            headArm.transform.position = Vector3.Lerp(headArm.transform.position,
-                new Vector3(commander.transform.position.x, 4, commander.transform.position.z) +
-                (this.transform.forward * (viewRadius / 20)), 0.4f);
-
-            headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
-
             //Just in case
             pointerDirection.gameObject.SetActive(true);
 
@@ -195,15 +187,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             pointerDirection.transform.position = miradaposition;
         }
-        headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
-
-        headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
 
         if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
         {
             if (closestEnemyTarget != null)
             {
-                headArm.transform.LookAt(closestEnemyTarget.transform);
 
                 pointerOrder.transform.position = closestEnemyTarget.transform.position;
 
@@ -225,9 +213,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private void GUI_SpecialPointer()
     {
         pointerDirection.transform.position = miradaposition;
-        headArm.transform.position = Vector3.Lerp(headArm.transform.position, new Vector3(commander.transform.position.x, 4, commander.transform.position.z) + (this.transform.forward * (viewRadius / 20)), 0.4f);
-
-        headArm.transform.LookAt(this.transform.position + (this.transform.forward * (viewRadius / 2)));
     }
     private void GUI_BUOrder()
     {
@@ -235,10 +220,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (closestEnemyTarget != null)
         {
             pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, closestEnemyTarget.transform.position, 0.6f);
-
-            headArm.transform.LookAt(closestEnemyTarget.transform);
-
-           // commander.GetBoyArmy(selectedTypeList[selectedTypeInt]).ShowAttackUI(closestEnemyTarget.gameObject);
 
             //TODO
             //UI is now in the character position.
