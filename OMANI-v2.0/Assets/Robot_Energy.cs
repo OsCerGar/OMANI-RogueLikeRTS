@@ -13,8 +13,9 @@ public class Robot_Energy : Interactible
         base.Start();
         npc = GetComponent<NPC>();
 
-        price = 25;
-        finalLinkPrice = 12;
+        price = 75;
+        linkPrice = 2;
+        finalLinkPrice = 7;
         currentLinkPrice = 0;
         t = 0.2f;
     }

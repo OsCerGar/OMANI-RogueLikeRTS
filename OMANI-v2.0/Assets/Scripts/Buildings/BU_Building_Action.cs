@@ -18,9 +18,9 @@ public class BU_Building_Action : Interactible
         parentResources = this.transform.parent.GetComponent<BU_UniqueBuilding>();
 
         animator = this.GetComponentInChildren<Animator>();
-        linkPrice = 65;
+        linkPrice = 14;
         price = 75;
-        finalLinkPrice = 14;
+        finalLinkPrice = 65;
         currentLinkPrice = 0;
         t = 0.2f;
 
