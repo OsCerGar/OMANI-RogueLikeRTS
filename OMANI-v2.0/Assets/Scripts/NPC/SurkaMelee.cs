@@ -30,7 +30,7 @@ public class SurkaMelee : Enemy {
     }
     public void SecondAttackHit()
     {
-        Attackzone.SetActive(true);
+        SecondAttackZone.SetActive(true);
     }
 
 }

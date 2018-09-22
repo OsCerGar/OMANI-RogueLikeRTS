@@ -6,6 +6,10 @@ public class Worker : Robot {
     public GameObject Scrap;
     [SerializeField]
     private ParticleSystem TrailEffect;
+
+    [SerializeField]
+    private GameObject RollHillBox;
+
     void Awake()
     {
         boyType = "Worker";
@@ -18,5 +22,9 @@ public class Worker : Robot {
     {
         WorkerSM wsm = (WorkerSM)SM;
         wsm.Flip();
+    }
+    public void RollAttack()
+    {
+        RollHillBox.SetActive(true);
     }
 }

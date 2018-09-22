@@ -5,12 +5,15 @@ using UnityEngine.AI;
 
 public class MeleAttack : MonoBehaviour {
     [SerializeField] bool Knockback;
+    [SerializeField] float ActiveHitboxTime = 0.1f;
+    [SerializeField] LayerMask Layer;
     [HideInInspector]public  bool PowerUp;
     [SerializeField] ParticleSystem Effect;
     [SerializeField] NPC thisNpcScript;
     string tagToAttack, secondTagToAttack;
     bool missed;
     ParticleSystem PowerUpEffect, PowerUpHitEffect;
+    
     private void Start()
     {
         if (thisNpcScript.transform.tag == "Enemy")
@@ -31,7 +34,6 @@ public class MeleAttack : MonoBehaviour {
         
         if ( other.tag == tagToAttack || other.tag == secondTagToAttack)
         {
-           
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             var attackDamage = thisNpcScript.Damage;
@@ -68,7 +70,7 @@ public class MeleAttack : MonoBehaviour {
     IEnumerator WaitandDisable()
     {
         
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(ActiveHitboxTime);
         
         transform.gameObject.SetActive(false);
     }
