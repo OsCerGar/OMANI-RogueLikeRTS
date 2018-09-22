@@ -48,7 +48,7 @@ public class BU_Building_Action : Interactible
         {
             base.Action();
         }
-        else
+        else if (!animator.GetBool("Energy"))
         {
             animator.SetTrigger("NotReady");
         }
