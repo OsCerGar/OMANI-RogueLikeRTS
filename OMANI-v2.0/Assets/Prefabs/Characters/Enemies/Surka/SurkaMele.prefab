@@ -1945,8 +1945,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1413265378694666}
   m_LocalRotation: {x: -0.70710665, y: 4.263256e-13, z: 0.00000017881392, w: 0.70710707}
-  m_LocalPosition: {x: -0, y: 0.51, z: -0.673}
-  m_LocalScale: {x: 1, y: 0.66133034, z: 1}
+  m_LocalPosition: {x: 0, y: 0.51, z: 0.79}
+  m_LocalScale: {x: 1, y: 1.0761801, z: 1}
   m_Children: []
   m_Father: {fileID: 224232484859527296}
   m_RootOrder: 1
@@ -5346,9 +5346,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Knockback: 0
   ActiveHitboxTime: 0.1
-  Layer:
+  Damage: 25
+  LayerMasktoAttack:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   PowerUp: 0
   Effect: {fileID: 0}
   thisNpcScript: {fileID: 114773611035678954}
@@ -5478,7 +5479,7 @@ MonoBehaviour:
   boyType: Creep
   state: Alive
   startLife: 0
-  life: 125
+  life: 150
   damage: 50
   resurrectCost: 25
   powerUpCost: 10
@@ -5697,9 +5698,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Knockback: 0
   ActiveHitboxTime: 0.1
-  Layer:
+  Damage: 0
+  LayerMasktoAttack:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   PowerUp: 0
   Effect: {fileID: 0}
   thisNpcScript: {fileID: 114773611035678954}
@@ -27985,7 +27987,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1967065747782944}
   serializedVersion: 5
-  lengthInSec: 0.5
+  lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   looping: 0
@@ -28057,7 +28059,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -28923,30 +28925,21 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
+          value: 1
+          inSlope: -0.20394121
+          outSlope: -0.20394121
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.16666669
+        - serializedVersion: 3
+          time: 0.9567566
           value: 0
-          inSlope: 2.7062013
-          outSlope: 2.7062013
+          inSlope: -2.291912
+          outSlope: -2.291912
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 0.11367038
-          value: 0.63794446
-          inSlope: 1.1232146
-          outSlope: 1.1232146
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
-          time: 1
-          value: 0.8699188
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.33333334
+          inWeight: 0.11864392
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2

@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class MeleAttack : MonoBehaviour {
     [SerializeField] bool Knockback;
     [SerializeField] float ActiveHitboxTime = 0.1f;
-    [SerializeField] LayerMask Layer;
+    [SerializeField] int Damage = 0;
+    [SerializeField] LayerMask LayerMasktoAttack;
     [HideInInspector]public  bool PowerUp;
     [SerializeField] ParticleSystem Effect;
     [SerializeField] NPC thisNpcScript;
@@ -14,39 +15,29 @@ public class MeleAttack : MonoBehaviour {
     bool missed;
     ParticleSystem PowerUpEffect, PowerUpHitEffect;
     
-    private void Start()
-    {
-        if (thisNpcScript.transform.tag == "Enemy")
-        {
-            tagToAttack = "People";
-            secondTagToAttack = "Player";
-        }
-        else
-        {
-            tagToAttack = "Enemy";
-            secondTagToAttack = "Enemy";
-        }
-
-    }
+    
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
         
-        if ( other.tag == tagToAttack || other.tag == secondTagToAttack)
+        if (IsInLayerMask(other.gameObject, LayerMasktoAttack))
         {
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
-            var attackDamage = thisNpcScript.Damage;
+            if (Damage == 0)
+            {
+                Damage = thisNpcScript.Damage;
+            }
 
             //Make his take damage;
             if (Knockback)
             {
-                EnemyNPC.TakeDamage(attackDamage, true, 5,transform.parent.transform);
+                EnemyNPC.TakeDamage(Damage, true, 5,transform.parent.transform);
                 
             }
             else
             {
-                EnemyNPC.TakeDamage(attackDamage);
+                EnemyNPC.TakeDamage(Damage);
             }
             //If he's dead, then forget about him
             missed = false;
@@ -74,23 +65,14 @@ public class MeleAttack : MonoBehaviour {
         
         transform.gameObject.SetActive(false);
     }
-    public void ActivateBoostAttack()
-    { /*
-        PowerUpEffect.Play();
-        PowerUp = true;
-        */
-    }
-    public void DeactivateBoostAttack()
+
+    private bool IsInLayerMask(GameObject obj, LayerMask layerMask)
     {
-        /*
-        PowerUpEffect.Stop();
-        */
-    }
-    public void PowerUpHit()
-    {
-        /*
-        DeactivateBoostAttack();
-        PowerUpHitEffect.Play();
-        */
+        // Convert the object's layer to a bitfield for comparison
+        int objLayerMask = (1 << obj.layer);
+        if ((layerMask.value & objLayerMask) > 0)  // Extra round brackets required!
+            return true;
+        else
+            return false;
     }
 }
