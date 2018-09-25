@@ -581,7 +581,7 @@ public class NPC : MonoBehaviour
     }
     public void ShowAttackUI(GameObject Enemy)
     {
-        UI_Attack.Show(Enemy);
+        UI_Attack.PreShow();
     }
     public void StartFillAttackUI(float _time)
     {

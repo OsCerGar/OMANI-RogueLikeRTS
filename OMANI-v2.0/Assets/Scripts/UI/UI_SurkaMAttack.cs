@@ -58,4 +58,8 @@ public class UI_SurkaMAttack : MonoBehaviour, UI_RobotAttack
         img.fillAmount = fillCounter / fillTime;
 
     }
+    public void PreShow()
+    {
+        //Had to implement
+    }
 }

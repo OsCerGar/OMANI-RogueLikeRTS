@@ -8,8 +8,8 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
     LineRenderer line;
     Canvas canvas;
     Image img;
-
-    float fadeCounter,fillCounter, fillTime;
+    private Transform Mouse;
+    float fadeCounter,fillCounter, fillTime, lineFadeCounter = 0;
     public void Hide()
     {
         line.enabled = false;
@@ -30,11 +30,12 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
         canvas.enabled = true;
         fadeCounter = 0.5f;
     }
-    public void preShow(GameObject objective)
+   
+    public void PreShow()
     {
         line.enabled = true;
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, transform.position + (new Vector3(objective.transform.position.x, 0.1f, objective.transform.position.z) - transform.position).normalized * 6 );
+       
+        lineFadeCounter = 0.5f;
 
     }
 
@@ -43,19 +44,18 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
         line = GetComponentInChildren<LineRenderer>();
         canvas = GetComponentInChildren<Canvas>();
         img = canvas.GetComponentInChildren<Image>();
-        
+        Mouse = GameObject.Find("PointerDirection").transform;
     }
 
     private void LateUpdate()
     {
+        //Fading for the attack 
         fadeCounter -= Time.deltaTime;
 
         var tempColor = img.color;
         tempColor.a = fadeCounter;
         img.color = tempColor;
         
-        line.startColor = tempColor;
-        line.endColor = tempColor;
 
         if (fillCounter < fillTime)
         {
@@ -63,6 +63,23 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
             Show();
         }
         img.fillAmount = fillCounter / fillTime;
+
+        //Fading for the line (Preattack)
+
+        if (lineFadeCounter > 0)
+        {
+            
+            lineFadeCounter -= Time.deltaTime;
+            
+            line.transform.LookAt(Mouse);
+            line.transform.Rotate(line.transform.rotation.x, 0, line.transform.rotation.z);
+        }
+        
+        var endlinetempColor = line.endColor;
+        endlinetempColor.a = lineFadeCounter;
+        line.endColor = endlinetempColor;
+        line.startColor = endlinetempColor;
+
     }
 
 }
