@@ -64,16 +64,18 @@ public class NPC_UI : MonoBehaviour
             }
         }
         */
+        
         if (lastLife != npc.life)
         {
-            lifeClockHidden = false;
-            lifeClock.enabled = true;
+            //lifeClockHidden = false;
+            //lifeClock.enabled = true;
             lifeClock.fillAmount = ((float)npc.life / (float)npc.startLife);
             lastLife = npc.life;
             //Restores rotation
-            lifeClock.transform.rotation = fixedRotation;
-
         }
+        lifeClock.transform.rotation = fixedRotation;
+
+        /*
         else
         {
             if (!lifeClockHidden)
@@ -83,5 +85,6 @@ public class NPC_UI : MonoBehaviour
                 lifeClockHidden = true;
             }
         }
+        */
     }
 }

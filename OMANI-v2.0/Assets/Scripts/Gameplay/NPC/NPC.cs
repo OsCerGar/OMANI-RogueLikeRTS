@@ -17,8 +17,8 @@ public class NPC : MonoBehaviour
     public string state;
 
     [SerializeField]
-    public int startLife, life, damage, resurrectCost = 25, powerUpCost = 10, increaseAmount = 1;
-    public float maxpowerPool = 5, powerPool = 0;
+    public int startLife, life, damage, resurrectCost = 25, powerUpCost = 10;
+    public float maxpowerPool = 5, powerPool = 0, increaseAmount = 0.15f;
     public float powerReduced = 0, linkPrice = 1;
     public int quarter, half, quarterAndHalf;
 
@@ -285,39 +285,49 @@ public class NPC : MonoBehaviour
         }
         #endregion
         #region IncreaseLifePool
+
         if (life < lifeQuarter)
         {
-            sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+            sumAmount += (increaseAmount * Time.deltaTime);
+
             if (sumAmount > 1)
             {
                 life = Mathf.Clamp(life + 1, 0, lifeQuarter);
+                sumAmount = 0;
             }
         }
         else if (life < lifeHalf)
         {
-            sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+            sumAmount += (increaseAmount * Time.deltaTime);
+
             if (sumAmount > 1)
             {
                 life = Mathf.Clamp(life + 1, 0, lifeHalf);
+                sumAmount = 0;
+
             }
         }
         else if (life < lifeQuarterAndHalf)
         {
-            sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+            sumAmount += (increaseAmount * Time.deltaTime);
+
             if (sumAmount > 1)
             {
                 life = Mathf.Clamp(life + 1, 0, lifeQuarterAndHalf);
+                sumAmount = 0;
+
             }
         }
         else if (life < startLife || life > startLife)
         {
-            sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+            sumAmount += (increaseAmount * Time.deltaTime);
+
             if (sumAmount > 1)
             {
                 life = Mathf.Clamp(life + 1, 0, startLife);
+                sumAmount = 0;
             }
         }
-        sumAmount = 0;
         #endregion
     }
 

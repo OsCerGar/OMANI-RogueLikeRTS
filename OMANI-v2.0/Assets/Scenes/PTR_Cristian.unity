@@ -14,12 +14,12 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
+  m_LinearFogStart: 50
+  m_LinearFogEnd: 140
   m_AmbientSkyColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -130,7 +130,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4345260292465244, guid: 82e63961db90dec41b03cec85b670994, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 75.94
+      value: 120.1
       objectReference: {fileID: 0}
     - target: {fileID: 4345260292465244, guid: 82e63961db90dec41b03cec85b670994, type: 2}
       propertyPath: m_LocalRotation.x
@@ -276,35 +276,35 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4994320968406648, guid: 82e63961db90dec41b03cec85b670994, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.0551647
+      value: -0.05516481
       objectReference: {fileID: 0}
     - target: {fileID: 4994320968406648, guid: 82e63961db90dec41b03cec85b670994, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.5491829
+      value: -0.5491828
       objectReference: {fileID: 0}
     - target: {fileID: 4994320968406648, guid: 82e63961db90dec41b03cec85b670994, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.07802996
+      value: 0.078030095
       objectReference: {fileID: 0}
     - target: {fileID: 4994320968406648, guid: 82e63961db90dec41b03cec85b670994, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.8302207
+      value: 0.83022064
       objectReference: {fileID: 0}
     - target: {fileID: 4927651698867370, guid: 82e63961db90dec41b03cec85b670994, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.027937029
+      value: 0.027937805
       objectReference: {fileID: 0}
     - target: {fileID: 4927651698867370, guid: 82e63961db90dec41b03cec85b670994, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.03988011
+      value: -0.039880175
       objectReference: {fileID: 0}
     - target: {fileID: 4927651698867370, guid: 82e63961db90dec41b03cec85b670994, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.2983641
+      value: -0.2983655
       objectReference: {fileID: 0}
     - target: {fileID: 4927651698867370, guid: 82e63961db90dec41b03cec85b670994, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9532093
+      value: 0.95320886
       objectReference: {fileID: 0}
     - target: {fileID: 114176917236055914, guid: 82e63961db90dec41b03cec85b670994,
         type: 2}
@@ -6188,6 +6188,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 1
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -6897,6 +6900,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 3
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -6906,8 +6912,6 @@ MonoBehaviour:
   linkPriceOff: 0
   priceOn: 0
   priceOff: 0
-  currentLinkPrice: 0
-  t: 0
 --- !u!54 &257433702
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11842,6 +11846,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 3
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -11851,8 +11858,6 @@ MonoBehaviour:
   linkPriceOff: 0
   priceOn: 0
   priceOff: 0
-  currentLinkPrice: 0
-  t: 0
 --- !u!54 &309350001
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12778,6 +12783,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 3
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -12787,8 +12795,6 @@ MonoBehaviour:
   linkPriceOff: 0
   priceOn: 0
   priceOff: 0
-  currentLinkPrice: 0
-  t: 0
 --- !u!54 &424226937
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14736,6 +14742,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 1
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -14745,8 +14754,6 @@ MonoBehaviour:
   linkPriceOff: 0
   priceOn: 0
   priceOff: 0
-  currentLinkPrice: 0
-  t: 0
 --- !u!54 &606616682
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15433,6 +15440,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 1
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -31804,6 +31814,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 1
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -31813,8 +31826,6 @@ MonoBehaviour:
   linkPriceOff: 0
   priceOn: 0
   priceOff: 0
-  currentLinkPrice: 0
-  t: 0
 --- !u!54 &943514975
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31964,6 +31975,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 1
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -31973,8 +31987,6 @@ MonoBehaviour:
   linkPriceOff: 0
   priceOn: 0
   priceOff: 0
-  currentLinkPrice: 0
-  t: 0
 --- !u!54 &963326217
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -37287,6 +37299,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 1
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -37634,11 +37649,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4751720345526546, guid: 3dc8661ad555d714595992e1852892fc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -28.849525
+      value: 12.25222
       objectReference: {fileID: 0}
     - target: {fileID: 4751720345526546, guid: 3dc8661ad555d714595992e1852892fc, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.1395874
+      value: 17.214
       objectReference: {fileID: 0}
     - target: {fileID: 4748301135435798, guid: 3dc8661ad555d714595992e1852892fc, type: 2}
       propertyPath: m_LocalRotation.x
@@ -37658,19 +37673,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4748301135435798, guid: 3dc8661ad555d714595992e1852892fc, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -105.58296
+      value: -107.12077
       objectReference: {fileID: 0}
     - target: {fileID: 4748301135435798, guid: 3dc8661ad555d714595992e1852892fc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -28.849525
+      value: 12.25222
       objectReference: {fileID: 0}
     - target: {fileID: 4748301135435798, guid: 3dc8661ad555d714595992e1852892fc, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.1395874
+      value: 17.214
       objectReference: {fileID: 0}
     - target: {fileID: 4751720345526546, guid: 3dc8661ad555d714595992e1852892fc, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -105.58296
+      value: -107.12077
       objectReference: {fileID: 0}
     - target: {fileID: 114334998363315556, guid: 3dc8661ad555d714595992e1852892fc,
         type: 2}
@@ -38046,6 +38061,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 1
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -38055,8 +38073,6 @@ MonoBehaviour:
   linkPriceOff: 0
   priceOn: 0
   priceOff: 0
-  currentLinkPrice: 0
-  t: 0
 --- !u!54 &1112268827
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -53585,6 +53601,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 1
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -53594,8 +53613,6 @@ MonoBehaviour:
   linkPriceOff: 0
   priceOn: 0
   priceOff: 0
-  currentLinkPrice: 0
-  t: 0
 --- !u!54 &1437480009
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -59387,6 +59404,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 1
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
@@ -59396,8 +59416,6 @@ MonoBehaviour:
   linkPriceOff: 0
   priceOn: 0
   priceOff: 0
-  currentLinkPrice: 0
-  t: 0
 --- !u!54 &1607524593
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -79494,6 +79512,53 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1001 &1901806313
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4135172861545436, guid: 2f675d6cb1663b047a273c8e611bc5d9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 60.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135172861545436, guid: 2f675d6cb1663b047a273c8e611bc5d9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135172861545436, guid: 2f675d6cb1663b047a273c8e611bc5d9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 146.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135172861545436, guid: 2f675d6cb1663b047a273c8e611bc5d9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135172861545436, guid: 2f675d6cb1663b047a273c8e611bc5d9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135172861545436, guid: 2f675d6cb1663b047a273c8e611bc5d9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135172861545436, guid: 2f675d6cb1663b047a273c8e611bc5d9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135172861545436, guid: 2f675d6cb1663b047a273c8e611bc5d9, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388143067629174, guid: 2f675d6cb1663b047a273c8e611bc5d9, type: 2}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000,
+        type: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 2f675d6cb1663b047a273c8e611bc5d9, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1909040081
 GameObject:
   m_ObjectHideFlags: 0
@@ -80376,6 +80441,9 @@ MonoBehaviour:
   powerReduced: 0
   linkPrice: 1
   startTime: 0
+  currentLinkPrice: 0
+  t: 0
+  finalLinkPrice: 0
   powers: {fileID: 0}
   powerManager: {fileID: 0}
   laserAudio: {fileID: 0}
