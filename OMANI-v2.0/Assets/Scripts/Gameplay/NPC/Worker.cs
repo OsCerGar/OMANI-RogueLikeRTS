@@ -5,7 +5,7 @@ using UnityEngine;
 public class Worker : Robot {
     public GameObject Scrap;
     [SerializeField]
-    private ParticleSystem TrailEffect;
+    private ParticleSystem TrailEffect,SparkEffect;
 
     [SerializeField]
     private GameObject RollHillBox;
@@ -26,5 +26,9 @@ public class Worker : Robot {
     public void RollAttack()
     {
         RollHillBox.SetActive(true);
+    }
+    public void Sparks()
+    {
+        SparkEffect.Play();
     }
 }
