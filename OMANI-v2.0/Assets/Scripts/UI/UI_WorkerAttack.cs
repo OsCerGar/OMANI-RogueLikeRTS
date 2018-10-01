@@ -12,8 +12,8 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
     float fadeCounter,fillCounter, fillTime, lineFadeCounter = 0;
     public void Hide()
     {
-        line.enabled = false;
-        canvas.enabled = false;
+        //line.enabled = false;
+        //canvas.enabled = false;
     }
     public void startFill(float _time)
     {
@@ -54,7 +54,7 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
 
         var tempColor = img.color;
         tempColor.a = fadeCounter;
-        img.color = tempColor;
+        //img.color = tempColor;
         
 
         if (fillCounter < fillTime)
@@ -62,7 +62,8 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
             fillCounter += Time.deltaTime;
             Show();
         }
-        img.fillAmount = fillCounter / fillTime;
+
+        //img.fillAmount = fillCounter / fillTime;
 
         //Fading for the line (Preattack)
 
@@ -73,8 +74,13 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
             
             line.transform.LookAt(Mouse);
             line.transform.Rotate(line.transform.rotation.x, 0, line.transform.rotation.z);
+
+
+            
         }
-        
+        img.transform.LookAt(Mouse);
+        img.transform.Rotate(-90, img.transform.rotation.y, 0);
+
         var endlinetempColor = line.endColor;
         endlinetempColor.a = lineFadeCounter;
         line.endColor = endlinetempColor;

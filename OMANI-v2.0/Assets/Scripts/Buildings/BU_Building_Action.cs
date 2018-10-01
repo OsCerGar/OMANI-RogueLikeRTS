@@ -10,6 +10,7 @@ public class BU_Building_Action : Interactible
     BU_UniqueBuilding parentResources;
     public bool readyToSpawn { get; set; }
     Animator animator;
+    AudioSource pilarmovement;
 
     // Use this for initialization
     public override void Start()
@@ -23,7 +24,7 @@ public class BU_Building_Action : Interactible
         finalLinkPrice = 65;
         currentLinkPrice = 0;
         t = 0.2f;
-
+        pilarmovement = this.transform.Find("Sounds").Find("PilarMovement").GetComponent<AudioSource>();
     }
 
     public void BuildingAction()
@@ -43,6 +44,16 @@ public class BU_Building_Action : Interactible
         if (!animator.GetBool("Energy") && powerReduced < price)
         {
             animator.Play("PilarDown", 0, powerReduced / price);
+
+            if (powerReduced == 0)
+            {
+                pilarmovement.volume = 0;
+            }
+            else { pilarmovement.volume = 0.6f; } 
+        }
+        else
+        {
+            pilarmovement.volume = 0;
         }
     }
 
