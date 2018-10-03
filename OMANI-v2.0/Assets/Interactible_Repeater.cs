@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Interactible_Repeater : Interactible
@@ -10,14 +9,19 @@ public class Interactible_Repeater : Interactible
     public bool energy;
     GameObject top;
     BU_Energy energyBU;
-    private float startTimeRepeater = 0, stopTimeRepeater = 0;
+    private float startTimeRepeater = 0;
+    private readonly float stopTimeRepeater = 0;
     public float linkPriceOn, linkPriceOff, priceOn, priceOff;
+
+    //CitySystem
+    public List<Interactible_Repeater> closeRepeaters;
+    public bool available;
 
     private void Initializer()
     {
-        energyBU = this.transform.root.GetComponentInChildren<BU_Energy>();
-        animator = this.GetComponent<Animator>();
-        top = this.transform.Find("Stick/Top").gameObject;
+        energyBU = transform.root.GetComponentInChildren<BU_Energy>();
+        animator = GetComponent<Animator>();
+        top = transform.Find("Stick/Top").gameObject;
 
         linkPriceOff = 15;
         linkPriceOn = 20;
@@ -31,7 +35,6 @@ public class Interactible_Repeater : Interactible
         linkPrice = linkPriceOff;
         price = priceOff;
     }
-
     private void linkPriceChart()
     {
         currentLinkPrice = Mathf.Lerp(linkPrice, finalLinkPrice, t);
@@ -78,34 +81,15 @@ public class Interactible_Repeater : Interactible
                 if (energyBU.energyCheck() || energy)
                 {
                     linkPriceChart();
-                    newAction();
-                    //base.Action();
+                    base.Action();
                 }
             }
             else
             {
                 linkPriceChart();
-                newAction();
-                //base.Action();
+                base.Action();
             }
         }
-    }
-
-    private void newAction()
-    {
-        startTime = Time.time;
-
-        if (powers.reducePower(currentLinkPrice))
-        {
-            laserAudio.energyTransmisionSound(currentLinkPrice);
-            powerReduced += currentLinkPrice * Time.unscaledDeltaTime;
-            actionBool = true;
-        }
-        else
-        {
-            actionBool = false;
-        }
-
     }
 
     public override void ActionCompleted()
