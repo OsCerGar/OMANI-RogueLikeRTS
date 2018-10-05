@@ -33,10 +33,7 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
    
     public void PreShow()
     {
-        line.enabled = true;
-       
-        lineFadeCounter = 0.5f;
-
+        Show();
     }
 
     // Use this for initialization
@@ -67,25 +64,28 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
 
         //Fading for the line (Preattack)
 
+       
+        img.transform.LookAt(Mouse);
+        img.transform.Rotate(90, img.transform.rotation.y, 0);
+        /*
+         *  LineRenderer Stuff
         if (lineFadeCounter > 0)
         {
-            
+
             lineFadeCounter -= Time.deltaTime;
-            
+
             line.transform.LookAt(Mouse);
             line.transform.Rotate(line.transform.rotation.x, 0, line.transform.rotation.z);
 
 
-            
+
         }
-        img.transform.LookAt(Mouse);
-        img.transform.Rotate(-90, img.transform.rotation.y, 0);
 
         var endlinetempColor = line.endColor;
         endlinetempColor.a = lineFadeCounter;
         line.endColor = endlinetempColor;
         line.startColor = endlinetempColor;
-
+        */
     }
 
 }

@@ -42,7 +42,7 @@ public class Robot : NPC
     public override void Die()
     {
         base.Die();
-        dissolveEffect.StartDissolve();
+        //dissolveEffect.StartDissolve();
     }
     public void Resurrect()
     {
