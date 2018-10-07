@@ -21,7 +21,7 @@ public class Army : MonoBehaviour
     float alphaTarget = 0.111f;
 
     private List<GameObject> positions = new List<GameObject>();
-    private GameObject SpecialPosition;
+    [SerializeField] private GameObject ShootingPosition;
     LookDirectionsAndOrder look;
     [SerializeField]
     float armyseparation = 4;
@@ -168,7 +168,7 @@ public class Army : MonoBehaviour
             {
                 if (i == robotsToCheck.Count - 1) //If he's the last one, the give him an special position
                 {
-                    robotsToCheck[i].Follow(SpecialPosition);
+                    robotsToCheck[i].Follow(ShootingPosition);
                 }
                 else
                 {
@@ -191,8 +191,6 @@ public class Army : MonoBehaviour
     private void Start()
     {
         look = FindObjectOfType<LookDirectionsAndOrder>();
-        SpecialPosition = Instantiate(new GameObject(), transform.position, transform.rotation, transform);
-        SpecialPosition.transform.localPosition = new Vector3(4, 0, 0);
 
     }
 
