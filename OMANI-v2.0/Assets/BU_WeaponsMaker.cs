@@ -70,9 +70,8 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
 
     }
 
-    public override void LateUpdate()
+    public void LateUpdate()
     {
-        base.LateUpdate();
         animator.buildingAnimations(totalEnergy);
     }
 

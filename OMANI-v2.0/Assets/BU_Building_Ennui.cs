@@ -71,7 +71,7 @@ public class BU_Building_Ennui : BU_UniqueBuilding
         //Checks energy up to 3 to see how much it creates. Sends info to the clocks with @WorkerClocks.
         if (totalEnergy > 0)
         {
-            //Used to see how many workers are going to be build.
+            //Used to see how many ennuis are going to be build.
             int calcTotalEnergy = totalEnergy;
 
             if (calcTotalEnergy > 0 && ennuisReady == false)

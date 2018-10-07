@@ -53,7 +53,6 @@ public class Tutorial_Mist : MonoBehaviour
     {
         float norm = (sqrLen - minimumDistance) / (maximumDistance - minimumDistance);
         norm = Mathf.Clamp01(norm);
-        Debug.Log(norm);
 
         RenderSettings.fogStartDistance = Mathf.Lerp(maximumDistanceScaleFogStart, minimumDistanceScaleFogStart, norm);
         RenderSettings.fogEndDistance = Mathf.Lerp(maximumDistanceScaleFog, minimumDistanceScaleFog, norm);

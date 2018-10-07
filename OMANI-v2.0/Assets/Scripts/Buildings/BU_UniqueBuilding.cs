@@ -5,7 +5,8 @@ using UnityEngine;
 public class BU_UniqueBuilding : MonoBehaviour
 {
     public int lastTotalEnergy { get; set; }
-    public int totalEnergy { get; set; }
+    [SerializeField]
+    public int totalEnergy;
     public int requiredEnergy { get; set; }
     public BU_Building_Action buildingActionMesh;
 
@@ -17,33 +18,7 @@ public class BU_UniqueBuilding : MonoBehaviour
         //Makes sure it checks for energy on the first run.
         lastTotalEnergy = 100;
 
-        if (this.transform.Find("Electricity") != null)
-        {
-            plugs = this.transform.Find("Electricity").GetComponentsInChildren<Interactible_Repeater>();
-        }
         buildingActionMesh = this.transform.GetComponentInChildren<BU_Building_Action>();
-
-    }
-
-    //THIS SHOULDN'T BE IN AN UPDATE
-    public virtual void LateUpdate()
-    {
-        EnergyCalc();
-    }
-
-    private void EnergyCalc()
-    {
-        totalEnergy = 0;
-
-        foreach (Interactible_Repeater plug in plugs)
-        {
-            if (plug.energy == true)
-            {
-                totalEnergy++;
-            }
-        }
-
-        lastTotalEnergy = totalEnergy;
     }
 
     public virtual void BuildingAction()

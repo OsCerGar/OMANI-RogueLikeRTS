@@ -6,18 +6,23 @@ public class Interactible : MonoBehaviour
 {
 
     Rigidbody myRigidBody;
-
+    [HideInInspector]
     public bool hasRigid { get; set; }
-
+    [HideInInspector]
     public float price { get; set; }
     [SerializeField]
     public float powerReduced;
+    [HideInInspector]
     public float linkPrice = 5;
     public float startTime, currentLinkPrice, t, finalLinkPrice;
+    [HideInInspector]
     public bool actionBool { get; set; }
 
+    [HideInInspector]
     public Powers powers = null;
+    [HideInInspector]
     public PowerManager powerManager;
+    [HideInInspector]
     public MetaAudioController laserAudio;
 
     public virtual void Initialize()

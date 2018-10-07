@@ -3,24 +3,31 @@ using UnityEngine;
 
 public class Interactible_Repeater : Interactible
 {
-
+    [HideInInspector]
     public Animator animator;
-    [SerializeField]
-    public bool energy;
-    GameObject top;
+    public int energy;
+    public GameObject top;
     BU_Energy energyBU;
     private float startTimeRepeater = 0;
     private readonly float stopTimeRepeater = 0;
+    [HideInInspector]
     public float linkPriceOn, linkPriceOff, priceOn, priceOff;
 
     //CitySystem
     public List<Interactible_Repeater> closeRepeaters;
-    public bool available;
+    [SerializeField]
+    private bool available;
+    private GameObject repeaterUI;
 
     private void Initializer()
     {
         energyBU = transform.root.GetComponentInChildren<BU_Energy>();
         animator = GetComponent<Animator>();
+        if (transform.Find("UI") != null)
+        {
+            repeaterUI = transform.Find("UI").gameObject;
+            repeaterUI.SetActive(false);
+        }
         top = transform.Find("Stick/Top").gameObject;
 
         linkPriceOff = 15;
@@ -34,11 +41,6 @@ public class Interactible_Repeater : Interactible
 
         linkPrice = linkPriceOff;
         price = priceOff;
-    }
-    private void linkPriceChart()
-    {
-        currentLinkPrice = Mathf.Lerp(linkPrice, finalLinkPrice, t);
-        t += t * Time.unscaledDeltaTime;
     }
 
     // Use this for initialization
@@ -54,7 +56,7 @@ public class Interactible_Repeater : Interactible
         base.Update();
         if (energyBU != null)
         {
-            if (!energy)
+            if (energy < 1)
             {
                 StopWorking();
             }
@@ -65,7 +67,8 @@ public class Interactible_Repeater : Interactible
     {
         base.LateUpdate();
 
-        if (animator.GetBool("Ready") && powerReduced < price && !energy)
+        //Plays the up animation when ready
+        if (animator.GetBool("Ready") && powerReduced < price && energy < 1)
         {
             animator.Play("RepeaterUp", 0, powerReduced / price);
         }
@@ -78,28 +81,33 @@ public class Interactible_Repeater : Interactible
         {
             if (energyBU != null)
             {
-                if (energyBU.energyCheck() || energy)
+                if (energyBU.energyCheck() || energy > 0)
                 {
-                    linkPriceChart();
-                    base.Action();
+                    if (energyBU.checkIfLastRepeater(this))
+                    {
+                        base.Action();
+                    }
+
+                    else if (available && energy == 0)
+                    {
+                        base.Action();
+                    }
                 }
             }
             else
             {
-                linkPriceChart();
                 base.Action();
             }
         }
     }
-
     public override void ActionCompleted()
     {
-        if (!energy)
+        if (energy < 1)
         {
-            energy = true;
+            energy = 1;
             animator.SetBool("Energy", true);
             animator.SetBool("Ready", false);
-            energyBU.RequestCable(top);
+            energyBU.RequestCable(top, this);
             linkPrice = linkPriceOn;
             price = priceOn;
         }
@@ -107,31 +115,47 @@ public class Interactible_Repeater : Interactible
         else
         {
             StopWorking();
-            energy = false;
+            energy = 0;
         }
 
         base.ActionCompleted();
 
         startTimeRepeater = Time.time;
     }
-
     private void StopWorking()
     {
         energyBU.pullBackCable(top.transform);
         animator.SetBool("Energy", false);
-        energy = false;
+        energy = 0;
         linkPrice = linkPriceOff;
         price = priceOff;
     }
-
-
     //This is for the energy BU
     public void StopWorkingComplete()
     {
         base.ActionCompleted();
         animator.SetBool("Energy", false);
-        energy = false;
+        energy = 0;
         linkPrice = linkPriceOff;
         price = priceOff;
+    }
+
+    public void Availablity(bool _value)
+    {
+        available = _value;
+    }
+
+    public void closeRepeatersOnOff(bool _value)
+    {
+        foreach (Interactible_Repeater repeater in closeRepeaters)
+        {
+            repeater.Availablity(_value);
+        }
+
+        if (repeaterUI != null)
+        {
+            if (_value) { repeaterUI.SetActive(true); }
+            else { repeaterUI.SetActive(false); }
+        }
     }
 }
