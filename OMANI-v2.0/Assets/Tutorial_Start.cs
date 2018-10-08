@@ -14,7 +14,7 @@ public class Tutorial_Start : MonoBehaviour
     Light directionalLight;
     GameObject spotLight, backgroundLights, backgroundLights2;
     Cinemachine.CinemachineVirtualCamera startCamera, standardCamera;
-    Cinemachine.PostFX.CinemachinePostFX cameraFX;
+
     [SerializeField]
     PostProcessingProfile postFX;
     LocomotionBrain locomotion;
@@ -42,7 +42,6 @@ public class Tutorial_Start : MonoBehaviour
     private void Initalize()
     {
         door = this.transform.Find("Props/Door").GetComponent<Animator>();
-        cameraFX = FindObjectOfType<Cinemachine.PostFX.CinemachinePostFX>();
         locomotion = FindObjectOfType<LocomotionBrain>();
         control = FindObjectOfType<CharacterMovement>();
         lookDirections = FindObjectOfType<LookDirectionsAndOrder>();
@@ -128,7 +127,7 @@ public class Tutorial_Start : MonoBehaviour
         backgroundLights2.SetActive(true);
         directionalLight.intensity = oldIntensity;
         pointer_Direction.gameObject.SetActive(true);
-        cameraFX.m_Profile = postFX;
+        //cameraFX.m_Profile = postFX;
         RenderSettings.fogEndDistance = oldFogEnd;
         RenderSettings.fogStartDistance = oldFogStart;
         door.gameObject.SetActive(false);
