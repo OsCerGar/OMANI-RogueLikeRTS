@@ -7,7 +7,7 @@ public class BU_Electricity_Animations : MonoBehaviour
 
     public Animator anim;
     public GameObject[] ElectricRays;
-    public Material[] materials;
+    //public Material[] materials;
     private Color color1, color2, finalColor1, finalColor2;
     private float finalColor1Value, finalColor2Value;
 
@@ -19,7 +19,7 @@ public class BU_Electricity_Animations : MonoBehaviour
         */
     }
     public void buildingAnimations(int energy)
-    {/*
+    {
         switch (energy)
         {
             case 0:
@@ -38,8 +38,8 @@ public class BU_Electricity_Animations : MonoBehaviour
                 finalColor1 = color1 * Mathf.LinearToGammaSpace(finalColor1Value);
                 finalColor2 = color2 * Mathf.LinearToGammaSpace(finalColor2Value);
 
-                materials[0].SetColor("_EmissionColor", finalColor1);
-                materials[1].SetColor("_EmissionColor", finalColor2);
+                // materials[0].SetColor("_EmissionColor", finalColor1);
+                //  materials[1].SetColor("_EmissionColor", finalColor2);
 
                 break;
             case 1:
@@ -58,8 +58,8 @@ public class BU_Electricity_Animations : MonoBehaviour
                 finalColor1 = color1 * Mathf.LinearToGammaSpace(finalColor1Value);
                 finalColor2 = color2 * Mathf.LinearToGammaSpace(finalColor2Value);
 
-                materials[0].SetColor("_EmissionColor", finalColor1);
-                materials[1].SetColor("_EmissionColor", finalColor2);
+                //   materials[0].SetColor("_EmissionColor", finalColor1);
+                //   materials[1].SetColor("_EmissionColor", finalColor2);
 
 
                 break;
@@ -79,8 +79,8 @@ public class BU_Electricity_Animations : MonoBehaviour
                 finalColor1 = color1 * Mathf.LinearToGammaSpace(finalColor1Value);
                 finalColor2 = color2 * Mathf.LinearToGammaSpace(finalColor2Value);
 
-                materials[0].SetColor("_EmissionColor", finalColor1);
-                materials[1].SetColor("_EmissionColor", finalColor2);
+                // materials[0].SetColor("_EmissionColor", finalColor1);
+                // materials[1].SetColor("_EmissionColor", finalColor2);
 
                 break;
             case 3:
@@ -99,14 +99,14 @@ public class BU_Electricity_Animations : MonoBehaviour
                 finalColor1 = color1 * Mathf.LinearToGammaSpace(finalColor1Value);
                 finalColor2 = color2 * Mathf.LinearToGammaSpace(finalColor2Value);
 
-                materials[0].SetColor("_EmissionColor", finalColor1);
-                materials[1].SetColor("_EmissionColor", finalColor2);
+                //materials[0].SetColor("_EmissionColor", finalColor1);
+                //materials[1].SetColor("_EmissionColor", finalColor2);
                 break;
         }
-        */
+        
     }
     public void OnDisable()
-    {/*
+    {
         anim.SetInteger("Energy", 0);
 
         ElectricRays[0].SetActive(false);
@@ -116,8 +116,8 @@ public class BU_Electricity_Animations : MonoBehaviour
         ElectricRays[4].SetActive(false);
         ElectricRays[5].SetActive(false);
 
-        materials[0].SetColor("_EmissionColor", color1);
-        materials[1].SetColor("_EmissionColor", color2);
-        */
+        //materials[0].SetColor("_EmissionColor", color1);
+        //materials[1].SetColor("_EmissionColor", color2);
+        
     }
 }
