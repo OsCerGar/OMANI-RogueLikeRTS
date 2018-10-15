@@ -5,11 +5,16 @@ using UnityEngine;
 public class Worker : Robot {
     public GameObject Scrap;
     [SerializeField]
-    private ParticleSystem TrailEffect,SparkEffect;
+    private ParticleSystem TrailEffect, SparkEffect;
 
     [SerializeField]
     private GameObject RollHillBox;
 
+    public override void AttackHit()
+    {
+        base.AttackHit();
+        RollAttackFinished();
+    }
     void Awake()
     {
         boyType = "Worker";
@@ -27,6 +32,15 @@ public class Worker : Robot {
     {
         RollHillBox.SetActive(true);
     }
+    public void RollAttackFinished()
+    {
+        RollHillBox.SetActive(false);
+    }
+    public void RollCollision()
+    {
+        anim.SetTrigger("AttackCollision");
+    }
+
     public void Sparks()
     {
         SparkEffect.Play();
