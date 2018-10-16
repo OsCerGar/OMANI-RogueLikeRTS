@@ -31,6 +31,7 @@ public class Worker : Robot {
     }
     public void RollAttack()
     {
+        Trail();
         RollHillBox.SetActive(true);
     }
     public void RollAttackFinished()
