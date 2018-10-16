@@ -10,6 +10,7 @@ public class BU_District_Animations : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
         foreach (Transform lamp in transform.Find("Lamps"))
         {
             LampLights.Add(lamp.GetComponentInChildren<Light>());
@@ -26,6 +27,7 @@ public class BU_District_Animations : MonoBehaviour
 
     public void energyLevel(int level)
     {
+        /*
         switch (level)
         {
             case 0:
@@ -42,11 +44,12 @@ public class BU_District_Animations : MonoBehaviour
                 LampLevels(level);
                 break;
         }
-
+        */
     }
 
     private void LampLevels(int level)
     {
+        /*
         switch (level)
         {
             case 0:
@@ -74,5 +77,6 @@ public class BU_District_Animations : MonoBehaviour
                 }
                 break;
         }
+        */
     }
 }

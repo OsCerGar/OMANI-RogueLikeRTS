@@ -24,6 +24,7 @@ public class RoomManager : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        /*
         if (other.tag == "Player")
         {
             while (DangerPoints>MinimumDangerCost)
@@ -32,13 +33,15 @@ public class RoomManager : MonoBehaviour {
             }
             foreach (var enemy in Enemies)
             {
-                 var SpawnedEnemy = EPooler.SpawnEnemy(enemy, EnemySpawningPos[UnityEngine.Random.Range(0, EnemySpawningPos.Count)]);
+                var SpawnedEnemy = EPooler.SpawnEnemy(enemy, EnemySpawningPos[UnityEngine.Random.Range(0, EnemySpawningPos.Count)]);
                 ActiveEnemies.Add(SpawnedEnemy);
             }
         }
+        */
     }
     private void OnTriggerExit(Collider other)
     {
+        /*
         if (other.tag == "Player")
         {
             foreach (var enemy in ActiveEnemies)
@@ -50,15 +53,18 @@ public class RoomManager : MonoBehaviour {
             }
             ActiveEnemies.Clear();
         }
+        */
     }
 
 
     private void CreateDanger()
     {
+        /*
         if (EnemySpawningPos.Count > 0)
         {
             DangerPoints -= MinimumDangerCost;
             Enemies.Add("Chomper");
         }
-    }
+    
+    */}
 }
