@@ -14,6 +14,7 @@ public class Worker : Robot {
     {
         base.AttackHit();
         RollAttackFinished();
+        TrailEffect.Stop();
     }
     void Awake()
     {
