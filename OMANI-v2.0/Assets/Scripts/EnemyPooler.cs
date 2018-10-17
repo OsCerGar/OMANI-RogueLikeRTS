@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using EZObjectPools;
 using UnityEngine;
-using EZObjectPools;
-public class EnemyPooler : MonoBehaviour {
+public class EnemyPooler : MonoBehaviour
+{
 
 
-    EZObjectPool ChomperPool, GrenadierPool, SwordsmanPool, ArcherPool;
+    EZObjectPool SurkaMele, SurkaRat, SwordsmanPool, ArcherPool;
     // Use this for initialization
     GameObject Spawned;
     void Start()
@@ -14,29 +13,21 @@ public class EnemyPooler : MonoBehaviour {
 
         foreach (EZObjectPool item in AllPoolers)
         {
-            if (item.PoolName == "Chomper")
+            if (item.PoolName == "SurkaMele")
             {
-                ChomperPool = item;
+                SurkaMele = item;
             }
-            if (item.PoolName == "Grenadier")
+            if (item.PoolName == "SurkaRat")
             {
-                GrenadierPool = item;
-            }
-            if (item.PoolName == "Archer")
-            {
-                ArcherPool = item;
-            }
-            if (item.PoolName == "Swordsman")
-            {
-                SwordsmanPool = item;
+                SurkaRat = item;
             }
         }
     }
-    public  GameObject SpawnEnemy(string _EnemyName, Transform spawnPos)
+    public GameObject SpawnEnemy(string _EnemyName, Transform spawnPos)
     {
-        if (_EnemyName == "Chomper")
+        if (_EnemyName == "SurkaMele")
         {
-            ChomperPool.TryGetNextObject(spawnPos.position, spawnPos.rotation, out Spawned);
+            SurkaMele.TryGetNextObject(spawnPos.position, spawnPos.rotation, out Spawned);
             if (Spawned != null)
             {
                 var spawnNpc = Spawned.GetComponent<NPC>();
@@ -45,7 +36,20 @@ public class EnemyPooler : MonoBehaviour {
                     spawnNpc.life = spawnNpc.startLife;
                 }
             }
-           
+
+        }
+        else if (_EnemyName == "SurkaRat")
+        {
+            SurkaRat.TryGetNextObject(spawnPos.position, spawnPos.rotation, out Spawned);
+            if (Spawned != null)
+            {
+                var spawnNpc = Spawned.GetComponent<NPC>();
+                if (spawnNpc.life < spawnNpc.startLife)
+                {
+                    spawnNpc.life = spawnNpc.startLife;
+                }
+            }
+
         }
 
         return Spawned;
