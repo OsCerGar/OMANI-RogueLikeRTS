@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BU_Cabin : MonoBehaviour
 {
@@ -18,9 +16,9 @@ public class BU_Cabin : MonoBehaviour
     void Start()
     {
         peoplePool = FindObjectOfType<PeoplePool>();
-        doorAnimation = this.transform.GetComponent<Animator>();
-        direction = this.transform.Find("Direction").gameObject;
-        UI = this.transform.Find("OrderDirection").gameObject;
+        doorAnimation = transform.GetComponent<Animator>();
+        direction = transform.Find("Direction").gameObject;
+        UI = transform.Find("OrderDirection").gameObject;
     }
 
     // Update is called once per frame
@@ -84,14 +82,18 @@ public class BU_Cabin : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("People") && other.tag != "Player")
+        if (other.tag != "Player")
         {
-            if (!workerInside && ready)
+            if (other.GetComponent<NPC>().BoyType == "Worker")
             {
-                NPC worker = other.GetComponent<NPC>();
-                if (worker.AI_GetTarget() == this.direction)
+                Debug.Log("hey");
+                if (!workerInside && ready)
                 {
+                    Debug.Log("ho");
+
+                    NPC worker = other.GetComponent<NPC>();
                     AddWorker(worker);
+
                 }
             }
         }

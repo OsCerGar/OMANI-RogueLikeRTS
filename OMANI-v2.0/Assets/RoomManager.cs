@@ -65,7 +65,7 @@ public class RoomManager : MonoBehaviour
         if (EnemySpawningPos.Count > 0)
         {
             DangerPoints -= MinimumDangerCost;
-            i = UnityEngine.Random.Range(0, 1);
+            i = Mathf.RoundToInt(UnityEngine.Random.Range(0, 1));
             switch (i)
             {
                 case 0:
