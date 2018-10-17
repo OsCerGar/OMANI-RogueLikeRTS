@@ -6,6 +6,7 @@ public class BU_District_Animations : MonoBehaviour
 
 
     public List<Light> LampLights = new List<Light>();
+    private List<MeshRenderer> GroundLights = new List<MeshRenderer>();
 
     // Use this for initialization
     void Start()
@@ -16,18 +17,18 @@ public class BU_District_Animations : MonoBehaviour
             LampLights.Add(lamp.GetComponentInChildren<Light>());
         }
 
+        foreach (Transform groundLight in transform.Find("GroundLights"))
+        {
+            GroundLights.Add(groundLight.GetComponent<MeshRenderer>());
+        }
+
         energyLevel(0);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void energyLevel(int level)
     {
-        /*
+
         switch (level)
         {
             case 0:
@@ -44,39 +45,56 @@ public class BU_District_Animations : MonoBehaviour
                 LampLevels(level);
                 break;
         }
-        */
+
     }
 
     private void LampLevels(int level)
     {
-        /*
+
         switch (level)
         {
             case 0:
-                foreach (Light light in LampLights)
+                foreach (MeshRenderer groundLight in GroundLights)
                 {
-                    light.intensity = 0;
+                    groundLight.material.color = Color.white;
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    GroundLights[i].material.color = Color.white;
                 }
                 break;
             case 1:
-                foreach (Light light in LampLights)
+                foreach (MeshRenderer groundLight in GroundLights)
                 {
-                    light.intensity = 5;
+                    groundLight.material.color = Color.white;
                 }
+                for (int i = 0; i < 1; i++)
+                {
+                    GroundLights[i].material.color = Color.yellow;
+                }
+
                 break;
             case 2:
-                foreach (Light light in LampLights)
+                foreach (MeshRenderer groundLight in GroundLights)
                 {
-                    light.intensity = 7.5f;
+                    groundLight.material.color = Color.white;
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    GroundLights[i].material.color = Color.yellow;
                 }
                 break;
             case 3:
-                foreach (Light light in LampLights)
+                foreach (MeshRenderer groundLight in GroundLights)
                 {
-                    light.intensity = 10;
+                    groundLight.material.color = Color.white;
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    GroundLights[i].material.color = Color.yellow;
                 }
                 break;
         }
-        */
+
     }
 }

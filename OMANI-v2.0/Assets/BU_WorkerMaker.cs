@@ -23,7 +23,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
     {
         base.Start();
 
-        spinningStructure = this.transform.Find("BU_UI/SpinningStructure").gameObject;
+        //spinningStructure = this.transform.Find("BU_UI/SpinningStructure").gameObject;
         workerSpawn = this.transform.Find("WorkerSpawn").gameObject;
         peoplePool = FindObjectOfType<PeoplePool>();
         foreach (Image clock in this.transform.Find("BU_UI/Production_Clocks").GetComponentsInChildren<Image>())
@@ -46,7 +46,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
             WorkerMaker();
         }
 
-        SpinningStructure();
+        //SpinningStructure();
     }
 
     public override void BuildingAction()
