@@ -15,7 +15,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
     List<Image> workerClocks = new List<Image>();
     PeoplePool peoplePool;
     [SerializeField]
-    private GameObject worker, spinningStructure;
+    private GameObject worker;
     private GameObject workerSpawn;
 
     #endregion
@@ -23,7 +23,6 @@ public class BU_WorkerMaker : BU_UniqueBuilding
     {
         base.Start();
 
-        //spinningStructure = this.transform.Find("BU_UI/SpinningStructure").gameObject;
         workerSpawn = this.transform.Find("WorkerSpawn").gameObject;
         peoplePool = FindObjectOfType<PeoplePool>();
         foreach (Image clock in this.transform.Find("BU_UI/Production_Clocks").GetComponentsInChildren<Image>())
@@ -46,7 +45,6 @@ public class BU_WorkerMaker : BU_UniqueBuilding
             WorkerMaker();
         }
 
-        //SpinningStructure();
     }
 
     public override void BuildingAction()
@@ -54,16 +52,6 @@ public class BU_WorkerMaker : BU_UniqueBuilding
         base.BuildingAction();
 
         MakeWorker();
-    }
-
-    void SpinningStructure()
-    {
-        if (biggestClock() != oldbiggestClockValue)
-        {
-            oldbiggestClockValue = biggestClock();
-            desiredRotation = biggestClock() * (180) - 90;
-            spinningStructure.transform.localEulerAngles = new Vector3(0, desiredRotation, 0);
-        }
     }
 
     //Makes Workers
