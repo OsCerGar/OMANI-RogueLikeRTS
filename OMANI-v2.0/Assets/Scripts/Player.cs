@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : NPC
 {
@@ -20,7 +19,8 @@ public class Player : NPC
 
     public override void Die()
     {
-        // playerDead();
+        SceneManager.LoadScene("GAME_ALPHA", LoadSceneMode.Single);
+
     }
 
     public override void Update()
@@ -40,38 +40,44 @@ public class Player : NPC
 
             if (life < quarter)
             {
-                sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+                sumAmount += increaseAmount * Time.unscaledDeltaTime;
                 if (sumAmount > 1)
                 {
                     life = Mathf.Clamp(life + 1, 0, quarter);
+                    sumAmount = 0;
                 }
             }
             else if (life < half)
             {
-                sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+                sumAmount += increaseAmount * Time.unscaledDeltaTime;
                 if (sumAmount > 1)
                 {
                     life = Mathf.Clamp(life + 1, 0, half);
+                    sumAmount = 0;
+
                 }
             }
             else if (life < quarterAndHalf)
             {
-                sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+                sumAmount += increaseAmount * Time.unscaledDeltaTime;
                 if (sumAmount > 1)
                 {
                     life = Mathf.Clamp(life + 1, 0, quarterAndHalf);
+                    sumAmount = 0;
+
                 }
             }
             else if (life < startLife)
             {
-                sumAmount += life + increaseAmount * Time.unscaledDeltaTime;
+                sumAmount += increaseAmount * Time.unscaledDeltaTime;
                 if (sumAmount > 1)
                 {
                     life = Mathf.Clamp(life + 1, 0, startLife);
+                    sumAmount = 0;
+
                 }
             }
 
-            sumAmount = 0;
         }
     }
 
