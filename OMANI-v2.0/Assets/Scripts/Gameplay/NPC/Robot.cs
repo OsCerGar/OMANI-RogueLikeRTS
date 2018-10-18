@@ -12,7 +12,13 @@ public class Robot : NPC
     DissolveEffectController dissolveEffect;
     Army commander;
     public Robot_Energy robot_energy;
+    [SerializeField]
+    private ParticleSystem SparkEffect;
 
+    public void Sparks()
+    {
+        SparkEffect.Play();
+    }
 
     public void StartResurrection()
     {

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Swordman : NPC
+public class Swordman : Robot
 {
-    [SerializeField]ParticleSystem RageElectricity;
+    [SerializeField] GameObject Attack1Zone;
+    [SerializeField] GameObject Attack2Zone;
     void Awake()
     {
         boyType = "Swordsman";
@@ -12,21 +13,18 @@ public class Swordman : NPC
     public override void Update()
     {
         base.Update();
-        checkVariables();
     }
-    public void Explode()
+    public override void AttackHit()
     {
-        Disenrage();
-        transform.Find("Explosion").gameObject.SetActive(true);
-        Die();
-        anim.applyRootMotion = false;
+        base.AttackHit();
     }
-    public void Enrage()
+    public void Attack1()
     {
-        RageElectricity.Play();
+        Attack1Zone.SetActive(true);
     }
-    public void Disenrage()
+    public void Attack2()
     {
-        RageElectricity.Stop();
+        Attack2Zone.SetActive(true);
     }
+   
 }
