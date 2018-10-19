@@ -86,11 +86,8 @@ public class BU_Cabin : MonoBehaviour
         {
             if (other.GetComponent<NPC>().BoyType == "Worker")
             {
-                Debug.Log("hey");
                 if (!workerInside && ready)
                 {
-                    Debug.Log("ho");
-
                     NPC worker = other.GetComponent<NPC>();
                     AddWorker(worker);
 
