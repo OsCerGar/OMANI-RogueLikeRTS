@@ -26,6 +26,7 @@ public class UI_SurkaMAttack : MonoBehaviour, UI_RobotAttack
         canvas.enabled = true;
         fadeCounter = 0.5f;
     }
+    public void attackingUI() { }
 
 
     public void startFill(float _time)

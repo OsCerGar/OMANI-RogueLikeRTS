@@ -1,19 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
+public class UI_WorkerAttack : MonoBehaviour, UI_RobotAttack
+{
 
     LineRenderer line;
     Canvas canvas;
     Image img;
     private Transform Mouse;
-    float fadeCounter,fillCounter, fillTime, lineFadeCounter = 0;
+    float fadeCounter, fillCounter, fillTime, lineFadeCounter = 0;
+    Vector3 attackingPosition;
+    Quaternion rotationPosition;
+    bool attacking;
     public void Hide()
     {
-        //line.enabled = false;
-        //canvas.enabled = false;
+        canvas.enabled = false;
     }
     public void startFill(float _time)
     {
@@ -22,22 +23,35 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
     }
     public void Show(GameObject objective)
     {
+        transform.localPosition = Vector3.zero;
         canvas.enabled = true;
         fadeCounter = 0.5f;
     }
     public void Show()
     {
+        transform.localPosition = Vector3.zero;
+        attacking = false;
         canvas.enabled = true;
-        fadeCounter = 0.5f;
+        fadeCounter = 1f;
     }
-   
+
+    public void attackingUI()
+    {
+        attackingPosition = transform.position;
+        rotationPosition = transform.rotation;
+
+        attacking = true;
+
+    }
+
     public void PreShow()
     {
         Show();
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         line = GetComponentInChildren<LineRenderer>();
         canvas = GetComponentInChildren<Canvas>();
         img = canvas.GetComponentInChildren<Image>();
@@ -51,8 +65,8 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
 
         var tempColor = img.color;
         tempColor.a = fadeCounter;
-        //img.color = tempColor;
-        
+        img.color = tempColor;
+
 
         if (fillCounter < fillTime)
         {
@@ -60,32 +74,18 @@ public class UI_WorkerAttack : MonoBehaviour , UI_RobotAttack {
             Show();
         }
 
-        //img.fillAmount = fillCounter / fillTime;
-
         //Fading for the line (Preattack)
 
-       
-        img.transform.LookAt(Mouse);
-        img.transform.Rotate(90, img.transform.rotation.y, 0);
-        /*
-         *  LineRenderer Stuff
-        if (lineFadeCounter > 0)
+        if (!attacking)
         {
-
-            lineFadeCounter -= Time.deltaTime;
-
-            line.transform.LookAt(Mouse);
-            line.transform.Rotate(line.transform.rotation.x, 0, line.transform.rotation.z);
-
-
-
+            img.transform.LookAt(Mouse);
+            img.transform.Rotate(90, img.transform.rotation.y, 0);
         }
-
-        var endlinetempColor = line.endColor;
-        endlinetempColor.a = lineFadeCounter;
-        line.endColor = endlinetempColor;
-        line.startColor = endlinetempColor;
-        */
+        else
+        {
+            transform.position = attackingPosition;
+            transform.rotation = rotationPosition;
+        }
     }
 
 }

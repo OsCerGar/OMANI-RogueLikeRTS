@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Army : MonoBehaviour
@@ -668,6 +666,7 @@ public class Army : MonoBehaviour
                 _list[i].GUI_Script.gameObject.SetActive(true);
                 _list[i].GUI_Script.ActivateCircle();
                 _list[i].GUI_Script.PriorityMaterial();
+                _list[i].ShowAttackUI();
             }
             else
             {

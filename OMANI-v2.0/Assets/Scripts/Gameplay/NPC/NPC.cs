@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using BehaviorDesigner.Runtime;
+using System.Collections;
 using UnityEngine;
-using BehaviorDesigner.Runtime;
 using UnityEngine.AI;
-using System;
 
 public class NPC : MonoBehaviour
 {
@@ -18,12 +16,12 @@ public class NPC : MonoBehaviour
 
     [SerializeField]
     public int startLife, life, damage, resurrectCost = 25, powerUpCost = 10;
-    public float maxpowerPool = 5, powerPool = 0, increaseAmount = 0.15f;
-    public float powerReduced = 0, linkPrice = 1;
-    public int quarter, half, quarterAndHalf;
+    [HideInInspector] public float maxpowerPool = 5, powerPool = 0, increaseAmount = 0.15f;
+    [HideInInspector] public float powerReduced = 0, linkPrice = 1;
+    [HideInInspector] public int quarter, half, quarterAndHalf;
 
-    public float sumAmount, lastLife;
-    public int lifeQuarter, lifeHalf, lifeQuarterAndHalf;
+    [HideInInspector] public float sumAmount, lastLife;
+    [HideInInspector] public int lifeQuarter, lifeHalf, lifeQuarterAndHalf;
 
 
 
@@ -57,9 +55,9 @@ public class NPC : MonoBehaviour
     public UI_PointerSelection GUI_Script;
     [SerializeField] public ParticleSystem[] hitEffects;
     [SerializeField] public Renderer Renderer;
-    [HideInInspector]public SoundsManager SM;
+    [HideInInspector] public SoundsManager SM;
 
-    [HideInInspector] private UI_RobotAttack uI_Attack;
+    private UI_RobotAttack uI_Attack;
 
     #endregion
 
@@ -164,17 +162,17 @@ public class NPC : MonoBehaviour
         peopl = LayerMask.NameToLayer("People");
         //We get all behaviourTrees
         SetTrees();
-        anim = this.gameObject.GetComponent<Animator>();
-        Nav = this.gameObject.GetComponent<NavMeshAgent>();
-        circle = this.gameObject.GetComponentInChildren<SpriteRenderer>();
-        if (this.transform.Find("UI") != null)
+        anim = gameObject.GetComponent<Animator>();
+        Nav = gameObject.GetComponent<NavMeshAgent>();
+        circle = gameObject.GetComponentInChildren<SpriteRenderer>();
+        if (transform.Find("UI") != null)
         {
-            if (this.transform.Find("UI/SelectionAnimationParent") != null)
+            if (transform.Find("UI/SelectionAnimationParent") != null)
             {
-                GUI = this.transform.Find("UI/SelectionAnimationParent").gameObject;
-                GUI_Script = this.transform.Find("UI/SelectionAnimationParent").GetComponent<UI_PointerSelection>();
+                GUI = transform.Find("UI/SelectionAnimationParent").gameObject;
+                GUI_Script = transform.Find("UI/SelectionAnimationParent").GetComponent<UI_PointerSelection>();
             }
-            ui_information = this.transform.Find("UI").gameObject;
+            ui_information = transform.Find("UI").gameObject;
 
         }
         //Get AttackZone child Somewhere 
@@ -411,8 +409,8 @@ public class NPC : MonoBehaviour
         Nav.updatePosition = false;
         Nav.updateRotation = false;
         Nav.isStopped = true;
-        this.gameObject.GetComponent<Collider>().isTrigger = true;
-        this.gameObject.layer = 0;
+        gameObject.GetComponent<Collider>().isTrigger = true;
+        gameObject.layer = 0;
     }
 
     public virtual void Heal(int _heal)
@@ -433,6 +431,8 @@ public class NPC : MonoBehaviour
         enableTree("Follow");
         var stateVariable = (SharedGameObject)FollowTree.GetVariable("Position");
         stateVariable.Value = _position;
+
+
     }
     public virtual void Idle()
     {
@@ -444,6 +444,7 @@ public class NPC : MonoBehaviour
         Attackzone.SetActive(true);
         reducePowerNow(maxpowerPool);
         enableTree("CoolDown");
+
     }
 
     public bool reducePower(float amount)
@@ -480,12 +481,15 @@ public class NPC : MonoBehaviour
     }
     public virtual void Attack(GameObject attackPosition)
     {
+        UI_Attack.attackingUI();
         var stateVariable = (SharedGameObject)AttackTree.GetVariable("Enemy");
         stateVariable.Value = attackPosition;
         enableTree("Attack");
+
+
         //set information here
     }
-    
+
 
     IEnumerator gotHit()
     {
@@ -589,13 +593,13 @@ public class NPC : MonoBehaviour
         }
         return null;
     }
-    public void ShowAttackUI(GameObject Enemy)
+    public void ShowAttackUI()
     {
         UI_Attack.PreShow();
     }
     public void StartFillAttackUI(float _time)
     {
-        
+
         UI_Attack.startFill(_time);
     }
 }
