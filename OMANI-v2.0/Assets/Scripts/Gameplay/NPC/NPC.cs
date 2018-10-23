@@ -238,7 +238,8 @@ public class NPC : MonoBehaviour
                 anim.SetBool("KnockBack", false);
                 disabledCountdown = 0;
             }
-        }
+        } 
+        /*
         GameObject enem = AI_GetEnemy();
         if (enem != null)
         {
@@ -247,6 +248,7 @@ public class NPC : MonoBehaviour
                 AI_SetEnemy(null);
             }
         }
+        */
 
         //Animspeed conected to navmesh speed 
         if (anim != null)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConLaser : MonoBehaviour
 {
-
+    public LayerMask LM;
     public float maxLength = 16.0f;
     public GameObject hitEffect;
     public Renderer meshRenderer1;
@@ -80,7 +80,7 @@ public class ConLaser : MonoBehaviour
                 }
 
                 RaycastHit hit;
-                if (Physics.Raycast(currentPosition, resultVectors[i], out hit, blockLength))
+                if (Physics.Raycast(currentPosition, resultVectors[i], out hit, blockLength, LM))
                 {
                     hitPosition = currentPosition + resultVectors[i] * hit.distance;
                     hitPosition = Vector3.MoveTowards(hitPosition, transform.position, moveHitToSource);

@@ -4,19 +4,40 @@ using UnityEngine;
 
 public class LaserColision : MonoBehaviour
 {
+    [SerializeField]
     public bool laserEnabled { get; set; }
     Power_Laser powerLaser;
+    [SerializeField]float rad = 0.5f;
+    ParticleSystem PSArea;
 
     private void Awake()
     {
         powerLaser = FindObjectOfType<Power_Laser>();
+        PSArea = GetComponentInChildren<ParticleSystem>();
     }
     private void Update()
     {
         if (laserEnabled)
         {
             LaserCollisions();
+
+            rad = Mathf.Clamp(rad + 0.1f, 0.5f, 3f);
+            //emit effect of zone
+            if (PSArea != null)
+            {
+                var main = PSArea.main;
+                main.startSize = rad * 3f ;
+                PSArea.Play();
+            }
         }
+        else
+        {
+            rad = Mathf.Clamp(rad - 0.1f, 0.5f, 3f);
+            PSArea.Stop();
+
+        }
+        
+
     }
 
     private void LaserCollisions()
@@ -25,7 +46,7 @@ public class LaserColision : MonoBehaviour
         Interactible interactible, closestBUTarget = null;
         Robot ally, closestTarget = null;
 
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(this.transform.position, 0.5f);
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(this.transform.position, rad);
         foreach (Collider other in targetsInViewRadius)
         {
             if (other.CompareTag("Building"))
