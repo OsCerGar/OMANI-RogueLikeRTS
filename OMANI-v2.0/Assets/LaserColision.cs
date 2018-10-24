@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LaserColision : MonoBehaviour
 {
     [SerializeField]
     public bool laserEnabled { get; set; }
     Power_Laser powerLaser;
-    [SerializeField]float rad = 0.5f;
+    [SerializeField] float rad = 0.5f;
     ParticleSystem PSArea;
 
     private void Awake()
@@ -26,7 +24,7 @@ public class LaserColision : MonoBehaviour
             if (PSArea != null)
             {
                 var main = PSArea.main;
-                main.startSize = rad * 3f ;
+                main.startSize = rad * 3f;
                 PSArea.Play();
             }
         }
@@ -36,7 +34,7 @@ public class LaserColision : MonoBehaviour
             PSArea.Stop();
 
         }
-        
+
 
     }
 
@@ -44,9 +42,9 @@ public class LaserColision : MonoBehaviour
     {
         Enemy enemy, closestEnemyTarget = null;
         Interactible interactible, closestBUTarget = null;
-        Robot ally, closestTarget = null;
-
-        Collider[] targetsInViewRadius = Physics.OverlapSphere(this.transform.position, rad);
+        Robot ally;
+        bool somethingHitted = false;
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, rad);
         foreach (Collider other in targetsInViewRadius)
         {
             if (other.CompareTag("Building"))
@@ -55,16 +53,13 @@ public class LaserColision : MonoBehaviour
 
                 if (interactible != null)
                 {
-                    Transform target = other.transform;
-
-                    //Distance to target
-                    float dstToTarget = Vector3.Distance(this.transform.position, target.position);
-                    //If the closestTarget is null he is the closest target.
-                    // If the distance is smaller than the distance to the closestTarget.
-                    if (closestBUTarget == null || dstToTarget < Vector3.Distance(this.transform.position, target.position))
+                    interactible.Action();
+                    if (interactible.actionBool)
                     {
-                        closestBUTarget = interactible;
+                        powerLaser.setWidth(interactible.linkPrice);
+                        somethingHitted = true;
                     }
+
                 }
             }
 
@@ -78,10 +73,10 @@ public class LaserColision : MonoBehaviour
                     Transform target = other.transform;
 
                     //Distance to target
-                    float dstToTarget = Vector3.Distance(this.transform.position, target.position);
+                    float dstToTarget = Vector3.Distance(transform.position, target.position);
                     //If the closestTarget is null he is the closest target.
                     // If the distance is smaller than the distance to the closestTarget.
-                    if (closestBUTarget == null || dstToTarget < Vector3.Distance(this.transform.position, target.position))
+                    if (closestBUTarget == null || dstToTarget < Vector3.Distance(transform.position, target.position))
                     {
                         closestEnemyTarget = enemy;
                     }
@@ -95,16 +90,9 @@ public class LaserColision : MonoBehaviour
 
                 if (ally != null)
                 {
-                    Transform target = other.transform;
+                    ally.robot_energy.Action();
+                    somethingHitted = true;
 
-                    //Distance to target
-                    float dstToTarget = Vector3.Distance(this.transform.position, target.position);
-                    //If the closestTarget is null he is the closest target.
-                    // If the distance is smaller than the distance to the closestTarget.
-                    if (closestBUTarget == null || dstToTarget < Vector3.Distance(this.transform.position, target.position))
-                    {
-                        closestTarget = ally;
-                    }
                 }
             }
 
@@ -115,39 +103,14 @@ public class LaserColision : MonoBehaviour
 
                 if (ally != null)
                 {
-                    Transform target = other.transform;
+                    ally.robot_energy.Action();
+                    somethingHitted = true;
 
-                    //Distance to target
-                    float dstToTarget = Vector3.Distance(this.transform.position, target.position);
-                    //If the closestTarget is null he is the closest target.
-                    // If the distance is smaller than the distance to the closestTarget.
-                    if (closestBUTarget == null || dstToTarget < Vector3.Distance(this.transform.position, target.position))
-                    {
-                        closestTarget = ally;
-                    }
                 }
             }
         }
 
-        if (closestBUTarget != null)
-        {
-            closestBUTarget.Action();
-            if (closestBUTarget.actionBool)
-            {
-                powerLaser.setWidth(closestBUTarget.linkPrice);
-            }
-        }
-        if (closestTarget != null)
-        {
-            closestTarget.robot_energy.Action();
-        }
-        if (closestEnemyTarget != null)
-        {
-            //closestEnemyTarget.TakeDamage(1);
-            //powerLaser.setWidth(closestEnemyTarget.linkPrice);
-        }
-
-        if (closestBUTarget == null && closestTarget == null && closestEnemyTarget == null)
+        if (somethingHitted == true)
         {
             powerLaser.setWidth(1);
         }
