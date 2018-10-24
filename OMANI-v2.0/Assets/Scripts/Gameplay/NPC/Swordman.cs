@@ -6,6 +6,7 @@ public class Swordman : Robot
 {
     [SerializeField] GameObject Attack1Zone;
     [SerializeField] GameObject Attack2Zone;
+    [SerializeField] GameObject ContinuousAttackZone;
     void Awake()
     {
         boyType = "Swordsman";
@@ -26,5 +27,9 @@ public class Swordman : Robot
     {
         Attack2Zone.SetActive(true);
     }
-   
+    public void ContinuousAttack()
+    {
+        ContinuousAttackZone.SetActive(true);
+    }
+
 }

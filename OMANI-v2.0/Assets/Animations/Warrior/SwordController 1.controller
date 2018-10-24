@@ -202,6 +202,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggername: Cooldown
+--- !u!114 &114655079663873878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc89dcb13fc3a7546893dccad945e835, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggername: Attack
 --- !u!114 &114702874829606510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -442,7 +454,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.03706479
   m_TransitionOffset: 0
   m_ExitTime: 0.7761194
   m_HasExitTime: 0
@@ -598,9 +610,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.101160824
   m_TransitionOffset: 0
-  m_ExitTime: 0.60526323
+  m_ExitTime: 0.7727073
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1156,9 +1168,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.09154034
   m_TransitionOffset: 0
-  m_ExitTime: 0.85
+  m_ExitTime: 0.85000026
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1249,9 +1261,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.04900503
   m_TransitionOffset: 0
-  m_ExitTime: 0.76
+  m_ExitTime: 0.76000005
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1819,6 +1831,7 @@ AnimatorState:
   m_StateMachineBehaviours:
   - {fileID: 114295183481620556}
   - {fileID: 114058486237495586}
+  - {fileID: 114655079663873878}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
