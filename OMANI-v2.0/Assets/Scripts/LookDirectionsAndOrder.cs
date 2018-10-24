@@ -58,11 +58,11 @@ public class LookDirectionsAndOrder : MonoBehaviour
     void Awake()
     {
         commander = FindObjectOfType<Army>();
-        reclute = this.GetComponent<AudioSource>();
+        reclute = GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
         //pointerDirection = GetComponent<UI_PointerDirection>();
 
-        pointerOrder = this.transform.Find("OrderDirection").gameObject;
+        pointerOrder = transform.Find("OrderDirection").gameObject;
     }
     void Update()
     {
@@ -172,7 +172,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (pointerDirection.enabled)
         {
             pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position,
-                this.transform.position + (this.transform.forward * (viewRadius / 2)), 0.4f);
+                transform.position + (transform.forward * (viewRadius / 2)), 0.4f);
 
             //Just in case
             pointerDirection.gameObject.SetActive(true);
@@ -342,90 +342,93 @@ public class LookDirectionsAndOrder : MonoBehaviour
             //The boy will stop following you
             if (Input.GetKeyDown("joystick button 0") || Input.GetMouseButtonDown(2))
             {
-                commander.Order(selectedTypeList[selectedTypeInt], this.transform.position);
+                commander.Order(selectedTypeList[selectedTypeInt], transform.position);
             }
 
             #region Direct Order
             if (controllerLookModel == false)
             {
-                if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
+                if (!Input.GetKey("joystick button 6") && !Input.GetKey(KeyCode.LeftShift))
                 {
-                    orderCounter = 0;
-                }
-                if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1))
-                {
-                    orderCounter += Time.deltaTime;
-
-                    if (orderCounter > 0.75f)
+                    if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
                     {
+                        orderCounter = 0;
+                    }
+                    if (Input.GetKey("joystick button 5") || Input.GetMouseButton(1))
+                    {
+                        orderCounter += Time.deltaTime;
 
-                        //Checks if there is an objective for the order, if not, it goes to a place.
-                        if (closestBUTarget == null && closestEnemyTarget == null)
+                        if (orderCounter > 0.75f)
                         {
-                            Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
 
-                            // You can't order through walls.
-                            if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                            //Checks if there is an objective for the order, if not, it goes to a place.
+                            if (closestBUTarget == null && closestEnemyTarget == null)
                             {
-                                commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                                Debug.DrawRay(transform.position, transform.forward * viewRadius, Color.yellow, 5f);
+
+                                // You can't order through walls.
+                                if (Physics.Raycast(transform.position, transform.forward, out hit, viewRadius, obstacleMask))
+                                {
+                                    commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                                }
+                                else
+                                {
+                                    commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
+                                }
                             }
                             else
                             {
-                                commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
+                                if (closestBUTarget != null)
+                                {
+                                    commander.Attack(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
+                                }
+                                else if (closestEnemyTarget != null)
+                                {
+                                    commander.Attack(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
+                                }
                             }
-                        }
-                        else
-                        {
-                            if (closestBUTarget != null)
-                            {
-                                commander.Attack(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
-                            }
-                            else if (closestEnemyTarget != null)
-                            {
-                                commander.Attack(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
-                            }
-                        }
 
+                        }
                     }
-                }
-                if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
-                {
-                    //Normal order
-                    if (orderCounter < 0.2f)
+                    if (Input.GetKeyUp("joystick button 5") || Input.GetMouseButtonUp(1))
                     {
-                        //Checks if there is an objective for the order, if not, it goes to a place.
-                        if (closestBUTarget == null && closestEnemyTarget == null)
+                        //Normal order
+                        if (orderCounter < 0.2f)
                         {
-                            Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
-
-                            // You can't order through walls.
-                            if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                            //Checks if there is an objective for the order, if not, it goes to a place.
+                            if (closestBUTarget == null && closestEnemyTarget == null)
                             {
-                                commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+                                Debug.DrawRay(transform.position, transform.forward * viewRadius, Color.yellow, 5f);
 
+                                // You can't order through walls.
+                                if (Physics.Raycast(transform.position, transform.forward, out hit, viewRadius, obstacleMask))
+                                {
+                                    commander.Order(selectedTypeList[selectedTypeInt], hit.point);
+
+                                }
+                                else
+                                {
+                                    commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
+                                }
                             }
                             else
                             {
-                                commander.Order(selectedTypeList[selectedTypeInt], pointerDirection.transform.position);
-                            }
-                        }
-                        else
-                        {
-                            if (closestBUTarget != null)
-                            {
-                                commander.Attack(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
+                                if (closestBUTarget != null)
+                                {
+                                    commander.Attack(selectedTypeList[selectedTypeInt], closestBUTarget.direction);
 
+                                }
+                                else if (closestEnemyTarget != null)
+                                {
+                                    commander.Attack(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
+                                }
                             }
-                            else if (closestEnemyTarget != null)
-                            {
-                                commander.Attack(selectedTypeList[selectedTypeInt], closestEnemyTarget.gameObject);
-                            }
+
+
                         }
 
-
+                        orderInOrder = false;
                     }
-
-                    orderInOrder = false;
                 }
             }
 
@@ -441,10 +444,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
                     if (orderCounter > 0.75f)
                     {
-                        Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
+                        Debug.DrawRay(transform.position, transform.forward * viewRadius, Color.yellow, 5f);
 
                         // You can't order through walls.
-                        if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                        if (Physics.Raycast(transform.position, transform.forward, out hit, viewRadius, obstacleMask))
                         {
                             commander.Order(selectedTypeList[selectedTypeInt], hit.point);
                         }
@@ -461,10 +464,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     {
                         pointerDirection.Click();
 
-                        Debug.DrawRay(transform.position, this.transform.forward * viewRadius, Color.yellow, 5f);
+                        Debug.DrawRay(transform.position, transform.forward * viewRadius, Color.yellow, 5f);
 
                         // You can't order through walls.
-                        if (Physics.Raycast(transform.position, this.transform.forward, out hit, viewRadius, obstacleMask))
+                        if (Physics.Raycast(transform.position, transform.forward, out hit, viewRadius, obstacleMask))
                         {
                             commander.Order(selectedTypeList[selectedTypeInt], hit.point);
                         }
@@ -574,8 +577,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
                         //If the closestTarget is null he is the closest target.
                         // If the distance is smaller than the distance to the closestTarget.
                         if (closestTarget == null || dstToTarget < Vector3.Distance(miradaposition, target.position))
-
+                        {
                             closestTarget = colNPC;
+                        }
                     }
                 }
 
@@ -772,7 +776,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (_hrj != 0 || _vrj != 0)
             {
                 Vector3 tdirection = new Vector3(_hrj, 0, _vrj);
-                miradaposition = this.transform.position + (tdirection) * viewRadius / 2;
+                miradaposition = transform.position + (tdirection) * viewRadius / 2;
                 transform.LookAt(miradaposition);
 
                 playingOnController = true;
@@ -804,7 +808,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             transform.LookAt(miradaposition);
         }
 
-        this.transform.position = commander.transform.position;
+        transform.position = commander.transform.position;
 
     }
     public void LookAtWhileMoving(float _playerHrj, float _playerVrj)
@@ -814,7 +818,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (hrj == 0 && vrj == 0)
         {
             Vector3 tdirection = new Vector3(_playerHrj, 0, _playerVrj);
-            miradaposition = this.transform.position + (tdirection) * viewRadius / 2;
+            miradaposition = transform.position + (tdirection) * viewRadius / 2;
             transform.LookAt(miradaposition);
         }
     }
