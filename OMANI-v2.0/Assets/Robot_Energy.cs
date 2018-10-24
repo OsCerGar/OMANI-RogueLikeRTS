@@ -41,6 +41,13 @@ public class Robot_Energy : Interactible
         }
     }
 
+    public override void FullAction()
+    {
+        npc.powerPool = powers.reduceAsMuchPower(npc.maxpowerPool);
+        laserAudio.energyTransmisionSound(currentLinkPrice);
+    }
+
+
     public override void Update()
     {
         if (npc.powerPool >= npc.maxpowerPool)
@@ -51,31 +58,6 @@ public class Robot_Energy : Interactible
         {
             ready = false;
         }
-
-        //LOSE ENERGY
-        /*
-        if (!ready)
-        {
-            if (npc.getState() != "Follow")
-            {
-                if (Time.time - startTime > 3f)
-                {
-                    npc.reducePower(1);
-                }
-            }
-        }
-
-        else
-        {
-            if (npc.getState() != "Follow")
-            {
-                if (Time.time - startTime > 10f)
-                {
-                    npc.reducePower(1);
-                }
-            }
-        }
-        */
     }
 
     public override void ActionCompleted()
@@ -89,7 +71,6 @@ public class Robot_Energy : Interactible
 
     public override void ReducePower()
     {
-        Debug.Log("reducepower");
         npc.powerPool -= 1 * Time.unscaledDeltaTime;
     }
 }

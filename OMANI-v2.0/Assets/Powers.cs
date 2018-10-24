@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Powers : MonoBehaviour
 {
@@ -26,8 +24,8 @@ public class Powers : MonoBehaviour
     void Initializer()
     {
         ennuisMask = 1 << LayerMask.NameToLayer("Interactible");
-        slowMo = this.transform.GetComponent<PW_SlowMotion>();
-        hearthStone = this.transform.GetComponent<PW_Hearthstone>();
+        slowMo = transform.GetComponent<PW_SlowMotion>();
+        hearthStone = transform.GetComponent<PW_Hearthstone>();
         lookDirection = FindObjectOfType<LookDirectionsAndOrder>();
         powerManager = FindObjectOfType<PowerManager>();
         dash = FindObjectOfType<PW_Dash>();
@@ -62,13 +60,11 @@ public class Powers : MonoBehaviour
 
             if (Input.GetKeyDown("joystick button 7"))
             {
-                if (this.reducePower(bigLazerAmount))
-                {
-                    if (reducePowerNow(10))
-                    {   //Attack Beam
-                        lasers.EmitOffensiveLaser();
-                    }
+                if (reducePowerNow(3))
+                {   //Attack Beam
+                    lasers.EmitOffensiveLaser();
                 }
+
             }
         }
 
@@ -89,13 +85,11 @@ public class Powers : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                if (this.reducePower(bigLazerAmount))
-                {
-                    if (reducePowerNow(10))
-                    {   //Attack Beam
-                        lasers.EmitOffensiveLaser();
-                    }
+                if (reducePowerNow(3))
+                {   //Attack Beam
+                    lasers.EmitOffensiveLaser();
                 }
+
             }
         }
         #endregion
@@ -181,6 +175,23 @@ public class Powers : MonoBehaviour
         }
     }
 
+    public float reduceAsMuchPower(float amount)
+    {
+        float energyReduced;
+        if (powerPool - amount >= 0)
+        {
+            powerPool -= amount;
+            energyReduced = 10000;
+        }
+        else
+        {
+            energyReduced = powerPool;
+
+            powerPool -= powerPool;
+        }
+        return energyReduced;
+    }
+
     private void FixedUpdate()
     {
         FindEnnuis();
@@ -190,7 +201,7 @@ public class Powers : MonoBehaviour
     {
         if (powerPool < maxpowerPool)
         {
-            Collider[] targetsInViewRadius = Physics.OverlapSphere(this.transform.position, radius, ennuisMask);
+            Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, radius, ennuisMask);
             foreach (Collider col in targetsInViewRadius)
             {
                 if (col.tag == "Ennui")

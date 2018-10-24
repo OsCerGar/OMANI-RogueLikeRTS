@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Interactible : MonoBehaviour
 {
@@ -27,7 +25,7 @@ public class Interactible : MonoBehaviour
 
     public virtual void Initialize()
     {
-        myRigidBody = this.GetComponent<Rigidbody>();
+        myRigidBody = GetComponent<Rigidbody>();
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();
         laserAudio = FindObjectOfType<MetaAudioController>();
@@ -84,6 +82,12 @@ public class Interactible : MonoBehaviour
         {
             actionBool = false;
         }
+    }
+
+    public virtual void FullAction()
+    {
+        powerReduced = powers.reduceAsMuchPower(price);
+        laserAudio.energyTransmisionSound(currentLinkPrice);
     }
 
 
