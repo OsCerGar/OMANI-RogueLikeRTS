@@ -14,18 +14,11 @@ public class PW_SlowMotion : Power
     [SerializeField]
     PostProcessingProfile slowmo;
     PostProcessingProfile normal;
-    //CinemachinePostFX postFx;
 
     public override void Awake()
     {
         base.Awake();
-        //postFx = FindObjectOfType<CinemachinePostFX>();
-        /*
-        if (postFx != null)
-        {
-            normal = postFx.m_Profile;
-        }
-        */
+
         regularSpeed = player.speed;
     }
 
@@ -55,7 +48,6 @@ public class PW_SlowMotion : Power
             active = true;
             Time.timeScale = slowdownFactor;
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
-            //postFx.m_Profile = slowmo;
 
             // Player goes faster
             player.speed = 0.1f;
@@ -66,7 +58,6 @@ public class PW_SlowMotion : Power
         {
             // if already active becomes inactive and loads the regular postfx.
             active = false;
-            //postFx.m_Profile = normal;
             Time.fixedDeltaTime = 0.02F;
 
             // turns speed back

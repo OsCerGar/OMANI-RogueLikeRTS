@@ -431,7 +431,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     }
                 }
             }
-
             else
             {
                 if (Input.GetKeyDown("joystick button 5") || Input.GetMouseButtonDown(1))
