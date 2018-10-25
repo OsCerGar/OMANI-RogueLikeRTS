@@ -129,13 +129,14 @@ public class BU_Energy : BU_UniqueBuilding
             if (currentRepeaters.Count > 0)
             {
                 //disables nearby repeaters
-                currentRepeaters[currentRepeaters.Count - 1].closeRepeatersOnOff(false);
+                //currentRepeaters[currentRepeaters.Count - 1].closeRepeatersOnOff(false);
                 LaunchCableFromRepeater(_position);
                 currentRepeaters.Add(repeater);
             }
 
             else
             {
+                closeRepeatersNotAvailable();
                 currentRepeaters.Add(repeater);
                 LaunchCable(_position);
             }
@@ -143,7 +144,6 @@ public class BU_Energy : BU_UniqueBuilding
             buttons[usedEnergy].material.color = Color.yellow;
             usedEnergy++;
 
-            closeRepeatersNotAvailable();
 
             //if you don't have energy for more, doesnt make other repeaters Available
             if (currentRepeaters.Count == energy)

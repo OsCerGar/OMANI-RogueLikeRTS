@@ -504,6 +504,8 @@ public class Army : MonoBehaviour
                 }
                 break;
         }
+        Debug.Log("Attacked");
+
         setFormation();
 
     }

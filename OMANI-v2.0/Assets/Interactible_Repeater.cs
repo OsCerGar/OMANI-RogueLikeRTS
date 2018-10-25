@@ -83,6 +83,7 @@ public class Interactible_Repeater : Interactible
             {
                 if (energyBU.energyCheck() || energy > 0)
                 {
+                    //Only Lets you disable the last one.
                     if (energyBU.checkIfLastRepeater(this))
                     {
                         base.Action();
@@ -100,6 +101,19 @@ public class Interactible_Repeater : Interactible
             }
         }
     }
+
+    public override void FullAction()
+    {
+        if (energyBU.energyCheck() || energy > 0)
+        {
+            if (available && energy == 0)
+            {
+                powerReduced = powers.reduceAsMuchPower(price);
+                laserAudio.energyTransmisionSound(currentLinkPrice);
+            }
+        }
+    }
+
     public override void ActionCompleted()
     {
         if (energy < 1)
