@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class BU_Building_Action : Interactible
 {
@@ -10,21 +7,24 @@ public class BU_Building_Action : Interactible
     BU_UniqueBuilding parentResources;
     public bool readyToSpawn { get; set; }
     Animator animator;
-    AudioSource pilarmovement;
+    AudioSource pilarmovement, pilarReturned;
+    private float actionDone;
+    private bool firstTimepowerReduced0;
 
     // Use this for initialization
     public override void Start()
     {
         base.Start();
-        parentResources = this.transform.parent.GetComponent<BU_UniqueBuilding>();
+        parentResources = transform.parent.GetComponent<BU_UniqueBuilding>();
 
-        animator = this.GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
         linkPrice = 14;
         price = 75;
         finalLinkPrice = 65;
         currentLinkPrice = 0;
         t = 0.2f;
-        pilarmovement = this.transform.Find("Sounds").Find("PilarMovement").GetComponent<AudioSource>();
+        pilarmovement = transform.Find("Sounds").Find("PilarMovement").GetComponent<AudioSource>();
+        pilarReturned = transform.Find("Sounds").Find("PilarReturnedProgram").GetComponent<AudioSource>();
     }
 
     public void BuildingAction()
@@ -45,23 +45,41 @@ public class BU_Building_Action : Interactible
         {
             animator.Play("PilarDown", 0, powerReduced / price);
 
-            if (powerReduced == 0)
+            if (Time.time - actionDone > 0.1f)
             {
-                pilarmovement.volume = 0;
+                if (powerReduced > 1f)
+                {
+                    firstTimepowerReduced0 = true;
+                    pilarReturned.enabled = false;
+                    pilarmovement.volume = 0.07f;
+                    pilarmovement.pitch = 0.8f;
+                }
+                else
+                {
+                    if (firstTimepowerReduced0)
+                    {
+                        firstTimepowerReduced0 = false;
+                        pilarReturned.enabled = true;
+                    }
+                    pilarmovement.volume = 0f;
+                }
             }
-            else { pilarmovement.volume = 0.6f; } 
         }
-        else
-        {
-            pilarmovement.volume = 0;
-        }
+
     }
 
     public override void Action()
     {
         if (readyToSpawn)
         {
+            actionDone = Time.time;
+
             base.Action();
+
+            pilarmovement.pitch = 1f;
+
+            pilarmovement.volume = 0.5f;
+
         }
         else if (!animator.GetBool("Energy"))
         {

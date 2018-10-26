@@ -12,17 +12,19 @@ public class Interactible_Repeater : Interactible
     private readonly float stopTimeRepeater = 0;
     [HideInInspector]
     public float linkPriceOn, linkPriceOff, priceOn, priceOff;
-
+    private float actionDone;
     //CitySystem
     public List<Interactible_Repeater> closeRepeaters;
     [SerializeField]
     private bool available;
     private GameObject repeaterUI;
+    private AudioSource RepeaterLoop;
 
     private void Initializer()
     {
         energyBU = transform.root.GetComponentInChildren<BU_Energy>();
         animator = GetComponent<Animator>();
+        RepeaterLoop = transform.Find("Sounds").Find("UpDown").GetComponent<AudioSource>();
         if (transform.Find("UI") != null)
         {
             repeaterUI = transform.Find("UI").gameObject;
@@ -71,6 +73,19 @@ public class Interactible_Repeater : Interactible
         if (animator.GetBool("Ready") && powerReduced < price && energy < 1)
         {
             animator.Play("RepeaterUp", 0, powerReduced / price);
+
+            if (Time.time - actionDone > 0.1f)
+            {
+                if (powerReduced > 1f)
+                {
+                    RepeaterLoop.volume = 0.05f;
+                    RepeaterLoop.pitch = 0.6f;
+                }
+                else
+                {
+                    RepeaterLoop.volume = 0f;
+                }
+            }
         }
 
     }
@@ -83,21 +98,31 @@ public class Interactible_Repeater : Interactible
             {
                 if (energyBU.energyCheck() || energy > 0)
                 {
+                    actionDone = Time.time;
                     //Only Lets you disable the last one.
                     if (energyBU.checkIfLastRepeater(this))
                     {
                         base.Action();
+                        RepeaterLoop.pitch = 1f;
+
+                        RepeaterLoop.volume = 0.5f;
+
                     }
 
                     else if (available && energy == 0)
                     {
                         base.Action();
+                        RepeaterLoop.pitch = 1f;
+
+                        RepeaterLoop.volume = 0.5f;
                     }
                 }
             }
             else
             {
                 base.Action();
+                RepeaterLoop.volume = 0.3f;
+
             }
         }
     }
@@ -116,8 +141,10 @@ public class Interactible_Repeater : Interactible
 
     public override void ActionCompleted()
     {
+        RepeaterLoop.volume = 0;
         if (energy < 1)
         {
+
             energy = 1;
             animator.SetBool("Energy", true);
             animator.SetBool("Ready", false);
