@@ -23,8 +23,6 @@ public class NPC : MonoBehaviour
     [HideInInspector] public float sumAmount, lastLife;
     [HideInInspector] public int lifeQuarter, lifeHalf, lifeQuarterAndHalf;
 
-
-
     //Required for run animations synced with NevMesh
     [HideInInspector]
     public Animator anim;
@@ -238,7 +236,7 @@ public class NPC : MonoBehaviour
                 anim.SetBool("KnockBack", false);
                 disabledCountdown = 0;
             }
-        } 
+        }
         /*
         GameObject enem = AI_GetEnemy();
         if (enem != null)
@@ -265,6 +263,7 @@ public class NPC : MonoBehaviour
 
     private void EnergyLifeCalc()
     {
+        
         #region ReducePowerPool
 
         if (powerPool < quarter)
@@ -284,51 +283,7 @@ public class NPC : MonoBehaviour
             powerPool = Mathf.Clamp(powerPool, quarterAndHalf, maxpowerPool);
         }
         #endregion
-        #region IncreaseLifePool
-
-        if (life < lifeQuarter)
-        {
-            sumAmount += (increaseAmount * Time.deltaTime);
-
-            if (sumAmount > 1)
-            {
-                life = Mathf.Clamp(life + 1, 0, lifeQuarter);
-                sumAmount = 0;
-            }
-        }
-        else if (life < lifeHalf)
-        {
-            sumAmount += (increaseAmount * Time.deltaTime);
-
-            if (sumAmount > 1)
-            {
-                life = Mathf.Clamp(life + 1, 0, lifeHalf);
-                sumAmount = 0;
-
-            }
-        }
-        else if (life < lifeQuarterAndHalf)
-        {
-            sumAmount += (increaseAmount * Time.deltaTime);
-
-            if (sumAmount > 1)
-            {
-                life = Mathf.Clamp(life + 1, 0, lifeQuarterAndHalf);
-                sumAmount = 0;
-
-            }
-        }
-        else if (life < startLife || life > startLife)
-        {
-            sumAmount += (increaseAmount * Time.deltaTime);
-
-            if (sumAmount > 1)
-            {
-                life = Mathf.Clamp(life + 1, 0, startLife);
-                sumAmount = 0;
-            }
-        }
-        #endregion
+        
     }
 
     //take damage with knockBack
@@ -446,7 +401,6 @@ public class NPC : MonoBehaviour
         Attackzone.SetActive(true);
         reducePowerNow(maxpowerPool);
         enableTree("CoolDown");
-
     }
 
     public bool reducePower(float amount)
@@ -493,7 +447,7 @@ public class NPC : MonoBehaviour
     }
 
 
-    IEnumerator gotHit()
+    public IEnumerator gotHit()
     {
         if (hitEffects.Length > 0)
         {

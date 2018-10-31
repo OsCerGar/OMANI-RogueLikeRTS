@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class NPC_UI : MonoBehaviour
@@ -11,25 +9,27 @@ public class NPC_UI : MonoBehaviour
     float lastPowerPool, lastLife, powerTimer;
     bool powerClockHidden, lifeClockHidden;
     public Quaternion fixedRotation;
-    
+
     // Use this for initialization
     void Start()
     {
-        foreach (Image ui_clock in this.transform.GetComponentsInChildren<Image>())
+        foreach (Image ui_clock in transform.GetComponentsInChildren<Image>())
         {
             if (ui_clock.name == "PowerClock")
             {
                 Image realClock = ui_clock.transform.GetChild(0).GetComponent<Image>();
                 powerClock = realClock;
             }
+
             if (ui_clock.name == "LifeClock")
             {
                 Image realClock = ui_clock.transform.GetChild(0).GetComponent<Image>();
                 lifeClock = realClock;
+                fixedRotation = lifeClock.transform.rotation;
             }
+
         }
-        fixedRotation = lifeClock.transform.rotation;
-        npc = this.transform.GetComponentInParent<NPC>();
+        npc = transform.GetComponentInParent<NPC>();
     }
 
     // Update is called once per frame
@@ -64,27 +64,29 @@ public class NPC_UI : MonoBehaviour
             }
         }
         */
-        
-        if (lastLife != npc.life)
+        if (lifeClock != null)
         {
-            //lifeClockHidden = false;
-            //lifeClock.enabled = true;
-            lifeClock.fillAmount = ((float)npc.life / (float)npc.startLife);
-            lastLife = npc.life;
-            //Restores rotation
-        }
-        lifeClock.transform.rotation = fixedRotation;
-
-        /*
-        else
-        {
-            if (!lifeClockHidden)
+            if (lastLife != npc.life)
             {
-                lifeClock.enabled = false;
+                //lifeClockHidden = false;
+                //lifeClock.enabled = true;
+                lifeClock.fillAmount = ((float)npc.life / (float)npc.startLife);
+                lastLife = npc.life;
+                //Restores rotation
+                lifeClock.transform.rotation = fixedRotation;
 
-                lifeClockHidden = true;
+            }
+            else
+            {
+                if (!lifeClockHidden)
+                {
+                    lifeClock.enabled = false;
+
+                    lifeClockHidden = true;
+                }
             }
         }
-        */
     }
 }
+
+

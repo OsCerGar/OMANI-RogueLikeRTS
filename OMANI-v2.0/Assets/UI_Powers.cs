@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_Powers : MonoBehaviour
@@ -17,7 +15,7 @@ public class UI_Powers : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        foreach (Image ui_clock in this.transform.GetComponentsInChildren<Image>())
+        foreach (Image ui_clock in transform.GetComponentsInChildren<Image>())
         {
             if (ui_clock.name == "PowerClock")
             {
@@ -26,13 +24,13 @@ public class UI_Powers : MonoBehaviour
             }
             if (ui_clock.name == "LifeClock")
             {
-                Image realClock = ui_clock.transform.GetChild(0).GetComponent<Image>();
-                lifeClock = realClock;
+                //Image realClock = ui_clock.transform.GetChild(0).GetComponent<Image>();
+                //lifeClock = realClock;
             }
         }
         fixedRotation = powerClock.transform.rotation;
-        player = this.transform.root.GetComponentInChildren<Player>();
-        powers = this.transform.root.GetComponentInChildren<Powers>();
+        player = transform.root.GetComponentInChildren<Player>();
+        powers = transform.root.GetComponentInChildren<Powers>();
         mainCamera = Camera.main;
     }
 
@@ -58,6 +56,7 @@ public class UI_Powers : MonoBehaviour
                 powerClockHidden = true;
             }
         }
+        /*
         if (lastLife != player.life)
         {
             lifeClockHidden = false;
@@ -77,5 +76,6 @@ public class UI_Powers : MonoBehaviour
                 lifeClockHidden = true;
             }
         }
+        */
     }
 }

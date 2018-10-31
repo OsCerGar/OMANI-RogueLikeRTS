@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using BehaviorDesigner.Runtime;
+﻿using UnityEngine;
 
 public class Robot : NPC
 {
@@ -28,7 +25,7 @@ public class Robot : NPC
     public override void Start()
     {
         base.Start();
-        robot_energy = this.transform.GetComponent<Robot_Energy>();
+        robot_energy = transform.GetComponent<Robot_Energy>();
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();
         dissolveEffect = GetComponentInChildren<DissolveEffectController>();
@@ -40,11 +37,37 @@ public class Robot : NPC
         //DisablesCircle when given an order.
         if (state != "Alive")
         {
-            Debug.Log("Dead");
             GUI_Script.DisableCircle();
         }
 
     }
+
+    //Simple way to take damage
+    public override void TakeDamage(int damage)
+    {
+
+        StartCoroutine(gotHit());
+
+        if (state == "Alive")
+        {
+            if (anim != null)
+            {
+                anim.SetTrigger("Hit");
+            }
+            if (powerPool > 0)
+            {
+                reducePowerNow(maxpowerPool);
+                enableTree("CoolDown");
+                Fired();
+            }
+            else
+            {
+                Die();
+                state = "Dead";
+            }
+        }
+    }
+
     public override void Die()
     {
         base.Die();
@@ -57,9 +80,9 @@ public class Robot : NPC
         Nav.updateRotation = true;
         life = startLife;
         //this.gameObject.GetComponent<Collider>().enabled = true;
-        this.gameObject.GetComponent<Collider>().isTrigger = false;
-        this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        this.gameObject.layer = peopl;
+        gameObject.GetComponent<Collider>().isTrigger = false;
+        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        gameObject.layer = peopl;
         state = "Alive";
         //cambiar tag y layer
     }
@@ -69,13 +92,18 @@ public class Robot : NPC
         commander.Reclute(this);
     }
 
+    public void Fired()
+    {
+        commander.RemoveFromList(this);
+    }
+
     private void CreateLink()
     {
         //CreatesLink
-        linky = powerManager.CreateLink(this.transform, powers).GetComponent<Link>();
+        linky = powerManager.CreateLink(transform, powers).GetComponent<Link>();
 
         linky.power = powers.gameObject;
-        linky.interactible = this.transform.gameObject;
+        linky.interactible = transform.gameObject;
         link = true;
     }
 
@@ -85,6 +113,6 @@ public class Robot : NPC
         link = false;
         powerReduced = 0;
     }
-    
+
 
 }
