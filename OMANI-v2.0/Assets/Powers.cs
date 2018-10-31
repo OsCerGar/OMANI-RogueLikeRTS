@@ -69,21 +69,22 @@ public class Powers : MonoBehaviour
         }
 
         //Kb&M
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            lasers.StartEffects();
+        }
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+
+            //Energy Beam
+            lasers.EmitLaser();
+        }
+
+        //Attack mode
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            //Attack mode
+
             if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                lasers.StartEffects();
-            }
-            if (Input.GetKey(KeyCode.Mouse0))
-            {
-
-                //Energy Beam
-                lasers.EmitLaser();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 if (reducePowerNow(3))
                 {   //Attack Beam
