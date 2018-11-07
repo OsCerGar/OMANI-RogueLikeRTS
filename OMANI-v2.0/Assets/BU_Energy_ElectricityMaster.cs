@@ -35,59 +35,57 @@ public class BU_Energy_ElectricityMaster : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(5f);
             // execute block of code here
-            totalDistrictEnergy = 0;
-            switch (i)
-            {
-                case 0:
-                    totalDistrictEnergy += EnergyDistrict[0].returnEnergyFull();
-                    //Secondary conexions
-                    totalDistrictEnergy += EnergyDistrict[2].returnEnergyWithoutMain();
-
-                    CityDistricts[i].totalEnergyUpdate(totalDistrictEnergy);
-
-                    i++;
-
-                    break;
-                case 1:
-                    totalDistrictEnergy += EnergyDistrict[1].returnEnergyFull();
-
-                    //Secondary conexions
-                    totalDistrictEnergy += EnergyDistrict[0].returnEnergyWithoutMain();
-
-                    CityDistricts[i].totalEnergyUpdate(totalDistrictEnergy);
-
-                    i++;
-
-                    break;
-                case 2:
-                    totalDistrictEnergy += EnergyDistrict[2].returnEnergyFull();
-                    //Secondary conexions
-                    totalDistrictEnergy += EnergyDistrict[3].returnEnergyWithoutMain();
-
-                    CityDistricts[i].totalEnergyUpdate(totalDistrictEnergy);
-
-                    i++;
-
-                    break;
-                case 3:
-                    totalDistrictEnergy += EnergyDistrict[3].returnEnergyFull();
-                    //Secondary conexions
-                    totalDistrictEnergy += EnergyDistrict[1].returnEnergyWithoutMain();
-
-                    CityDistricts[i].totalEnergyUpdate(totalDistrictEnergy);
-
-                    i++;
-
-                    break;
-
-                default:
-                    //resets it
-                    i = 0;
-                    break;
-            }
+            TotalDistrictEnergy1();
+            TotalDistrictEnergy2();
+            TotalDistrictEnergy3();
+            TotalDistrictEnergy4();
         }
+
     }
 
+    private void TotalDistrictEnergy4()
+    {
+        totalDistrictEnergy += EnergyDistrict[3].returnEnergyFull();
+        //Secondary conexions
+        totalDistrictEnergy += EnergyDistrict[1].returnEnergyWithoutMain();
+
+        CityDistricts[3].totalEnergyUpdate(totalDistrictEnergy);
+        totalDistrictEnergy = 0;
+
+    }
+
+    private void TotalDistrictEnergy3()
+    {
+        totalDistrictEnergy += EnergyDistrict[2].returnEnergyFull();
+        //Secondary conexions
+        totalDistrictEnergy += EnergyDistrict[3].returnEnergyWithoutMain();
+
+        CityDistricts[2].totalEnergyUpdate(totalDistrictEnergy);
+        totalDistrictEnergy = 0;
+
+    }
+
+    private void TotalDistrictEnergy2()
+    {
+        totalDistrictEnergy += EnergyDistrict[1].returnEnergyFull();
+
+        //Secondary conexions
+        totalDistrictEnergy += EnergyDistrict[0].returnEnergyWithoutMain();
+
+        CityDistricts[1].totalEnergyUpdate(totalDistrictEnergy);
+        totalDistrictEnergy = 0;
+
+    }
+
+    private void TotalDistrictEnergy1()
+    {
+        totalDistrictEnergy += EnergyDistrict[0].returnEnergyFull();
+        //Secondary conexions
+        totalDistrictEnergy += EnergyDistrict[2].returnEnergyWithoutMain();
+
+        CityDistricts[0].totalEnergyUpdate(totalDistrictEnergy);
+        totalDistrictEnergy = 0;
+    }
 }

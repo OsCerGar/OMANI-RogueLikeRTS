@@ -163,6 +163,7 @@ public class Interactible_Repeater : Interactible
 
         startTimeRepeater = Time.time;
     }
+
     private void StopWorking()
     {
         energyBU.pullBackCable(top.transform);
@@ -198,5 +199,15 @@ public class Interactible_Repeater : Interactible
             if (_value) { repeaterUI.SetActive(true); }
             else { repeaterUI.SetActive(false); }
         }
+    }
+
+    public int getEnergy()
+    {
+        return energy;
+    }
+    //Ennu animation 
+    public void EnnuAnimation()
+    {
+        animator.SetTrigger("SendEnergy");
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BU_District_Animations : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class BU_District_Animations : MonoBehaviour
 
     public List<Light> LampLights = new List<Light>();
     private List<MeshRenderer> GroundLights = new List<MeshRenderer>();
+    [SerializeField]
+    private BU_Energy_CityDistricts cityDistrict;
+    private Text points;
 
     // Use this for initialization
     void Start()
@@ -21,14 +25,25 @@ public class BU_District_Animations : MonoBehaviour
         {
             GroundLights.Add(groundLight.GetComponent<MeshRenderer>());
         }
+        points = transform.Find("Canvas").GetComponentInChildren<Text>();
 
+        cityDistrict = transform.GetComponentInParent<BU_Energy_CityDistricts>();
         energyLevel(0);
     }
 
+    public void repeaterAnimation()
+    {
+        foreach (Interactible_Repeater repeater in cityDistrict.energyDistrict.returnRepeatersEnergy())
+        {
+            if (repeater.energy > 0)
+            {
+                repeater.EnnuAnimation();
+            }
+        }
+    }
 
     public void energyLevel(int level)
     {
-
         switch (level)
         {
             case 0:
@@ -36,7 +51,6 @@ public class BU_District_Animations : MonoBehaviour
                 break;
             case 1:
                 LampLevels(level);
-
                 break;
             case 2:
                 LampLevels(level);
@@ -45,7 +59,6 @@ public class BU_District_Animations : MonoBehaviour
                 LampLevels(level);
                 break;
         }
-
     }
 
     private void LampLevels(int level)
@@ -96,5 +109,11 @@ public class BU_District_Animations : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void totalEnnus(int _totalEnnus)
+    {
+        Debug.Log(_totalEnnus);
+        points.text = _totalEnnus.ToString();
     }
 }

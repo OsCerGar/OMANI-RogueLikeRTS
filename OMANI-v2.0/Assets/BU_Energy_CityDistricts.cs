@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class BU_Energy_CityDistricts : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class BU_Energy_CityDistricts : MonoBehaviour
     private int totalEnergy;
 
     private BU_District_Animations animationsManager;
+    public BU_Energy_District energyDistrict;
     // Use this for initialization
     void Start()
     {
@@ -21,11 +23,29 @@ public class BU_Energy_CityDistricts : MonoBehaviour
     {
         return totalEnergy;
     }
+
+    public void addEnergyCityDistrict(int _energy)
+    {
+        totalEnergy += _energy;
+    }
     public void totalEnergyUpdate(int _totalEnergy)
     {
-        totalEnergy = _totalEnergy;
-        building.totalEnergy = _totalEnergy;
+        //building.totalEnergy = _totalEnergy;
+        //animationsManager.energyLevel(_totalEnergy);
+        animationsManager.repeaterAnimation();
 
-        animationsManager.energyLevel(_totalEnergy);
+        StartCoroutine("AddEnergy", _totalEnergy);
+
     }
+
+    IEnumerator AddEnergy(int _energy)
+    {
+        yield return new WaitForSeconds(2.35f);
+
+        addEnergyCityDistrict(_energy);
+        animationsManager.totalEnnus(totalEnergy);
+
+    }
+
+
 }
