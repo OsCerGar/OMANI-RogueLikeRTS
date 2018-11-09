@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using EZObjectPools;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class BU_Building_Ennui : BU_UniqueBuilding
@@ -11,8 +8,7 @@ public class BU_Building_Ennui : BU_UniqueBuilding
     Transform EnnuiSpawn;
 
     private bool ennuisReady;
-    private float timeToSpawnEnnui = 120;
-    private float ennuisToSpawn = 20;
+    private float ennuisToSpawn = 5;
     private float timeToSpawnEnnuiCounter, biggestClockValue;
     Image ennuiClocks;
 
@@ -20,9 +16,9 @@ public class BU_Building_Ennui : BU_UniqueBuilding
     {
         base.Start();
         EnnuiPool = FindObjectOfType<EnnuiSpawnerManager>();
-        EnnuiSpawn = this.transform.Find("EnnuiSpawner");
+        EnnuiSpawn = transform.Find("EnnuiSpawner");
 
-        foreach (Image clock in this.transform.Find("BU_UI/Production_Clocks").GetComponentsInChildren<Image>())
+        foreach (Image clock in transform.Find("BU_UI/Production_Clocks").GetComponentsInChildren<Image>())
         {
             if (clock.name == "Clock")
             {
@@ -30,23 +26,7 @@ public class BU_Building_Ennui : BU_UniqueBuilding
             }
         }
 
-        requiredEnergy = 1;
-    }
-
-    public void Update()
-    {
-        if (totalEnergy >= requiredEnergy)
-        {
-            EnnuiMaker();
-        }
-        if (timeToSpawnEnnuiCounter > 0)
-        {
-            buildingActionMesh.readyToSpawn = true;
-        }
-        else
-        {
-            buildingActionMesh.readyToSpawn = false;
-        }
+        requiredEnergy = 25;
     }
 
     public override void BuildingAction()
@@ -57,51 +37,9 @@ public class BU_Building_Ennui : BU_UniqueBuilding
 
     private void SpitEnnuis()
     {
-        int ennuisToSpawnFinal = Mathf.RoundToInt((timeToSpawnEnnuiCounter / timeToSpawnEnnui) * ennuisToSpawn);
-        timeToSpawnEnnuiCounter = 0;
-        ennuisReady = false;
-        for (int i = 0; i < ennuisToSpawnFinal; i++)
+        for (int i = 0; i < ennuisToSpawn; i++)
         {
             EnnuiPool.SpawnEnnuiParabola(EnnuiSpawn);
         }
-    }
-
-    private void EnnuiMaker()
-    {
-        //Checks energy up to 3 to see how much it creates. Sends info to the clocks with @WorkerClocks.
-        if (totalEnergy > 0)
-        {
-            //Used to see how many ennuis are going to be build.
-            int calcTotalEnergy = totalEnergy;
-
-            if (calcTotalEnergy > 0 && ennuisReady == false)
-            {
-                for (int i = 0; i < calcTotalEnergy; i++)
-                {
-                    if (timeToSpawnEnnuiCounter < timeToSpawnEnnui)
-                    {
-                        timeToSpawnEnnuiCounter += Time.deltaTime;
-
-                        EnnuiClocks(timeToSpawnEnnuiCounter / timeToSpawnEnnui, Color.green);
-                    }
-                    if (timeToSpawnEnnuiCounter > timeToSpawnEnnui)
-                    {
-                        ennuisReady = true;
-                        EnnuiClocks(timeToSpawnEnnuiCounter / timeToSpawnEnnui, Color.cyan);
-                    }
-                }
-
-                calcTotalEnergy -= 1;
-            }
-
-        }
-
-    }
-
-    private void EnnuiClocks(float _fillAmount, Color _color)
-    {
-
-        ennuiClocks.fillAmount = _fillAmount;
-        ennuiClocks.color = _color;
     }
 }

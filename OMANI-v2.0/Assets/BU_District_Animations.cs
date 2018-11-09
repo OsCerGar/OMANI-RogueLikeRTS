@@ -113,7 +113,6 @@ public class BU_District_Animations : MonoBehaviour
 
     public void totalEnnus(int _totalEnnus)
     {
-        Debug.Log(_totalEnnus);
         points.text = _totalEnnus.ToString();
     }
 }

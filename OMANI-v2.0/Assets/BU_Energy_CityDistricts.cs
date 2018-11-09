@@ -23,6 +23,10 @@ public class BU_Energy_CityDistricts : MonoBehaviour
     {
         return totalEnergy;
     }
+    public void removeEnergy(int _quantity)
+    {
+        totalEnergy -= _quantity;
+    }
 
     public void addEnergyCityDistrict(int _energy)
     {
@@ -32,10 +36,13 @@ public class BU_Energy_CityDistricts : MonoBehaviour
     {
         //building.totalEnergy = _totalEnergy;
         //animationsManager.energyLevel(_totalEnergy);
+
         animationsManager.repeaterAnimation();
-
         StartCoroutine("AddEnergy", _totalEnergy);
-
+    }
+    public void energyUpdateReduced()
+    {
+        animationsManager.totalEnnus(totalEnergy);
     }
 
     IEnumerator AddEnergy(int _energy)

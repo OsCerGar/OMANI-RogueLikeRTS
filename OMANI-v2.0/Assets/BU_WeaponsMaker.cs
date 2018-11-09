@@ -1,13 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BU_WeaponsMaker : BU_UniqueBuilding
 {
-    private float timeToSpawnWeapons = 45, desiredRotation;
-    private float[] timeToSpawnWorkerCounter = new float[3];
-    List<Image> weaponsClock = new List<Image>();
 
     private List<BU_Cabin> weaponsCabins = new List<BU_Cabin>();
 
@@ -15,7 +10,6 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
     [SerializeField]
     private GameObject weapons;
     private GameObject spinningStructure;
-    float biggestClockValue;
 
     BU_WeaponsMaker_Animation animator;
 
@@ -23,34 +17,21 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
     public override void Start()
     {
         base.Start();
-        animator = this.transform.Find("Animations").GetComponent<BU_WeaponsMaker_Animation>();
+        animator = transform.Find("Animations").GetComponent<BU_WeaponsMaker_Animation>();
 
-        buildingActionMesh = this.transform.GetComponentInChildren<BU_Building_Action>();
+        buildingActionMesh = transform.GetComponentInChildren<BU_Building_Action>();
 
-        foreach (BU_Cabin child in this.transform.Find("Cabins").gameObject.GetComponentsInChildren<BU_Cabin>())
+        foreach (BU_Cabin child in transform.Find("Cabins").gameObject.GetComponentsInChildren<BU_Cabin>())
         {
             weaponsCabins.Add(child);
         }
 
-        foreach (Image clock in this.transform.Find("BU_UI/Production_Clocks").GetComponentsInChildren<Image>())
-        {
-            if (clock.name == "Clock")
-            {
-                weaponsClock.Add(clock);
-            }
-        }
-
-        requiredEnergy = 1;
+        requiredEnergy = 25;
     }
 
     // Update is called once per frame
     public void Update()
     {
-        if (totalEnergy >= requiredEnergy)
-        {
-            weaponsMaker();
-        }
-
         for (int i = 0; i < 3; i++)
         {
             if (weaponsCabins[i].workerInside)
@@ -68,6 +49,8 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
             buildingActionMesh.readyToSpawn = false;
         }
 
+        if (buildingDistrict.totalEnergyReturn() > requiredEnergy) { weaponsMaker(); }
+
     }
 
     public void LateUpdate()
@@ -84,31 +67,7 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
     //Makes Workers
     private void weaponsMaker()
     {
-        //Checks energy up to 3 to see how much it creates. Sends info to the clocks with @WorkerClocks.
-        if (totalEnergy > 0)
-        {
-            //Used to see how many workers are going to be build.
-            int calcTotalEnergy = totalEnergy;
-
-            for (int i = 0; i < weaponsCabins.Count; i++)
-            {
-                if (calcTotalEnergy > 0 && weaponsCabins[i].ready == false)
-                {
-                    if (timeToSpawnWorkerCounter[i] < timeToSpawnWeapons)
-                    {
-                        timeToSpawnWorkerCounter[i] += Time.deltaTime;
-
-                        WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWeapons, i, Color.green);
-                    }
-                    if (timeToSpawnWorkerCounter[i] > timeToSpawnWeapons)
-                    {
-                        weaponsCabins[i].CabinReady();
-                        WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWeapons, i, Color.cyan);
-                    }
-                    calcTotalEnergy -= 1;
-                }
-            }
-        }
+        weaponsCabins[0].CabinReady();
     }
 
     public void ShowWeapons()
@@ -117,30 +76,10 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
         {
             if (weaponsCabins[i].workerInside)
             {
-                weaponsCabins[i].TurnWorker();
-                timeToSpawnWorkerCounter[i] = 0;
+                weaponsCabins[0].TurnWorker();
                 atleastOneWorkerInside = false;
                 //restart
-                biggestClockValue = 0;
-                WorkerClocks(timeToSpawnWorkerCounter[i] / timeToSpawnWeapons, i, Color.green);
             }
         }
-    }
-
-    private float biggestClock()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            if (timeToSpawnWorkerCounter[i] / timeToSpawnWeapons > biggestClockValue) { biggestClockValue = timeToSpawnWorkerCounter[i] / timeToSpawnWeapons; }
-        }
-        return biggestClockValue;
-    }
-
-    private void WorkerClocks(float _fillAmount, int _clock, Color _color)
-    {
-
-        weaponsClock[_clock].fillAmount = _fillAmount;
-        weaponsClock[_clock].color = _color;
-
     }
 }

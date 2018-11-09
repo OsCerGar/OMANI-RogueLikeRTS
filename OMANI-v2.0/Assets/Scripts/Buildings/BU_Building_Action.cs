@@ -30,6 +30,7 @@ public class BU_Building_Action : Interactible
     public void BuildingAction()
     {
         parentResources.BuildingAction();
+
     }
 
     // Update is called once per frame
@@ -70,6 +71,15 @@ public class BU_Building_Action : Interactible
 
     public override void Action()
     {
+        if (parentResources.buildingDistrict.totalEnergyReturn() > parentResources.requiredEnergy)
+        {
+            readyToSpawn = true;
+        }
+        else
+        {
+            readyToSpawn = false;
+        }
+
         if (readyToSpawn)
         {
             actionDone = Time.time;
@@ -85,12 +95,14 @@ public class BU_Building_Action : Interactible
         {
             animator.SetTrigger("NotReady");
         }
+
     }
 
     public override void ActionCompleted()
     {
         BuildingAction();
-
+        parentResources.buildingDistrict.removeEnergy(parentResources.requiredEnergy);
+        parentResources.buildingDistrict.energyUpdateReduced();
         base.ActionCompleted();
     }
 
