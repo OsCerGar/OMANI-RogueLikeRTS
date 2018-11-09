@@ -11,6 +11,7 @@ public class Robot : NPC
     public Robot_Energy robot_energy;
     [SerializeField]
     private ParticleSystem SparkEffect;
+    private WorkerSM workerSM;
 
     public void Sparks()
     {
@@ -30,7 +31,16 @@ public class Robot : NPC
         powers = FindObjectOfType<Powers>();
         dissolveEffect = GetComponentInChildren<DissolveEffectController>();
         commander = FindObjectOfType<Army>();
+        workerSM = GetComponentInChildren<WorkerSM>();
+
     }
+
+    public override void AttackHit()
+    {
+        base.AttackHit();
+        workerSM.DamageDealt();
+    }
+
     public override void Update()
     {
         base.Update();
@@ -47,6 +57,7 @@ public class Robot : NPC
     {
 
         StartCoroutine(gotHit());
+        workerSM.DamageRecieved();
 
         if (state == "Alive")
         {

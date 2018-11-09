@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Worker : Robot {
+public class Worker : Robot
+{
     public GameObject Scrap;
     [SerializeField]
     private ParticleSystem TrailEffect;
@@ -43,5 +42,5 @@ public class Worker : Robot {
         anim.SetTrigger("AttackCollision");
     }
 
-    
+
 }

@@ -1,18 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Robot_Energy : Interactible
 {
     [SerializeField]
     public bool ready { get; set; }
     public NPC npc;
+    WorkerSM workerSM;
 
     public override void Start()
     {
         base.Start();
         npc = GetComponent<NPC>();
-
+        workerSM = GetComponentInChildren<WorkerSM>();
         price = 75;
         linkPrice = 2;
         finalLinkPrice = 7;
@@ -52,7 +51,10 @@ public class Robot_Energy : Interactible
     {
         if (npc.powerPool >= npc.maxpowerPool)
         {
-            ActionCompleted();
+            if (!ready)
+            {
+                ActionCompleted();
+            }
         }
         else
         {
@@ -62,11 +64,14 @@ public class Robot_Energy : Interactible
 
     public override void ActionCompleted()
     {
+        workerSM.selectionRobot();
+
         startTime = Time.time;
         ready = true;
         currentLinkPrice = 0;
         t = 0.2f;
 
+        //Plays the selection Sound
     }
 
     public override void ReducePower()
