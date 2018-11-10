@@ -20,7 +20,6 @@ public class UpgradedPower : Power
         else if (interactible = other.GetComponent<Interactible>())
         {
             interactible.FullAction();
-
         }
     }
 }

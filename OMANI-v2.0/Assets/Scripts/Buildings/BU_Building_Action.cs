@@ -41,34 +41,73 @@ public class BU_Building_Action : Interactible
 
     public override void LateUpdate()
     {
-        base.LateUpdate();
-        if (!animator.GetBool("Energy") && powerReduced < price)
+        if (!fullActioned)
         {
-            animator.Play("PilarDown", 0, powerReduced / price);
-
-            if (Time.time - actionDone > 0.1f)
+            if (!animator.GetBool("Energy") && powerReduced < price)
             {
-                if (powerReduced > 1f)
+                animator.Play("PilarDown", 0, powerReduced / price);
+
+                if (Time.time - actionDone > 0.1f)
                 {
-                    firstTimepowerReduced0 = true;
-                    pilarReturned.enabled = false;
-                    pilarmovement.volume = 0.07f;
-                    pilarmovement.pitch = 0.8f;
-                }
-                else
-                {
-                    if (firstTimepowerReduced0)
+                    if (powerReduced > 1f)
                     {
-                        firstTimepowerReduced0 = false;
-                        pilarReturned.enabled = true;
+                        firstTimepowerReduced0 = true;
+                        pilarReturned.enabled = false;
+                        pilarmovement.volume = 0.07f;
+                        pilarmovement.pitch = 0.8f;
                     }
-                    pilarmovement.volume = 0f;
+                    else
+                    {
+                        if (firstTimepowerReduced0)
+                        {
+                            firstTimepowerReduced0 = false;
+                            pilarReturned.enabled = true;
+                        }
+                        pilarmovement.volume = 0f;
+                    }
                 }
+                base.LateUpdate();
             }
+        }
+        else
+        {
+            //If the animation is almost finished.
+            if (latestFullActionPowerReduced > 0.95f)
+            {
+                base.LateUpdate();
+
+                fullActioned = false;
+            }
+
+            latestFullActionPowerReduced = Mathf.Lerp(latestFullActionPowerReduced, 1, 0.08f);
+            animator.Play("PilarDown", 0, latestFullActionPowerReduced);
         }
 
     }
 
+    public override void FullAction()
+    {
+        if (parentResources.buildingDistrict.totalEnergyReturn() > parentResources.requiredEnergy)
+        {
+            readyToSpawn = true;
+        }
+        else
+        {
+            readyToSpawn = false;
+        }
+        if (readyToSpawn)
+        {
+
+            base.FullAction();
+
+            fullActioned = true;
+        }
+        else if (!animator.GetBool("Energy"))
+        {
+            animator.SetTrigger("NotReady");
+        }
+
+    }
     public override void Action()
     {
         if (parentResources.buildingDistrict.totalEnergyReturn() > parentResources.requiredEnergy)

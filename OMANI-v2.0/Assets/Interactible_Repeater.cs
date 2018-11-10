@@ -67,27 +67,42 @@ public class Interactible_Repeater : Interactible
 
     public override void LateUpdate()
     {
-        base.LateUpdate();
-
-        //Plays the up animation when ready
-        if (animator.GetBool("Ready") && powerReduced < price && energy < 1)
+        if (!fullActioned)
         {
-            animator.Play("RepeaterUp", 0, powerReduced / price);
-
-            if (Time.time - actionDone > 0.1f)
+            //Plays the up animation when ready
+            if (animator.GetBool("Ready") && powerReduced < price && energy < 1)
             {
-                if (powerReduced > 1f)
+                animator.Play("RepeaterUp", 0, powerReduced / price);
+
+                if (Time.time - actionDone > 0.1f)
                 {
-                    RepeaterLoop.volume = 0.05f;
-                    RepeaterLoop.pitch = 0.6f;
-                }
-                else
-                {
-                    RepeaterLoop.volume = 0f;
+                    if (powerReduced > 1f)
+                    {
+                        RepeaterLoop.volume = 0.05f;
+                        RepeaterLoop.pitch = 0.6f;
+                    }
+                    else
+                    {
+                        RepeaterLoop.volume = 0f;
+                    }
                 }
             }
-        }
 
+            base.LateUpdate();
+        }
+        else
+        {
+            //If the animation is almost finished.
+            if (latestFullActionPowerReduced > 0.95f)
+            {
+                base.LateUpdate();
+
+                fullActioned = false;
+            }
+            latestFullActionPowerReduced = Mathf.Lerp(latestFullActionPowerReduced, 1, 0.08f);
+            animator.Play("RepeaterUp", 0, latestFullActionPowerReduced);
+
+        }
     }
 
     public override void Action()
@@ -131,10 +146,19 @@ public class Interactible_Repeater : Interactible
     {
         if (energyBU.energyCheck() || energy > 0)
         {
-            if (available && energy == 0)
+            if (energyBU.checkIfLastRepeater(this))
             {
-                powerReduced = powers.reduceAsMuchPower(price);
-                laserAudio.energyTransmisionSound(currentLinkPrice);
+                base.FullAction();
+            }
+
+            else if (available && energy == 0)
+            {
+                base.FullAction();
+
+                if (energy < 1)
+                {
+                    fullActioned = true;
+                }
             }
         }
     }
@@ -144,7 +168,6 @@ public class Interactible_Repeater : Interactible
         RepeaterLoop.volume = 0;
         if (energy < 1)
         {
-
             energy = 1;
             animator.SetBool("Energy", true);
             animator.SetBool("Ready", false);

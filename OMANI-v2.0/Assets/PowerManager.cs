@@ -35,25 +35,6 @@ public class PowerManager : MonoBehaviour
             }
         }
     }
-    private void Update()
-    {
-        if (PressUToBasic)
-        {
-
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                ShootBasicPower(Player);
-            }
-        }
-        if (PressIToUpgraded)
-        {
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                ShootUpgradedPower(Player);
-            }
-        }
-    }
 
     public void ShootBasicPower(Transform tr)
     {

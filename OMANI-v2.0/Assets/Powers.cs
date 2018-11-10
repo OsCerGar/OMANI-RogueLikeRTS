@@ -41,19 +41,8 @@ public class Powers : MonoBehaviour
     {
         #region Inputs
         #region LaserBeams
-        //Controller
-        if (Input.GetKeyDown("joystick button 7"))
-        {
-            lasers.StartEffects();
-        }
-        if (Input.GetKey("joystick button 7"))
-        {
 
-            //Energy Beam
 
-            lasers.EmitLaser();
-
-        }
         if (Input.GetKey("joystick button 6"))
         {
             //Attack mode
@@ -67,18 +56,22 @@ public class Powers : MonoBehaviour
 
             }
         }
+        else
+        {        //Controller
+            if (Input.GetKeyDown("joystick button 7"))
+            {
+                lasers.StartEffects();
+            }
+            if (Input.GetKey("joystick button 7"))
+            {
 
-        //Kb&M
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            lasers.StartEffects();
-        }
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
+                //Energy Beam
 
-            //Energy Beam
-            lasers.EmitLaser();
+                lasers.EmitLaser();
+            }
         }
+
+
 
         //Attack mode
         if (Input.GetKey(KeyCode.LeftShift))
@@ -91,6 +84,20 @@ public class Powers : MonoBehaviour
                     lasers.EmitOffensiveLaser();
                 }
 
+            }
+        }
+        else
+        {
+            //Kb&M
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                lasers.StartEffects();
+            }
+            if (Input.GetKey(KeyCode.Mouse0))
+            {
+
+                //Energy Beam
+                lasers.EmitLaser();
             }
         }
         #endregion
@@ -126,7 +133,7 @@ public class Powers : MonoBehaviour
         #endregion
 
         #endregion
-        
+
         #region IncreasePowerPool
         if (powerPool < quarter)
         {

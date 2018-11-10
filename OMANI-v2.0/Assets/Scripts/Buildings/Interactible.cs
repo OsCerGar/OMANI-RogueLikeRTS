@@ -12,9 +12,10 @@ public class Interactible : MonoBehaviour
     public float powerReduced;
     [HideInInspector]
     public float linkPrice = 5;
-    public float startTime, currentLinkPrice, t, finalLinkPrice;
+    public float startTime, currentLinkPrice, t, finalLinkPrice, latestFullActionPowerReduced, animationFullActionState;
     [HideInInspector]
     public bool actionBool { get; set; }
+    public bool fullActioned;
 
     [HideInInspector]
     public Powers powers = null;
@@ -86,7 +87,9 @@ public class Interactible : MonoBehaviour
 
     public virtual void FullAction()
     {
-        powerReduced = powers.reduceAsMuchPower(price);
+
+        latestFullActionPowerReduced = powerReduced / price;
+        powerReduced = powers.reduceAsMuchPower(price - powerReduced);
         laserAudio.energyTransmisionSound(currentLinkPrice);
     }
 
