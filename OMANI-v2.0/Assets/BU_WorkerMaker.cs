@@ -17,7 +17,7 @@ public class BU_WorkerMaker : BU_UniqueBuilding
         workerSpawn = transform.Find("WorkerSpawn").gameObject;
         peoplePool = FindObjectOfType<PeoplePool>();
 
-        requiredEnergy = 25;
+        requiredEnergy = 1;
     }
 
     public override void BuildingAction()
