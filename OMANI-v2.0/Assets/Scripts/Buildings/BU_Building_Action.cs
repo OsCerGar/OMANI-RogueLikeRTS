@@ -9,7 +9,7 @@ public class BU_Building_Action : Interactible
     Animator animator;
     AudioSource pilarmovement, pilarReturned;
     private float actionDone;
-    private bool firstTimepowerReduced0;
+    private bool firstTimepowerReduced;
 
     // Use this for initialization
     public override void Start()
@@ -51,23 +51,25 @@ public class BU_Building_Action : Interactible
                 {
                     if (powerReduced > 1f)
                     {
-                        firstTimepowerReduced0 = true;
+                        firstTimepowerReduced = true;
                         pilarReturned.enabled = false;
                         pilarmovement.volume = 0.07f;
                         pilarmovement.pitch = 0.8f;
                     }
                     else
                     {
-                        if (firstTimepowerReduced0)
+                        if (firstTimepowerReduced)
                         {
-                            firstTimepowerReduced0 = false;
+                            firstTimepowerReduced = false;
                             pilarReturned.enabled = true;
                         }
                         pilarmovement.volume = 0f;
                     }
                 }
-                base.LateUpdate();
             }
+
+            base.LateUpdate();
+
         }
         else
         {
@@ -82,7 +84,6 @@ public class BU_Building_Action : Interactible
             latestFullActionPowerReduced = Mathf.Lerp(latestFullActionPowerReduced, 1, 0.08f);
             animator.Play("PilarDown", 0, latestFullActionPowerReduced);
         }
-
     }
 
     public override void FullAction()
@@ -122,11 +123,9 @@ public class BU_Building_Action : Interactible
         if (readyToSpawn)
         {
             actionDone = Time.time;
-
             base.Action();
 
             pilarmovement.pitch = 1f;
-
             pilarmovement.volume = 0.5f;
 
         }
@@ -134,7 +133,6 @@ public class BU_Building_Action : Interactible
         {
             animator.SetTrigger("NotReady");
         }
-
     }
 
     public override void ActionCompleted()
