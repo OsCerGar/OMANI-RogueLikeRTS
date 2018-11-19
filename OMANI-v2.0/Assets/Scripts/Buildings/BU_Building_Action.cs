@@ -88,6 +88,7 @@ public class BU_Building_Action : Interactible
 
     public override void FullAction()
     {
+        Debug.Log("fullaction");
         if (parentResources.buildingDistrict.totalEnergyReturn() > parentResources.requiredEnergy)
         {
             readyToSpawn = true;
