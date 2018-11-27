@@ -87,7 +87,6 @@ public class Interactible : MonoBehaviour
 
     public virtual void FullAction()
     {
-
         latestFullActionPowerReduced = powerReduced / price;
         powerReduced = powers.reduceAsMuchPower(price - powerReduced);
         laserAudio.energyTransmisionSound(currentLinkPrice);
@@ -99,7 +98,6 @@ public class Interactible : MonoBehaviour
         powerReduced = 0;
         currentLinkPrice = 0;
         t = 0.2f;
-
     }
 
     public virtual void ReducePower()

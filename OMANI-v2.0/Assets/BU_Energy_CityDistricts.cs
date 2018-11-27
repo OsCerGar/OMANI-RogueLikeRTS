@@ -51,7 +51,6 @@ public class BU_Energy_CityDistricts : MonoBehaviour
 
         addEnergyCityDistrict(_energy);
         animationsManager.totalEnnus(totalEnergy);
-
     }
 
 
