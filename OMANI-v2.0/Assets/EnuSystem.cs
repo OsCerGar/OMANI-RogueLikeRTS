@@ -11,8 +11,19 @@ public class EnuSystem : MonoBehaviour
     {
         wackaEnus.AddRange(GetComponentsInChildren<WackaEnu>());
         systemAnimator = GetComponent<Animator>();
-        systemAnimator.SetInteger("State", Random.Range(1, 6));
 
+    }
+
+    public void startSystem()
+    {
+        systemAnimator.SetInteger("State", Random.Range(1, 6));
+    }
+
+    public void stopSystem()
+    {
+        systemAnimator.SetFloat("Speed", 0.5f);
+        systemAnimator.SetInteger("State", 0);
+        foreach (WackaEnu wackaEnu in wackaEnus) { wackaEnu.resetEnu(); }
     }
 
     public void resetSystem()

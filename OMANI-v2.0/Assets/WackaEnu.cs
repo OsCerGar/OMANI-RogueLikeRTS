@@ -12,7 +12,7 @@ public class WackaEnu : Interactible
         linkPrice = 3;
         finalLinkPrice = 10;
 
-        price = 10;
+        price = 10  ;
         wackaEnuDistrict = GetComponentInParent<BU_Energy_CityDistricts>();
         animator = GetComponent<Animator>();
     }
