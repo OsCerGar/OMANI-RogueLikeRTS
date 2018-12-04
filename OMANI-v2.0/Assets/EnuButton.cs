@@ -23,9 +23,11 @@ public class EnuButton : Interactible
         {
             //Reduce energy 
             ReducePower(2);
-            if (powerReduced < 1)
+            if (powerReduced > 0 && powerReduced < 1)
             {
+                powerReduced = 0;
                 StopEnuSystem();
+                active = false;
             }
         }
         else
@@ -42,6 +44,13 @@ public class EnuButton : Interactible
         if (!active)
         {
             base.Action();
+        }
+    }
+    public override void FullAction()
+    {
+        if (!active)
+        {
+            base.FullAction();
         }
     }
 

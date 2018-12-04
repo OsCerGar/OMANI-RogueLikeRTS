@@ -6,6 +6,7 @@ public class EnuSystem : MonoBehaviour
 
     public List<WackaEnu> wackaEnus = new List<WackaEnu>();
     Animator systemAnimator;
+    bool systemUP;
     // Use this for initialization
     void Start()
     {
@@ -16,34 +17,38 @@ public class EnuSystem : MonoBehaviour
 
     public void startSystem()
     {
+        systemUP = true;
         systemAnimator.SetInteger("State", Random.Range(1, 6));
     }
 
     public void stopSystem()
     {
+        systemUP = false;
         systemAnimator.SetFloat("Speed", 0.5f);
         systemAnimator.SetInteger("State", 0);
-        foreach (WackaEnu wackaEnu in wackaEnus) { wackaEnu.resetEnu(); }
     }
 
     public void resetSystem()
     {
-        foreach (WackaEnu wackaEnu in wackaEnus) { wackaEnu.resetEnu(); }
-        systemAnimator.SetFloat("Speed", systemAnimator.GetFloat("Speed") + 0.1f);
-
-        bool done = false;
-        int randomRange = Random.Range(1, 6);
-
-        while (!done)
+        if (systemUP)
         {
-            if (randomRange == systemAnimator.GetFloat("State"))
+            foreach (WackaEnu wackaEnu in wackaEnus) { wackaEnu.resetEnu(); }
+            systemAnimator.SetFloat("Speed", systemAnimator.GetFloat("Speed") + 0.1f);
+
+            bool done = false;
+            int randomRange = Random.Range(1, 6);
+
+            while (!done)
             {
-                randomRange = Random.Range(1, 6);
-            }
-            else
-            {
-                systemAnimator.SetInteger("State", Random.Range(1, 6));
-                done = true;
+                if (randomRange == systemAnimator.GetFloat("State"))
+                {
+                    randomRange = Random.Range(1, 6);
+                }
+                else
+                {
+                    systemAnimator.SetInteger("State", Random.Range(1, 6));
+                    done = true;
+                }
             }
         }
     }
