@@ -96,7 +96,6 @@ public class Interactible_Repeater : Interactible
             if (latestFullActionPowerReduced > 0.95f)
             {
                 base.LateUpdate();
-
                 fullActioned = false;
             }
             latestFullActionPowerReduced = Mathf.Lerp(latestFullActionPowerReduced, 1, 0.08f);

@@ -33,7 +33,7 @@ public class EnuSystem : MonoBehaviour
         if (systemUP)
         {
             foreach (WackaEnu wackaEnu in wackaEnus) { wackaEnu.resetEnu(); }
-            systemAnimator.SetFloat("Speed", systemAnimator.GetFloat("Speed") + 0.1f);
+            systemAnimator.SetFloat("Speed", systemAnimator.GetFloat("Speed") + 0.25f);
 
             bool done = false;
             int randomRange = Random.Range(1, 6);
