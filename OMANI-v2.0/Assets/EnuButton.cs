@@ -22,7 +22,7 @@ public class EnuButton : Interactible
         if (active)
         {
             //Reduce energy 
-            ReducePower(5);
+            ReducePower(2);
             if (powerReduced < 1)
             {
                 StopEnuSystem();

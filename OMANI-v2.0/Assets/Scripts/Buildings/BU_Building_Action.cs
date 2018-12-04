@@ -30,7 +30,6 @@ public class BU_Building_Action : Interactible
     public void BuildingAction()
     {
         parentResources.BuildingAction();
-
     }
 
     // Update is called once per frame

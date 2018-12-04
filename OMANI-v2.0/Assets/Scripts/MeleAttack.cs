@@ -49,8 +49,6 @@ public class MeleAttack : MonoBehaviour {
         missed = true; 
         if (Effect != null)
         {
-
-            Debug.Log("EnemyParticle");
             Effect.Play();
         }
         
