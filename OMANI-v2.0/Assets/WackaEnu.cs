@@ -15,6 +15,7 @@ public class WackaEnu : Interactible
     int energyToAdd = 1;
     bool black;
     BU_Energy electricCITY;
+    public bool OUT;
 
     private void Initializer()
     {
@@ -23,7 +24,7 @@ public class WackaEnu : Interactible
 
         price = 10;
         wackaEnuDistrict = GetComponentInParent<BU_Energy_CityDistricts>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         meshRenderer = GetComponent<MeshRenderer>();
         electricCITY = FindObjectOfType<BU_Energy>();
     }
@@ -37,16 +38,37 @@ public class WackaEnu : Interactible
     public override void LateUpdate()
     {
         base.LateUpdate();
+        /*
         if (!animator.GetBool("Done"))
         {
             animator.Play("wackaEnuColor", 0, powerReduced / price);
+        }
+        */
+
+        if (OUT)
+        {
+            animGetOut();
+            OUT = false;
         }
     }
 
     public override void Update()
     {
     }
-
+    public override void Action()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ENUPOTEN"))
+        {
+            base.Action();
+        }
+    }
+    public override void FullAction()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ENUPOTEN"))
+        {
+            base.FullAction();
+        }
+    }
     public override void ActionCompleted()
     {
         animator.SetBool("Done", true);
@@ -114,5 +136,10 @@ public class WackaEnu : Interactible
             energyToAdd = 3;
         }
 
+    }
+
+    public void animGetOut()
+    {
+        animator.SetTrigger("GetOut");
     }
 }
