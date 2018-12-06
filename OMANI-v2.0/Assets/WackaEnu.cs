@@ -9,7 +9,7 @@ public class WackaEnu : Interactible
 
 
     //ENU TYPE VARIABLES 
-    MeshRenderer meshRenderer;
+    public SkinnedMeshRenderer meshRenderer;
     [SerializeField]
     Material enuMaterial, goldMaterial, blackMaterial;
     int energyToAdd = 1;
@@ -25,7 +25,8 @@ public class WackaEnu : Interactible
         price = 10;
         wackaEnuDistrict = GetComponentInParent<BU_Energy_CityDistricts>();
         animator = GetComponentInChildren<Animator>();
-        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+
         electricCITY = FindObjectOfType<BU_Energy>();
     }
     // Use this for initialization
