@@ -92,6 +92,8 @@ public class EnuButton : Interactible
 
     private void StartEnuSystem()
     {
+        eggAnimator.SetTrigger("eggCompleted");
+
         enuSystem.startSystem();
         active = true;
     }
