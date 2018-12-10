@@ -61,6 +61,7 @@ public class WackaEnu : Interactible
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("ENUPOTEN"))
         {
             base.Action();
+            animator.SetTrigger("Hitted");
         }
     }
     public override void FullAction()
@@ -69,6 +70,7 @@ public class WackaEnu : Interactible
         {
             base.FullAction();
         }
+        animator.SetTrigger("Hitted");
     }
     public override void ActionCompleted()
     {
