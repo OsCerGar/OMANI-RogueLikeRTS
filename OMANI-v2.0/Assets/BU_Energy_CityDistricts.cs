@@ -25,12 +25,12 @@ public class BU_Energy_CityDistricts : MonoBehaviour
     }
     public void removeEnergy(int _quantity)
     {
-        totalEnergy -= _quantity;
+        totalEnergy = Mathf.Clamp(totalEnergy - _quantity, 0, 50);
     }
 
     public void addEnergyCityDistrict(int _energy)
     {
-        totalEnergy += _energy;
+        totalEnergy = Mathf.Clamp(totalEnergy + _energy, 0, 50);
     }
     public void totalEnergyUpdate(int _totalEnergy)
     {
@@ -43,6 +43,8 @@ public class BU_Energy_CityDistricts : MonoBehaviour
     public void energyUpdateReduced()
     {
         animationsManager.totalEnnus(totalEnergy);
+        Debug.Log(totalEnergy);
+
     }
 
     IEnumerator AddEnergy(int _energy)
@@ -51,6 +53,7 @@ public class BU_Energy_CityDistricts : MonoBehaviour
 
         addEnergyCityDistrict(_energy);
         animationsManager.totalEnnus(totalEnergy);
+
     }
 
 

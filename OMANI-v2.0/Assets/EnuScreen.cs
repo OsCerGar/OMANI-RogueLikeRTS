@@ -37,6 +37,24 @@ public class EnuScreen : MonoBehaviour
 
             else { play = true; }
         }
+        else if (animationValue > 0.02f * EnergyDistrict.totalEnergyReturn())
+        {
+            animationValue -= 0.05f * Time.deltaTime;
+
+            if (animationValue % 0.02f < 0.004f)
+            {            // Aqui muchas veces
+
+                if (play)
+                {                // Aqui solo entrará una vez
+
+                    play = false;
+                    sound.Play();
+                }
+            }
+
+            else { play = true; }
+
+        }
 
         animator.Play("EnuScreen", 0, Mathf.Clamp(animationValue, 0, 1));
 
