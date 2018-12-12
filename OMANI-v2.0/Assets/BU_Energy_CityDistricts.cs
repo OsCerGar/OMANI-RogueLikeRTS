@@ -43,7 +43,6 @@ public class BU_Energy_CityDistricts : MonoBehaviour
     public void energyUpdateReduced()
     {
         animationsManager.totalEnnus(totalEnergy);
-        Debug.Log(totalEnergy);
 
     }
 

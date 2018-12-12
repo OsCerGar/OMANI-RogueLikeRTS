@@ -12,7 +12,7 @@ public class Powers : MonoBehaviour
     Power_Laser lasers;
 
     [SerializeField]
-    public float maxpowerPool = 1000, powerPool = 1000, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1;
+    public float maxpowerPool = 1000, powerPool = 1000, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1, laserCooldown = 1, laserTime;
     int quarter, half, quartandhalf;
 
     float radius = 3;
@@ -46,14 +46,13 @@ public class Powers : MonoBehaviour
         if (Input.GetKey("joystick button 6"))
         {
             //Attack mode
-
             if (Input.GetKeyDown("joystick button 7"))
             {
-                if (reducePowerNow(3))
+                if (Time.time - laserTime > laserCooldown && reducePowerNow(3))
                 {   //Attack Beam
                     lasers.EmitOffensiveLaser();
+                    laserTime = Time.time;
                 }
-
             }
         }
         else
@@ -79,9 +78,12 @@ public class Powers : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                if (reducePowerNow(3))
+
+                if (Time.time - laserTime > laserCooldown && reducePowerNow(3))
                 {   //Attack Beam
                     lasers.EmitOffensiveLaser();
+                    laserTime = Time.time;
+
                 }
 
             }
