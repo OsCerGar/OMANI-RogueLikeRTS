@@ -26,14 +26,25 @@ public class EnuSystem : MonoBehaviour
         systemUP = false;
         systemAnimator.SetFloat("Speed", 0.5f);
         systemAnimator.SetInteger("State", 0);
+
+        foreach (WackaEnu wackaEnu in wackaEnus)
+        {
+            wackaEnu.resetEnu();
+            wackaEnu.animatorResetSpeed();
+        }
+
     }
 
     public void resetSystem()
     {
         if (systemUP)
         {
-            foreach (WackaEnu wackaEnu in wackaEnus) { wackaEnu.resetEnu(); }
-            systemAnimator.SetFloat("Speed", systemAnimator.GetFloat("Speed") + 0.25f);
+            foreach (WackaEnu wackaEnu in wackaEnus)
+            {
+                wackaEnu.resetEnu();
+                wackaEnu.animatorAddSpeed(0.1f);
+            }
+            systemAnimator.SetFloat("Speed", systemAnimator.GetFloat("Speed") + 0.1f);
 
             bool done = false;
             int randomRange = Random.Range(1, 6);

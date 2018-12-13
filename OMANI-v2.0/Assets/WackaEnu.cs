@@ -19,8 +19,8 @@ public class WackaEnu : Interactible
 
     private void Initializer()
     {
-        linkPrice = 6;
-        finalLinkPrice = 15;
+        linkPrice = 15;
+        finalLinkPrice = 20;
 
         price = 10;
         wackaEnuDistrict = GetComponentInParent<BU_Energy_CityDistricts>();
@@ -39,13 +39,6 @@ public class WackaEnu : Interactible
     public override void LateUpdate()
     {
         base.LateUpdate();
-        /*
-        if (!animator.GetBool("Done"))
-        {
-            animator.Play("wackaEnuColor", 0, powerReduced / price);
-        }
-        */
-
         if (OUT)
         {
             animGetOut();
@@ -103,7 +96,8 @@ public class WackaEnu : Interactible
     }
     public void resetEnu()
     {
-        animator.SetBool("Done", false);
+        Debug.Log("resetennu");
+        animNotCompleted();
         //resets power reduced and stuff
         base.ActionCompleted();
 
@@ -149,6 +143,20 @@ public class WackaEnu : Interactible
     private void animCompleted()
     {
         animator.SetTrigger("Completed");
+    }
+    private void animNotCompleted()
+    {
+        animator.SetTrigger("NotCompleted");
 
     }
+    public void animatorAddSpeed(float _speedToAdd)
+    {
+        animator.SetFloat("Speed", animator.GetFloat("Speed") + _speedToAdd);
+    }
+    public void animatorResetSpeed()
+    {
+        animator.SetFloat("Speed", 1);
+    }
+
+
 }

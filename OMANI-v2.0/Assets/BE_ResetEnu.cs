@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BE_ResetEnuSystem : StateMachineBehaviour
+public class BE_ResetEnu : StateMachineBehaviour
 {
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -14,9 +14,9 @@ public class BE_ResetEnuSystem : StateMachineBehaviour
     //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.GetComponent<EnuSystem>().resetSystem();
+        animator.ResetTrigger("NotCompleted");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
