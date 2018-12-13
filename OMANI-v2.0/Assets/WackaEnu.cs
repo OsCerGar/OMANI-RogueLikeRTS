@@ -58,7 +58,7 @@ public class WackaEnu : Interactible
     }
     public override void Action()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ENUPOTEN"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Iddle"))
         {
             base.Action();
             animator.SetTrigger("Hitted");
@@ -66,7 +66,7 @@ public class WackaEnu : Interactible
     }
     public override void FullAction()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ENUPOTEN"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Iddle"))
         {
             base.FullAction();
         }
@@ -74,7 +74,6 @@ public class WackaEnu : Interactible
     }
     public override void ActionCompleted()
     {
-        animator.SetBool("Done", true);
         animCompleted();
         base.ActionCompleted();
 

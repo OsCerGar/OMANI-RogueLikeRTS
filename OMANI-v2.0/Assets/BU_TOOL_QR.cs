@@ -16,7 +16,7 @@ public class BU_TOOL_QR : BU_UniqueBuilding
     {
         base.Start();
 
-        requiredEnergy = 10;
+        requiredEnergy = 50;
         parentDistrict = GetComponentInParent<BU_Energy_CityDistricts>();
         peoplePool = FindObjectOfType<PeoplePool>();
 
