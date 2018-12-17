@@ -42,7 +42,8 @@ public class Powers : MonoBehaviour
         #region Inputs
         #region LaserBeams
 
-        lasers.setSphereWidth(powerPool / 3000);
+        // /3 because the limit size of the sphere is 0.33.
+        lasers.setSphereWidth((powerPool / maxpowerPool) / 3);
 
         if (Input.GetKey("joystick button 6"))
         {
