@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Power_Laser : MonoBehaviour
 {
@@ -18,7 +16,8 @@ public class Power_Laser : MonoBehaviour
     ConLaser CLaser;
     MetaAudioController AudioControl;
     LookDirectionsAndOrder lookdir;
-    float widthToSend = 1;
+    float widthToSend = 1, scaleToSend = 0.15f;
+    public Transform Sphere;
 
     void Start()
     {
@@ -31,7 +30,7 @@ public class Power_Laser : MonoBehaviour
 
     private void Update()
     {
-        
+
         if (contador > 0)
         {
             contador -= Time.deltaTime;
@@ -41,7 +40,7 @@ public class Power_Laser : MonoBehaviour
             anim.SetBool("Fire", false);
             laserColision.laserEnabled = false;
         }
-        
+
     }
     private void LateUpdate()
     { /*
@@ -49,8 +48,6 @@ public class Power_Laser : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
         */
         transform.LookAt(lookdir.miradaposition);
-
-
     }
 
     public void EmitOffensiveLaser()
@@ -91,5 +88,22 @@ public class Power_Laser : MonoBehaviour
         widthToSend = Mathf.Clamp(widthToSend, 0.5f, 5f);
         CLaser.WidthMultiplayer = widthToSend;
     }
+
+    public void setSphereWidth(float _Scale)
+    {
+        Debug.Log(_Scale);
+        if (_Scale > scaleToSend)
+        {
+            scaleToSend += Time.unscaledDeltaTime / 2;
+        }
+        else if (_Scale < scaleToSend)
+        {
+            scaleToSend -= Time.unscaledDeltaTime / 2;
+        }
+        scaleToSend = Mathf.Clamp(scaleToSend, 0.01f, 0.33f);
+        Sphere.localScale = new Vector3(scaleToSend, scaleToSend, scaleToSend);
+
+    }
+
 
 }

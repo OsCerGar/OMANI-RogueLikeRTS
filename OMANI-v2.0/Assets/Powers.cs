@@ -42,6 +42,7 @@ public class Powers : MonoBehaviour
         #region Inputs
         #region LaserBeams
 
+        lasers.setSphereWidth(powerPool / 3000);
 
         if (Input.GetKey("joystick button 6"))
         {
