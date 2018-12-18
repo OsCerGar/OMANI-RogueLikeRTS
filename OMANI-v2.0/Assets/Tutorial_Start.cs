@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PostProcessing;
+//using UnityEngine.PostProcessing;
 
 public class Tutorial_Start : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class Tutorial_Start : MonoBehaviour
     Cinemachine.CinemachineVirtualCamera startCamera, standardCamera;
 
     [SerializeField]
-    PostProcessingProfile postFX;
+    //PostProcessingProfile postFX;
     LocomotionBrain locomotion;
     CharacterMovement control;
     UI_PointerDirection pointer_Direction;

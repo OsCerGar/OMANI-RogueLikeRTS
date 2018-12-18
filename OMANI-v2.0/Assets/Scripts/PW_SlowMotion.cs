@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PostProcessing;
+//using UnityEngine.PostProcessing;
 
 public class PW_SlowMotion : Power
 {
@@ -12,8 +12,8 @@ public class PW_SlowMotion : Power
     private int targetMask = 1 << 10;
 
     [SerializeField]
-    PostProcessingProfile slowmo;
-    PostProcessingProfile normal;
+    //PostProcessingProfile slowmo;
+    //PostProcessingProfile normal;
 
     public override void Awake()
     {
