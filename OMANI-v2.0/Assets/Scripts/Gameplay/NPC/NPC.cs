@@ -372,7 +372,6 @@ public class NPC : MonoBehaviour
 
     public virtual void Heal(int _heal)
     {
-        Debug.Log("Healed " + _heal);
         if (life + _heal > startLife)
         {
             life = startLife;

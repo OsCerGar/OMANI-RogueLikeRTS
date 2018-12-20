@@ -91,7 +91,6 @@ public class Power_Laser : MonoBehaviour
 
     public void setSphereWidth(float _Scale)
     {
-        Debug.Log(_Scale);
         if (_Scale > scaleToSend)
         {
             scaleToSend += Time.unscaledDeltaTime / 2;

@@ -42,7 +42,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     //NEW UI
     public GameObject UISelectionSpawned;
     [SerializeField]
-    UI_PointerDirection pointerDirection;
+    public UI_PointerDirection pointerDirection;
     UI_PointerSelection pointerSelection;
     GameObject pointerOrder;
     float alphaTarget = 0.111f;
@@ -53,6 +53,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
     //sound
     AudioSource reclute, order;
     #endregion
+
+    //Test
+    public bool onAnimation;
 
     // Use this for initialization
     void Awake()
@@ -802,17 +805,23 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 }
             }
 
+            if (!onAnimation)
+            {
+                miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
+                transform.LookAt(miradaposition);
 
-            miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
-            transform.LookAt(miradaposition);
+                Debug.Log("animation");
+
+            }
         }
+        Debug.Log("2");
 
         transform.position = commander.transform.position;
-
     }
     public void LookAtWhileMoving(float _playerHrj, float _playerVrj)
     {
         playingOnController = true;
+        Debug.Log("hello");
 
         if (hrj == 0 && vrj == 0)
         {
