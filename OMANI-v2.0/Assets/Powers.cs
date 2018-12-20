@@ -14,7 +14,6 @@ public class Powers : MonoBehaviour
     [SerializeField]
     public float maxpowerPool = 1000, powerPool = 1000, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1, laserCooldown = 1, laserTime;
     //Test
-    public bool animationShoot;
     public Vector3 MiradaPosition;
     int quarter, half, quartandhalf;
 
@@ -159,12 +158,6 @@ public class Powers : MonoBehaviour
         }
         #endregion
 
-        //test
-        if (animationShoot)
-        {
-            ShootLaserWeak();
-        }
-        animationShoot = false;
     }
     public void addPower(float amount)
     {
@@ -238,13 +231,5 @@ public class Powers : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void ShootLaserWeak()
-    {
-        lasers.EmitLaser();
-        lookDirection.miradaposition = MiradaPosition;
-        lookDirection.onAnimation = true;
-
     }
 }

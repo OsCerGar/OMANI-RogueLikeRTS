@@ -54,9 +54,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     AudioSource reclute, order;
     #endregion
 
-    //Test
-    public bool onAnimation;
-
     // Use this for initialization
     void Awake()
     {
@@ -805,23 +802,15 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 }
             }
 
-            if (!onAnimation)
-            {
-                miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
-                transform.LookAt(miradaposition);
-
-                Debug.Log("animation");
-
-            }
+            miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
+            transform.LookAt(miradaposition);
         }
-        Debug.Log("2");
 
         transform.position = commander.transform.position;
     }
     public void LookAtWhileMoving(float _playerHrj, float _playerVrj)
     {
         playingOnController = true;
-        Debug.Log("hello");
 
         if (hrj == 0 && vrj == 0)
         {

@@ -43,10 +43,7 @@ public class Power_Laser : MonoBehaviour
 
     }
     private void LateUpdate()
-    { /*
-        Quaternion toRotation = Quaternion.LookRotation(lookdir.miradaposition - transform.position);
-        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.deltaTime);
-        */
+    { 
         transform.LookAt(lookdir.miradaposition);
     }
 
