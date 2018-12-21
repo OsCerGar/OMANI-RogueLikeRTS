@@ -15,11 +15,12 @@ public class BU_District_Animations : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        /*
         foreach (Transform lamp in transform.Find("Lamps"))
         {
             LampLights.Add(lamp.GetComponentInChildren<Light>());
         }
+        */
 
         foreach (Transform groundLight in transform.Find("GroundLights"))
         {
