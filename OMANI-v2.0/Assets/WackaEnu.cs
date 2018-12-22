@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WackaEnu : Interactible
 {
-    Animator animator;
+    public Animator animator;
     BU_Energy_CityDistricts wackaEnuDistrict;
     public float energyCableAnimationTime = 2.35f;
 
@@ -96,7 +96,6 @@ public class WackaEnu : Interactible
     }
     public void resetEnu()
     {
-        Debug.Log("resetennu");
         animNotCompleted();
         //resets power reduced and stuff
         base.ActionCompleted();
