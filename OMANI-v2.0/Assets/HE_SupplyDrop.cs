@@ -1,27 +1,27 @@
 ﻿using UnityEngine;
 
-public class HE_SupplyDrop : BU_UniqueBuilding
+public class HE_SupplyDrop : HE
 {
-    Transform supplyPlayerDrop;
-
+    HE_PLAYER_SupplyDrop supplyPlayerDrop;
+    Animator anim;
     // Use this for initialization
     public override void Start()
     {
         base.Start();
         requiredEnergy = 10;
-        supplyPlayerDrop = FindObjectOfType<HE_PLAYER_SupplyDrop>().transform;
-        supplyPlayerDrop.gameObject.SetActive(false);
+        supplyPlayerDrop = FindObjectOfType<HE_PLAYER_SupplyDrop>();
+        anim = transform.Find("HSupplyDrop").GetComponent<Animator>();
     }
     public override void BuildingAction()
     {
         base.BuildingAction();
 
-        SupplyDrop();
+        anim.SetTrigger("Activate");
     }
 
-    private void SupplyDrop()
+    public override void Action()
     {
-        supplyPlayerDrop.gameObject.SetActive(true);
+        supplyPlayerDrop.anim.SetTrigger("Activated");
     }
 
 }

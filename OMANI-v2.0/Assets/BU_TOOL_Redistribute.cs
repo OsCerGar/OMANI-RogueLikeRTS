@@ -1,32 +1,34 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 
-public class BU_TOOL_Redistribute : BU_UniqueBuilding
+public class BU_TOOL_Redistribute : HE
 {
 
     public BU_Energy_CityDistricts parentDistrict;
     public List<BU_Energy_CityDistricts> otherDistricts = new List<BU_Energy_CityDistricts>();
+    Animator anim;
 
     // Use this for initialization
     public override void Start()
     {
         base.Start();
 
-        requiredEnergy = 50;
+        requiredEnergy = 10;
         parentDistrict = GetComponentInParent<BU_Energy_CityDistricts>();
         otherDistricts.AddRange(transform.root.GetComponentsInChildren<BU_Energy_CityDistricts>());
         otherDistricts.Remove(parentDistrict);
-
+        anim = transform.Find("HRedistribute").GetComponent<Animator>();
     }
 
     public override void BuildingAction()
     {
         base.BuildingAction();
 
-        Redistribute();
+        anim.SetTrigger("Activate");
     }
 
-    public void Redistribute()
+    public override void Action()
     {
         parentDistrict.removeEnergy(50);
         parentDistrict.energyUpdateReduced();
