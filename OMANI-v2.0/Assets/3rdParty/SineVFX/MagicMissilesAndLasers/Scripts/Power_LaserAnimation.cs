@@ -19,7 +19,7 @@ public class Power_LaserAnimation : MonoBehaviour
     float widthToSend = 1, scaleToSend = 0.15f;
     public Transform Sphere, laserObjectivePosition;
 
-    public bool onAnimation;
+    public bool onAnimation, onAnimationOffensiveLaser;
 
     void Start()
     {
@@ -46,6 +46,11 @@ public class Power_LaserAnimation : MonoBehaviour
         if (onAnimation)
         {
             EmitLaser();
+        }
+        if (onAnimationOffensiveLaser)
+        {
+            EmitOffensiveLaser();
+            onAnimationOffensiveLaser = false;
         }
     }
     private void LateUpdate()

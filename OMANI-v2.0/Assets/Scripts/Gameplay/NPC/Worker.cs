@@ -9,6 +9,8 @@ public class Worker : Robot
     [SerializeField]
     private GameObject RollHillBox;
 
+    public bool animationRollAttack;
+
     public override void AttackHit()
     {
         base.AttackHit();
