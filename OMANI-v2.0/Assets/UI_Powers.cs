@@ -21,6 +21,8 @@ public class UI_Powers : MonoBehaviour
             {
                 Image realClock = ui_clock.transform.GetChild(0).GetComponent<Image>();
                 powerClock = realClock;
+                fixedRotation = powerClock.transform.rotation;
+
             }
             if (ui_clock.name == "LifeClock")
             {
@@ -28,7 +30,6 @@ public class UI_Powers : MonoBehaviour
                 //lifeClock = realClock;
             }
         }
-        fixedRotation = powerClock.transform.rotation;
         player = transform.root.GetComponentInChildren<Player>();
         powers = transform.root.GetComponentInChildren<Powers>();
         mainCamera = Camera.main;
@@ -36,7 +37,7 @@ public class UI_Powers : MonoBehaviour
 
     // Update is called once per frame
     void LateUpdate()
-    {
+    {/*
         if (lastPowerPool != powers.powerPool)
         {
             powerClockHidden = false;
