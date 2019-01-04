@@ -111,11 +111,11 @@ public class LaserColision : MonoBehaviour
                 }
             }
         }
-
-        if (somethingHitted == true)
+        if (somethingHitted != true)
         {
             powerLaser.setWidth(1);
         }
+
 
     }
 }

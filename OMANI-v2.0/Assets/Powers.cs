@@ -23,6 +23,7 @@ public class Powers : MonoBehaviour
     {
         Initializer();
     }
+
     void Initializer()
     {
         ennuisMask = 1 << LayerMask.NameToLayer("Interactible");
@@ -100,7 +101,6 @@ public class Powers : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.Mouse0))
             {
-
                 //Energy Beam
                 lasers.EmitLaser();
             }
