@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class NPC : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class NPC : MonoBehaviour
     [SerializeField] public ParticleSystem[] hitEffects;
     [SerializeField] public Renderer Renderer;
     [HideInInspector] public SoundsManager SM;
+    public ThirdPersonCharacter TPC;
 
     private UI_RobotAttack uI_Attack;
 
@@ -156,6 +158,7 @@ public class NPC : MonoBehaviour
     // Use this for initialization
     public virtual void Start()
     {
+        TPC = GetComponent<ThirdPersonCharacter>();
         SM = GetComponentInChildren<SoundsManager>();
         peopl = LayerMask.NameToLayer("People");
         //We get all behaviourTrees
@@ -176,7 +179,11 @@ public class NPC : MonoBehaviour
         //Get AttackZone child Somewhere 
 
         startLife = life;
-        //Nav.updateRotation = true;
+        if (Nav != null)
+        {
+            Nav.updateRotation = false;
+        }
+        
 
         UI_Attack = GetComponentInChildren<UI_RobotAttack>();
 
@@ -237,27 +244,14 @@ public class NPC : MonoBehaviour
                 disabledCountdown = 0;
             }
         }
-        /*
-        GameObject enem = AI_GetEnemy();
-        if (enem != null)
-        {
-            if (enem.GetComponent<NPC>() != null && enem.GetComponent<NPC>().Life <= 0)
-            {
-                AI_SetEnemy(null);
-            }
-        }
-        */
 
-        //Animspeed conected to navmesh speed 
-        if (anim != null)
-        {
-            if (!RootMotion)
-            {
-                anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
-            }
-        }
+      
 
         EnergyLifeCalc();
+        if (Nav != null)
+        {
+            TPC.Move(Nav.desiredVelocity);
+        }
 
     }
 
@@ -524,19 +518,7 @@ public class NPC : MonoBehaviour
             }
         }
     }
-    void OnAnimatorMove()
-    {
-        if (RootMotion)
-        {
-            // Update position based on animation movement using navigation surface height
-            Vector3 position = anim.rootPosition;
-            position.y = Nav.nextPosition.y;
-            transform.position = position;
-            Nav.nextPosition = transform.position;
-
-        }
-
-    }
+  
     public string getState()
     {
         foreach (BehaviorTree item in AllBehaviour)
@@ -556,5 +538,21 @@ public class NPC : MonoBehaviour
     {
 
         UI_Attack.startFill(_time);
+    }
+
+   
+
+    public void OnAnimatorMove()
+    {
+        if (RootMotion)
+        {
+            // Update position based on animation movement using navigation surface height
+            Vector3 position = anim.rootPosition;
+            position.y = Nav.nextPosition.y;
+            transform.position = position;
+            Nav.nextPosition = transform.position;
+
+        }
+
     }
 }
