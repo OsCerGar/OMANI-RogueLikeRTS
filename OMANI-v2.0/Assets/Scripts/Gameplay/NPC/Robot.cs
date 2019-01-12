@@ -105,7 +105,7 @@ public class Robot : NPC
 
     public void Fired()
     {
-        commander.RemoveFromList(this);
+        commander.Remove(this);
     }
 
     private void CreateLink()

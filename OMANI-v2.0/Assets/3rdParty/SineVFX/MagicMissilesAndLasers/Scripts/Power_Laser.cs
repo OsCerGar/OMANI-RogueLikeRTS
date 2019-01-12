@@ -74,7 +74,6 @@ public class Power_Laser : MonoBehaviour
 
     public void setWidth(float _width)
     {
-        Debug.Log("hello");
         if (_width > widthToSend)
         {
             widthToSend += Time.unscaledDeltaTime * 3;

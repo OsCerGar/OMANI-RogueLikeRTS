@@ -4,13 +4,13 @@ public class Robot_Energy : Interactible
 {
     [SerializeField]
     public bool ready { get; set; }
-    public NPC npc;
+    public Robot _robot;
     WorkerSM workerSM;
 
     public override void Start()
     {
         base.Start();
-        npc = GetComponent<NPC>();
+        _robot = GetComponent<Robot>();
         workerSM = GetComponentInChildren<WorkerSM>();
         price = 75;
         linkPrice = 2;
@@ -30,7 +30,7 @@ public class Robot_Energy : Interactible
 
             if (powers.reducePower(currentLinkPrice))
             {
-                npc.powerPool += currentLinkPrice * Time.unscaledDeltaTime;
+                _robot.powerPool += currentLinkPrice * Time.unscaledDeltaTime;
                 actionBool = true;
             }
             else
@@ -42,14 +42,14 @@ public class Robot_Energy : Interactible
 
     public override void FullAction()
     {
-        npc.powerPool = powers.reduceAsMuchPower(npc.maxpowerPool);
+        _robot.powerPool = powers.reduceAsMuchPower(_robot.maxpowerPool);
         laserAudio.energyTransmisionSound(currentLinkPrice);
     }
 
 
     public override void Update()
     {
-        if (npc.powerPool >= npc.maxpowerPool)
+        if (_robot.powerPool >= _robot.maxpowerPool)
         {
             if (!ready)
             {
@@ -65,17 +65,16 @@ public class Robot_Energy : Interactible
     public override void ActionCompleted()
     {
         workerSM.selectionRobot();
-
+        _robot.AutoReclute();
         startTime = Time.time;
         ready = true;
         currentLinkPrice = 0;
         t = 0.2f;
-
         //Plays the selection Sound
     }
 
     public override void ReducePower()
     {
-        npc.powerPool -= 1 * Time.unscaledDeltaTime;
+        _robot.powerPool -= 1 * Time.unscaledDeltaTime;
     }
 }

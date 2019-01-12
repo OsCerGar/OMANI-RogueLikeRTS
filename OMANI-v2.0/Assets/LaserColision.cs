@@ -49,7 +49,6 @@ public class LaserColision : MonoBehaviour
         {
             if (other.CompareTag("Building"))
             {
-                Debug.Log("hy");
 
                 interactible = other.GetComponent<Interactible>();
 
