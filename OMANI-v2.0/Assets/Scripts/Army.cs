@@ -18,6 +18,8 @@ public class Army : MonoBehaviour
     private RadialMenu_GUI radialMenu;
     private int ArmyCellSelected;
 
+    private Robot currentFighter;
+
     private void Start()
     {
         look = FindObjectOfType<LookDirectionsAndOrder>();
@@ -34,6 +36,11 @@ public class Army : MonoBehaviour
         {
             radialMenuPopDown();
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Order();
+        }
     }
 
     //Makes the RadialMenu Visible
@@ -45,7 +52,16 @@ public class Army : MonoBehaviour
     //Makes the RadialMenu invisible and gets the selected menu item.
     private void radialMenuPopDown()
     {
-        ArmyCellSelected = radialMenu.PopDown();
+        int newArmyCellSelected = radialMenu.PopDown();
+
+        // Debería deseleccionar.
+        //If currentFighter tiene toda la energia, debería desmaterializarse y volver.
+        //Si no, debería desconectarse.
+
+        if (armyCell[newArmyCellSelected].getRobotType() != null)
+        {
+            ArmyCellSelected = newArmyCellSelected;
+        }
     }
 
     public ArmyCell checkArmyCellAvailable(Robot _newRobot)
@@ -97,28 +113,53 @@ public class Army : MonoBehaviour
     {
         return armyCell;
     }
+
     //Adds the boy to the Army and makes it follow the Army commander.
     public void Reclute(Robot _robot)
     {
+
         ArmyCell cellToSaveRobot;
         cellToSaveRobot = checkArmyCellAvailable(_robot);
 
         if (cellToSaveRobot != null)
         {
             cellToSaveRobot.addRobot(_robot);
+
+            //Disable robot
+            _robot.Dematerialize();
         }
         else
         {
             //no space left sound or whatever
         }
     }
-    public void Order(string type, Vector3 orderPosition)
+
+    public void Order()
     {
         //Makes a Robot Appear if there is no other robot doing stuff.
+
+        if (currentFighter != null)
+        {
+            //Attacks
+            currentFighter.FighterAttack(look.pointerDirection.gameObject);
+        }
+
+        else
+        {
+            //Materialice the next one
+
+            currentFighter = armyCell[ArmyCellSelected].GetRobot();
+            currentFighter.Materialize(ShootingPosition, look.pointerDirection.gameObject);
+        }
+
     }
 
     public void Remove(Robot _robot)
     {
+        if (_robot == currentFighter)
+        {
+            currentFighter = null;
+        }
         foreach (ArmyCell cell in armyCell)
         {
             cell.removeRobot(_robot);

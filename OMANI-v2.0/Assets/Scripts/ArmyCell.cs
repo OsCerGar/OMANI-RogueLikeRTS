@@ -13,15 +13,18 @@ public class ArmyCell : MonoBehaviour
     {
         radialMenu = FindObjectOfType<RadialMenu_GUI>();
     }
+
     public void setRobotType(Robot _robot)
     {
         robotType = _robot.boyType;
         Transaction();
     }
+
     public string getRobotType()
     {
         return robotType;
     }
+
     public int getRobotQuantity()
     {
         return robots.Count;
@@ -79,7 +82,12 @@ public class ArmyCell : MonoBehaviour
         {
             Clean();
         }
-        Transaction();
+        //Transaction();
+    }
+
+    public Robot GetRobot()
+    {
+        return robots[0];
     }
 
     public void Clean()

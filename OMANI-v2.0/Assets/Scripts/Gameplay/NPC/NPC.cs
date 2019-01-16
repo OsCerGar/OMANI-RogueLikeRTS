@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
 
     [SerializeField]
     public int startLife, life, damage, resurrectCost = 25, powerUpCost = 10;
-    [HideInInspector] public float maxpowerPool = 5, powerPool = 0, increaseAmount = 0.15f;
+    [SerializeField] public float maxpowerPool = 5, powerPool = 0, increaseAmount = 0.15f;
     [HideInInspector] public float powerReduced = 0, linkPrice = 1;
     [HideInInspector] public int quarter, half, quarterAndHalf;
 
@@ -183,7 +183,7 @@ public class NPC : MonoBehaviour
         {
             Nav.updateRotation = false;
         }
-        
+
 
         UI_Attack = GetComponentInChildren<UI_RobotAttack>();
 
@@ -245,7 +245,7 @@ public class NPC : MonoBehaviour
             }
         }
 
-      
+
 
         EnergyLifeCalc();
         if (Nav != null)
@@ -257,7 +257,7 @@ public class NPC : MonoBehaviour
 
     private void EnergyLifeCalc()
     {
-        
+
         #region ReducePowerPool
 
         if (powerPool < quarter)
@@ -277,7 +277,7 @@ public class NPC : MonoBehaviour
             powerPool = Mathf.Clamp(powerPool, quarterAndHalf, maxpowerPool);
         }
         #endregion
-        
+
     }
 
     //take damage with knockBack
@@ -376,14 +376,26 @@ public class NPC : MonoBehaviour
         }
     }
 
-    public virtual void Follow(GameObject _position)
+    public void SetTreeVariable(GameObject _variable, string _variableName)
     {
-        enableTree("Follow");
-        var stateVariable = (SharedGameObject)FollowTree.GetVariable("Position");
-        stateVariable.Value = _position;
-
+        var stateVariable = (SharedGameObject)FollowTree.GetVariable(_variableName);
+        stateVariable.Value = _variable;
 
     }
+    public void SetAttackTreeVariable(GameObject _variable, string _variableName)
+    {
+        var stateVariable = (SharedGameObject)AttackTree.GetVariable(_variableName);
+        stateVariable.Value = _variable;
+
+    }
+
+    public virtual void Follow(GameObject _position, GameObject _miradaPosition)
+    {
+        enableTree("Follow");
+        SetTreeVariable(_position, "Position");
+        SetTreeVariable(_miradaPosition, "LookAt");
+    }
+
     public virtual void Idle()
     {
         IdleTree.EnableBehavior();
@@ -518,7 +530,7 @@ public class NPC : MonoBehaviour
             }
         }
     }
-  
+
     public string getState()
     {
         foreach (BehaviorTree item in AllBehaviour)
@@ -540,7 +552,7 @@ public class NPC : MonoBehaviour
         UI_Attack.startFill(_time);
     }
 
-   
+
 
     public void OnAnimatorMove()
     {

@@ -36,16 +36,13 @@ public class QueenLegs : MonoBehaviour
         _step.clip = pisada_de_arena.clip;
 
         float volume = Random.Range(0.05f, 0.15f);
-        if (_step.isPlaying != true)
+        if (volume > 0.13f && !movimiento_de_pierna.isPlaying)
         {
-            if (volume > 0.13f && !movimiento_de_pierna.isPlaying)
-            {
-                movimiento_de_pierna.volume = volume;
-                movimiento_de_pierna.Play();
-            }
-            _step.volume = volume;
-            _step.Play();
+            movimiento_de_pierna.volume = volume;
+            movimiento_de_pierna.Play();
         }
+        _step.volume = volume;
+        _step.Play();
 
         stepPool.StepSpawn(_transform);
 

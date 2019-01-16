@@ -33,6 +33,11 @@ public class Robot : NPC
         commander = FindObjectOfType<Army>();
         workerSM = GetComponentInChildren<WorkerSM>();
 
+        if (powerPool != maxpowerPool)
+        {
+            powerPool = 1;
+            TakeDamage(5);
+        }
     }
 
     public override void AttackHit()
@@ -52,6 +57,29 @@ public class Robot : NPC
 
     }
 
+    public void Dematerialize()
+    {
+        //Dematerializes.
+
+        //Disables everything.
+        transform.gameObject.SetActive(false);
+    }
+
+    public void Materialize(GameObject _ShootingPosition, GameObject _miradaPosition)
+    {
+        //Dematerializes.
+
+        //Disables everything.
+        transform.gameObject.SetActive(true);
+        transform.position = _ShootingPosition.transform.position;
+        Follow(_ShootingPosition, _miradaPosition);
+    }
+
+    public virtual void FighterAttack(GameObject _position)
+    {
+        SetAttackTreeVariable(_position, "Enemy");
+    }
+
     //Simple way to take damage
     public override void TakeDamage(int damage)
     {
@@ -67,9 +95,12 @@ public class Robot : NPC
             }
             if (powerPool > 0)
             {
+                Debug.Log("e");
+                //Instead, it should recieve some damage.
                 reducePowerNow(maxpowerPool);
                 enableTree("CoolDown");
-                Fired();
+                CoolDown();
+                //Fired();
             }
             else
             {
@@ -83,19 +114,6 @@ public class Robot : NPC
     {
         base.Die();
         //dissolveEffect.StartDissolve();
-    }
-    public void Resurrect()
-    {
-
-        Nav.updatePosition = true;
-        Nav.updateRotation = true;
-        life = startLife;
-        //this.gameObject.GetComponent<Collider>().enabled = true;
-        gameObject.GetComponent<Collider>().isTrigger = false;
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        gameObject.layer = peopl;
-        state = "Alive";
-        //cambiar tag y layer
     }
 
     public void AutoReclute()
@@ -125,5 +143,9 @@ public class Robot : NPC
         powerReduced = 0;
     }
 
-
+    private void CoolDown()
+    {
+        anim.SetTrigger("CoolDown");
+        Fired();
+    }
 }

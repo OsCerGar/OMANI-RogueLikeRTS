@@ -17,6 +17,7 @@ public class Robot_Energy : Interactible
         finalLinkPrice = 7;
         currentLinkPrice = 0;
         t = 0.2f;
+        
     }
 
     public override void Action()
@@ -65,12 +66,15 @@ public class Robot_Energy : Interactible
     public override void ActionCompleted()
     {
         workerSM.selectionRobot();
-        _robot.AutoReclute();
+
         startTime = Time.time;
         ready = true;
         currentLinkPrice = 0;
         t = 0.2f;
-        //Plays the selection Sound
+
+        //When energy full
+        _robot.AutoReclute();
+
     }
 
     public override void ReducePower()

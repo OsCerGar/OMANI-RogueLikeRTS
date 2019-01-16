@@ -17,7 +17,6 @@ public class QueenHandCollisionManager : MonoBehaviour
         if (other.CompareTag("Terrain"))
         {
             _queenLegs.Collision(other, step, this.transform);
-
         }
     }
 }

@@ -17,6 +17,14 @@ public class Worker : Robot
         RollAttackFinished();
         TrailEffect.Stop();
     }
+    public override void FighterAttack(GameObject _position)
+    {
+        base.FighterAttack(_position);
+
+        enableTree("Attack");
+        Fired();
+    }
+
     void Awake()
     {
         boyType = "Worker";
