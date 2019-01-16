@@ -182,6 +182,7 @@ public class NPC : MonoBehaviour
         if (Nav != null)
         {
             Nav.updateRotation = false;
+            Nav.updatePosition = false;
         }
 
 
