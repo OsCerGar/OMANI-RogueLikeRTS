@@ -58,10 +58,35 @@ public class Army : MonoBehaviour
         //If currentFighter tiene toda la energia, debería desmaterializarse y volver.
         //Si no, debería desconectarse.
 
-        if (armyCell[newArmyCellSelected].getRobotType() != null)
+        string robotTypes = armyCell[newArmyCellSelected].getRobotType();
+
+        if (robotTypes == null)
+        {
+            ArmyCellSelected = 4;
+
+            if (currentFighter != null)
+            {
+                Robot _transitionStateRobot = currentFighter;
+                Remove(currentFighter);
+                Reclute(_transitionStateRobot);
+            }
+
+        }
+
+        else if (currentFighter != null && robotTypes != currentFighter.boyType)
+        {
+            ArmyCellSelected = newArmyCellSelected;
+
+            Robot _transitionStateRobot = currentFighter;
+            Remove(currentFighter);
+            Reclute(_transitionStateRobot);
+        }
+
+        else
         {
             ArmyCellSelected = newArmyCellSelected;
         }
+
     }
 
     public ArmyCell checkArmyCellAvailable(Robot _newRobot)
@@ -146,10 +171,17 @@ public class Army : MonoBehaviour
 
         else
         {
-            //Materialice the next one
+            //If something is selected
+            if (ArmyCellSelected != 4)
+            {
+                //Materialice the next one
+                currentFighter = armyCell[ArmyCellSelected].GetRobot();
+                currentFighter.Materialize(ShootingPosition, look.pointerDirection.gameObject);
 
-            currentFighter = armyCell[ArmyCellSelected].GetRobot();
-            currentFighter.Materialize(ShootingPosition, look.pointerDirection.gameObject);
+                //Removes from list to update UI, still currentFighter
+                RemoveWithoutFighter(currentFighter);
+                armyCell[ArmyCellSelected].Transaction();
+            }
         }
 
     }
@@ -160,6 +192,13 @@ public class Army : MonoBehaviour
         {
             currentFighter = null;
         }
+        foreach (ArmyCell cell in armyCell)
+        {
+            cell.removeRobot(_robot);
+        }
+    }
+    public void RemoveWithoutFighter(Robot _robot)
+    {
         foreach (ArmyCell cell in armyCell)
         {
             cell.removeRobot(_robot);

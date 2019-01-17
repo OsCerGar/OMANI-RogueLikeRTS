@@ -5,7 +5,7 @@ public class ArmyCell : MonoBehaviour
 {
     [SerializeField]
     private List<Robot> robots = new List<Robot>();
-    private int limit = 4;
+    private int limit = 3;
     private string robotType = null;
     RadialMenu_GUI radialMenu;
 
@@ -97,7 +97,7 @@ public class ArmyCell : MonoBehaviour
     }
 
     //Changes made to the ArmyCell, used to Update UI
-    private void Transaction()
+    public void Transaction()
     {
         radialMenu.UpdateState();
     }
