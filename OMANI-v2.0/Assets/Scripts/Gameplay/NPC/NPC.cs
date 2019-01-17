@@ -182,7 +182,7 @@ public class NPC : MonoBehaviour
         if (Nav != null)
         {
             Nav.updateRotation = false;
-            Nav.updatePosition = false;
+           // Nav.updatePosition = false;
         }
 
 
@@ -555,17 +555,5 @@ public class NPC : MonoBehaviour
 
 
 
-    public void OnAnimatorMove()
-    {
-        if (RootMotion)
-        {
-            // Update position based on animation movement using navigation surface height
-            Vector3 position = anim.rootPosition;
-            position.y = Nav.nextPosition.y;
-            transform.position = position;
-            Nav.nextPosition = transform.position;
-
-        }
-
-    }
+  
 }

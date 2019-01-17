@@ -1,5 +1,6 @@
 using UnityEngine;
 
+using UnityEngine.AI;
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
 	[RequireComponent(typeof(Rigidbody))]
@@ -19,14 +20,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		float m_OrigGroundCheckDistance;
 		float m_TurnAmount;
 		float m_ForwardAmount;
+        Animator anim;
+        NavMeshAgent Nav;
 
-
-		void Start()
+        void Start()
 		{
 			m_Animator = GetComponent<Animator>();
 			m_Rigidbody = GetComponent<Rigidbody>();
+            anim = gameObject.GetComponent<Animator>();
+            Nav = gameObject.GetComponent<NavMeshAgent>();
 
-			m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 		}
 
 
@@ -62,11 +66,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			m_Animator.SetFloat("Z", m_ForwardAmount, 0.1f, Time.deltaTime);
 			m_Animator.SetFloat("X", m_TurnAmount, 0.1f, Time.deltaTime);
 			
-            
+            /*
 			if (move.magnitude > 0)
 			{
 				m_Animator.speed = m_AnimSpeedMultiplier;
 			}
+            */
 		}
 
         
@@ -74,6 +79,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		void ApplyExtraTurnRotation()
 		{
             // help the character turn faster (this is in addition to root rotation in the animation)
+
             m_TurnAmount = Mathf.Atan2(move.x, move.z);
             float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
 			transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
@@ -82,18 +88,24 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		public void OnAnimatorMove()
 		{
-			// we implement this function to override the default root motion.
-			// this allows us to modify the positional speed before it's applied.
-			
+            // we implement this function to override the default root motion.
+            // this allows us to modify the positional speed before it's applied.
+            /*
 				Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
 
 				// we preserve the existing y part of the current velocity.
+                
 				v.y = m_Rigidbody.velocity.y;
 				m_Rigidbody.velocity = v;
+            */
+                Vector3 position = anim.rootPosition;
+                position.y = Nav.nextPosition.y;
+                transform.position = position;
+                Nav.nextPosition = transform.position;
+            
 
 
-			
-		}
+        }
         
 	}
 }

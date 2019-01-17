@@ -6,22 +6,23 @@ using BehaviorDesigner.Runtime;
 
 public class SurkaMelee : Enemy {
     [SerializeField] ParticleSystem AttackTrail;
-   
+    [SerializeField] ParticleSystem Slash;
+
     public void SetMaster(GameObject master)
     {
         var thisTarget = (SharedGameObject)transform.gameObject.GetComponent<BehaviorTree>().GetVariable("Master");
         thisTarget.Value = master;
 
     }
-    public void ShowAttackUI()
-    {
-          UI_Attack.Show(transform.gameObject);
-    }
     public void StartAttackTrail()
         {
              AttackTrail.Play();
         }
-    
-   
+
+    public override void AttackHit()
+    {
+        Attackzone.SetActive(true);
+        Slash.Play();
+    }
 
 }
