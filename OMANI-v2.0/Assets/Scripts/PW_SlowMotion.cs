@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 //using UnityEngine.PostProcessing;
 
 public class PW_SlowMotion : Power
@@ -15,10 +13,13 @@ public class PW_SlowMotion : Power
     //PostProcessingProfile slowmo;
     //PostProcessingProfile normal;
 
+    ConfigurableJoint queenJoint;
+
     public override void Awake()
     {
         base.Awake();
 
+        queenJoint = FindObjectOfType<ConfigurableJoint>();
         regularSpeed = player.speed;
     }
 
@@ -43,6 +44,11 @@ public class PW_SlowMotion : Power
     {
         if (!active)
         {
+            queenJoint.zMotion = ConfigurableJointMotion.Locked;
+            queenJoint.angularXMotion = ConfigurableJointMotion.Locked;
+            queenJoint.angularYMotion = ConfigurableJointMotion.Locked;
+            queenJoint.angularZMotion = ConfigurableJointMotion.Locked;
+
             // if inactive becomes active and loads the slowmo postfx added in inspector.
             backToNormal = false;
             active = true;
@@ -56,6 +62,11 @@ public class PW_SlowMotion : Power
         }
         else
         {
+            queenJoint.zMotion = ConfigurableJointMotion.Limited;
+            queenJoint.angularXMotion = ConfigurableJointMotion.Limited;
+            queenJoint.angularYMotion = ConfigurableJointMotion.Limited;
+            queenJoint.angularZMotion = ConfigurableJointMotion.Limited;
+
             // if already active becomes inactive and loads the regular postfx.
             active = false;
             Time.fixedDeltaTime = 0.02F;

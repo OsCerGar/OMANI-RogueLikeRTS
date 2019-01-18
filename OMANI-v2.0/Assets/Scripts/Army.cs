@@ -20,10 +20,14 @@ public class Army : MonoBehaviour
 
     private Robot currentFighter;
 
+    PW_SlowMotion slowMo;
+
     private void Start()
     {
         look = FindObjectOfType<LookDirectionsAndOrder>();
         radialMenu = FindObjectOfType<RadialMenu_GUI>();
+        slowMo = FindObjectOfType<PW_SlowMotion>();
+
     }
 
     private void LateUpdate()
@@ -47,12 +51,14 @@ public class Army : MonoBehaviour
     private void radialMenuPopUp()
     {
         radialMenu.PopUp();
+        slowMo.CastPower();
     }
 
     //Makes the RadialMenu invisible and gets the selected menu item.
     private void radialMenuPopDown()
     {
         int newArmyCellSelected = radialMenu.PopDown();
+        slowMo.CastPower();
 
         // Debería deseleccionar.
         //If currentFighter tiene toda la energia, debería desmaterializarse y volver.
@@ -86,6 +92,7 @@ public class Army : MonoBehaviour
         {
             ArmyCellSelected = newArmyCellSelected;
         }
+
 
     }
 
