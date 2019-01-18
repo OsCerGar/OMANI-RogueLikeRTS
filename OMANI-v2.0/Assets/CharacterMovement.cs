@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -17,13 +15,15 @@ public class CharacterMovement : MonoBehaviour
     bool onMovement = false;
 
     Vector3 desiredDirection;
+    AudioSource _sand;
 
     // Use this for initialization
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        rb = this.GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         LookDirection = FindObjectOfType<LookDirectionsAndOrder>();
+        _sand = transform.Find("SFX").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -98,6 +98,19 @@ public class CharacterMovement : MonoBehaviour
             LookDirection.LookAtWhileMoving(horizontalJoystick, verticalJoystick);
 
         }
+
+        if (onMovement)
+        {
+            if (horizontal == 0f || vertical == 0f)
+            {
+                onMovement = false;
+
+                if (!_sand.isPlaying)
+                {
+                    _sand.Play();
+                }
+            }
+        }
     }
 
     // Function that makes the rotation of the character look good.
@@ -110,7 +123,7 @@ public class CharacterMovement : MonoBehaviour
         Quaternion desiredRotation = Quaternion.LookRotation(desiredDirection, Vector3.up);
 
         // Smoothes the transition
-        Quaternion smoothedRotation = Quaternion.Lerp(this.transform.rotation, desiredRotation, smooth * Time.deltaTime);
+        Quaternion smoothedRotation = Quaternion.Lerp(transform.rotation, desiredRotation, smooth * Time.deltaTime);
 
         // Uses the rigidbody function  "MoveRotation" which sets the new rotation of the Rigidbody. 
         transform.rotation = smoothedRotation;

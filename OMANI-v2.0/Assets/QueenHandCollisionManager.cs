@@ -3,12 +3,14 @@
 public class QueenHandCollisionManager : MonoBehaviour
 {
     QueenLegs _queenLegs;
-    AudioSource step;
+    AudioSource step, legMovement;
 
     private void Start()
     {
         _queenLegs = FindObjectOfType<QueenLegs>();
-        step = GetComponent<AudioSource>();
+
+        step = GetComponents<AudioSource>()[0];
+        legMovement = GetComponents<AudioSource>()[1];
     }
 
 
@@ -16,7 +18,14 @@ public class QueenHandCollisionManager : MonoBehaviour
     {
         if (other.CompareTag("Terrain"))
         {
-            _queenLegs.Collision(other, step, this.transform);
+            _queenLegs.Collision(other, step, transform);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Terrain"))
+        {
+            _queenLegs.CollisionOut(other, legMovement);
         }
     }
 }

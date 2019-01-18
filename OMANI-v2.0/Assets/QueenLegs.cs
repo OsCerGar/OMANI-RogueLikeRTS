@@ -38,19 +38,21 @@ public class QueenLegs : MonoBehaviour
         float volume = Random.Range(0.01f, 0.05f);
         float pitch = Random.Range(0.85f, 1.15f);
 
-        if (volume < 0.02f && !movimiento_de_pierna.isPlaying)
-        {
-            movimiento_de_pierna.pitch = pitch;
-            movimiento_de_pierna.volume = volume;
-            movimiento_de_pierna.Play();
-        }
-
         //STEP STUFF
         _step.pitch = pitch;
         _step.volume = volume;
         _step.Play();
 
         stepPool.StepSpawn(_transform);
+    }
+
+    public void CollisionOut(Collider collision, AudioSource _leg)
+    {
+        _leg.clip = movimiento_de_pierna.clip;
+
+        //_leg.pitch = pitch;
+        _leg.volume = movimiento_de_pierna.volume;
+        _leg.Play();
 
     }
 }
