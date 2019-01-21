@@ -52,7 +52,7 @@ public class QueenLegs : MonoBehaviour
 
         //_leg.pitch = pitch;
         _leg.volume = movimiento_de_pierna.volume;
-        _leg.Play();
+        //_leg.Play();
 
     }
 }

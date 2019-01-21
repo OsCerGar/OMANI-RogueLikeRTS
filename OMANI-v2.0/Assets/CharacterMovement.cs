@@ -12,11 +12,13 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     private float minDistanceToGround, maxDistanceToGround;
     CharacterController controller;
-    bool onMovement = false;
 
     Vector3 desiredDirection;
-    AudioSource _sand;
 
+    //audio
+    AudioSource _sand;
+    bool onMovement = false;
+    float onMovementTime;
     // Use this for initialization
     void Start()
     {
@@ -101,14 +103,17 @@ public class CharacterMovement : MonoBehaviour
 
         if (onMovement)
         {
-            if (horizontal == 0f || vertical == 0f)
+            onMovementTime += Time.deltaTime;
+            if (horizontal == 0f && vertical == 0f)
             {
                 onMovement = false;
 
-                if (!_sand.isPlaying)
+                if (!_sand.isPlaying && onMovementTime > 2f)
                 {
                     _sand.Play();
                 }
+
+                onMovementTime = 0;
             }
         }
     }
