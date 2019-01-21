@@ -5,7 +5,8 @@ public class QueenLegs : MonoBehaviour
     AudioSource pisada_de_arena, movimiento_de_pierna;
     StepPool stepPool;
 
-    bool ReadyLeftArmPos, ReadyRightArmPos, ReadyLeftLegPos, ReadyRightLegPos;
+    bool stepPlaying;
+    float timePlaying, timeToPlay;
     int layerMask = 1 << 8;
     RaycastHit hit;
 
@@ -28,6 +29,31 @@ public class QueenLegs : MonoBehaviour
         }
 
         stepPool = FindObjectOfType<StepPool>();
+        timeToPlay = 0.25f;
+    }
+
+    private void Update()
+    {
+        if (stepPlaying)
+        {
+            timePlaying += Time.deltaTime;
+        }
+        if (timePlaying > timeToPlay)
+        {
+            stepPlaying = false;
+            timePlaying = 0;
+        }
+
+        if (Input.GetKeyDown("left"))
+        {
+            timeToPlay -= 0.01f;
+            Debug.Log("Tiempo entre pisadas = " + timeToPlay);
+        }
+        if (Input.GetKeyDown("right"))
+        {
+            timeToPlay += 0.01f;
+            Debug.Log("Tiempo entre pisadas = " + timeToPlay);
+        }
     }
 
     public void Collision(Collider collision, AudioSource _step, Transform _transform)
@@ -39,10 +65,16 @@ public class QueenLegs : MonoBehaviour
         float pitch = Random.Range(0.85f, 1.15f);
 
         //STEP STUFF
-        _step.pitch = pitch;
-        _step.volume = volume;
-        _step.Play();
+        if (!stepPlaying)
+        {
+            stepPlaying = true;
 
+            _step.pitch = pitch;
+            _step.volume = volume;
+            _step.Play();
+        }
+
+        //visual
         stepPool.StepSpawn(_transform);
     }
 
