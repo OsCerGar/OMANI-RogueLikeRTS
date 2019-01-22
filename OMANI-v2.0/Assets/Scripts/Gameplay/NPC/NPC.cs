@@ -262,7 +262,7 @@ public class NPC : MonoBehaviour
             }
             else
             {
-
+                Debug.Log("else ene l move");
                 TPC.Move(transform.position);
             }
         }

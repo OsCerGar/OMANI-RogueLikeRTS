@@ -36,6 +36,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		public void Move(Vector3 move)
 		{
+            if (Vector3.Distance (transform.position, move) > 0.2f)
+            {
 
             // convert the world relative moveInput vector into a local-relative
             // turn amount and forward amount required to head in the desired
@@ -54,7 +56,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 
             UpdateAnimator(move);
-		}
+            }
+        }
         
 
 		
