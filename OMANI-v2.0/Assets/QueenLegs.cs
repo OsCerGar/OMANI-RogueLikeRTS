@@ -6,7 +6,7 @@ public class QueenLegs : MonoBehaviour
     StepPool stepPool;
 
     bool stepPlaying;
-    float timePlaying, timeToPlay, stepVolume, stepVolumeGradual, stepVolumeGradualReduction;
+    float timePlaying, timeToPlay, stepVolume, stepVolumeGradual, stepVolumeGradualReduction = 0.25f;
     int layerMask = 1 << 8;
     RaycastHit hit;
 

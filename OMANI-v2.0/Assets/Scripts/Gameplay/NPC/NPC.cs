@@ -494,10 +494,14 @@ public class NPC : MonoBehaviour
             hitEffects[UnityEngine.Random.Range(0, hitEffects.Length)].Play();
         }
         //Set the main Color of the Material to green
-        Renderer.material.SetColor("_Color", Color.red);
-        yield return new WaitForSeconds(0.1f);
-        //Set the main Color of the Material to green
-        Renderer.material.SetColor("_Color", Color.white);
+        if (Renderer != null)
+        {
+            Renderer.material.SetColor("_Color", Color.red);
+            yield return new WaitForSeconds(0.1f);
+            //Set the main Color of the Material to green
+            Renderer.material.SetColor("_Color", Color.white);
+
+        }
     }
 
     /*

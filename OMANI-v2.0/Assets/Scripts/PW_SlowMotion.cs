@@ -56,7 +56,7 @@ public class PW_SlowMotion : Power
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
 
             // Player goes faster
-            player.speed = 0.1f;
+             player.speed = 0.05f;
 
             locomotionBrain.SlowMotionValues();
         }
