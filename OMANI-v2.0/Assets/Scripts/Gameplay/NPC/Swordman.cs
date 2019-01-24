@@ -23,6 +23,7 @@ public class Swordman : Robot
     public void Attack1()
     {
         Attack1Zone.SetActive(true);
+        attackcounter++;
     }
     public void Attack2()
     {
@@ -39,10 +40,6 @@ public class Swordman : Robot
         {
             anim.SetBool("FinalAttack", true);
         }
-    }
-    public void AttackCounterPlusOne()
-    {
-        attackcounter++;
     }
     public override void CoolDown()
     {
