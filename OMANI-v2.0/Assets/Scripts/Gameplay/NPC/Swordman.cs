@@ -6,8 +6,7 @@ public class Swordman : Robot
 {
     [SerializeField] GameObject Attack1Zone;
     [SerializeField] GameObject Attack2Zone;
-    [SerializeField] int numberOfAttacks = 4;
-    int attackcounter = 0;
+    [SerializeField] GameObject ContinuousAttackZone;
     void Awake()
     {
         boyType = "Swordsman";
@@ -28,27 +27,12 @@ public class Swordman : Robot
     {
         Attack2Zone.SetActive(true);
     }
-    
+    public void ContinuousAttack()
+    {
+        ContinuousAttackZone.SetActive(true);
+    }
     public override void FighterAttack(GameObject attackPosition)
     {
-        if (attackcounter < numberOfAttacks)
-        {
-            anim.SetBool("Attack", true);
-        }
-        else
-        {
-            anim.SetBool("FinalAttack", true);
-        }
-    }
-    public void AttackCounterPlusOne()
-    {
-        attackcounter++;
-    }
-    public override void CoolDown()
-    {
-        attackcounter = 0;
-        reducePowerNow(maxpowerPool);
-        enableTree("CoolDown");
-        base.CoolDown();
+        anim.SetTrigger("Attack");
     }
 }

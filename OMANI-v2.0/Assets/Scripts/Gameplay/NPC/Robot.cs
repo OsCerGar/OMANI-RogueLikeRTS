@@ -143,7 +143,7 @@ public class Robot : NPC
         powerReduced = 0;
     }
 
-    public virtual void CoolDown()
+    private void CoolDown()
     {
         anim.SetTrigger("CoolDown");
         Fired();
