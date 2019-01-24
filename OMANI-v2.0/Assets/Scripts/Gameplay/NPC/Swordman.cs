@@ -31,5 +31,8 @@ public class Swordman : Robot
     {
         ContinuousAttackZone.SetActive(true);
     }
-
+    public override void FighterAttack(GameObject attackPosition)
+    {
+        anim.SetTrigger("Attack");
+    }
 }
