@@ -40,8 +40,8 @@ public class LaserColision : MonoBehaviour
 
     private void LaserCollisions()
     {
-        Enemy enemy;
-        Interactible interactible;
+        Enemy enemy, closestEnemyTarget = null;
+        Interactible interactible, closestBUTarget = null;
         Robot ally;
         bool somethingHitted = false;
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, rad);
@@ -71,7 +71,16 @@ public class LaserColision : MonoBehaviour
 
                 if (enemy != null)
                 {
-                    enemy.TakeWeakLaserDamage(1f, 1);
+                    Transform target = other.transform;
+
+                    //Distance to target
+                    float dstToTarget = Vector3.Distance(transform.position, target.position);
+                    //If the closestTarget is null he is the closest target.
+                    // If the distance is smaller than the distance to the closestTarget.
+                    if (closestBUTarget == null || dstToTarget < Vector3.Distance(transform.position, target.position))
+                    {
+                        closestEnemyTarget = enemy;
+                    }
                 }
             }
 
