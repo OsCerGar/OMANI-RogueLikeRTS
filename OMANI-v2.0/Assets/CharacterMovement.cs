@@ -18,21 +18,20 @@ public class CharacterMovement : MonoBehaviour
     //audio
     AudioSource _sand;
     bool onMovement = false;
-    public float onMovementTime;
-
-    //Sound events
-
-    public delegate void Stopped();
-    public static event Stopped OnStopping;
-
-
-
+    float onMovementTime;
     // Use this for initialization
     void Start()
     {
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         LookDirection = FindObjectOfType<LookDirectionsAndOrder>();
+        _sand = transform.Find("SFX").GetComponent<AudioSource>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     private void FixedUpdate()
@@ -108,7 +107,12 @@ public class CharacterMovement : MonoBehaviour
             if (horizontal == 0f && vertical == 0f)
             {
                 onMovement = false;
-                OnStopping();
+
+                if (!_sand.isPlaying && onMovementTime > 2f)
+                {
+                    _sand.Play();
+                }
+
                 onMovementTime = 0;
             }
         }

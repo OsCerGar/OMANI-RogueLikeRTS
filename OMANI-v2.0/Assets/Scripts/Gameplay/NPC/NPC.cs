@@ -24,10 +24,6 @@ public class NPC : MonoBehaviour
     [HideInInspector] public float sumAmount, lastLife;
     [HideInInspector] public int lifeQuarter, lifeHalf, lifeQuarterAndHalf;
 
-
-    // DAMAGE More useless variables
-    float laser_damage;
-
     //Required for run animations synced with NevMesh
     [HideInInspector]
     public Animator anim;
@@ -63,9 +59,6 @@ public class NPC : MonoBehaviour
 
     private UI_RobotAttack uI_Attack;
 
-    //UI
-    NumberPool numberPool;
-    Transform numbersTransform;
     #endregion
 
     #region GETTERSETTERS
@@ -189,10 +182,10 @@ public class NPC : MonoBehaviour
         if (Nav != null)
         {
             Nav.updateRotation = false;
-            // Nav.updatePosition = false;
+           // Nav.updatePosition = false;
         }
-        numbersTransform = transform.Find("UI").Find("Numbers");
-        numberPool = FindObjectOfType<NumberPool>();
+
+
         UI_Attack = GetComponentInChildren<UI_RobotAttack>();
 
         quarter = Mathf.RoundToInt(maxpowerPool * 0.25f);
@@ -258,16 +251,7 @@ public class NPC : MonoBehaviour
         EnergyLifeCalc();
         if (Nav != null)
         {
-            if (Nav.remainingDistance > 0.2f)
-            {
-
-                TPC.Move(Nav.desiredVelocity);
-            }
-            else
-            {
-                Debug.Log("else ene l move");
-                TPC.Move(transform.position);
-            }
+            TPC.Move(Nav.desiredVelocity);
         }
 
     }
@@ -329,7 +313,7 @@ public class NPC : MonoBehaviour
     //Simple way to take damage
     public virtual void TakeDamage(int damage)
     {
-        numberPool.NumberSpawn(numbersTransform, damage);
+
         StartCoroutine(gotHit());
         if (state == "Alive")
         {
@@ -338,30 +322,12 @@ public class NPC : MonoBehaviour
                 anim.SetTrigger("Hit");
             }
             life -= damage;
-
             if (life <= 0)
             {
                 Die();
                 state = "Dead";
             }
         }
-    }
-
-    //Max damage is decided by the laser, in case of future upgrades to the Laser. 
-    public virtual void TakeWeakLaserDamage(float damage, int maxDamage)
-    {
-        if (state == "Alive")
-        {
-            laser_damage += damage * Time.unscaledDeltaTime;
-
-            if (laser_damage > maxDamage)
-            {
-                TakeDamage(maxDamage);
-                //Reset
-                laser_damage = 0;
-            }
-        }
-
     }
 
     protected void checkVariables()
@@ -589,5 +555,5 @@ public class NPC : MonoBehaviour
 
 
 
-
+  
 }
