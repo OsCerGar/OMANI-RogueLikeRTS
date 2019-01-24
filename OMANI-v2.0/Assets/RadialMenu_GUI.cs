@@ -79,7 +79,7 @@ public class RadialMenu_GUI : MonoBehaviour
     {
         for (int i = 0; i < radialPart.Length; i++)
         {
-            radialPart[i].UISetRobot(); // sets robot type
+            radialPart[i].UISetRobot(); // sets robot type;
             radialPart[i].UISetAmountOfRobots(army.getCells()[i].getRobotQuantity());
         }
     }

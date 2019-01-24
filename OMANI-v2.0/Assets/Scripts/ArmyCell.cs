@@ -5,7 +5,7 @@ public class ArmyCell : MonoBehaviour
 {
     [SerializeField]
     private List<Robot> robots = new List<Robot>();
-    private int limit = 5;
+    private int limit = 3;
     private string robotType = null;
     RadialMenu_GUI radialMenu;
 
