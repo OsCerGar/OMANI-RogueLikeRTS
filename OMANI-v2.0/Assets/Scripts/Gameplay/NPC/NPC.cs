@@ -63,9 +63,6 @@ public class NPC : MonoBehaviour
 
     private UI_RobotAttack uI_Attack;
 
-    //UI
-    NumberPool numberPool;
-    Transform numbersTransform;
     #endregion
 
     #region GETTERSETTERS
@@ -191,8 +188,8 @@ public class NPC : MonoBehaviour
             Nav.updateRotation = false;
             // Nav.updatePosition = false;
         }
-        numbersTransform = transform.Find("UI").Find("Numbers");
-        numberPool = FindObjectOfType<NumberPool>();
+
+
         UI_Attack = GetComponentInChildren<UI_RobotAttack>();
 
         quarter = Mathf.RoundToInt(maxpowerPool * 0.25f);
@@ -329,7 +326,7 @@ public class NPC : MonoBehaviour
     //Simple way to take damage
     public virtual void TakeDamage(int damage)
     {
-        numberPool.NumberSpawn(numbersTransform, damage);
+
         StartCoroutine(gotHit());
         if (state == "Alive")
         {
