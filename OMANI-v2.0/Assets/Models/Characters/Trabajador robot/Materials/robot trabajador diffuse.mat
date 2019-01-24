@@ -8,9 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: robot trabajador diffuse
-  m_Shader: {fileID: 4800000, guid: 6ee274c501732384d9c8bb02a4576937, type: 3}
-  m_ShaderKeywords: _MK_ALBEDO_MAP _MK_LIGHTMODEL_BLINN_PHONG _MK_LIGHTTYPE_CEL_SHADE_MULTI
-    _MK_MODE_CUTOUT _MK_OCCLUSION _MK_SPECULAR_MAP _USEDISSOLVE_ON _USEOUTLINE_ON
+  m_Shader: {fileID: 4800000, guid: 881c73b45dda42d4ba29f8c7742329be, type: 3}
+  m_ShaderKeywords: _MK_ALBEDO_MAP _MK_DISSOLVE_RAMP _MK_LIGHTMODEL_OREN_NAYER _MK_LIGHTTYPE_CEL_SHADE_MULTI
+    _MK_MODE_CUTOUT _MK_OCCLUSION _MK_SPECULAR_MAP _USERIM_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -104,13 +104,13 @@ Material:
     - _DetailNormalMapScale: 1
     - _DetailTint: 0.5
     - _DissolveAmount: 0
-    - _DissolveRampSize: 0.447
+    - _DissolveRampSize: 0.59
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _LightCuts: 4
-    - _LightModel: 3
+    - _LightModel: 5
     - _LightSmoothness: 0.06
     - _LightThreshold: 0.05
     - _LightType: 2
@@ -129,7 +129,7 @@ Material:
     - _Metallic: 0.3
     - _Mode: 1
     - _OcclusionStrength: 1
-    - _OutlineSize: 0.02
+    - _OutlineSize: 0.03
     - _Parallax: 0.02
     - _ReflectIntensity: 1
     - _ReflectSmoothness: 1
@@ -145,15 +145,15 @@ Material:
     - _SketchToneMin: 0.77
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpecularIntensity: 0.341
+    - _SpecularIntensity: 1
     - _SrcBlend: 1
     - _TranslucentIntensity: 0.5
     - _TranslucentShininess: 0.275
     - _UVSec: 0
     - _UseAnisotropicSpecular: 0
     - _UseBumpMap: 0
-    - _UseDissolve: 0
-    - _UseOutline: 1
+    - _UseDissolve: 1
+    - _UseOutline: 0
     - _UseReflection: 0
     - _UseRim: 0
     - _UseSketch: 0
@@ -162,12 +162,12 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
-    - _DissolveColor: {r: 0.056603797, g: 0.33962262, b: 0, a: 0.5}
+    - _DissolveColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0.1687299, g: 0.5, b: 0, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
-    - _RimColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.12519133, g: 1, b: 0, a: 0.5}
+    - _SpecColor: {r: 0.06132078, g: 1, b: 0.88237727, a: 0.5}
     - _TranslucentColor: {r: 1, g: 1, b: 1, a: 0.5}

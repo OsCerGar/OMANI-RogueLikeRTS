@@ -255,16 +255,7 @@ public class NPC : MonoBehaviour
         EnergyLifeCalc();
         if (Nav != null)
         {
-            if (Nav.remainingDistance > 0.2f)
-            {
-
-                TPC.Move(Nav.desiredVelocity);
-            }
-            else
-            {
-
-                TPC.Move(transform.position);
-            }
+            TPC.Move(Nav.desiredVelocity);
         }
 
     }
