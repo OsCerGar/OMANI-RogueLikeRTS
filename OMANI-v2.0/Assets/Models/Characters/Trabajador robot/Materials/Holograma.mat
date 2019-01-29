@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CaveRockBunch_Default_color
+  m_Name: Holograma
   m_Shader: {fileID: 4800000, guid: 6ee274c501732384d9c8bb02a4576937, type: 3}
-  m_ShaderKeywords: _MK_ALBEDO_MAP _MK_BUMP_MAP _MK_LIGHTMODEL_OREN_NAYER _MK_LIGHTTYPE_CEL_SHADE_MULTI
-    _MK_OCCLUSION _NORMALMAP _USEOUTLINE_ON
+  m_ShaderKeywords: _MK_EMISSION_MAP _MK_LIGHTMODEL_BLINN_PHONG _MK_LIGHTTYPE_CEL_SHADE_MULTI
+    _MK_SPECULAR_MAP _USEOUTLINE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 5863013e7c3e3964eaa3fe327f6f28a3, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -52,11 +52,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3d3f7302c1edc9044852d2424e603197, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 96dc7667fcf29ef43b47b979f9b0a924, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: d0153cbaec759a6469f6eca4a4178959, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -80,7 +80,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SketchMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: cfe985002915cc14d9f8a13a2f98f53f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -96,7 +96,7 @@ Material:
     - _AnisoOffset: -0.2
     - _Blend0: 1
     - _Blend1: 0
-    - _Brightness: 1
+    - _Brightness: 1.157
     - _BumpScale: 1
     - _Contrast: 1
     - _CullMode: 2
@@ -110,7 +110,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _LightCuts: 4
-    - _LightModel: 5
+    - _LightModel: 3
     - _LightSmoothness: 0
     - _LightThreshold: 0.3
     - _LightType: 2
@@ -120,16 +120,16 @@ Material:
     - _MKEditorShowMainBehavior: 1
     - _MKEditorShowOutlineBehavior: 1
     - _MKEditorShowReflectionBehavior: 0
-    - _MKEditorShowRenderBehavior: 0
+    - _MKEditorShowRenderBehavior: 1
     - _MKEditorShowRimBehavior: 0
     - _MKEditorShowShadowBehavior: 1
-    - _MKEditorShowSketchBehavior: 0
+    - _MKEditorShowSketchBehavior: 1
     - _MKEditorShowSpecularBehavior: 0
     - _MKEditorShowTranslucentBehavior: 0
     - _Metallic: 0
     - _Mode: 0
-    - _OcclusionStrength: 0.479
-    - _OutlineSize: 0.06
+    - _OcclusionStrength: 1
+    - _OutlineSize: 0.02
     - _Parallax: 0.02
     - _ReflectIntensity: 0.5
     - _ReflectSmoothness: 0
@@ -138,11 +138,11 @@ Material:
     - _RimSmoothness: 0.5
     - _Roughness: 1
     - _Saturation: 1
-    - _ShadowIntensity: 0.87
+    - _ShadowIntensity: 0.76
     - _Shininess: 0.275
-    - _SketchScale: 16
-    - _SketchToneMax: 1
-    - _SketchToneMin: 0.5
+    - _SketchScale: 4
+    - _SketchToneMax: 0.959
+    - _SketchToneMin: 0.496
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularIntensity: 0.5
@@ -160,12 +160,12 @@ Material:
     - _UseTranslucent: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.20060861, g: 0, b: 0.5566038, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveColor: {r: 1, g: 1, b: 1, a: 0.5}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0.023529412, g: 2, b: 0, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.11395097, g: 1, b: 0, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}

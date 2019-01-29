@@ -39,6 +39,7 @@ public class NPC : MonoBehaviour
 
     [HideInInspector]
     public BehaviorTree[] AllBehaviour;
+    [HideInInspector]
     public BehaviorTree IdleTree, FollowTree, AttackTree, GoTree, CoolDownTree;
 
     //Variables for when disabled (knockback)
@@ -258,7 +259,7 @@ public class NPC : MonoBehaviour
         EnergyLifeCalc();
         if (Nav != null)
         {
-            if (Nav.remainingDistance > 0.2f)
+            if (Nav.remainingDistance > 0.6f)
             {
 
                 TPC.Move(Nav.desiredVelocity);
