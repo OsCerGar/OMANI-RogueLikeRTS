@@ -8,6 +8,7 @@ public class Shooter : Robot
     bool ik = false;
     int attackcounter = 0;
     GameObject aimAt;
+    Vector3 aimAtPos;
     void Awake()
     {
         boyType = "Shooter";
@@ -45,16 +46,17 @@ public class Shooter : Robot
     void OnAnimatorIK()
     {
         if (ik)
-        { 
+        {
+            aimAtPos = new Vector3(aimAt.transform.position.x, aimAt.transform.position.y + 2, aimAt.transform.position.z);
             //righthand
-                    anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+            anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
                     anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
-                    anim.SetIKPosition(AvatarIKGoal.RightHand, aimAt.transform.position);
+                    anim.SetIKPosition(AvatarIKGoal.RightHand, aimAtPos);
                     anim.SetIKRotation(AvatarIKGoal.RightHand, aimAt.transform.rotation);
             //leftHand
             anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
             anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
-            anim.SetIKPosition(AvatarIKGoal.LeftHand, aimAt.transform.position);
+            anim.SetIKPosition(AvatarIKGoal.LeftHand, aimAtPos);
             anim.SetIKRotation(AvatarIKGoal.LeftHand, aimAt.transform.rotation);
 
         } //if the IK is not active, set the position and rotation of the hand and head back to the original position
