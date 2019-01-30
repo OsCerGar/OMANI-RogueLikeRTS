@@ -47,7 +47,7 @@ public class Shooter : Robot
     {
         if (ik)
         {
-            aimAtPos = new Vector3(aimAt.transform.position.x, aimAt.transform.position.y + 2, aimAt.transform.position.z);
+            aimAtPos = new Vector3(aimAt.transform.position.x, aimAt.transform.position.y + 1.5f, aimAt.transform.position.z);
             //righthand
             anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
                     anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
