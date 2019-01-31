@@ -26,6 +26,7 @@ public class Robot_Energy : Interactible
         currentLinkPrice = Mathf.Lerp(linkPrice, finalLinkPrice, t);
         t += t * Time.unscaledDeltaTime;
         float oldPowerPool = _robot.powerPool;
+
         if (!ready)
         {
             startTime = Time.time;

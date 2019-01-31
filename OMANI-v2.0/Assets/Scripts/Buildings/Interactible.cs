@@ -36,7 +36,10 @@ public class Interactible : MonoBehaviour
         powers = FindObjectOfType<Powers>();
         laserAudio = FindObjectOfType<MetaAudioController>();
         numberPool = FindObjectOfType<NumberPool>();
-        numbersTransform = transform.Find("UI").Find("Numbers");
+        if (transform.Find("UI") && transform.Find("UI").Find("Numbers"))
+        {
+            numbersTransform = transform.Find("UI").Find("Numbers");
+        }
     }
 
     public virtual void Awake()
@@ -76,6 +79,7 @@ public class Interactible : MonoBehaviour
         currentLinkPrice = Mathf.Lerp(linkPrice, finalLinkPrice, t);
         t += t * Time.unscaledDeltaTime;
 
+        float oldPowerReduced = powerReduced;
 
         startTime = Time.time;
 
@@ -83,7 +87,6 @@ public class Interactible : MonoBehaviour
         {
             laserAudio.energyTransmisionSound(currentLinkPrice);
             powerReduced += currentLinkPrice * Time.unscaledDeltaTime;
-            numberPool.NumberSpawn(numbersTransform, powerReduced, Color.green);
 
             actionBool = true;
         }
@@ -91,12 +94,17 @@ public class Interactible : MonoBehaviour
         {
             actionBool = false;
         }
+        if (powerReduced - Mathf.Floor(oldPowerReduced) >= 0.95f)
+        {
+            numberPool.NumberSpawn(numbersTransform, 1, Color.cyan);
+        }
+
     }
 
     public virtual void FullAction()
     {
         latestFullActionPowerReduced = powerReduced / price;
-        numberPool.NumberSpawn(numbersTransform, latestFullActionPowerReduced, Color.green);
+        numberPool.NumberSpawn(numbersTransform, latestFullActionPowerReduced, Color.cyan);
 
         powerReduced = powers.reduceAsMuchPower(price - powerReduced);
         laserAudio.energyTransmisionSound(currentLinkPrice);

@@ -77,16 +77,6 @@ public class BU_Energy : BU_UniqueBuilding
 
     public void LateUpdate()
     {
-        //Negates parents
-        if (cablesOut.Count > 0)
-        {
-            buildingActionMesh.readyToSpawn = true;
-        }
-        else
-        {
-            buildingActionMesh.readyToSpawn = false;
-        }
-
         energyAnimator.buildingAnimations(usedEnergy);
     }
 
