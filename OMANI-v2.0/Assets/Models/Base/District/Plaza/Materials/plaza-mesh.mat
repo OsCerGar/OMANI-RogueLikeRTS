@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: plaza-mesh
   m_Shader: {fileID: 4800000, guid: 881c73b45dda42d4ba29f8c7742329be, type: 3}
-  m_ShaderKeywords: _EMISSION _MK_ALBEDO_MAP _MK_BUMP_MAP _MK_EMISSION_MAP _MK_LIGHTMODEL_MINNAERT
-    _MK_LIGHTTYPE_RAMP _MK_OCCLUSION _NORMALMAP
+  m_ShaderKeywords: _EMISSION _MK_ALBEDO_MAP _MK_BUMP_MAP _MK_EMISSION_MAP _MK_LIGHTMODEL_BLINN_PHONG
+    _MK_LIGHTTYPE_CEL_SHADE_MULTI _MK_OCCLUSION _NORMALMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -97,7 +97,7 @@ Material:
     - _Blend0: 1
     - _Blend1: 0
     - _Brightness: 1
-    - _BumpScale: 0.12
+    - _BumpScale: 0.1
     - _Contrast: 1
     - _CullMode: 2
     - _Cutoff: 0.5
@@ -109,11 +109,11 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LightCuts: 3
-    - _LightModel: 4
-    - _LightSmoothness: 0.4
-    - _LightThreshold: 0.32
-    - _LightType: 3
+    - _LightCuts: 4
+    - _LightModel: 3
+    - _LightSmoothness: 0
+    - _LightThreshold: 0.027
+    - _LightType: 2
     - _MKEditorShowDetailBehavior: 0
     - _MKEditorShowDissolveBehavior: 0
     - _MKEditorShowLightBehavior: 1
@@ -128,7 +128,7 @@ Material:
     - _MKEditorShowTranslucentBehavior: 0
     - _Metallic: 0.3
     - _Mode: 0
-    - _OcclusionStrength: 0.02
+    - _OcclusionStrength: 0.372
     - _OutlineSize: 0.02
     - _Parallax: 0.02
     - _ReflectIntensity: 0.5
