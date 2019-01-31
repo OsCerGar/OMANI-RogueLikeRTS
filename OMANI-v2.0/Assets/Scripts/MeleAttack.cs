@@ -37,7 +37,7 @@ public class MeleAttack : MonoBehaviour {
             }
             else
             {
-                EnemyNPC.TakeDamage(Damage);
+                EnemyNPC.TakeDamage(Damage, Color.white);
             }
             //If he's dead, then forget about him
             missed = false;

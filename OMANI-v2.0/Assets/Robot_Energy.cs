@@ -7,6 +7,7 @@ public class Robot_Energy : Interactible
     public Robot _robot;
     WorkerSM workerSM;
 
+
     public override void Start()
     {
         base.Start();
@@ -17,14 +18,14 @@ public class Robot_Energy : Interactible
         finalLinkPrice = 7;
         currentLinkPrice = 0;
         t = 0.2f;
-        
+
     }
 
     public override void Action()
     {
         currentLinkPrice = Mathf.Lerp(linkPrice, finalLinkPrice, t);
         t += t * Time.unscaledDeltaTime;
-
+        float oldPowerPool = _robot.powerPool;
         if (!ready)
         {
             startTime = Time.time;
@@ -32,6 +33,7 @@ public class Robot_Energy : Interactible
             if (powers.reducePower(currentLinkPrice))
             {
                 _robot.powerPool += currentLinkPrice * Time.unscaledDeltaTime;
+
                 actionBool = true;
             }
             else
@@ -39,11 +41,18 @@ public class Robot_Energy : Interactible
                 actionBool = false;
             }
         }
+        if (_robot.powerPool - Mathf.Floor(oldPowerPool) >= 0.95f)
+        {
+            numberPool.NumberSpawn(numbersTransform, 1, Color.cyan);
+        }
     }
 
     public override void FullAction()
     {
         _robot.powerPool = powers.reduceAsMuchPower(_robot.maxpowerPool);
+
+        numberPool.NumberSpawn(numbersTransform, powers.reduceAsMuchPower(_robot.maxpowerPool), Color.cyan);
+
         laserAudio.energyTransmisionSound(currentLinkPrice);
     }
 

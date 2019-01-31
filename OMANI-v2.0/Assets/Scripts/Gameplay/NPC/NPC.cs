@@ -65,8 +65,10 @@ public class NPC : MonoBehaviour
     private UI_RobotAttack uI_Attack;
 
     //UI
-    NumberPool numberPool;
-    Transform numbersTransform;
+    [HideInInspector]
+    public NumberPool numberPool;
+    [HideInInspector]
+    public Transform numbersTransform;
     #endregion
 
     #region GETTERSETTERS
@@ -266,7 +268,6 @@ public class NPC : MonoBehaviour
             }
             else
             {
-                Debug.Log("else ene l move");
                 TPC.Move(transform.position);
             }
         }
@@ -301,6 +302,8 @@ public class NPC : MonoBehaviour
     //take damage with knockBack
     public virtual void TakeDamage(int damage, bool knockback, float knockbackTime, Transform _perpetrator)
     {
+        numberPool.NumberSpawn(numbersTransform, damage, Color.red);
+
         if (state == "Alive")
         {
 
@@ -328,9 +331,10 @@ public class NPC : MonoBehaviour
 
     }
     //Simple way to take damage
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage, Color damageType)
     {
-        numberPool.NumberSpawn(numbersTransform, damage);
+        numberPool.NumberSpawn(numbersTransform, damage, damageType);
+
         StartCoroutine(gotHit());
         if (state == "Alive")
         {
@@ -357,7 +361,7 @@ public class NPC : MonoBehaviour
 
             if (laser_damage > maxDamage)
             {
-                TakeDamage(maxDamage);
+                TakeDamage(maxDamage, Color.green);
                 //Reset
                 laser_damage = 0;
             }

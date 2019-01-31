@@ -195,12 +195,11 @@ public class Powers : MonoBehaviour
         if (powerPool - amount >= 0)
         {
             powerPool -= amount;
-            energyReduced = 10000;
+            energyReduced = amount;
         }
         else
         {
             energyReduced = powerPool;
-
             powerPool -= powerPool;
         }
         return energyReduced;

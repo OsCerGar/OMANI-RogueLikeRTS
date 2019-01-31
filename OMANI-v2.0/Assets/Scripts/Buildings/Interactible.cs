@@ -24,12 +24,19 @@ public class Interactible : MonoBehaviour
     [HideInInspector]
     public MetaAudioController laserAudio;
 
+    [HideInInspector]
+    public NumberPool numberPool;
+    public Transform numbersTransform;
+
+
     public virtual void Initialize()
     {
         myRigidBody = GetComponent<Rigidbody>();
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();
         laserAudio = FindObjectOfType<MetaAudioController>();
+        numberPool = FindObjectOfType<NumberPool>();
+        numbersTransform = transform.Find("UI").Find("Numbers");
     }
 
     public virtual void Awake()
@@ -52,7 +59,6 @@ public class Interactible : MonoBehaviour
         {
             ReducePower();
         }
-
     }
 
     public virtual void LateUpdate()
@@ -77,6 +83,8 @@ public class Interactible : MonoBehaviour
         {
             laserAudio.energyTransmisionSound(currentLinkPrice);
             powerReduced += currentLinkPrice * Time.unscaledDeltaTime;
+            numberPool.NumberSpawn(numbersTransform, powerReduced, Color.green);
+
             actionBool = true;
         }
         else
@@ -88,8 +96,11 @@ public class Interactible : MonoBehaviour
     public virtual void FullAction()
     {
         latestFullActionPowerReduced = powerReduced / price;
+        numberPool.NumberSpawn(numbersTransform, latestFullActionPowerReduced, Color.green);
+
         powerReduced = powers.reduceAsMuchPower(price - powerReduced);
         laserAudio.energyTransmisionSound(currentLinkPrice);
+
     }
 
 

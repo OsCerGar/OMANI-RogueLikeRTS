@@ -23,7 +23,7 @@ public class Player : NPC
     {
         SceneManager.LoadScene("GAME_ALPHA", LoadSceneMode.Single);
     }
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, Color damageType)
     {
         //He dies if life lowers 
         //TODO : Make this an animation, and make it so that it swaps his layer and tag to something neutral

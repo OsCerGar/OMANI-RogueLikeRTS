@@ -9,7 +9,7 @@ public class UpgradedPower : Power
         Robot ally;
         if (NPC = other.GetComponent<Enemy>())
         {
-            NPC.TakeDamage(25);
+            NPC.TakeDamage(25, Color.green);
         }
         else if (ally = other.GetComponent<Robot>())
         {

@@ -21,10 +21,13 @@ public class NumberPool : MonoBehaviour
 
     }
 
-    public void NumberSpawn(Transform tr, int damage_value)
+    public void NumberSpawn(Transform tr, float damage_value, Color _type)
     {
         damagenumber.TryGetNextObject(tr.position, damagenumber.gameObject.transform.rotation, out Spawned);
-        Spawned.transform.GetChild(0).GetComponentInChildren<Text>().text = damage_value.ToString();
+        Text text = Spawned.transform.GetChild(0).GetComponentInChildren<Text>();
+
+        text.text = damage_value.ToString();
+        text.color = _type;
     }
 
 }

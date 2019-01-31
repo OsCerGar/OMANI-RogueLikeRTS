@@ -36,7 +36,7 @@ public class Robot : NPC
         if (powerPool != maxpowerPool)
         {
             powerPool = 1;
-            TakeDamage(5);
+            TakeDamage(5, Color.yellow);
         }
     }
 
@@ -81,11 +81,12 @@ public class Robot : NPC
     }
 
     //Simple way to take damage
-    public override void TakeDamage(int damage)
+    public override void TakeDamage(int damage, Color _damageType)
     {
 
         StartCoroutine(gotHit());
         workerSM.DamageRecieved();
+        numberPool.NumberSpawn(numbersTransform, damage, _damageType);
 
         if (state == "Alive")
         {
@@ -95,7 +96,6 @@ public class Robot : NPC
             }
             if (powerPool > 0)
             {
-                Debug.Log("e");
                 //Instead, it should recieve some damage.
                 reducePowerNow(maxpowerPool);
                 enableTree("CoolDown");

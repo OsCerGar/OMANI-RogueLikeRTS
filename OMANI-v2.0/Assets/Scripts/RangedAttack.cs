@@ -34,7 +34,7 @@ public class RangedAttack : MonoBehaviour {
             }
             else
             {
-                EnemyNPC.TakeDamage(Damage);
+                EnemyNPC.TakeDamage(Damage, Color.white);
             }
             
 
