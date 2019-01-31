@@ -179,7 +179,7 @@ public class Army : MonoBehaviour
         else
         {
             //If something is selected
-            if (ArmyCellSelected != 4)
+            if (ArmyCellSelected != 4 && armyCell[ArmyCellSelected].getRobotType() != null)
             {
                 //Materialice the next one
                 currentFighter = armyCell[ArmyCellSelected].GetRobot();
