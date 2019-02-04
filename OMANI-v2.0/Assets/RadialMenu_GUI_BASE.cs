@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class RadialMenu_GUI_BASE : MonoBehaviour
 {
     private List<Image> amountOfRobots = new List<Image>();
+    public List<Sprite> robotTypes = new List<Sprite>();
+
     private Image Robot;
     private Image selectedVisualFeedback, Energy1FeedBack, Energy2FeedBack, Energy3FeedBack;
     [SerializeField]
@@ -39,7 +41,6 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
         {
             arobot.enabled = false;
         }
-        Robot.enabled = false;
     }
 
     private List<Image> GetAmountOfRobots()
@@ -48,9 +49,31 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
     }
 
     //Set the robot
-    public void UISetRobot()
+    public void UISetRobot(string _robotType)
     {
-        Robot.enabled = true;
+        bool found = false;
+        if (_robotType != null)
+        {
+            foreach (Sprite robotSprite in robotTypes)
+            {
+                if (robotSprite.name.Equals(_robotType))
+                {
+                    found = true;
+
+                    Robot.enabled = true;
+                    Robot.sprite = robotSprite;
+                }
+            }
+
+            if (!found)
+            {
+                Debug.Log("UI : RobotSprite not found, ¿Missing Sprite, wrong name?");
+            }
+        }
+        else
+        {
+            Robot.enabled = false;
+        }
     }
 
     public void UISetAmountOfRobots(int _quantityOfRobots)
@@ -60,8 +83,8 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
         for (int i = 0; i < _quantityOfRobots; i++)
         {
             amountOfRobots[i].enabled = true;
+            Robot.enabled = true;
         }
-        UISetRobot();
     }
 
     public void VisualFeedBack()
