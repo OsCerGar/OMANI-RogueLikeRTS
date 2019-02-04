@@ -22,6 +22,28 @@ public class Army : MonoBehaviour
 
     PW_SlowMotion slowMo;
 
+    public OMANINPUT controls;
+    bool radialMenuOn;
+
+    private void Awake()
+    {
+        controls.PLAYER.RadialMenuUp.performed += context => radialMenuValue();
+        controls.PLAYER.RadialMenuDown.performed += context => radialMenuValue();
+        controls.PLAYER.Order.performed += context => Order();
+    }
+    private void OnEnable()
+    {
+        controls.PLAYER.RadialMenuUp.Enable();
+        controls.PLAYER.RadialMenuDown.Enable();
+        controls.PLAYER.Order.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.PLAYER.RadialMenuUp.Disable();
+        controls.PLAYER.RadialMenuDown.Disable();
+        controls.PLAYER.Order.Disable();
+    }
     private void Start()
     {
         look = FindObjectOfType<LookDirectionsAndOrder>();
@@ -30,20 +52,18 @@ public class Army : MonoBehaviour
 
     }
 
-    private void LateUpdate()
+    private void radialMenuValue()
     {
-        if (Input.GetMouseButtonDown(2))
+        if (!radialMenuOn)
         {
+            radialMenuOn = true;
             radialMenuPopUp();
         }
-        if (Input.GetMouseButtonUp(2))
+        else
         {
+            radialMenuOn = false;
             radialMenuPopDown();
-        }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            Order();
         }
     }
 

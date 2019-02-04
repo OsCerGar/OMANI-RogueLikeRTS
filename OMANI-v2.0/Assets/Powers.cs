@@ -2,14 +2,15 @@
 
 public class Powers : MonoBehaviour
 {
+    #region ReferenceVariables
     [SerializeField]
     int ennuisMask;
-    PW_SlowMotion slowMo;
     PW_Hearthstone hearthStone;
     LookDirectionsAndOrder lookDirection;
     PowerManager powerManager;
     PW_Dash dash;
     Power_Laser lasers;
+    #endregion
 
     [SerializeField]
     public float maxpowerPool = 1000, powerPool = 1000, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1, laserCooldown = 1, laserTime;
@@ -19,15 +20,24 @@ public class Powers : MonoBehaviour
 
     float radius = 3;
 
+    //INPUTS
+    public OMANINPUT controls;
+    public bool zonelaservalue = false, stronglaservalue = false, hearthStoneValue = false;
+
+    #region Initializers
     private void Awake()
     {
         Initializer();
-    }
 
+        controls.PLAYER.LASERZONE.performed += context => ZoneLaserValue();
+        controls.PLAYER.LASERZONERELEASE.performed += context => ZoneLaserValueRelease();
+        controls.PLAYER.LASERSTRONGPREPARATION.performed += context => StrongLaserValue();
+        controls.PLAYER.LASERSTRONG.performed += context => StrongLaser();
+        controls.PLAYER.HEARTHSTONE.performed += context => HearthstoneValue();
+    }
     void Initializer()
     {
         ennuisMask = 1 << LayerMask.NameToLayer("Interactible");
-        slowMo = transform.GetComponent<PW_SlowMotion>();
         hearthStone = transform.GetComponent<PW_Hearthstone>();
         lookDirection = FindObjectOfType<LookDirectionsAndOrder>();
         powerManager = FindObjectOfType<PowerManager>();
@@ -38,107 +48,38 @@ public class Powers : MonoBehaviour
         quartandhalf = Mathf.RoundToInt(maxpowerPool * 0.75f);
 
     }
+    #endregion
+    #region Events
+    private void OnEnable()
+    {
+        controls.PLAYER.LASERZONE.Enable();
+        controls.PLAYER.LASERZONERELEASE.Enable();
+        controls.PLAYER.LASERSTRONG.Enable();
+        controls.PLAYER.LASERSTRONGPREPARATION.Enable();
+        controls.PLAYER.HEARTHSTONE.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.PLAYER.LASERZONE.Disable();
+        controls.PLAYER.LASERZONERELEASE.Disable();
+        controls.PLAYER.LASERSTRONG.Disable();
+        controls.PLAYER.LASERSTRONGPREPARATION.Disable();
+        controls.PLAYER.HEARTHSTONE.Disable();
+    }
+    #endregion
+
     // Update is called once per frame
     void Update()
     {
-        #region Inputs
         #region LaserBeams
 
         // /3 because the limit size of the sphere is 0.33.
         lasers.setSphereWidth((powerPool / maxpowerPool) / 3);
 
-        if (Input.GetKey("joystick button 6"))
-        {
-            //Attack mode
-            if (Input.GetKeyDown("joystick button 7"))
-            {
-                if (Time.time - laserTime > laserCooldown && reducePowerNow(3))
-                {   //Attack Beam
-                    lasers.EmitOffensiveLaser();
-                    laserTime = Time.time;
-                }
-            }
-        }
-        else
-        {        //Controller
-            if (Input.GetKeyDown("joystick button 7"))
-            {
-                lasers.StartEffects();
-            }
-            if (Input.GetKey("joystick button 7"))
-            {
-
-                //Energy Beam
-
-                lasers.EmitLaser();
-            }
-        }
-
-
-
-        //Attack mode
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-
-                if (Time.time - laserTime > laserCooldown && reducePowerNow(3))
-                {   //Attack Beam
-                    lasers.EmitOffensiveLaser();
-                    laserTime = Time.time;
-
-                }
-
-            }
-        }
-        else
-        {
-            //Kb&M
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                lasers.StartEffects();
-            }
-            if (Input.GetKey(KeyCode.Mouse0))
-            {
-                //Energy Beam
-                lasers.EmitLaser();
-            }
-        }
-        #endregion
-        #region SlowMotion
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown("joystick button 3"))
-        {
-            slowMo.CastPower();
-        }
-        #endregion
-        #region Hearthstone
-        if (Input.GetKey(KeyCode.Q) || Input.GetKey("joystick button 0"))
-        {
-            hearthStone.CastPower();
-        }
-        else if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp("joystick button 0"))
-        {
-            hearthStone.StopCast();
-        }
+        //ZoneLaser
+        if (zonelaservalue) { ZoneLaser(); }
 
         #endregion
-        #region Dash
-
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey("joystick button 1"))
-        {
-            dash.CastPower();
-        }
-
-        else if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp("joystick button 1"))
-        {
-            dash.StopRunning();
-        }
-
-        #endregion
-
-        #endregion
-
         #region IncreasePowerPool
         if (powerPool < quarter)
         {
@@ -159,6 +100,75 @@ public class Powers : MonoBehaviour
         #endregion
 
     }
+    private void FixedUpdate()
+    {
+        FindEnnuis();
+    }
+
+    #region InputRelated
+    private void ZoneLaser()
+    {
+        lasers.EmitLaser();
+    }
+    private void ZoneLaserValue()
+    {
+        if (!stronglaservalue)
+        {
+            zonelaservalue = true;
+            lasers.StartEffects();
+        }
+    }
+
+    private void ZoneLaserValueRelease()
+    {
+        zonelaservalue = false;
+    }
+
+    private void StrongLaserValue()
+    {
+        if (stronglaservalue)
+        {
+            stronglaservalue = false;
+
+        }
+        else
+        {
+            stronglaservalue = true;
+
+            lasers.StartEffects(); //Strong laser preparation effects
+        }
+    }
+    private void StrongLaser()
+    {
+        if (stronglaservalue)
+        {
+            if (Time.time - laserTime > laserCooldown && reducePowerNow(3))
+            {   //Attack Beam
+                lasers.EmitOffensiveLaser();
+                laserTime = Time.time;
+            }
+        }
+    }
+
+    private void HearthstoneValue()
+    {
+        if (hearthStoneValue)
+        {
+            hearthStoneValue = false;
+            hearthStone.StopCast();
+
+        }
+        else
+        {
+            hearthStoneValue = true;
+
+            hearthStone.CastPower();
+        }
+    }
+
+    #endregion
+
+    #region PowerRelated
     public void addPower(float amount)
     {
         powerPool = Mathf.Clamp(powerPool + amount, 0, maxpowerPool);
@@ -188,7 +198,6 @@ public class Powers : MonoBehaviour
             return false;
         }
     }
-
     public float reduceAsMuchPower(float amount)
     {
         float energyReduced;
@@ -204,12 +213,9 @@ public class Powers : MonoBehaviour
         }
         return energyReduced;
     }
+    #endregion
 
-    private void FixedUpdate()
-    {
-        FindEnnuis();
-    }
-
+    #region EnnuiRelated
     private void FindEnnuis()
     {
         if (powerPool < maxpowerPool)
@@ -231,4 +237,5 @@ public class Powers : MonoBehaviour
             }
         }
     }
+    #endregion
 }

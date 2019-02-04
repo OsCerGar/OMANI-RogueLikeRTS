@@ -1,0 +1,476 @@
+{
+    "name": "OMANINPUT",
+    "maps": [
+        {
+            "name": "PLAYER",
+            "id": "c8be31ba-2a3c-425a-ab70-05bf6137c9c9",
+            "actions": [
+                {
+                    "name": "LASERZONE",
+                    "id": "a6d9ee15-cf05-4d18-af5e-ff567bf763b7",
+                    "expectedControlLayout": "",
+                    "bindings": []
+                },
+                {
+                    "name": "LASERSTRONGPREPARATION",
+                    "id": "1fcfa809-f2d7-4e2b-beba-e75c6d65de84",
+                    "expectedControlLayout": "",
+                    "bindings": []
+                },
+                {
+                    "name": "LASERSTRONG",
+                    "id": "a1e80a5a-101b-4919-955d-43e95a11e44f",
+                    "expectedControlLayout": "",
+                    "bindings": []
+                },
+                {
+                    "name": "Order",
+                    "id": "61c82d23-5396-46cc-b4bc-8481976e6486",
+                    "expectedControlLayout": "",
+                    "bindings": []
+                },
+                {
+                    "name": "WASD",
+                    "id": "2d39411f-a9bc-4a49-a5ec-539160ad8e85",
+                    "expectedControlLayout": "Vector2",
+                    "bindings": []
+                },
+                {
+                    "name": "Joystick",
+                    "id": "a1e80a5a-101b-4919-955d-43e95a11e44f",
+                    "expectedControlLayout": "Vector2",
+                    "bindings": []
+                },
+                {
+                    "name": "RadialMenuUp",
+                    "id": "9e7033d6-2169-463c-b56a-05008f80de09",
+                    "expectedControlLayout": "",
+                    "bindings": []
+                },
+                {
+                    "name": "RadialMenuDown",
+                    "id": "a1e80a5a-101b-4919-955d-43e95a11e44f",
+                    "expectedControlLayout": "",
+                    "bindings": []
+                },
+                {
+                    "name": "LASERZONERELEASE",
+                    "id": "a1e80a5a-101b-4919-955d-43e95a11e44f",
+                    "expectedControlLayout": "",
+                    "bindings": []
+                },
+                {
+                    "name": "HEARTHSTONE",
+                    "id": "70134d3c-638c-458c-8b81-47d2500e441b",
+                    "expectedControlLayout": "Button",
+                    "bindings": []
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "LASERZONE",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "Press,PressAndRelease",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "LASERSTRONGPREPARATION",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "Order",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "RadialMenuUp",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "Dpad",
+                    "path": "Dpad",
+                    "interactions": "",
+                    "processors": "Sensitivity(sensitivity=3)",
+                    "groups": "",
+                    "action": "WASD",
+                    "chainWithPrevious": false,
+                    "isComposite": true,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "up",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "WASD",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "down",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "WASD",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "left",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "WASD",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "right",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "WASD",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "Dpad",
+                    "path": "Dpad",
+                    "interactions": "Stick",
+                    "processors": "Sensitivity(sensitivity=3)",
+                    "groups": "",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": true,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "up",
+                    "path": "<PS4DualShockGamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ps4",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "down",
+                    "path": "<PS4DualShockGamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ps4",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "left",
+                    "path": "<PS4DualShockGamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ps4",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "right",
+                    "path": "<PS4DualShockGamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ps4",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "Dpad",
+                    "path": "Dpad",
+                    "interactions": "",
+                    "processors": "Sensitivity(sensitivity=3)",
+                    "groups": "",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": true,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "up",
+                    "path": "<XboxOneGamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XBOX",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "down",
+                    "path": "<XboxOneGamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XBOX",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "left",
+                    "path": "<XboxOneGamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XBOX",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "right",
+                    "path": "<XboxOneGamepad>/rightStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XBOX",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "Dpad",
+                    "path": "Dpad",
+                    "interactions": "",
+                    "processors": "Sensitivity(sensitivity=3)",
+                    "groups": "",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": true,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "up",
+                    "path": "<XInputControllerWindows>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GenericController",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "down",
+                    "path": "<XInputControllerWindows>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GenericController",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "left",
+                    "path": "<XInputControllerWindows>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GenericController",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "right",
+                    "path": "<XInputControllerWindows>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GenericController",
+                    "action": "Joystick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": true,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "PressAndRelease",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "RadialMenuDown",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "LASERSTRONG",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "PressAndRelease",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "LASERZONERELEASE",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "",
+                    "path": "<Keyboard>/q",
+                    "interactions": "Press,PressAndRelease",
+                    "processors": "",
+                    "groups": "key+mouse",
+                    "action": "HEARTHSTONE",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "key+mouse",
+            "basedOn": "",
+            "bindingGroup": "key+mouse",
+            "devices": [
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "ps4",
+            "basedOn": "",
+            "bindingGroup": "ps4",
+            "devices": [
+                {
+                    "devicePath": "<PS4DualShockGamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "XBOX",
+            "basedOn": "",
+            "bindingGroup": "XBOX",
+            "devices": [
+                {
+                    "devicePath": "<XboxOneGamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "GenericController",
+            "basedOn": "",
+            "bindingGroup": "GenericController",
+            "devices": [
+                {
+                    "devicePath": "<XInputControllerWindows>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "GenericController2",
+            "basedOn": "",
+            "bindingGroup": "GenericController2",
+            "devices": [
+                {
+                    "devicePath": "<XInputController>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
