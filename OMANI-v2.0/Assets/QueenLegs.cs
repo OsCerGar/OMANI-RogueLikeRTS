@@ -89,7 +89,7 @@ public class QueenLegs : MonoBehaviour
         {
             stepVolumeGradual += stepVolumeGradualReduction * Time.unscaledDeltaTime;
             stepVolume -= stepVolumeGradual;
-            stepVolume = Mathf.Clamp(stepVolume, 0.001f, 0.02f);
+            stepVolume = Mathf.Clamp(stepVolume, 0.005f, 0.02f);
 
             _step.volume = stepVolume;
         }
