@@ -1,18 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Tutorial_ArmLock : MonoBehaviour
+public class Tutorial_ArmLock : Enemy
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Tutorial_PlayerLock playerLock;
+    [SerializeField] int legToRelease;
+
+    public override void Die()
     {
-        
+        playerLock.LegRelease(legToRelease);
+        enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

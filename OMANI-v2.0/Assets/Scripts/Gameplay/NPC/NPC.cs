@@ -16,7 +16,7 @@ public class NPC : MonoBehaviour
     public string state;
 
     [SerializeField]
-    public int startLife, life, damage, resurrectCost = 25, powerUpCost = 10;
+    public int startLife, life, damage, powerUpCost = 10;
     [SerializeField] public float maxpowerPool = 5, powerPool = 0, increaseAmount = 0.15f;
     [HideInInspector] public float powerReduced = 0, linkPrice = 1;
     [HideInInspector] public int quarter, half, quarterAndHalf;
