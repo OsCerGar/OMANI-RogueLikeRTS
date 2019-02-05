@@ -16,16 +16,12 @@ public class QueenHandCollisionManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Terrain"))
-        {
-            _queenLegs.Collision(other, step, transform);
-        }
+        _queenLegs.Collision(other, step, transform);
+
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Terrain"))
-        {
-            _queenLegs.CollisionOut(other, legMovement);
-        }
+        _queenLegs.CollisionOut(other, legMovement);
+
     }
 }

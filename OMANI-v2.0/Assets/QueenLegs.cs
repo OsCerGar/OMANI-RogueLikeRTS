@@ -2,7 +2,8 @@
 
 public class QueenLegs : MonoBehaviour
 {
-    AudioSource pisada_de_arena, movimiento_de_pierna, sand;
+    AudioSource pisada_de_arena, pisada_de_cueva, pisada_de_metal, movimiento_de_pierna, sand;
+
     StepPool stepPool;
 
     bool stepPlaying;
@@ -20,9 +21,17 @@ public class QueenLegs : MonoBehaviour
     {
         foreach (AudioSource audio in GetComponents<AudioSource>())
         {
-            if (audio.clip.name == "Pisada_de_arena")
+            if (audio.clip.name == "Robot_pisada_arena")
             {
                 pisada_de_arena = audio;
+            }
+            if (audio.clip.name == "Robot_pisada_cueva")
+            {
+                pisada_de_cueva = audio;
+            }
+            if (audio.clip.name == "Robot_pisada_metal")
+            {
+                pisada_de_metal = audio;
             }
             if (audio.clip.name == "Movimiento_de_pierna")
             {
@@ -78,7 +87,8 @@ public class QueenLegs : MonoBehaviour
     public void Collision(Collider collision, AudioSource _step, Transform _transform)
     {
         //if terrain tag == sand
-        _step.clip = pisada_de_arena.clip;
+        StepParameters(collision, _step);
+
         float pitch = Random.Range(0.85f, 1.15f);
 
         //STEP STUFF
@@ -89,7 +99,7 @@ public class QueenLegs : MonoBehaviour
         {
             stepVolumeGradual += stepVolumeGradualReduction * Time.unscaledDeltaTime;
             stepVolume -= stepVolumeGradual;
-            stepVolume = Mathf.Clamp(stepVolume, 0.005f, 0.02f);
+            stepVolume = Mathf.Clamp(stepVolume, 0.001f, 0.02f);
 
             _step.volume = stepVolume;
         }
@@ -102,16 +112,15 @@ public class QueenLegs : MonoBehaviour
             _step.Play();
         }
 
+
         //visual
         stepPool.StepSpawn(_transform);
     }
 
     public void CollisionOut(Collider collision, AudioSource _leg)
     {
-        _leg.clip = movimiento_de_pierna.clip;
-
-        //_leg.pitch = pitch;
-        _leg.volume = movimiento_de_pierna.volume;
+        //_leg.clip = movimiento_de_pierna.clip;
+        //_leg.volume = movimiento_de_pierna.volume;
         //_leg.Play();
 
     }
@@ -126,6 +135,22 @@ public class QueenLegs : MonoBehaviour
         }
     }
 
+    private void StepParameters(Collider _collision, AudioSource _step)
+    {
+        if (_collision.CompareTag("Sand"))
+        {
+            _step.clip = pisada_de_arena.clip;
+        }
+        else if (_collision.CompareTag("Cave"))
+        {
+            _step.clip = pisada_de_cueva.clip;
+        }
+        else if (_collision.CompareTag("Metal"))
+        {
+            _step.clip = pisada_de_metal.clip;
+        }
+    }
+
     void OnEnable()
     {
         CharacterMovement.OnStopping += StoppedSound;
@@ -135,3 +160,4 @@ public class QueenLegs : MonoBehaviour
         CharacterMovement.OnStopping -= StoppedSound;
     }
 }
+  
