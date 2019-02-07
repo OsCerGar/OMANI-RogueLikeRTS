@@ -2,15 +2,31 @@
 
 public class Tutorial_PlayerLock : MonoBehaviour
 {
+    public CharacterMovement movement;
     public OMANINPUT controls;
 
     [SerializeField]
+    GameObject StartingCamera;
+
+    [SerializeField]
     private InverseKinematics leg1, leg2, leg3, leg4;
+
+    private void Awake()
+    {
+        controls.PLAYER.WASD.performed += movement => CameraChange();
+        controls.PLAYER.Joystick.performed += Controllermovement => CameraChange();
+        controls.PLAYER.LASERZONE.performed += context => CameraChange();
+        controls.PLAYER.LASERZONERELEASE.performed += context => CameraChange();
+        controls.PLAYER.LASERSTRONGPREPARATION.performed += context => CameraChange();
+        controls.PLAYER.LASERSTRONG.performed += context => CameraChange();
+
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
-        controls.PLAYER.WASD.Disable();
-        controls.PLAYER.Joystick.Disable();
+        movement.speed = 0;
     }
 
     public void LegRelease(int _leg)
@@ -34,8 +50,13 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
         if (leg1.enabled && leg2.enabled && leg3.enabled && leg4.enabled)
         {
-            controls.PLAYER.WASD.Enable();
-            controls.PLAYER.Joystick.Enable();
+            Debug.Log("why");
+            movement.speed = 0.15f;
         }
+    }
+
+    private void CameraChange()
+    {
+        StartingCamera.SetActive(false);
     }
 }
