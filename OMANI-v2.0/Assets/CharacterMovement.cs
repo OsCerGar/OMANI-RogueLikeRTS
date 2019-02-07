@@ -110,7 +110,6 @@ public class CharacterMovement : MonoBehaviour
         // If the axis has any sort of input on Joystick.
         else if (movementAxisController.x != 0f || movementAxisController.y != 0f)
         {
-            Debug.Log("hy");
             if (controller.isGrounded)
             {
                 onMovement = true;
@@ -129,6 +128,9 @@ public class CharacterMovement : MonoBehaviour
             controller.Move(desiredDirection * speed);
 
             LookDirection.LookAtWhileMoving(movementAxisController.x, movementAxisController.y);
+        }
+
+        else { desiredDirection = new Vector3(0, 0, 0); controller.Move(desiredDirection * speed);
         }
 
         if (onMovement)
