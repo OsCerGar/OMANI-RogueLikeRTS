@@ -10,7 +10,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
     [SerializeField] GameObject SneakySurka;
 
     [SerializeField] private InverseKinematics leg1, leg2, leg3, leg4;
-
+    bool cameraChanged;
     private void Awake()
     {
         controls.PLAYER.WASD.performed += movement => CameraChange();
@@ -59,8 +59,13 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     private void CameraChange()
     {
-        StartingCamera.SetActive(false);
-        StartCoroutine("surkaRoutine");
+        if (!cameraChanged)
+        {
+            StartingCamera.SetActive(false);
+            StartCoroutine("surkaRoutine");
+            cameraChanged = true;
+        }
+
     }
 
     IEnumerator surkaRoutine()
