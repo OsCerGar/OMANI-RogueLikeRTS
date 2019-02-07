@@ -6,7 +6,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
     public CharacterMovement movement;
     public OMANINPUT controls;
 
-    [SerializeField] GameObject StartingCamera;
+    [SerializeField] GameObject StartingCamera, SurkaCamera;
     [SerializeField] GameObject SneakySurka;
 
     [SerializeField] private InverseKinematics leg1, leg2, leg3, leg4;
@@ -29,7 +29,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
     void Start()
     {
         movement.speed = 0;
-        StartCoroutine("SurkaAppears");
     }
 
     public void LegRelease(int _leg)
@@ -53,7 +52,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
         if (leg1.enabled && leg2.enabled && leg3.enabled && leg4.enabled)
         {
-            SneakySurka.SetActive(true);
+            SurkaEntersTheShow();
             movement.speed = 0.15f;
         }
     }
@@ -61,11 +60,26 @@ public class Tutorial_PlayerLock : MonoBehaviour
     private void CameraChange()
     {
         StartingCamera.SetActive(false);
+        StartCoroutine("surkaRoutine");
     }
 
-    IEnumerator SurkaAppears()
+    IEnumerator surkaRoutine()
     {
         yield return new WaitForSeconds(20f);
+        SurkaEntersTheShow();
+    }
+
+    private void SurkaEntersTheShow()
+    {
         SneakySurka.SetActive(true);
+        SurkaCamera.SetActive(true);
+        StartCoroutine("surkaCameraRoutine");
+
+    }
+
+    IEnumerator surkaCameraRoutine()
+    {
+        yield return new WaitForSeconds(6f);
+        SurkaCamera.SetActive(false);
     }
 }
