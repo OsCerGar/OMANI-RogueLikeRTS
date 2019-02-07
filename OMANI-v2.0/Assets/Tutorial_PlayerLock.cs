@@ -1,15 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Tutorial_PlayerLock : MonoBehaviour
 {
     public CharacterMovement movement;
     public OMANINPUT controls;
 
-    [SerializeField]
-    GameObject StartingCamera;
+    [SerializeField] GameObject StartingCamera;
+    [SerializeField] GameObject SneakySurka;
 
-    [SerializeField]
-    private InverseKinematics leg1, leg2, leg3, leg4;
+    [SerializeField] private InverseKinematics leg1, leg2, leg3, leg4;
 
     private void Awake()
     {
@@ -19,6 +19,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
         controls.PLAYER.LASERZONERELEASE.performed += context => CameraChange();
         controls.PLAYER.LASERSTRONGPREPARATION.performed += context => CameraChange();
         controls.PLAYER.LASERSTRONG.performed += context => CameraChange();
+        controls.PLAYER.RadialMenuUp.Disable();
+        controls.PLAYER.RadialMenuDown.Disable();
 
     }
 
@@ -27,6 +29,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
     void Start()
     {
         movement.speed = 0;
+        StartCoroutine("SurkaAppears");
     }
 
     public void LegRelease(int _leg)
@@ -50,7 +53,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
         if (leg1.enabled && leg2.enabled && leg3.enabled && leg4.enabled)
         {
-            Debug.Log("why");
+            SneakySurka.SetActive(true);
             movement.speed = 0.15f;
         }
     }
@@ -58,5 +61,11 @@ public class Tutorial_PlayerLock : MonoBehaviour
     private void CameraChange()
     {
         StartingCamera.SetActive(false);
+    }
+
+    IEnumerator SurkaAppears()
+    {
+        yield return new WaitForSeconds(20f);
+        SneakySurka.SetActive(true);
     }
 }
