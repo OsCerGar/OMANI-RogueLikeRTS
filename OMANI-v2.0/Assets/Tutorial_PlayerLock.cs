@@ -4,6 +4,7 @@ using UnityEngine;
 public class Tutorial_PlayerLock : MonoBehaviour
 {
     public CharacterMovement movement;
+    public Powers powers;
     public OMANINPUT controls;
 
     [SerializeField] GameObject StartingCamera, SurkaCamera;
@@ -11,6 +12,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     [SerializeField] private InverseKinematics leg1, leg2, leg3, leg4;
     bool cameraChanged;
+
+
     private void Awake()
     {
         controls.PLAYER.WASD.performed += movement => CameraChange();
@@ -28,7 +31,22 @@ public class Tutorial_PlayerLock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartRestrictions();
+    }
+
+    private void StartRestrictions()
+    {
         movement.speed = 0;
+        powers.enabled = false;
+
+        controls.PLAYER.Joystick.Enable();
+        controls.PLAYER.LASERZONE.Enable();
+        controls.PLAYER.LASERZONERELEASE.Enable();
+        controls.PLAYER.LASERSTRONGPREPARATION.Enable();
+        controls.PLAYER.LASERSTRONG.Enable();
+        controls.PLAYER.RadialMenuUp.Enable();
+        controls.PLAYER.RadialMenuDown.Enable();
+
     }
 
     public void LegRelease(int _leg)
@@ -63,9 +81,16 @@ public class Tutorial_PlayerLock : MonoBehaviour
         {
             StartingCamera.SetActive(false);
             StartCoroutine("surkaRoutine");
+            StartCoroutine("powersBack");
             cameraChanged = true;
         }
 
+    }
+
+    IEnumerator powersBack()
+    {
+        yield return new WaitForSeconds(2f);
+        powers.enabled = true;
     }
 
     IEnumerator surkaRoutine()
