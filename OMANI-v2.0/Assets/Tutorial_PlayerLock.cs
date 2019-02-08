@@ -11,7 +11,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
     [SerializeField] GameObject SneakySurka;
 
     [SerializeField] private InverseKinematics leg1, leg2, leg3, leg4;
-    bool cameraChanged;
+    bool cameraChanged, surkaSpawned;
 
 
     private void Awake()
@@ -67,10 +67,17 @@ public class Tutorial_PlayerLock : MonoBehaviour
                 leg4.enabled = true;
                 break;
         }
+        if (!surkaSpawned)
+        {
+            if (leg1.enabled && leg2.enabled && leg3.enabled)
+            {
+                surkaSpawned = true;
+                SurkaEntersTheShow();
+            }
+        }
 
         if (leg1.enabled && leg2.enabled && leg3.enabled && leg4.enabled)
         {
-            SurkaEntersTheShow();
             movement.speed = 0.15f;
         }
     }
@@ -101,10 +108,13 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     private void SurkaEntersTheShow()
     {
-        SneakySurka.SetActive(true);
-        SurkaCamera.SetActive(true);
-        StartCoroutine("surkaCameraRoutine");
-
+        if (!surkaSpawned)
+        {
+            SneakySurka.SetActive(true);
+            SurkaCamera.SetActive(true);
+            StartCoroutine("surkaCameraRoutine");
+            surkaSpawned = true;
+        }
     }
 
     IEnumerator surkaCameraRoutine()
