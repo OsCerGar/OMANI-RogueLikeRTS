@@ -8,6 +8,8 @@ public class LaserColision : MonoBehaviour
     [SerializeField] float rad = 0.5f;
     ParticleSystem PSArea;
 
+    Rigidbody MovableObjectRigid;
+
     private void Awake()
     {
         powerLaser = FindObjectOfType<Power_Laser>();
@@ -98,6 +100,19 @@ public class LaserColision : MonoBehaviour
                     ally.robot_energy.Action();
                     somethingHitted = true;
 
+                }
+            }
+
+            else if (other.CompareTag("MovableObject"))
+            {
+                if (MovableObjectRigid != null && MovableObjectRigid.gameObject == other.gameObject)
+                {
+                    MovableObjectRigid.AddForce(Vector3.Normalize(MovableObjectRigid.transform.position - transform.position) * 10f, ForceMode.Force);
+                }
+                else
+                {
+                    MovableObjectRigid = other.GetComponent<Rigidbody>();
+                    MovableObjectRigid.AddForce(Vector3.Normalize(MovableObjectRigid.transform.position - transform.position) * 10f, ForceMode.Force);
                 }
             }
         }
