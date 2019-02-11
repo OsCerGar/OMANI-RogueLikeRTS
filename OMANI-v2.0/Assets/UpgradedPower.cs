@@ -19,5 +19,9 @@ public class UpgradedPower : Power
         {
             interactible.FullAction();
         }
+        else if (other.CompareTag("MovableObject"))
+        {
+            other.GetComponent<Rigidbody>().AddForce(Vector3.Normalize(other.transform.position - transform.position) * 15f, ForceMode.Impulse);
+        }
     }
 }
