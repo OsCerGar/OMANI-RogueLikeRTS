@@ -12,6 +12,8 @@ public class TutorialSurkaTeleport : MonoBehaviour
 
     public SpriteRenderer MouseSprite, MouseSprite2;
 
+    [SerializeField] Animator teleport;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !cameraChanged)
@@ -24,8 +26,14 @@ public class TutorialSurkaTeleport : MonoBehaviour
             cinemaMode.SetActive(true);
             DisableControls();
             StartCoroutine("surkaCameraRoutine");
+            StartCoroutine("teleportRoutine");
         }
 
+    }
+    IEnumerator teleportRoutine()
+    {
+        yield return new WaitForSeconds(3f);
+        teleport.SetTrigger("Activated");
     }
 
     IEnumerator surkaCameraRoutine()
@@ -33,7 +41,6 @@ public class TutorialSurkaTeleport : MonoBehaviour
         yield return new WaitForSeconds(6f);
         SurkaCamera.SetActive(false);
         StartCoroutine("returnControls");
-
     }
 
     IEnumerator returnControls()

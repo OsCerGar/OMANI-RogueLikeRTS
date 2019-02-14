@@ -132,14 +132,17 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     private void SurkaEntersTheShow()
     {
-        surkaSpawned = true;
-        SurkaCamera.SetActive(true);
-        cinemaMode.SetActive(true);
-        surkaAnim.SetTrigger("StartRunning");
-        surkaAnim.SetFloat("Z", 1f);
+        if (!surkaSpawned)
+        {
+            surkaSpawned = true;
+            SurkaCamera.SetActive(true);
+            cinemaMode.SetActive(true);
+            surkaAnim.SetTrigger("StartRunning");
+            surkaAnim.SetFloat("Z", 1f);
 
-        DisableControls();
-        StartCoroutine("surkaCameraRoutine");
+            DisableControls();
+            StartCoroutine("surkaCameraRoutine");
+        }
     }
 
     IEnumerator surkaCameraRoutine()
