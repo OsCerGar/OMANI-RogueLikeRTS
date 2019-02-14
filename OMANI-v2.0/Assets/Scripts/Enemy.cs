@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Enemy : NPC {
+﻿public class Enemy : NPC
+{
 
     public override void Update()
     {
+        /*
         if (Nav != null)
         {
             TPC.Move(Nav.desiredVelocity);
@@ -17,6 +15,7 @@ public class Enemy : NPC {
                 anim.SetFloat("AnimSpeed", Nav.velocity.magnitude);
             }
         }
+        */
     }
     public override void AttackHit()
     {
@@ -25,6 +24,6 @@ public class Enemy : NPC {
     public override void Die()
     {
         base.Die();
-        this.enabled = false;
+        enabled = false;
     }
 }

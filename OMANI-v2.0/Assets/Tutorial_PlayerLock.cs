@@ -8,11 +8,13 @@ public class Tutorial_PlayerLock : MonoBehaviour
     public OMANINPUT controls;
 
     [SerializeField] GameObject StartingCamera, SurkaCamera;
-    [SerializeField] GameObject SneakySurka;
 
     [SerializeField] private InverseKinematics leg1, leg2, leg3, leg4;
     bool cameraChanged, surkaSpawned;
 
+
+    //SURKA
+    [SerializeField] Animator surkaAnim;
 
     private void Awake()
     {
@@ -24,7 +26,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
         controls.PLAYER.LASERSTRONG.performed += context => CameraChange();
         controls.PLAYER.RadialMenuUp.Disable();
         controls.PLAYER.RadialMenuDown.Disable();
-
     }
 
 
@@ -44,11 +45,18 @@ public class Tutorial_PlayerLock : MonoBehaviour
         controls.PLAYER.LASERZONERELEASE.Enable();
         controls.PLAYER.LASERSTRONGPREPARATION.Enable();
         controls.PLAYER.LASERSTRONG.Enable();
-        controls.PLAYER.RadialMenuUp.Enable();
-        controls.PLAYER.RadialMenuDown.Enable();
+
+        StartCoroutine("surkaHittingBag");
 
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            SurkaEntersTheShow(); movement.speed = 0.15f;
+        }
+    }
     public void LegRelease(int _leg)
     {
         switch (_leg)
@@ -67,11 +75,11 @@ public class Tutorial_PlayerLock : MonoBehaviour
                 leg4.enabled = true;
                 break;
         }
+
         if (!surkaSpawned)
         {
             if (leg1.enabled && leg2.enabled && leg3.enabled)
             {
-                surkaSpawned = true;
                 SurkaEntersTheShow();
             }
         }
@@ -96,25 +104,39 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     IEnumerator powersBack()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         powers.enabled = true;
+    }
+    IEnumerator surkaHittingBag()
+    {
+        yield return new WaitForSeconds(5f);
+        SurkaHittingBag();
     }
 
     IEnumerator surkaRoutine()
     {
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(60f);
         SurkaEntersTheShow();
+    }
+
+    private void SurkaHittingBag()
+    {
+        if (!surkaSpawned)
+        {
+            surkaAnim.SetTrigger("Attack");
+            StartCoroutine("surkaHittingBag");
+        }
     }
 
     private void SurkaEntersTheShow()
     {
-        if (!surkaSpawned)
-        {
-            SneakySurka.SetActive(true);
-            SurkaCamera.SetActive(true);
-            StartCoroutine("surkaCameraRoutine");
-            surkaSpawned = true;
-        }
+        surkaSpawned = true;
+        SurkaCamera.SetActive(true);
+
+        surkaAnim.SetTrigger("StartRunning");
+        surkaAnim.SetFloat("Z", 1f);
+
+        StartCoroutine("surkaCameraRoutine");
     }
 
     IEnumerator surkaCameraRoutine()
