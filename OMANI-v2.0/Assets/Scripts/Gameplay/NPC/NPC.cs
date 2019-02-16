@@ -396,9 +396,7 @@ public class NPC : MonoBehaviour
         }
         life = 0;
         anim.SetTrigger("Die");
-
-        Nav.updatePosition = false;
-        Nav.updateRotation = false;
+        
         Nav.isStopped = true;
         gameObject.GetComponent<Collider>().isTrigger = true;
         gameObject.layer = 0;
@@ -492,7 +490,7 @@ public class NPC : MonoBehaviour
     }
 
 
-    public IEnumerator gotHit()
+    public virtual IEnumerator gotHit()
     {
         if (hitEffects.Length > 0)
         {

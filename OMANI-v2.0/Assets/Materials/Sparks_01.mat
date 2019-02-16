@@ -4,10 +4,11 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Sparks_01
-  m_Shader: {fileID: 4800000, guid: 0bc5b38b6f70d9f4cbceeb20be123192, type: 3}
+  m_Shader: {fileID: 4800000, guid: d607687eacae7df4eabeab13a85cca1a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
@@ -18,10 +19,30 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _ComTex:
+        m_Texture: {fileID: 2800000, guid: 59c37a72bcb86374cb9dbffb99c4ed2f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTexture:
         m_Texture: {fileID: 2800000, guid: 6eef85c20f103f8429c530cfc2c95a81, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 2800000, guid: 77d572dd0bfeb9f4dae4cf9e7c9cec6b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WorldOffsetNoise:
+        m_Texture: {fileID: 2800000, guid: 915cfc34172833b478d37328e50da16b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Cutoff: 0.5
+    - _EdgeThickness: 1
+    - _FinalPower: 5
     - _Glow_Intensity: 1
-    m_Colors: []
+    - _OffsetPower: 0
+    - _OpacityBoost: 4
+    - _ScrollSpeed: 0
+    - _Tiling: 0.5
+    m_Colors:
+    - _EdgeColor: {r: 0, g: 0, b: 0, a: 1}

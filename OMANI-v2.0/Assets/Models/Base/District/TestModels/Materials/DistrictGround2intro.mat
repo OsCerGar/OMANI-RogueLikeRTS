@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: DistrictGround2intro
   m_Shader: {fileID: 4800000, guid: 881c73b45dda42d4ba29f8c7742329be, type: 3}
-  m_ShaderKeywords: _MK_ALBEDO_MAP _MK_LIGHTMODEL_MINNAERT _MK_LIGHTTYPE_CEL_SHADE_MULTI
-    _MK_OCCLUSION _MK_RIM _MK_SKETCH _NORMALMAP _USERIM_ON _USESKETCH_ON
+  m_ShaderKeywords: _MK_ALBEDO_MAP _MK_BUMP_MAP _MK_LIGHTMODEL_OREN_NAYER _MK_LIGHTTYPE_CEL_SHADE_MULTI
+    _MK_OCCLUSION _NORMALMAP _USERIM_ON _USESKETCH_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: bd4334c2bbcbf794ea0c6e02bbe45b55, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -96,7 +96,7 @@ Material:
     - _AnisoOffset: -0.2
     - _Blend0: 1
     - _Blend1: 0
-    - _Brightness: 1.2
+    - _Brightness: 0.55
     - _BumpScale: 0
     - _Contrast: 1.02
     - _CullMode: 2
@@ -109,25 +109,25 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.22
     - _GlossyReflections: 1
-    - _LightCuts: 3
-    - _LightModel: 4
+    - _LightCuts: 4
+    - _LightModel: 5
     - _LightSmoothness: 0
-    - _LightThreshold: 0.3
+    - _LightThreshold: 0.068
     - _LightType: 2
     - _MKEditorShowDetailBehavior: 0
     - _MKEditorShowDissolveBehavior: 0
-    - _MKEditorShowLightBehavior: 0
-    - _MKEditorShowMainBehavior: 0
+    - _MKEditorShowLightBehavior: 1
+    - _MKEditorShowMainBehavior: 1
     - _MKEditorShowOutlineBehavior: 0
     - _MKEditorShowReflectionBehavior: 0
-    - _MKEditorShowRenderBehavior: 0
-    - _MKEditorShowRimBehavior: 1
-    - _MKEditorShowShadowBehavior: 0
+    - _MKEditorShowRenderBehavior: 1
+    - _MKEditorShowRimBehavior: 0
+    - _MKEditorShowShadowBehavior: 1
     - _MKEditorShowSketchBehavior: 0
     - _MKEditorShowSpecularBehavior: 1
     - _MKEditorShowTranslucentBehavior: 1
     - _Metallic: 0
-    - _Mode: 20
+    - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineSize: 0.02
     - _Parallax: 0.02
@@ -137,7 +137,7 @@ Material:
     - _RimSize: 1
     - _RimSmoothness: 0.7
     - _Roughness: 0
-    - _Saturation: 0.95
+    - _Saturation: 0.37
     - _ShadowIntensity: 1
     - _Shininess: 0.36
     - _SketchScale: 19.2
@@ -155,8 +155,8 @@ Material:
     - _UseDissolve: 0
     - _UseOutline: 0
     - _UseReflection: 0
-    - _UseRim: 1
-    - _UseSketch: 1
+    - _UseRim: 0
+    - _UseSketch: 0
     - _UseTranslucent: 0
     - _ZWrite: 1
     m_Colors:
@@ -164,10 +164,10 @@ Material:
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HighlightColor: {r: 1, g: 0.9522289, b: 0.8443396, a: 1}
+    - _HighlightColor: {r: 1, g: 0.84313726, b: 0.9768243, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShadowColor: {r: 0.30647027, g: 0.5706506, b: 0.6698113, a: 1}
+    - _ShadowColor: {r: 0.18292345, g: 0.02990388, b: 0.3018868, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _TranslucentColor: {r: 1, g: 1, b: 1, a: 0.5}

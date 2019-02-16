@@ -8,9 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ExteriorWall2_UVChannel_1_colorToon
-  m_Shader: {fileID: 4800000, guid: 881c73b45dda42d4ba29f8c7742329be, type: 3}
-  m_ShaderKeywords: _EMISSION _MK_ALBEDO_MAP _MK_BUMP_MAP _MK_EMISSION_MAP _MK_LIGHTMODEL_LAMBERT
-    _MK_LIGHTTYPE_CEL_SHADE_MULTI _MK_RIM _NORMALMAP
+  m_Shader: {fileID: 4800000, guid: 6ee274c501732384d9c8bb02a4576937, type: 3}
+  m_ShaderKeywords: _EMISSION _MK_ALBEDO_MAP _MK_BUMP_MAP _MK_EMISSION_MAP _MK_LIGHTMODEL_BLINN_PHONG
+    _MK_LIGHTTYPE_CEL_SHADE_MULTI _MK_SPECULAR_MAP _NORMALMAP _USEOUTLINE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -96,7 +96,7 @@ Material:
     - _AnisoOffset: -0.2
     - _Blend0: 1
     - _Blend1: 0
-    - _Brightness: 1
+    - _Brightness: 0.75
     - _BumpScale: 1
     - _Contrast: 1
     - _CullMode: 2
@@ -109,10 +109,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LightCuts: 5
-    - _LightModel: 1
+    - _LightCuts: 4
+    - _LightModel: 3
     - _LightSmoothness: 0
-    - _LightThreshold: 0.3
+    - _LightThreshold: 0.1
     - _LightType: 2
     - _MKEditorShowDetailBehavior: 0
     - _MKEditorShowDissolveBehavior: 0
@@ -120,8 +120,8 @@ Material:
     - _MKEditorShowMainBehavior: 1
     - _MKEditorShowOutlineBehavior: 0
     - _MKEditorShowReflectionBehavior: 0
-    - _MKEditorShowRenderBehavior: 0
-    - _MKEditorShowRimBehavior: 1
+    - _MKEditorShowRenderBehavior: 1
+    - _MKEditorShowRimBehavior: 0
     - _MKEditorShowShadowBehavior: 0
     - _MKEditorShowSketchBehavior: 0
     - _MKEditorShowSpecularBehavior: 0
@@ -137,7 +137,7 @@ Material:
     - _RimSize: 1.14
     - _RimSmoothness: 0.7
     - _Roughness: 1
-    - _Saturation: 1
+    - _Saturation: 0.57
     - _ShadowIntensity: 1
     - _Shininess: 0.275
     - _SketchScale: 16
@@ -153,9 +153,9 @@ Material:
     - _UseAnisotropicSpecular: 0
     - _UseBumpMap: 0
     - _UseDissolve: 0
-    - _UseOutline: 0
+    - _UseOutline: 1
     - _UseReflection: 0
-    - _UseRim: 1
+    - _UseRim: 0
     - _UseSketch: 0
     - _UseTranslucent: 0
     - _ZWrite: 1
@@ -163,7 +163,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveColor: {r: 1, g: 1, b: 1, a: 0.5}
-    - _EmissionColor: {r: 0.71253514, g: 1, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0.004719496, b: 0.3490566, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
