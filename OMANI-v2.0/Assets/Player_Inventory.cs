@@ -75,11 +75,7 @@ public class Player_Inventory : MonoBehaviour
                 }
             }
 
-            if (robot != null)
-            {
-                robot.StartResurrection();
-                Debug.Log("resurrection going on");
-            }
+           
 
             if (closest != null)
             {

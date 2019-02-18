@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LocomotionBrain : MonoBehaviour
 {
-    private float Loop = 0, loopCycle = 100, armSpeed = 3f, runningValue = 1f, slowmoValue = 5f;
+    private float Loop = 0, loopCycle = 100, armSpeed = 6f, runningValue = 1f, slowmoValue = 5f;
     private int footControler = 0;
     public bool ikActive = false;
     public LayerMask mask;
@@ -50,7 +50,7 @@ public class LocomotionBrain : MonoBehaviour
     private void Update()
     {
         Loop += Time.unscaledDeltaTime;
-        if (Loop >= 0.2 - (playerRB.velocity.magnitude / loopCycle))
+        if (Loop >= 0.15 - (playerRB.velocity.magnitude / loopCycle))
         {
             switch (footControler)
             {
