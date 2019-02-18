@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using AuraAPI;
 using System.Collections.Generic;
 using UnityEngine;
-using AuraAPI;
 
 [ExecuteInEditMode]
 public class AuraLightsFix : MonoBehaviour

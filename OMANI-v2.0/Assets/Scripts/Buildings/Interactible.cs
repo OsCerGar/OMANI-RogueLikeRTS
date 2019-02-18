@@ -66,7 +66,8 @@ public class Interactible : MonoBehaviour
 
     public virtual void LateUpdate()
     {
-        if (powerReduced >= price)
+
+        if (powerReduced >= price - 2f)
         {
             ActionCompleted();
         }
@@ -106,7 +107,7 @@ public class Interactible : MonoBehaviour
         latestFullActionPowerReduced = powerReduced / price;
         numberPool.NumberSpawn(numbersTransform, latestFullActionPowerReduced, Color.cyan);
 
-        powerReduced = powers.reduceAsMuchPower(price - powerReduced);
+        powerReduced += powers.reduceAsMuchPower(price - powerReduced);
         laserAudio.energyTransmisionSound(currentLinkPrice);
 
     }

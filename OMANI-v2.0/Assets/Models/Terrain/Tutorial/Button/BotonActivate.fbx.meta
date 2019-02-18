@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 19bc0491a52ec5d48aa81dd3624c2828
+guid: bf5c5d2ce1eba1043b0a77618b3a1ba5
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: Armature
-    100002: //RootNode
-    100004: Boton_01 Compuerta_Antena_04
+    100002: Boton_01 Compuerta_Antena_04
+    100004: //RootNode
     100006: GiraGira
     100008: GiraGira_end
     100010: "pesta\xF1ax+"
@@ -20,8 +20,8 @@ ModelImporter:
     100028: Static
     100030: Static_end
     400000: Armature
-    400002: //RootNode
-    400004: Boton_01 Compuerta_Antena_04
+    400002: Boton_01 Compuerta_Antena_04
+    400004: //RootNode
     400006: GiraGira
     400008: GiraGira_end
     400010: "pesta\xF1ax+"
@@ -41,24 +41,14 @@ ModelImporter:
     2100006: lambert7SG
     2100008: lambert6SG
     4300000: Boton_01 Compuerta_Antena_04
-    7400000: Connected
-    7400002: Armature|ArmatureAction
-    7400004: Armature|ArmatureAction.002
-    7400006: Armature|Boton_01 Antena_02Action
-    7400008: Armature|Boton_01 Antena_03Action
-    7400010: Armature|Boton_01 Antena_04Action
-    7400012: Armature|Boton_01 Cilindro_SuperiorAction
-    7400014: Armature|Boton_01 Compuerta_Antena_01Action
-    7400016: Armature|Boton_01 Compuerta_Antena_02Action
-    7400018: Armature|Boton_01 Compuerta_Antena_03Action
-    7400020: Armature|Boton_01 Compuerta_Antena_04Action
-    7400022: Armature|Boton_01 Parte_principalAction
-    7400024: Armature|Boton_01 Pieza_giratoriaAction
+    7400000: ButtonActivating
+    7400002: Armature|Boton_01 Compuerta_Antena_04Action
+    7400004: ButtonClick1
     9500000: //RootNode
     13700000: Boton_01 Compuerta_Antena_04
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -85,10 +75,66 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Connected
-      takeName: Armature|Antena_01 Boton_01Action
+      name: ButtonActivating
+      takeName: Armature|ArmatureAction.002
+      firstFrame: 0
+      lastFrame: 37
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Boton_01 Compuerta_Antena_04Action
+      takeName: Armature|Boton_01 Compuerta_Antena_04Action
       firstFrame: 0
       lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: ButtonClick1
+      takeName: Armature|ArmatureAction.002
+      firstFrame: 37
+      lastFrame: 49
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -147,7 +193,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   importAnimation: 1
-  copyAvatar: 1
+  copyAvatar: 0
   humanDescription:
     serializedVersion: 2
     human: []
@@ -159,7 +205,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Armature
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
