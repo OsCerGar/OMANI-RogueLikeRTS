@@ -7,6 +7,8 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
     [SerializeField] GameObject SpawnPoint;
     PeoplePool peoplePool;
 
+    bool summoned;
+
     public override void Start()
     {
         base.Start();
@@ -15,9 +17,13 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
     }
     public override void BuildingAction()
     {
-        base.BuildingAction();
-        anim.SetTrigger("Activate");
-        StartCoroutine("SpawnRoutine");
+        if (!summoned)
+        {
+            base.BuildingAction();
+            anim.SetTrigger("Activate");
+            StartCoroutine("SpawnRoutine");
+            summoned = true;
+        }
     }
 
     IEnumerator SpawnRoutine()
@@ -26,5 +32,4 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
         peoplePool.WorkerSpawn(transform, new Vector3(SpawnPoint.transform.position.x, SpawnPoint.transform.position.y, SpawnPoint.transform.position.z));
 
     }
-
 }

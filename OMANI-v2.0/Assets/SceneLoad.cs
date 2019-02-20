@@ -1,17 +1,32 @@
 ﻿using UnityEngine;
-
 public class SceneLoad : MonoBehaviour
 {
 
     [SerializeField] string sceneToLoad;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
+    [SerializeField] Animator TeleporterAnimation;
+    bool inside;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("Player")) { Initiate.Fade(sceneToLoad, Color.white, 0.5f); }
+        if (other.tag.Equals("Player"))
+        {
+            inside = true;
+            TeleporterAnimation.SetTrigger("Activated");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag.Equals("Player"))
+        {
+            inside = false;
+        }
+    }
+    public void LoadNextScene()
+    {
+        if (inside)
+        {
+            Initiate.Fade(sceneToLoad, Color.white, 0.5f);
+        }
     }
 }

@@ -11,6 +11,8 @@ public class BU_Building_Action2 : Interactible
     private float actionDone;
     private bool firstTimepowerReduced;
 
+    SkinnedMeshRenderer renderere;
+
     // Use this for initialization
     public override void Start()
     {
@@ -26,6 +28,7 @@ public class BU_Building_Action2 : Interactible
         t = 0.2f;
         pilarmovement = transform.Find("Sounds").Find("PilarMovement").GetComponent<AudioSource>();
         pilarReturned = transform.Find("Sounds").Find("PilarReturnedProgram").GetComponent<AudioSource>();
+        renderere = GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
     public void BuildingAction()
@@ -126,6 +129,19 @@ public class BU_Building_Action2 : Interactible
         //parentResources.buildingDistrict.removeEnergy(parentResources.requiredEnergy);
         //parentResources.buildingDistrict.energyUpdateReduced();
         base.ActionCompleted();
+
+
+        foreach (Material mat in renderere.materials)
+        {
+            MK.Toon.MKToonMaterialHelper.SetEmissionColor(mat, Color.black);
+            MK.Toon.MKToonMaterialHelper.SetOutlineColor(mat, Color.black);
+        }
+
+        pilarmovement.Stop();
+
+        pilarReturned.Stop();
+        enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
     }
 
     public void StopWorkingAnimator()
