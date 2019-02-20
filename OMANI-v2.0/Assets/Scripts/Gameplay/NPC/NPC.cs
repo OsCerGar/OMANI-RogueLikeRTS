@@ -302,7 +302,7 @@ public class NPC : MonoBehaviour
     //take damage with knockBack
     public virtual void TakeDamage(int damage, bool knockback, float knockbackTime, Transform _perpetrator)
     {
-        numberPool.NumberSpawn(numbersTransform, damage, Color.red);
+        numberPool.NumberSpawn(numbersTransform, damage, Color.red, gameObject);
 
         if (state == "Alive")
         {
@@ -333,7 +333,7 @@ public class NPC : MonoBehaviour
     //Simple way to take damage
     public virtual void TakeDamage(int damage, Color damageType)
     {
-        numberPool.NumberSpawn(numbersTransform, damage, damageType);
+        numberPool.NumberSpawn(numbersTransform, damage, damageType, gameObject);
 
         StartCoroutine(gotHit());
         if (state == "Alive")

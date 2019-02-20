@@ -98,7 +98,7 @@ public class Robot : NPC
 
         StartCoroutine(gotHit());
         workerSM.DamageRecieved();
-        numberPool.NumberSpawn(numbersTransform, damage, _damageType);
+        numberPool.NumberSpawn(numbersTransform, damage, _damageType, gameObject);
 
         if (state == "Alive")
         {
