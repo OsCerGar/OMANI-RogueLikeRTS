@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 public class Robot : NPC
 {
     bool link = false;
@@ -17,13 +17,16 @@ public class Robot : NPC
     private ParticleSystem MaterializeParticleSystem;
     private WorkerSM workerSM;
     private float materializeCounter;
-    
+
+    //reclute pool fix
+    public bool recluted;
+
     public void Sparks()
     {
         SparkEffect.Play();
     }
 
-    
+
     public override void Start()
     {
         base.Start();
@@ -64,7 +67,7 @@ public class Robot : NPC
 
         //Disables everything.
         StartCoroutine(Dematerialize(0.05f));
-        
+
     }
 
     public void Materialize(GameObject _ShootingPosition, GameObject _miradaPosition)
@@ -121,8 +124,9 @@ public class Robot : NPC
 
     public override void Die()
     {
-        base.Die();
+        recluted = false;
 
+        base.Die();
     }
 
     public void AutoReclute()

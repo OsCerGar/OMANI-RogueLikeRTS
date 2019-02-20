@@ -177,6 +177,9 @@ public class Army : MonoBehaviour
         {
             cellToSaveRobot.addRobot(_robot);
 
+            //Recluted so the pool knows.
+            _robot.recluted = true;
+
             //Disable robot
             _robot.Dematerialize();
         }
@@ -204,6 +207,9 @@ public class Army : MonoBehaviour
                 //Materialice the next one
                 currentFighter = armyCell[ArmyCellSelected].GetRobot();
                 currentFighter.Materialize(ShootingPosition, look.pointerDirection.gameObject);
+
+                //Recluted false so if he dies, he goes back to the pool
+                currentFighter.recluted = false;
 
                 //Removes from list to update UI, still currentFighter
                 RemoveWithoutFighter(currentFighter);

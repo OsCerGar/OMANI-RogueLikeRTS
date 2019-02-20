@@ -1,12 +1,11 @@
 ﻿using EZObjectPools;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NumberPool : MonoBehaviour
 {
     EZObjectPool damagenumber;
-    GameObject Spawned;
-
+    GameObject Spawned; // list
+    NumberScript text;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,13 +20,27 @@ public class NumberPool : MonoBehaviour
 
     }
 
-    public void NumberSpawn(Transform tr, float damage_value, Color _type)
+    public void NumberSpawn(Transform tr, float damage_value, Color _type, GameObject numberOwner)
     {
-        damagenumber.TryGetNextObject(tr.position, damagenumber.gameObject.transform.rotation, out Spawned);
-        Text text = Spawned.transform.GetChild(0).GetComponentInChildren<Text>();
 
-        text.text = damage_value.ToString();
-        text.color = _type;
+        if (Spawned == null || !Spawned.activeSelf)
+        {
+            damagenumber.TryGetNextObject(tr.position, damagenumber.gameObject.transform.rotation, out Spawned);
+            text = Spawned.transform.GetComponentInChildren<NumberScript>();
+            text.SetNumberOwner(numberOwner);
+
+        }
+        else
+        {
+            if (text.GetNumberOwner() == numberOwner)
+            {
+                text.numberUpdate(damage_value, _type);
+            }
+            else
+            {
+                //spawns another number
+            }
+        }
     }
 
 }

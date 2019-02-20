@@ -20,7 +20,7 @@ public class BU_Building_Action2 : Interactible
         readyToSpawn = true;
         animator = GetComponent<Animator>();
         linkPrice = 14;
-        price = 75;
+        price = 100;
         finalLinkPrice = 65;
         currentLinkPrice = 0;
         t = 0.2f;

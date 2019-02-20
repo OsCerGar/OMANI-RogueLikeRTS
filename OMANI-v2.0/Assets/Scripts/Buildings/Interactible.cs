@@ -108,6 +108,11 @@ public class Interactible : MonoBehaviour
         numberPool.NumberSpawn(numbersTransform, latestFullActionPowerReduced, Color.cyan);
 
         powerReduced += powers.reduceAsMuchPower(price - powerReduced);
+        //In case it gets close, free energy for the people
+        if (price - powerReduced < 2f)
+        {
+            powerReduced += 5;
+        }
         laserAudio.energyTransmisionSound(currentLinkPrice);
 
     }
