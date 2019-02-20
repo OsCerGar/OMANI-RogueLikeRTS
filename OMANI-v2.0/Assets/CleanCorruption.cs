@@ -1,22 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CleanCorruption : MonoBehaviour
 {
-    Renderer[] AllChildrenRenderers;
+    MeshRenderer[] AllChildrenRenderers;
+    SkinnedMeshRenderer[] AllChildrenSkinnedRenderers;
+    Animator[] anims;
     [SerializeField] ParticleSystem BoltsPE;
     [SerializeField] ParticleSystem CorruptionPE;
-    Projector Proj;
-    float dissolveCounter;
+    float dissolveDistance;
+    Light Pointlight;
+
+    
     // Start is called before the first frame update
     void Start()
     {
-        
-        dissolveCounter = 0;
-        AllChildrenRenderers = GetComponentsInChildren<Renderer>();
-        Proj = GetComponentInChildren<Projector>();
+        Pointlight = GetComponentInChildren<Light>();
+        Pointlight.transform.parent = null;
+        dissolveDistance = 0;
+        AllChildrenRenderers = GetComponentsInChildren<MeshRenderer>();
+        AllChildrenSkinnedRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         DissolveAndClear();
+
+        foreach (var renderer in AllChildrenRenderers)
+        {
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+        }
+
+        foreach (var renderer in AllChildrenSkinnedRenderers)
+        {
+            renderer.shadowCastingMode = ShadowCastingMode.Off;
+            
+        }
     }
 
 
@@ -27,34 +44,50 @@ public class CleanCorruption : MonoBehaviour
     {
         BoltsPE.Play();
         CorruptionPE.Play();
-        StartCoroutine(Dematerialize(Time.deltaTime/4));
+        StartCoroutine(Dematerialize(0.1f));
     }
-    private IEnumerator Dematerialize(float waitTime)
+    private IEnumerator Dematerialize(float DistanceGrower)
     {
-        while (dissolveCounter < 1)
+        dissolveDistance = 8;
+        while (dissolveDistance < 35)
         {
-            dissolveCounter += waitTime;
+            dissolveDistance += DistanceGrower;
+
+            //Loop for mesh renderers 
+            // ---- We check a distance, that we keep growing, and if within distance, we start adding to the dissolveamount
+            //  PointLight also grows in intensity 
             foreach (var renderer in AllChildrenRenderers)
             {
-                MK.Toon.MKToonMaterialHelper.SetDissolveAmount(renderer.material, dissolveCounter);
-                Proj.orthographicSize += 0.05f;
-                //transform.position -= transform.up * Time.deltaTime / 100;
+                if (Vector3.Distance (Pointlight.transform.position,renderer.transform.position) < dissolveDistance)
+                {
+                    
+                        MK.Toon.MKToonMaterialHelper.SetDissolveAmount(renderer.material, MK.Toon.MKToonMaterialHelper.GetDissolveAmount(renderer.material) + Time.deltaTime);
+                }
+                
             }
 
-            yield return new WaitForSeconds(waitTime);
-        }
-        dissolveCounter = 0;
-        while (dissolveCounter < 1)
-        {
-            dissolveCounter += waitTime;
-            foreach (var renderer in AllChildrenRenderers)
+            foreach (var renderer in AllChildrenSkinnedRenderers)
             {
-                Proj.orthographicSize += 0.05f;
-                transform.position -= transform.up * Time.deltaTime / 40;
+                if (Vector3.Distance(Pointlight.transform.position, renderer.transform.position) < dissolveDistance)
+                {
+                    renderer.transform.parent.GetComponent<Corruption>().Die();
+                    MK.Toon.MKToonMaterialHelper.SetDissolveAmount(renderer.material, MK.Toon.MKToonMaterialHelper.GetDissolveAmount(renderer.material) + Time.deltaTime);
+
+                    
+                    
+                }
+
             }
 
-            yield return new WaitForSeconds(waitTime);
+            if (Pointlight.intensity < 1.5f)
+            {
+                Pointlight.intensity += 0.05f;
+            }
+            yield return new WaitForSeconds(Time.deltaTime);
         }
+        
+
+        transform.gameObject.SetActive(false);
 
 
     }
