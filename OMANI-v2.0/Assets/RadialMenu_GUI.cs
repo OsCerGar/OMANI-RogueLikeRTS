@@ -25,9 +25,9 @@ public class RadialMenu_GUI : MonoBehaviour
     private void Initialize()
     {
         radialPart[0] = transform.GetChild(0).Find("Base").GetComponent<RadialMenu_GUI_BASE>();
-        radialPart[1] = transform.GetChild(0).Find("Base2").GetComponent<RadialMenu_GUI_BASE>();
-        radialPart[2] = transform.GetChild(0).Find("Base3").GetComponent<RadialMenu_GUI_BASE>();
-        radialPart[3] = transform.GetChild(0).Find("Base4").GetComponent<RadialMenu_GUI_BASE>();
+        radialPart[1] = transform.GetChild(0).Find("2Base").GetComponent<RadialMenu_GUI_BASE>();
+        radialPart[2] = transform.GetChild(0).Find("3Base").GetComponent<RadialMenu_GUI_BASE>();
+        radialPart[3] = transform.GetChild(0).Find("4Base").GetComponent<RadialMenu_GUI_BASE>();
         army = FindObjectOfType<Army>();
         canvas = transform.GetChild(0).GetComponent<Canvas>();
         menuItems = radialPart.Length;

@@ -4,13 +4,10 @@ using UnityEngine.UI;
 
 public class RadialMenu_GUI_BASE : MonoBehaviour
 {
-    private List<Image> amountOfRobots = new List<Image>();
+    private List<RadialMenuFeedback> amountOfRobots = new List<RadialMenuFeedback>();
     public List<Sprite> robotTypes = new List<Sprite>();
 
     private Image Robot;
-    private Image selectedVisualFeedback, Energy1FeedBack, Energy2FeedBack, Energy3FeedBack;
-    [SerializeField]
-    public Material FeedBackON, FeedBackOff;
 
     // Start is called before the first frame update
     void Start()
@@ -22,28 +19,24 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
     private void Initialize()
     {
 
-        amountOfRobots.Add(transform.Find("Energy1").GetComponent<Image>());
-        amountOfRobots.Add(transform.Find("Energy2").GetComponent<Image>());
-        amountOfRobots.Add(transform.Find("Energy3").GetComponent<Image>());
-        amountOfRobots.Add(transform.Find("Energy4").GetComponent<Image>());
-        selectedVisualFeedback = transform.Find("ExteriorFeedback").GetComponent<Image>();
-
-        Energy1FeedBack = transform.Find("Energy1FeedBack").GetComponent<Image>();
-        Energy2FeedBack = transform.Find("Energy2FeedBack").GetComponent<Image>();
-        Energy3FeedBack = transform.Find("Energy3FeedBack").GetComponent<Image>();
+        amountOfRobots.Add(transform.Find("0Robot").GetComponent<RadialMenuFeedback>());
+        amountOfRobots.Add(transform.Find("1Robot").GetComponent<RadialMenuFeedback>());
+        amountOfRobots.Add(transform.Find("2Robot").GetComponent<RadialMenuFeedback>());
+        amountOfRobots.Add(transform.Find("3Robot").GetComponent<RadialMenuFeedback>());
+        amountOfRobots.Add(transform.Find("4Robot").GetComponent<RadialMenuFeedback>());
 
         Robot = transform.Find("Robot").GetComponent<Image>();
     }
 
     public void DisableAll()
     {
-        foreach (Image arobot in amountOfRobots)
+        foreach (RadialMenuFeedback arobot in amountOfRobots)
         {
-            arobot.enabled = false;
+            arobot.gameObject.SetActive(false);
         }
     }
 
-    private List<Image> GetAmountOfRobots()
+    private List<RadialMenuFeedback> GetAmountOfRobots()
     {
         return amountOfRobots;
     }
@@ -79,28 +72,24 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
     public void UISetAmountOfRobots(int _quantityOfRobots)
     {
         DisableAll();
-
-        for (int i = 0; i < _quantityOfRobots; i++)
-        {
-            amountOfRobots[i].enabled = true;
-            Robot.enabled = true;
-        }
+        amountOfRobots[_quantityOfRobots].gameObject.SetActive(true);
+        Robot.enabled = true;
     }
 
     public void VisualFeedBack()
     {
-        selectedVisualFeedback.material = FeedBackON;
-        Energy1FeedBack.material = FeedBackON;
-        Energy2FeedBack.material = FeedBackON;
-        Energy3FeedBack.material = FeedBackON;
-
+        foreach (RadialMenuFeedback arobot in amountOfRobots)
+        {
+            if (arobot.gameObject.activeSelf) { arobot.FeedbackOn(); }
+        }
     }
+
     public void noVisualFeedBack()
     {
-        selectedVisualFeedback.material = FeedBackOff;
-        Energy1FeedBack.material = FeedBackOff;
-        Energy2FeedBack.material = FeedBackOff;
-        Energy3FeedBack.material = FeedBackOff;
+        foreach (RadialMenuFeedback arobot in amountOfRobots)
+        {
+            arobot.FeedbackOff();
+        }
     }
 
 }
