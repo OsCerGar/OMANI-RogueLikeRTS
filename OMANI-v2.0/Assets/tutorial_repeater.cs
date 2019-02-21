@@ -17,7 +17,7 @@ public class tutorial_repeater : MonoBehaviour
     {
         if (!done)
         {
-            if (repeater.energy > 0) { cleanCorruption.DissolveAndClear(); }
+            if (repeater.energy > 0) { done = true; cleanCorruption.DissolveAndClear(); }
         }
     }
 }
