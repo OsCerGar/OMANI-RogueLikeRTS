@@ -12,6 +12,7 @@ public class BU_Building_Action2 : Interactible
     private bool firstTimepowerReduced;
 
     SkinnedMeshRenderer renderere;
+    GameObject instructions;
 
     // Use this for initialization
     public override void Start()
@@ -28,6 +29,7 @@ public class BU_Building_Action2 : Interactible
         t = 0.2f;
         pilarmovement = transform.Find("Sounds").Find("PilarMovement").GetComponent<AudioSource>();
         pilarReturned = transform.Find("Sounds").Find("PilarReturnedProgram").GetComponent<AudioSource>();
+        instructions = transform.Find("Tutorial_Instruction").gameObject;
         renderere = GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
@@ -138,8 +140,9 @@ public class BU_Building_Action2 : Interactible
         }
 
         pilarmovement.Stop();
-
         pilarReturned.Stop();
+
+        instructions.SetActive(false);
         enabled = false;
         GetComponent<BoxCollider>().enabled = false;
     }

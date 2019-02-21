@@ -22,7 +22,6 @@ public class CleanCorruption : MonoBehaviour
         dissolveDistance = 0;
         AllChildrenRenderers = GetComponentsInChildren<MeshRenderer>();
         AllChildrenSkinnedRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
-        DissolveAndClear();
 
         foreach (var renderer in AllChildrenRenderers)
         {

@@ -15,6 +15,8 @@ public class UI_PointerDirection : MonoBehaviour
     void Start()
     {
         dots = this.transform.Find("Dots").GetComponent<SpriteRenderer>();
+        this.transform.GetComponent<SpriteRenderer>().material.renderQueue = 4000; ;
+        dots.material.renderQueue = 4000;
     }
 
     public void Click()

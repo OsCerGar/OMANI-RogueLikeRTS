@@ -1,13 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BU_Energy_ElectricityMaster : MonoBehaviour
 {
     [SerializeField]
-    List<BU_Energy_District> EnergyDistrict = new List<BU_Energy_District>();
+    BU_Energy_District EnergyDistrict1, EnergyDistrict2, EnergyDistrict3, EnergyDistrict4;
     [SerializeField]
-    List<BU_Energy_CityDistricts> CityDistricts = new List<BU_Energy_CityDistricts>();
+    BU_Energy_CityDistricts CityDistricts1, CityDistricts2, CityDistricts3, CityDistricts4;
     private int totalDistrictEnergy;
     private int i = 0;
 
@@ -16,17 +15,18 @@ public class BU_Energy_ElectricityMaster : MonoBehaviour
     {
 
         #region EnergyDistrictInitializer
-        EnergyDistrict.Add(transform.Find("District1").GetComponent<BU_Energy_District>());
-        EnergyDistrict.Add(transform.Find("District2").GetComponent<BU_Energy_District>());
-        EnergyDistrict.Add(transform.Find("District3").GetComponent<BU_Energy_District>());
-        EnergyDistrict.Add(transform.Find("District4").GetComponent<BU_Energy_District>());
+        EnergyDistrict1 = transform.Find("District1").GetComponent<BU_Energy_District>();
+        EnergyDistrict2 = transform.Find("District2").GetComponent<BU_Energy_District>();
+        EnergyDistrict3 = transform.Find("District3").GetComponent<BU_Energy_District>();
+        EnergyDistrict4 = transform.Find("District4").GetComponent<BU_Energy_District>();
         #endregion
 
         #region BuildingDistrictInitializer
-        CityDistricts.Add(transform.root.Find("District1").GetComponent<BU_Energy_CityDistricts>());
-        CityDistricts.Add(transform.root.Find("District2").GetComponent<BU_Energy_CityDistricts>());
-        CityDistricts.Add(transform.root.Find("District3").GetComponent<BU_Energy_CityDistricts>());
-        CityDistricts.Add(transform.root.Find("District4").GetComponent<BU_Energy_CityDistricts>());
+
+        CityDistricts1 = transform.root.Find("District1").GetComponent<BU_Energy_CityDistricts>();
+        CityDistricts2 = transform.root.Find("District2").GetComponent<BU_Energy_CityDistricts>();
+        CityDistricts3 = transform.root.Find("District3").GetComponent<BU_Energy_CityDistricts>();
+        CityDistricts4 = transform.root.Find("District4").GetComponent<BU_Energy_CityDistricts>();
         #endregion
         StartCoroutine("EnergyCheck");
     }
@@ -38,54 +38,86 @@ public class BU_Energy_ElectricityMaster : MonoBehaviour
             yield return new WaitForSeconds(5f);
             // execute block of code here
             TotalDistrictEnergy1();
+
             TotalDistrictEnergy2();
+
             TotalDistrictEnergy3();
+
             TotalDistrictEnergy4();
+
         }
 
     }
 
     private void TotalDistrictEnergy4()
     {
-        totalDistrictEnergy += EnergyDistrict[3].returnEnergyFull();
-        //Secondary conexions
-        totalDistrictEnergy += EnergyDistrict[1].returnEnergyWithoutMain();
+        if (EnergyDistrict2 != null)
+        {
+            //Secondary conexions
+            totalDistrictEnergy += EnergyDistrict2.returnEnergyWithoutMain();
+        }
+        if (EnergyDistrict4 != null)
+        {
+            totalDistrictEnergy += EnergyDistrict4.returnEnergyFull();
 
-        CityDistricts[3].totalEnergyUpdate(totalDistrictEnergy);
+            CityDistricts4.totalEnergyUpdate(totalDistrictEnergy);
+        }
         totalDistrictEnergy = 0;
 
     }
 
     private void TotalDistrictEnergy3()
     {
-        totalDistrictEnergy += EnergyDistrict[2].returnEnergyFull();
-        //Secondary conexions
-        totalDistrictEnergy += EnergyDistrict[3].returnEnergyWithoutMain();
+        if (EnergyDistrict4 != null)
+        {
+            //Secondary conexions
+            totalDistrictEnergy += EnergyDistrict4.returnEnergyWithoutMain();
+        }
+        if (EnergyDistrict3 != null)
+        {
+            totalDistrictEnergy += EnergyDistrict3.returnEnergyFull();
 
-        CityDistricts[2].totalEnergyUpdate(totalDistrictEnergy);
+            CityDistricts3.totalEnergyUpdate(totalDistrictEnergy);
+        }
         totalDistrictEnergy = 0;
 
     }
 
     private void TotalDistrictEnergy2()
     {
-        totalDistrictEnergy += EnergyDistrict[1].returnEnergyFull();
 
-        //Secondary conexions
-        totalDistrictEnergy += EnergyDistrict[0].returnEnergyWithoutMain();
+        if (EnergyDistrict1 != null)
+        {
+            //Secondary conexions
+            totalDistrictEnergy += EnergyDistrict1.returnEnergyWithoutMain();
+        }
+        if (EnergyDistrict2 != null)
+        {
+            totalDistrictEnergy += EnergyDistrict2.returnEnergyFull();
+            CityDistricts2.totalEnergyUpdate(totalDistrictEnergy);
+        }
 
-        CityDistricts[1].totalEnergyUpdate(totalDistrictEnergy);
         totalDistrictEnergy = 0;
 
     }
 
     private void TotalDistrictEnergy1()
     {
-        totalDistrictEnergy += EnergyDistrict[0].returnEnergyFull();
-        //Secondary conexions
-        totalDistrictEnergy += EnergyDistrict[2].returnEnergyWithoutMain();
 
-        CityDistricts[0].totalEnergyUpdate(totalDistrictEnergy);
+        if (EnergyDistrict3 != null)
+        {
+
+            //Secondary conexions
+            totalDistrictEnergy += EnergyDistrict3.returnEnergyWithoutMain();
+        }
+
+        if (EnergyDistrict1 != null)
+        {
+
+            totalDistrictEnergy += EnergyDistrict1.returnEnergyFull();
+            CityDistricts1.totalEnergyUpdate(totalDistrictEnergy);
+        }
+
         totalDistrictEnergy = 0;
     }
 }

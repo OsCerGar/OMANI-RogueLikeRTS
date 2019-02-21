@@ -20,7 +20,7 @@ public class BU_UniqueBuilding : MonoBehaviour
 
         buildingActionMesh = transform.GetComponentInChildren<BU_Building_Action>();
         buildingDistrict = transform.parent.GetComponentInParent<BU_Energy_CityDistricts>();
-        animator.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     public virtual void BuildingAction()

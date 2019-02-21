@@ -17,7 +17,6 @@ public class BU_Energy : BU_UniqueBuilding
     public MeshRenderer[] buttons;
 
     //Animations
-    BU_Electricity_Animations energyAnimator;
     float animationValue;
 
     // Use this for initialization
@@ -25,7 +24,6 @@ public class BU_Energy : BU_UniqueBuilding
     {
         base.Start();
         top = transform.Find("Top").gameObject;
-        energyAnimator = transform.Find("Animations").GetComponent<BU_Electricity_Animations>();
 
         // Searches buttons
         buttons = transform.Find("Buttons").GetComponentsInChildren<MeshRenderer>();
@@ -73,11 +71,6 @@ public class BU_Energy : BU_UniqueBuilding
                 repeater.Availablity(false);
             }
         }
-    }
-
-    public void LateUpdate()
-    {
-        energyAnimator.buildingAnimations(usedEnergy);
     }
 
     public bool energyCheck()
