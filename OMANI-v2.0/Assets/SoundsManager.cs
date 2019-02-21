@@ -11,6 +11,7 @@ public class SoundsManager : MonoBehaviour {
     private void Start()
     {
         AS = GetComponent<AudioSource>();
+        
     }
     public void AttackHit()
     {

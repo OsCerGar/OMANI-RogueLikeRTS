@@ -47,7 +47,6 @@ public class Robot : NPC
     public override void AttackHit()
     {
         base.AttackHit();
-        workerSM.DamageDealt();
     }
 
     public override void Update()
@@ -66,21 +65,22 @@ public class Robot : NPC
         //Dematerializes.
 
         //Disables everything.
-        StartCoroutine(Dematerialize(0.05f));
+        workerSM.Dematerialize();
+        StartCoroutine(Dematerialize(0.1f));
 
     }
 
     public void Materialize(GameObject _ShootingPosition, GameObject _miradaPosition)
     {
         //Dematerializes.
-
+        workerSM.Materialize();
         transform.gameObject.SetActive(true);
 
         anim.Rebind();
 
-        StopCoroutine(Dematerialize(0.05f));
+        StopCoroutine(Dematerialize(0.1f));
 
-        StartCoroutine(Materialize(0.05f));
+        StartCoroutine(Materialize(0.1f));
         //Disables everything.
         transform.position = _ShootingPosition.transform.position;
 
@@ -97,7 +97,6 @@ public class Robot : NPC
     {
 
         StartCoroutine(gotHit());
-        workerSM.DamageRecieved();
         numberPool.NumberSpawn(numbersTransform, damage, _damageType, gameObject);
 
         if (state == "Alive")
@@ -169,7 +168,7 @@ public class Robot : NPC
         {
             materializeCounter += waitTime;
             MK.Toon.MKToonMaterialHelper.SetDissolveAmount(Renderer.material, materializeCounter);
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
         transform.gameObject.SetActive(false);
 
@@ -183,7 +182,7 @@ public class Robot : NPC
         {
             materializeCounter -= waitTime;
             MK.Toon.MKToonMaterialHelper.SetDissolveAmount(Renderer.material, materializeCounter);
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
 
 

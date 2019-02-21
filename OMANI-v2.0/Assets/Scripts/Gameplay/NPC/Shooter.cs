@@ -5,10 +5,12 @@ using UnityEngine;
 public class Shooter : Robot
 {
     [SerializeField] ParticleSystem Shoot;
+    [SerializeField] SoundsManager SoundManager;
     bool ik = false;
     int attackcounter = 0;
     GameObject aimAt;
     Vector3 aimAtPos;
+
     void Awake()
     {
         boyType = "Shooter";
@@ -19,8 +21,8 @@ public class Shooter : Robot
     }
     public override void AttackHit()
     {
-
         Shoot.Play();
+        SoundManager.AttackHit();
         reducePowerNow(maxpowerPool);
     }
    

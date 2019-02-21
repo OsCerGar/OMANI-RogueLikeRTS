@@ -11,6 +11,10 @@ public class MeleAttack : MonoBehaviour {
     [HideInInspector]public  bool PowerUp;
     [SerializeField] ParticleSystem Effect;
     [SerializeField] NPC thisNpcScript;
+
+
+    [SerializeField] SoundsManager SoundManager;
+
     string tagToAttack, secondTagToAttack;
     bool missed;
     ParticleSystem PowerUpEffect, PowerUpHitEffect;
@@ -41,6 +45,11 @@ public class MeleAttack : MonoBehaviour {
             }
             //If he's dead, then forget about him
             missed = false;
+
+            if (SoundManager != null)
+            {
+                SoundManager.AttackHit();
+            }
            
         }
     }
@@ -60,7 +69,12 @@ public class MeleAttack : MonoBehaviour {
     {
         
         yield return new WaitForSeconds(ActiveHitboxTime);
-        
+        if (missed) {
+            if (SoundManager != null)
+            {
+                SoundManager.AttackMiss();
+            }
+        }
         transform.gameObject.SetActive(false);
     }
 

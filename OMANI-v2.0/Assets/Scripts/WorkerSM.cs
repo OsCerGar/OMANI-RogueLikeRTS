@@ -3,7 +3,7 @@
 public class WorkerSM : SoundsManager
 {
     public AudioClip FlipClip;
-    public AudioSource robot_selection, damageRecieved, damageDealt;
+    public AudioSource robot_selection, damageRecieved, MaterializeSound;
     public void Flip()
     {
         AS.clip = FlipClip;
@@ -12,15 +12,26 @@ public class WorkerSM : SoundsManager
 
     public void selectionRobot()
     {
-        robot_selection.Play();
+        if (robot_selection != null)
+        {
+            robot_selection.Play();
+        }
     }
     public void DamageRecieved()
     {
-        damageRecieved.Play();
+        if (damageRecieved != null)
+        {
+            damageRecieved.Play();
+        }
     }
-    public void DamageDealt()
+   
+    public void Materialize()
     {
-        damageDealt.Play();
+        MaterializeSound.Play();
+    }
+    public void Dematerialize()
+    {
+        MaterializeSound.Play();
     }
 
 }
