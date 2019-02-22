@@ -14,19 +14,25 @@ public class TutorialSurkaTeleport : MonoBehaviour
 
     [SerializeField] Animator teleport;
 
+    TIMELINE_INTERFACE timeline_interface;
+
+    private void Awake()
+    {
+        timeline_interface = GetComponent<TIMELINE_INTERFACE>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !cameraChanged)
         {
             cameraChanged = true;
+
+
             //DisableMovementAndPowers
-            surkaAnim.SetTrigger("AnimationTutorial2");
-            surkaAnim.SetFloat("Z", 1f);
-            SurkaCamera.SetActive(true);
+
+            //Timelineshit
+            timeline_interface.TPlay();
+            timeline_interface.DisableControls();
             cinemaMode.SetActive(true);
-            DisableControls();
-            StartCoroutine("surkaCameraRoutine");
-            StartCoroutine("teleportRoutine");
         }
 
     }
@@ -35,49 +41,4 @@ public class TutorialSurkaTeleport : MonoBehaviour
         yield return new WaitForSeconds(3f);
         teleport.SetTrigger("Activated");
     }
-
-    IEnumerator surkaCameraRoutine()
-    {
-        yield return new WaitForSeconds(6f);
-        SurkaCamera.SetActive(false);
-        StartCoroutine("returnControls");
-    }
-
-    IEnumerator returnControls()
-    {
-        yield return new WaitForSeconds(5f);
-        cinemaMode.SetActive(false);
-        EnableControls();
-    }
-
-
-    private void EnableControls()
-    {
-        movement.speed = 0.15f;
-        MouseSprite.enabled = true;
-        MouseSprite2.enabled = true;
-
-        controls.PLAYER.WASD.Enable();
-        controls.PLAYER.Joystick.Enable();
-        controls.PLAYER.LASERZONE.Enable();
-        controls.PLAYER.LASERZONERELEASE.Enable();
-        controls.PLAYER.LASERSTRONGPREPARATION.Enable();
-        controls.PLAYER.LASERSTRONG.Enable();
-    }
-    private void DisableControls()
-    {
-        movement.speed = 0;
-
-        MouseSprite.enabled = false;
-        MouseSprite2.enabled = false;
-
-        controls.PLAYER.WASD.Disable();
-        controls.PLAYER.Joystick.Disable();
-        controls.PLAYER.LASERZONE.Disable();
-        controls.PLAYER.LASERZONERELEASE.Disable();
-        controls.PLAYER.LASERSTRONGPREPARATION.Disable();
-        controls.PLAYER.LASERSTRONG.Disable();
-    }
-
-
 }

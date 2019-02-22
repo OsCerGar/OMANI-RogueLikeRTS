@@ -6,6 +6,7 @@ public class EnableOnTrigger : MonoBehaviour
     GameObject thingToEnable;
     bool enabledd;
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (!enabledd)
