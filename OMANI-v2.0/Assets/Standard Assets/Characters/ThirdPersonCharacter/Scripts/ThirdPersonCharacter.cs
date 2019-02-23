@@ -101,11 +101,14 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				v.y = m_Rigidbody.velocity.y;
 				m_Rigidbody.velocity = v;
             */
+
+            if (anim != null && Nav != null) { 
                 Vector3 position = anim.rootPosition;
                 position.y = Nav.nextPosition.y;
                 transform.position = position;
                 Nav.nextPosition = transform.position;
-            
+            }
+
 
 
         }

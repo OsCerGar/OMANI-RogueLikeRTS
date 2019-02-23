@@ -3,11 +3,12 @@
 
     public override void Update()
     {
-        /*
+        
         if (Nav != null)
         {
             TPC.Move(Nav.desiredVelocity);
         }
+        /*
         if (anim != null)
         {
             if (!RootMotion)
