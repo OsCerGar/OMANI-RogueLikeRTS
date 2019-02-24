@@ -58,7 +58,7 @@ public class Interactible : MonoBehaviour
 
     public virtual void Update()
     {
-        if (Time.time - startTime > 3f && powerReduced > 0)
+        if (Time.time - startTime > 5f && powerReduced > 0)
         {
             ReducePower();
         }
@@ -67,7 +67,7 @@ public class Interactible : MonoBehaviour
     public virtual void LateUpdate()
     {
 
-        if (powerReduced >= price - 2f)
+        if (powerReduced >= price - 5f)
         {
             ActionCompleted();
         }
@@ -109,7 +109,7 @@ public class Interactible : MonoBehaviour
 
         powerReduced += powers.reduceAsMuchPower(price - powerReduced);
         //In case it gets close, free energy for the people
-        if (price - powerReduced < 2f)
+        if (price - powerReduced < 5f)
         {
             powerReduced += 5;
         }
@@ -127,8 +127,9 @@ public class Interactible : MonoBehaviour
 
     public virtual void ReducePower()
     {
-        powerReduced -= 5 * Time.unscaledDeltaTime;
+        powerReduced -= 8 * Time.unscaledDeltaTime;
     }
+
     public virtual void ReducePower(int _reducePower)
     {
         powerReduced -= _reducePower * Time.unscaledDeltaTime;

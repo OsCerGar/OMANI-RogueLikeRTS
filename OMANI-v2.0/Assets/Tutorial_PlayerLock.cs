@@ -39,6 +39,11 @@ public class Tutorial_PlayerLock : MonoBehaviour
     private void StartRestrictions()
     {
         timeline_interface.DisableControls();
+
+        controls.PLAYER.LASERZONE.Enable();
+        controls.PLAYER.LASERZONERELEASE.Enable();
+        controls.PLAYER.LASERSTRONGPREPARATION.Enable();
+        controls.PLAYER.LASERSTRONG.Enable();
     }
 
     public void LegRelease(int _leg)

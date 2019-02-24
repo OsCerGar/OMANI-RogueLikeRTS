@@ -13,6 +13,7 @@ public class BU_Building_Action2 : Interactible
 
     SkinnedMeshRenderer renderere;
     GameObject instructions;
+    float currentLerpTime, lerpTime = 1f;
 
     // Use this for initialization
     public override void Start()
@@ -85,7 +86,11 @@ public class BU_Building_Action2 : Interactible
                 //fullActioned = false;
             }
 
-            latestFullActionPowerReduced = Mathf.Lerp(latestFullActionPowerReduced, 1, 0.08f);
+            currentLerpTime += Time.deltaTime;
+            float t = currentLerpTime / lerpTime;
+            t = Mathf.Sin(t * Mathf.PI * 0.0025f);
+
+            latestFullActionPowerReduced = Mathf.Lerp(latestFullActionPowerReduced, 1, t);
             animator.Play("PilarDown", 0, latestFullActionPowerReduced);
         }
     }
@@ -94,6 +99,9 @@ public class BU_Building_Action2 : Interactible
     {
         if (readyToSpawn)
         {
+            currentLerpTime = 0;
+            startTime = Time.time;
+
             base.FullAction();
 
             fullActioned = true;

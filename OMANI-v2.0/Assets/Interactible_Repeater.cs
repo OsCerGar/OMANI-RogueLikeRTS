@@ -20,6 +20,8 @@ public class Interactible_Repeater : Interactible
     private GameObject repeaterUI;
     private AudioSource RepeaterLoop;
 
+    float currentLerpTime, lerpTime = 1f;
+
     private void Initializer()
     {
         energyBU = transform.root.GetComponentInChildren<BU_Energy>();
@@ -98,7 +100,12 @@ public class Interactible_Repeater : Interactible
                 base.LateUpdate();
                 fullActioned = false;
             }
-            latestFullActionPowerReduced = Mathf.Lerp(latestFullActionPowerReduced, 1, 0.08f);
+
+            currentLerpTime += Time.deltaTime;
+            float t = currentLerpTime / lerpTime;
+            t = Mathf.Sin(t * Mathf.PI * 0.0025f);
+
+            latestFullActionPowerReduced = Mathf.Lerp(latestFullActionPowerReduced, 1f, t);
             animator.Play("RepeaterUp", 0, latestFullActionPowerReduced);
 
         }
@@ -143,6 +150,8 @@ public class Interactible_Repeater : Interactible
 
     public override void FullAction()
     {
+        startTime = Time.time;
+        currentLerpTime = 0;
         if (energyBU.energyCheck() || energy > 0)
         {
             if (energyBU.checkIfLastRepeater(this))
