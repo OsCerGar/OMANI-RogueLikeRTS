@@ -11,7 +11,6 @@ public class ArmyCell : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(robots.Count);
         radialMenu = FindObjectOfType<RadialMenu_GUI>();
     }
 
