@@ -23,7 +23,6 @@ public class TutorialButtonActivated : MonoBehaviour
 
     public void inputGuidesOn()
     {
-        Debug.Log("e?");
         foreach (GameObject guide in inputGuides)
         {
             guide.SetActive(true);
