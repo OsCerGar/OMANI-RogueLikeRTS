@@ -13,7 +13,6 @@ public class TIMELINE_INTERFACE : MonoBehaviour
     public void TPlay() { timeline.Play(); }
     public void TStop() { timeline.Stop(); }
 
-
     public void EnableControls(bool _isSpeedBack)
     {
         if (_isSpeedBack) { movementSpeedBack(); }
@@ -44,4 +43,5 @@ public class TIMELINE_INTERFACE : MonoBehaviour
         //Disables Orders
         controls.PLAYER.Order.Disable();
     }
+
 }

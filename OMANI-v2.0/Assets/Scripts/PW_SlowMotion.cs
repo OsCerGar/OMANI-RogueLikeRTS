@@ -6,7 +6,7 @@ public class PW_SlowMotion : Power
 
     private float slowdownFactor = 0.25f;
     private float slowdownLength = 1.5f, waste = 10f, viewRadius = 2f, regularSpeed, energyCost = 15;
-    private bool active = false, backToNormal = false;
+    private bool active = false;
     private int targetMask = 1 << 10;
 
     [SerializeField]
@@ -50,7 +50,6 @@ public class PW_SlowMotion : Power
             queenJoint.angularZMotion = ConfigurableJointMotion.Locked;
 
             // if inactive becomes active and loads the slowmo postfx added in inspector.
-            backToNormal = false;
             active = true;
             Time.timeScale = slowdownFactor;
             Time.fixedDeltaTime = Time.timeScale * 0.02f;
