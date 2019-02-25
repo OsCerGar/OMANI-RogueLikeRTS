@@ -17,7 +17,11 @@ public class BE_Teleporter : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.gameObject.GetComponentInParent<SceneLoad>().LoadNextScene();
+        SceneLoad scene = animator.gameObject.GetComponentInParent<SceneLoad>();
+        if (scene != null)
+        {
+            scene.LoadNextScene();
+        }
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
