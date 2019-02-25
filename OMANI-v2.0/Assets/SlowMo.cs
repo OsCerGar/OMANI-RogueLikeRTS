@@ -8,17 +8,6 @@ public class SlowMo : MonoBehaviour
     private float slowdownLength = 1.5f;
     private bool active = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!active)
-        {
-            Time.timeScale += (1f / slowdownLength) * Time.unscaledDeltaTime;
-            Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
-        }
-
-    }
-
     private void OnEnable()
     {
         // if inactive becomes active and loads the slowmo postfx added in inspector.
@@ -32,5 +21,6 @@ public class SlowMo : MonoBehaviour
         // if already active becomes inactive and loads the regular postfx.
         active = false;
         Time.fixedDeltaTime = 0.02F;
+        Time.timeScale = 1f;
     }
 }
