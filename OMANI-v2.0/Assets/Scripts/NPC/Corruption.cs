@@ -23,7 +23,7 @@ public class Corruption : Enemy
     public override void Start()
     {
         CM = FindObjectOfType<CharacterMovement>();
-        playerspeed = CM.speed;
+        if (CM!= null) playerspeed = CM.speed;
         SM = GetComponentInChildren<SoundsManager>();
         anim = gameObject.GetComponent<Animator>();
         if (transform.Find("UI") != null)
@@ -114,6 +114,10 @@ public class Corruption : Enemy
                 {
                     CM.speed = playerspeed;
                 }
+                else
+                {
+                    CM = FindObjectOfType<CharacterMovement>();
+                }
             }
 
         }
@@ -127,6 +131,10 @@ public class Corruption : Enemy
                 if (CM != null)
                 {
                     CM.speed = 0.05f;
+                }
+                else
+                {
+                    CM = FindObjectOfType<CharacterMovement>();
                 }
             }
 

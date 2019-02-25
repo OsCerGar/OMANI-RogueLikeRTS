@@ -17,6 +17,8 @@ public class Robot : NPC
     private ParticleSystem MaterializeParticleSystem;
     private WorkerSM workerSM;
     private float materializeCounter;
+    [SerializeField]
+    private ParticleSystem DeathExplosion;
 
     //reclute pool fix
     public bool recluted;
@@ -123,9 +125,12 @@ public class Robot : NPC
 
     public override void Die()
     {
-        recluted = false;
-
-        base.Die();
+        DeathExplosion.transform.parent = null;
+        DeathExplosion.transform.position = transform.position + Vector3.up * 2;
+        DeathExplosion.Play();
+        transform.gameObject.SetActive(false);
+            
+        
     }
 
     public void AutoReclute()
