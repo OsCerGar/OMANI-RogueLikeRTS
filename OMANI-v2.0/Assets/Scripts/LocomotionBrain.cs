@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LocomotionBrain : MonoBehaviour
 {
-    private float Loop = 0, loopCycle = 100, armSpeed = 6f, runningValue = 1f, slowmoValue = 5f;
+    private float Loop = 0, loopCycle = 100, armSpeed = 4.5f, runningValue = 1f, slowmoValue = 5f;
     private int footControler = 0;
     public bool ikActive = false;
     public LayerMask mask;
@@ -145,7 +145,7 @@ public class LocomotionBrain : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(tr.position.x, tr.position.y + 10, tr.position.z), -Vector3.up, out hit, 100, mask.value))
         {
-            return new Vector3(hit.point.x, Mathf.Clamp(hit.point.y, transform.position.y - 5, transform.position.y - 1), hit.point.z);
+            return new Vector3(hit.point.x, hit.point.y, hit.point.z);
         }
         else
         {

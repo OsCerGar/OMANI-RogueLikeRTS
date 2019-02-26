@@ -10,15 +10,15 @@ Material:
   m_Name: transparente plaza
   m_Shader: {fileID: 4800000, guid: 881c73b45dda42d4ba29f8c7742329be, type: 3}
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _METALLICGLOSSMAP _MK_LIGHTMODEL_PHONG _MK_LIGHTTYPE_CEL_SHADE_MULTI
-    _SPECGLOSSMAP
+    _MK_MODE_CUTOUT _SPECGLOSSMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 2450
   stringTagMap:
-    IGNOREPROJECTOR: False
-    QUEUE: Geometry
-    RenderType: Opaque
+    IGNOREPROJECTOR: true
+    QUEUE: AlphaTest
+    RenderType: TransparentCutout
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -99,7 +99,7 @@ Material:
     - _Brightness: 1
     - _BumpScale: 1
     - _Contrast: 1
-    - _CullMode: 2
+    - _CullMode: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DetailTint: 0.5
@@ -127,7 +127,7 @@ Material:
     - _MKEditorShowSpecularBehavior: 0
     - _MKEditorShowTranslucentBehavior: 1
     - _Metallic: 0
-    - _Mode: 8
+    - _Mode: 1
     - _OcclusionStrength: 1
     - _OutlineSize: 0.02
     - _Parallax: 0.08

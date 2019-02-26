@@ -135,6 +135,10 @@ public class Corruption : Enemy
                 else
                 {
                     CM = FindObjectOfType<CharacterMovement>();
+                    if (CM.speed > 0.05f)
+                    {
+                        playerspeed = CM.speed;
+                    }
                 }
             }
 
