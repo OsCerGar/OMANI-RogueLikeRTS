@@ -10,6 +10,8 @@ public class CleanCorruption : MonoBehaviour
     SkinnedMeshRenderer[] AllChildrenSkinnedRenderers;
     Animator[] anims;
     [SerializeField] ParticleSystem BoltsPE;
+    [SerializeField] bool playAnimation;
+    [SerializeField] TIMELINE_INTERFACE timeline;
     EnemyPooler EnemyPooler;
     float dissolveDistance;
     Light Pointlight;
@@ -20,6 +22,7 @@ public class CleanCorruption : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        timeline = GetComponent<TIMELINE_INTERFACE>();
         Pointlight = GetComponentInChildren<Light>();
         Pointlight.transform.parent = null;
         dissolveDistance = 0;
@@ -46,6 +49,10 @@ public class CleanCorruption : MonoBehaviour
     public void DissolveAndClear()
     {
         BoltsPE.Play();
+        if (playAnimation)
+        {
+            timeline.TPlay();
+        }
         StartCoroutine(Dematerialize(0.1f));
     }
     private IEnumerator Dematerialize(float DistanceGrower)
