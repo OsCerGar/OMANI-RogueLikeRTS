@@ -38,6 +38,7 @@ public class Robot : NPC
         dissolveEffect = GetComponentInChildren<DissolveEffectController>();
         commander = FindObjectOfType<Army>();
         workerSM = GetComponentInChildren<WorkerSM>();
+        workerSM.transform.parent = null;
 
         if (powerPool != maxpowerPool)
         {
@@ -67,6 +68,9 @@ public class Robot : NPC
         //Dematerializes.
 
         //Disables everything.
+
+        //hago esto de la posicion porque le quito el parent en el start
+        workerSM.transform.position = this.transform.position;
         workerSM.Dematerialize();
         StartCoroutine(Dematerialize(0.1f));
 
@@ -75,12 +79,12 @@ public class Robot : NPC
     public void Materialize(GameObject _ShootingPosition, GameObject _miradaPosition)
     {
         //Dematerializes.
-        workerSM.Materialize();
         transform.gameObject.SetActive(true);
+        workerSM.transform.position = this.transform.position;
+        workerSM.Dematerialize();
 
         anim.Rebind();
 
-        StopCoroutine(Dematerialize(0.1f));
 
         StartCoroutine(Materialize(0.1f));
         //Disables everything.

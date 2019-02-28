@@ -22,6 +22,7 @@ public class SurkaRanged : Enemy {
     public override void AttackHit()
     {
         Shoot.Emit(1);
+        SM.AttackHit();
     }
 
 }

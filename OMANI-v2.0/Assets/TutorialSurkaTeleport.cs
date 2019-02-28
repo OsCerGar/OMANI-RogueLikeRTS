@@ -31,7 +31,6 @@ public class TutorialSurkaTeleport : MonoBehaviour
 
             //Timelineshit
             timeline_interface.TPlay();
-            timeline_interface.DisableControls();
             cinemaMode.SetActive(true);
         }
 

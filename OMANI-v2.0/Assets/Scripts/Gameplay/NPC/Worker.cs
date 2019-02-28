@@ -9,6 +9,7 @@ public class Worker : Robot
     [SerializeField]
     private GameObject RollHillBox;
 
+    WorkerSM wsm;
     public bool animationRollAttack;
 
     public override void AttackHit()
@@ -20,7 +21,7 @@ public class Worker : Robot
     public override void FighterAttack(GameObject _position)
     {
         base.FighterAttack(_position);
-
+        RollAttack();
         enableTree("Attack");
         Fired();
     }
@@ -28,6 +29,7 @@ public class Worker : Robot
     void Awake()
     {
         boyType = "Worker";
+        wsm = GetComponentInChildren<WorkerSM>();
     }
     public void Trail()
     {
@@ -35,12 +37,12 @@ public class Worker : Robot
     }
     public void FlipSound()
     {
-        WorkerSM wsm = (WorkerSM)SM;
         wsm.Flip();
     }
     public void RollAttack()
     {
         Trail();
+        wsm.Flip();
         RollHillBox.SetActive(true);
     }
     public void RollAttackFinished()

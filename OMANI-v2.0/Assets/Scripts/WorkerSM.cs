@@ -2,12 +2,11 @@
 
 public class WorkerSM : SoundsManager
 {
-    public AudioClip FlipClip;
+    public AudioSource FlipClip;
     public AudioSource robot_selection, damageRecieved, MaterializeSound;
     public void Flip()
     {
-        AS.clip = FlipClip;
-        AS.Play();
+        FlipClip.Play();
     }
 
     public void selectionRobot()

@@ -5,6 +5,8 @@ public class SceneLoad : MonoBehaviour
     [SerializeField] string sceneToLoad;
 
     [SerializeField] Animator TeleporterAnimation;
+    [SerializeField] ParticleSystem TPEffect;
+    [SerializeField] AudioSource TeleportSFX;
     bool inside;
 
     private void OnTriggerEnter(Collider other)
@@ -13,6 +15,8 @@ public class SceneLoad : MonoBehaviour
         {
             inside = true;
             TeleporterAnimation.SetTrigger("Activated");
+            TPEffect.transform.gameObject.SetActive(true);
+            TeleportSFX.Play();
         }
     }
     private void OnTriggerExit(Collider other)

@@ -11,14 +11,23 @@ public class RangedAttack : MonoBehaviour {
     [SerializeField] int Damage = 1;
     [SerializeField] NPC thisNpcScript;
     [SerializeField] LayerMask LayerMasktoAttack;
+    AudioSource AudiosSource;
 
 
-
+    private void Start()
+    {
+        AudiosSource = GetComponent<AudioSource>();
+    }
 
     void OnParticleCollision(GameObject other)
     {
+        if (AudiosSource != null)
+        {
+            AudiosSource.Play();
+        }
         if (IsInLayerMask(other.gameObject, LayerMasktoAttack))
         {
+            
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             if (Damage == 0)

@@ -38,8 +38,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     private void StartRestrictions()
     {
-        timeline_interface.DisableControls();
-
         controls.PLAYER.LASERZONE.Enable();
         controls.PLAYER.LASERZONERELEASE.Enable();
         controls.PLAYER.LASERSTRONGPREPARATION.Enable();
@@ -101,7 +99,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
     IEnumerator powersBack()
     {
         yield return new WaitForSeconds(8f);
-        timeline_interface.EnableControls(false);
     }
 
     private void SurkaEntersTheShow()
