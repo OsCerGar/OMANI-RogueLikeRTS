@@ -3,7 +3,7 @@
 public class RadialMenu_GUI : MonoBehaviour
 {
     Army army;
-
+    LookDirectionsAndOrder lookD;
     // Radial Menu Stuff
     RadialMenu_GUI_BASE[] radialPart = new RadialMenu_GUI_BASE[4];
     Canvas canvas;
@@ -22,6 +22,7 @@ public class RadialMenu_GUI : MonoBehaviour
     {
         Initialize();
     }
+
     private void Initialize()
     {
         radialPart[0] = transform.GetChild(0).Find("Base").GetComponent<RadialMenu_GUI_BASE>();
@@ -29,6 +30,7 @@ public class RadialMenu_GUI : MonoBehaviour
         radialPart[2] = transform.GetChild(0).Find("3Base").GetComponent<RadialMenu_GUI_BASE>();
         radialPart[3] = transform.GetChild(0).Find("4Base").GetComponent<RadialMenu_GUI_BASE>();
         army = FindObjectOfType<Army>();
+        lookD = FindObjectOfType<LookDirectionsAndOrder>();
         canvas = transform.GetChild(0).GetComponent<Canvas>();
         menuItems = radialPart.Length;
     }
@@ -55,9 +57,19 @@ public class RadialMenu_GUI : MonoBehaviour
     }
     public void GetCurrentMenuItem()
     {
-        Mouseposition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        toVector2M = new Vector2(Mouseposition.x / Screen.width, Mouseposition.y / Screen.height);
-        float angle = Mathf.Atan2(fromVector2M.y - centercircle.y, fromVector2M.x - centercircle.x) - Mathf.Atan2(toVector2M.y - centercircle.y, toVector2M.x - centercircle.x) * Mathf.Rad2Deg;
+        float angle = 0;
+
+        if (lookD.hrj != 0 || lookD.vrj != 0)
+        {
+            angle = Mathf.Atan2(-lookD.vrj, lookD.hrj);
+            angle = angle * Mathf.Rad2Deg;
+        }
+        else
+        {
+            Mouseposition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            toVector2M = new Vector2(Mouseposition.x / Screen.width, Mouseposition.y / Screen.height);
+            angle = Mathf.Atan2(fromVector2M.y - centercircle.y, fromVector2M.x - centercircle.x) - Mathf.Atan2(toVector2M.y - centercircle.y, toVector2M.x - centercircle.x) * Mathf.Rad2Deg;
+        }
 
         if (angle < 0) { angle += 360; }
 
@@ -67,6 +79,7 @@ public class RadialMenu_GUI : MonoBehaviour
         {
             CurrentButtonVisualFeedback();
         }
+
     }
 
     public int RadialMenuButtonAction()

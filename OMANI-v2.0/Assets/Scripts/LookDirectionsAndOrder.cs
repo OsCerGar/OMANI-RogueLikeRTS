@@ -16,7 +16,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     float cursorPosition;
     bool catchCursor = true;
 
-    float hrj, vrj;
+    public float hrj, vrj;
 
     public float viewRadius, mouseRadius = 1;
     [Range(0, 360)]
