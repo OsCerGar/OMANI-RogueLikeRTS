@@ -30,6 +30,7 @@ public class OMANINPUT : InputActionAssetReference
         m_PLAYER_RadialMenuDown = m_PLAYER.GetAction("RadialMenuDown");
         m_PLAYER_LASERZONERELEASE = m_PLAYER.GetAction("LASERZONERELEASE");
         m_PLAYER_HEARTHSTONE = m_PLAYER.GetAction("HEARTHSTONE");
+        m_PLAYER_RightStick = m_PLAYER.GetAction("RightStick");
         m_Initialized = true;
     }
     private void Uninitialize()
@@ -45,6 +46,7 @@ public class OMANINPUT : InputActionAssetReference
         m_PLAYER_RadialMenuDown = null;
         m_PLAYER_LASERZONERELEASE = null;
         m_PLAYER_HEARTHSTONE = null;
+        m_PLAYER_RightStick = null;
         m_Initialized = false;
     }
     public void SetAsset(InputActionAsset newAsset)
@@ -69,6 +71,7 @@ public class OMANINPUT : InputActionAssetReference
     private InputAction m_PLAYER_RadialMenuDown;
     private InputAction m_PLAYER_LASERZONERELEASE;
     private InputAction m_PLAYER_HEARTHSTONE;
+    private InputAction m_PLAYER_RightStick;
     public struct PLAYERActions
     {
         private OMANINPUT m_Wrapper;
@@ -83,6 +86,7 @@ public class OMANINPUT : InputActionAssetReference
         public InputAction @RadialMenuDown { get { return m_Wrapper.m_PLAYER_RadialMenuDown; } }
         public InputAction @LASERZONERELEASE { get { return m_Wrapper.m_PLAYER_LASERZONERELEASE; } }
         public InputAction @HEARTHSTONE { get { return m_Wrapper.m_PLAYER_HEARTHSTONE; } }
+        public InputAction @RightStick { get { return m_Wrapper.m_PLAYER_RightStick; } }
         public InputActionMap Get() { return m_Wrapper.m_PLAYER; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -138,14 +142,14 @@ public class OMANINPUT : InputActionAssetReference
             return asset.controlSchemes[m_GenericControllerSchemeIndex];
         }
     }
-    private int m_GenericController2SchemeIndex = -1;
-    public InputControlScheme GenericController2Scheme
+    private int m_ps4allSchemeIndex = -1;
+    public InputControlScheme ps4allScheme
     {
         get
 
         {
-            if (m_GenericController2SchemeIndex == -1) m_GenericController2SchemeIndex = asset.GetControlSchemeIndex("GenericController2");
-            return asset.controlSchemes[m_GenericController2SchemeIndex];
+            if (m_ps4allSchemeIndex == -1) m_ps4allSchemeIndex = asset.GetControlSchemeIndex("ps4all");
+            return asset.controlSchemes[m_ps4allSchemeIndex];
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Experimental.Input;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -30,13 +31,19 @@ public class CharacterMovement : MonoBehaviour
 
     private void Awake()
     {
+
         controls.PLAYER.WASD.performed += movement => MoveAxis(movement.ReadValue<Vector2>());
-        controls.PLAYER.Joystick.performed += Controllermovement => ControllerMoveAxis(Controllermovement.ReadValue<Vector2>());
+        controls.PLAYER.WASD.cancelled += movement => RestartAxis();
+        //controls.PLAYER.Joystick.performed += Controllermovement => ControllerMoveAxis(Controllermovement.ReadValue<Vector2>());
+        controls.PLAYER.Joystick.performed += ControllerMoveAxis;
+        controls.PLAYER.Joystick.cancelled += movement => RestartControllerAxis();
+
     }
     private void OnEnable()
     {
         controls.PLAYER.WASD.Enable();
         controls.PLAYER.Joystick.Enable();
+
     }
 
     private void OnDisable()
@@ -55,16 +62,6 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // MOVEMENT
-        #region Inputs
-        // This stores the input in both vertical and horizontal axis. 
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
-        // This stores the input in both vertical and horizontal axis donde by the left joystick. 
-        float hj = Input.GetAxis("HorizontalJoystick");
-        float vj = Input.GetAxis("VerticalJoystick");
-        #endregion
 
         //This function controls the movement.
         MovementController();
@@ -75,9 +72,17 @@ public class CharacterMovement : MonoBehaviour
     {
         movementAxis = _axis;
     }
-    void ControllerMoveAxis(Vector2 _axis)
+    void RestartAxis()
     {
-        movementAxisController = _axis;
+        movementAxis = new Vector2(0, 0);
+    }
+    void ControllerMoveAxis(InputAction.CallbackContext context)
+    {
+        movementAxisController = context.ReadValue<Vector2>();
+    }
+    void RestartControllerAxis()
+    {
+        movementAxisController = new Vector2(0, 0);
     }
 
     //Function in charge of the Main Character movement. Sends commands to the animator and allows the character to rotate.
@@ -128,9 +133,13 @@ public class CharacterMovement : MonoBehaviour
             controller.Move(desiredDirection * speed);
 
             LookDirection.LookAtWhileMoving(movementAxisController.x, movementAxisController.y);
+            Rotate(desiredDirection);
+
         }
 
-        else { desiredDirection = new Vector3(0, 0, 0); controller.Move(desiredDirection * speed);
+        else
+        {
+            desiredDirection = new Vector3(0, 0, 0); controller.Move(desiredDirection * speed);
         }
 
         if (onMovement)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Input;
 
 public class LookDirectionsAndOrder : MonoBehaviour
 {
@@ -52,6 +53,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     //sound
     AudioSource reclute, order;
+    [SerializeField]
+    OMANINPUT omanInput;
     #endregion
 
     // Use this for initialization
@@ -63,6 +66,19 @@ public class LookDirectionsAndOrder : MonoBehaviour
         //pointerDirection = GetComponent<UI_PointerDirection>();
 
         pointerOrder = transform.Find("OrderDirection").gameObject;
+
+        omanInput.PLAYER.RightStick.performed += ControllerLookAxis;
+        omanInput.PLAYER.RightStick.cancelled += RestartControllerMoveAxis;
+    }
+    private void OnEnable()
+    {
+        omanInput.PLAYER.RightStick.Enable();
+
+    }
+    private void OnDisable()
+    {
+        omanInput.PLAYER.RightStick.Disable();
+
     }
     void Update()
     {
@@ -70,11 +86,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #region Inputs
         //RightJoystick
         //restart
-        hrj = 0;
-        vrj = 0;
+        //hrj = 0;
+        //vrj = 0;
 
-        hrj = Input.GetAxis("HorizontalRightJoystick");
-        vrj = Input.GetAxis("VerticalRightJoystick");
         #endregion
 
         LookAt(hrj, vrj);
@@ -91,6 +105,18 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 controllerLookModel = true;
             }
         }
+    }
+
+    void ControllerLookAxis(InputAction.CallbackContext context)
+    {
+        hrj = context.ReadValue<Vector2>().x;
+        vrj = context.ReadValue<Vector2>().y;
+    }
+    void RestartControllerMoveAxis(InputAction.CallbackContext context)
+    {
+        Debug.Log("e");
+        hrj = 0;
+        vrj = 0;
     }
     private void LateUpdate()
     {
@@ -498,7 +524,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-       // Gizmos.DrawSphere(miradaposition, 1);
+        // Gizmos.DrawSphere(miradaposition, 1);
         Gizmos.DrawSphere(orderPosition.transform.position, 1);
     }
 }

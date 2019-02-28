@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Powers : MonoBehaviour
 {
@@ -31,7 +32,9 @@ public class Powers : MonoBehaviour
 
         controls.PLAYER.LASERZONE.performed += context => ZoneLaserValue();
         controls.PLAYER.LASERZONERELEASE.performed += context => ZoneLaserValueRelease();
+        //controls.PLAYER.LASERZONERELEASE.cancelled += context => ZoneLaserValueRelease();
         controls.PLAYER.LASERSTRONGPREPARATION.performed += context => StrongLaserValue();
+        controls.PLAYER.LASERSTRONGPREPARATION.cancelled += context => StrongLaserValue();
         controls.PLAYER.LASERSTRONG.performed += context => StrongLaser();
         controls.PLAYER.HEARTHSTONE.performed += context => HearthstoneValue();
     }
@@ -52,13 +55,38 @@ public class Powers : MonoBehaviour
     #region Events
     private void OnEnable()
     {
+        enable();
+    }
+    private void OnDisable()
+    {
+        disable();
+    }
+    #endregion
+
+    public void Start()
+    {
+        StartCoroutine("restartControls");
+    }
+
+    IEnumerator restartControls()
+    {
+        //maybethisworks
+        disable();
+
+        yield return new WaitForSeconds(1f);
+        enable();
+
+    }
+
+    private void enable()
+    {
         controls.PLAYER.LASERZONE.Enable();
         controls.PLAYER.LASERZONERELEASE.Enable();
         controls.PLAYER.LASERSTRONG.Enable();
         controls.PLAYER.LASERSTRONGPREPARATION.Enable();
         controls.PLAYER.HEARTHSTONE.Enable();
     }
-    private void OnDisable()
+    private void disable()
     {
         controls.PLAYER.LASERZONE.Disable();
         controls.PLAYER.LASERZONERELEASE.Disable();
@@ -66,8 +94,6 @@ public class Powers : MonoBehaviour
         controls.PLAYER.LASERSTRONGPREPARATION.Disable();
         controls.PLAYER.HEARTHSTONE.Disable();
     }
-    #endregion
-
     // Update is called once per frame
     void Update()
     {
