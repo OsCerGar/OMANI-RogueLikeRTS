@@ -12,15 +12,14 @@ public class NumberScript : MonoBehaviour
 
     private GameObject numberOwner;
     NumberPool pool;
+
     // Start is called before the first frame update
     void Awake()
     {
         mainCamera = Camera.main;
         number = GetComponentInChildren<Text>();
         anim = GetComponentInParent<Animator>();
-        pool = FindObjectOfType
-            <NumberPool
-            >();
+        pool = FindObjectOfType<NumberPool>();
     }
 
     private void OnEnable()
@@ -39,6 +38,7 @@ public class NumberScript : MonoBehaviour
     public void numberUpdate(float damage_value, Color _color)
     {
         damageDealt += damage_value;
+        damageDealt = Mathf.RoundToInt(damageDealt);
         number.text = damageDealt.ToString();
         number.color = _color;
         anim.SetBool("Updated", true);

@@ -103,7 +103,7 @@ public class Robot : NPC
     {
 
         StartCoroutine(gotHit());
-        numberPool.NumberSpawn(numbersTransform, damage, _damageType, gameObject);
+        numberPool.NumberSpawn(numbersTransform, damage, _damageType, numbersTransform.gameObject);
 
         if (state == "Alive")
         {

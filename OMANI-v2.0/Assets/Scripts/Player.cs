@@ -26,7 +26,7 @@ public class Player : NPC
     {
         //He dies if life lowers 
         //TODO : Make this an animation, and make it so that it swaps his layer and tag to something neutral
-        numberPool.NumberSpawn(numbersTransform, damage, Color.red, gameObject);
+        numberPool.NumberSpawn(numbersTransform, damage, Color.red, numbersTransform.gameObject);
 
         if (!protection)
         {

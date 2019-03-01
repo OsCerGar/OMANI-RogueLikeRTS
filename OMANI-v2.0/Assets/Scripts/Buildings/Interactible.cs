@@ -97,7 +97,7 @@ public class Interactible : MonoBehaviour
         }
         if (powerReduced - Mathf.Floor(oldPowerReduced) >= 0.95f)
         {
-            numberPool.NumberSpawn(numbersTransform, 1, Color.cyan, gameObject);
+            numberPool.NumberSpawn(numbersTransform, 1, Color.cyan, numbersTransform.gameObject);
         }
 
     }
@@ -105,7 +105,7 @@ public class Interactible : MonoBehaviour
     public virtual void FullAction()
     {
         latestFullActionPowerReduced = powerReduced / price;
-        numberPool.NumberSpawn(numbersTransform, latestFullActionPowerReduced, Color.cyan, gameObject);
+        numberPool.NumberSpawn(numbersTransform, latestFullActionPowerReduced, Color.cyan, numbersTransform.gameObject);
 
         powerReduced += powers.reduceAsMuchPower(price - powerReduced);
         //In case it gets close, free energy for the people

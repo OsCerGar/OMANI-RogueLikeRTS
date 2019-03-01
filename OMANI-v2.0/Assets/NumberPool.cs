@@ -8,10 +8,12 @@ public class NumberPool : MonoBehaviour
     NumberScript text;
 
     List<NumberScript> texts = new List<NumberScript>();
+    Transform camera;
     // Start is called before the first frame update
     void Start()
     {
         var AllPoolers = FindObjectsOfType<EZObjectPool>();
+        camera = Camera.main.transform;
         foreach (EZObjectPool item in AllPoolers)
         {
             if (item.PoolName == "DamageNumber")
@@ -29,6 +31,8 @@ public class NumberPool : MonoBehaviour
         {
             if (txt.GetNumberOwner() == numberOwner)
             {
+                text.transform.position = numberOwner.transform.position;
+                text.transform.LookAt(camera);
                 text.numberUpdate(damage_value, _type);
                 alreadyOwned = true;
             }
@@ -39,6 +43,8 @@ public class NumberPool : MonoBehaviour
             text = Spawned.transform.GetComponentInChildren<NumberScript>();
             text.SetNumberOwner(numberOwner);
             text.numberUpdate(damage_value, _type);
+
+            text.transform.LookAt(camera);
 
             texts.Add(text);
         }
