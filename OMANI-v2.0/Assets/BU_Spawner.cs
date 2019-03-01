@@ -7,6 +7,8 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
     [SerializeField] GameObject SpawnPoint;
     PeoplePool peoplePool;
 
+    [SerializeField]
+    bool summons;
     bool summoned;
 
     public override void Start()
@@ -21,7 +23,10 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
         {
             base.BuildingAction();
             anim.SetTrigger("Activate");
-            StartCoroutine("SpawnRoutine");
+            if (summons)
+            {
+                StartCoroutine("SpawnRoutine");
+            }
             summoned = true;
         }
     }

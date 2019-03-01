@@ -506,6 +506,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         if (hrj == 0 && vrj == 0)
         {
+            
             Vector3 tdirection = new Vector3(_playerHrj, 0, _playerVrj);
             miradaposition = transform.position + (tdirection) * viewRadius / 2;
             transform.LookAt(miradaposition);

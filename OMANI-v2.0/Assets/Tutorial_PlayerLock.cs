@@ -11,8 +11,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
     bool cameraChanged, surkaSpawned;
     TIMELINE_INTERFACE timeline_interface;
 
-    [SerializeField] GameObject StartingCamera;
-
+    [SerializeField] GameObject StartingCamera, mouse;
     //Wind sound effect
     [SerializeField]
     AudioSource wind;
@@ -33,7 +32,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
         controls.PLAYER.LASERZONERELEASE.performed += context => CameraChange();
         controls.PLAYER.LASERSTRONGPREPARATION.performed += context => CameraChange();
         controls.PLAYER.LASERSTRONG.performed += context => CameraChange();
-
+        mouse.SetActive(false);
         controls.PLAYER.RadialMenuUp.Disable();
         controls.PLAYER.RadialMenuDown.Disable();
     }
@@ -122,6 +121,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
         yield return new WaitForSeconds(8f);
         windDown = false;
         currentLerpTime = 0;
+        mouse.SetActive(true);
 
     }
 

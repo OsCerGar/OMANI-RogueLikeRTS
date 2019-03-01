@@ -62,7 +62,6 @@ public class LightIntensity : MonoBehaviour
 
     void resetCurrentLerpTime()
     {
-        Debug.Log(playerDistance);
         currentLerpTime = 0;
     }
 }
