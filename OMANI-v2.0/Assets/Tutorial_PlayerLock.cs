@@ -13,6 +13,15 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     [SerializeField] GameObject StartingCamera;
 
+    //Wind sound effect
+    [SerializeField]
+    AudioSource wind;
+    [SerializeField]
+    float finalVolume;
+
+    float currentLerpTime, lerpTime = 1f;
+    bool windDown;
+
     private void Awake()
     {
         timeline_interface = GetComponent<TIMELINE_INTERFACE>();
@@ -36,6 +45,17 @@ public class Tutorial_PlayerLock : MonoBehaviour
         StartRestrictions();
     }
 
+    private void Update()
+    {
+        if (windDown)
+        {
+            currentLerpTime += Time.deltaTime;
+            float t = currentLerpTime / lerpTime;
+            t = Mathf.Sin(t * Mathf.PI * 0.0025f);
+
+            wind.volume = Mathf.Lerp(wind.volume, finalVolume, t);
+        }
+    }
     private void StartRestrictions()
     {
         controls.PLAYER.LASERZONE.Enable();
@@ -89,6 +109,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
             //Te devuelve los poderes
             cameraChanged = true;
+            windDown = true;
             StartingCamera.SetActive(false);
             StartCoroutine("powersBack");
         }
@@ -99,6 +120,9 @@ public class Tutorial_PlayerLock : MonoBehaviour
     IEnumerator powersBack()
     {
         yield return new WaitForSeconds(8f);
+        windDown = false;
+        currentLerpTime = 0;
+
     }
 
     private void SurkaEntersTheShow()
