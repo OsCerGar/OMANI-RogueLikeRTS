@@ -73,7 +73,7 @@ public class LaserColision : MonoBehaviour
 
                 if (enemy != null)
                 {
-                    enemy.TakeWeakLaserDamage(1f, 1);
+                    enemy.TakeWeakLaserDamage(4f, 1);
                 }
             }
 

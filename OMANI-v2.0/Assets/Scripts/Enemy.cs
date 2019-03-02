@@ -1,4 +1,7 @@
-﻿public class Enemy : NPC
+﻿
+using UnityEngine;
+
+public class Enemy : NPC
 {
 
     public override void Update()
@@ -22,9 +25,13 @@
     {
         Attackzone.SetActive(true);
     }
+
+    private void OnEnable()
+    {
+        
+    }
     public override void Die()
     {
         base.Die();
-        enabled = false;
     }
 }
