@@ -6,13 +6,13 @@ public class TutorialButtonActivated : MonoBehaviour
     [SerializeField]
     List<GameObject> inputGuides = new List<GameObject>();
 
-    BU_Building_Action2 action2;
+    BU_Building_ActionTutorial action2;
     bool done;
     TIMELINE_INTERFACE timeline;
 
     private void Start()
     {
-        action2 = GetComponent<BU_Building_Action2>();
+        action2 = GetComponent<BU_Building_ActionTutorial>();
         timeline = GetComponent<TIMELINE_INTERFACE>();
     }
     // Update is called once per frame
