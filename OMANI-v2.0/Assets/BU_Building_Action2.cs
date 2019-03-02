@@ -140,19 +140,8 @@ public class BU_Building_Action2 : Interactible
         //parentResources.buildingDistrict.energyUpdateReduced();
         base.ActionCompleted();
 
-
-        foreach (Material mat in renderere.materials)
-        {
-            MK.Toon.MKToonMaterialHelper.SetEmissionColor(mat, Color.black);
-            MK.Toon.MKToonMaterialHelper.SetOutlineColor(mat, Color.black);
-        }
-
-        pilarmovement.Stop();
-        pilarReturned.Stop();
-
-        instructions.SetActive(false);
-        enabled = false;
-        GetComponent<BoxCollider>().enabled = false;
+        //pilarmovement.Stop();
+        //pilarReturned.Stop();
     }
 
     public void StopWorkingAnimator()
