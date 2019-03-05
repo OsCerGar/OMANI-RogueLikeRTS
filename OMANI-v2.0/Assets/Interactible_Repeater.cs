@@ -34,13 +34,14 @@ public class Interactible_Repeater : Interactible
         }
         top = transform.Find("Stick/Top").gameObject;
 
-        linkPriceOff = 15;
+        //Laser Price
         linkPriceOn = 20;
+        linkPriceOff = 20;
         priceOn = 25;
         priceOff = 50;
 
         currentLinkPrice = 0;
-        finalLinkPrice = 45;
+        finalLinkPrice = 40;
         t = 0.2f;
 
         linkPrice = linkPriceOff;

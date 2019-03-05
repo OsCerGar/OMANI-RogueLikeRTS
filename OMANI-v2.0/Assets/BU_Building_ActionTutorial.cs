@@ -23,11 +23,15 @@ public class BU_Building_ActionTutorial : Interactible
 
         readyToSpawn = true;
         animator = GetComponent<Animator>();
-        linkPrice = 14;
-        price = 100;
-        finalLinkPrice = 65;
+
+        //Laser Price
+        linkPrice = 15;
+        price = 50;
+        finalLinkPrice = 40;
         currentLinkPrice = 0;
         t = 0.2f;
+
+
         pilarmovement = transform.Find("Sounds").Find("PilarMovement").GetComponent<AudioSource>();
         pilarReturned = transform.Find("Sounds").Find("PilarReturnedProgram").GetComponent<AudioSource>();
         instructions = transform.Find("Tutorial_Instruction").gameObject;

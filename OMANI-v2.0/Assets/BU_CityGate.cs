@@ -1,21 +1,18 @@
 ﻿public class BU_CityGate : BU_UniqueBuildingNoDistrict
 {
-    bool state = false;
     public override void Start()
     {
         base.Start();
     }
     public override void BuildingAction()
     {
-        if (!state)
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Open"))
         {
-            state = true;
-            anim.SetTrigger("Open");
+            anim.SetTrigger("Close");
         }
         else
         {
-            anim.SetTrigger("Close");
-            state = false;
+            anim.SetTrigger("Open");
         }
         base.BuildingAction();
     }

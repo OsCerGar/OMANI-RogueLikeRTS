@@ -18,11 +18,15 @@ public class BU_Building_Action : Interactible
         parentResources = transform.parent.GetComponent<BU_UniqueBuilding>();
 
         animator = GetComponentInChildren<Animator>();
-        linkPrice = 14;
-        price = 75;
-        finalLinkPrice = 65;
+
+        //Laser Price
+        linkPrice = 20;
+        price = 50;
+        finalLinkPrice = 40;
         currentLinkPrice = 0;
         t = 0.2f;
+
+
         pilarmovement = transform.Find("Sounds").Find("PilarMovement").GetComponent<AudioSource>();
         pilarReturned = transform.Find("Sounds").Find("PilarReturnedProgram").GetComponent<AudioSource>();
     }

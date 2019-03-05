@@ -11,7 +11,7 @@ public class Interactible : MonoBehaviour
     [SerializeField]
     public float powerReduced;
     [HideInInspector]
-    public float linkPrice = 5;
+    public float linkPrice = 8;
     public float startTime, currentLinkPrice, t, finalLinkPrice, latestFullActionPowerReduced, animationFullActionState;
     [HideInInspector]
     public bool actionBool { get; set; }

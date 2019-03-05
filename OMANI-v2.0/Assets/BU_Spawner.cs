@@ -21,7 +21,7 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
     {
         if (!summoned)
         {
-            base.BuildingAction();
+            //base.BuildingAction();
             anim.SetTrigger("Activate");
             if (summons)
             {

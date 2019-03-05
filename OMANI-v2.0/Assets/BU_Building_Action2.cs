@@ -23,11 +23,13 @@ public class BU_Building_Action2 : Interactible
 
         readyToSpawn = true;
         animator = GetComponent<Animator>();
-        linkPrice = 14;
-        price = 100;
-        finalLinkPrice = 65;
+
+        //Laser Price
+        price = 50;
+        finalLinkPrice = 40;
         currentLinkPrice = 0;
         t = 0.2f;
+
         pilarmovement = transform.Find("Sounds").Find("PilarMovement").GetComponent<AudioSource>();
         pilarReturned = transform.Find("Sounds").Find("PilarReturnedProgram").GetComponent<AudioSource>();
         instructions = transform.Find("Tutorial_Instruction").gameObject;
@@ -135,13 +137,7 @@ public class BU_Building_Action2 : Interactible
         BuildingAction();
         readyToSpawn = false;
         fullActioned = false;
-
-        //parentResources.buildingDistrict.removeEnergy(parentResources.requiredEnergy);
-        //parentResources.buildingDistrict.energyUpdateReduced();
         base.ActionCompleted();
-
-        //pilarmovement.Stop();
-        //pilarReturned.Stop();
     }
 
     public void StopWorkingAnimator()
