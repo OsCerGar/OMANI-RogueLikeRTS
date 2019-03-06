@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ConLaser : MonoBehaviour
 {
@@ -23,52 +21,60 @@ public class ConLaser : MonoBehaviour
     private float globalProgress;
     private Vector3 hitPosition;
     private Vector3 currentPosition;
-
+    CableComponentLaser CCL;
     ConLaser CLaser;
+
+    private bool connected;
+    public bool Connected { get => connected; set => connected = value; }
 
     void Start()
     {
+        CCL = GetComponent<CableComponentLaser>();
         CLaser = GetComponentInChildren<ConLaser>();
         globalProgress = 1f;
-        lr = this.GetComponent<LineRenderer>();
+        lr = GetComponent<LineRenderer>();
         lr.positionCount = segmentCount;
         resultVectors = new Vector3[segmentCount + 1];
         for (int i = 0; i < segmentCount + 1; i++)
         {
             resultVectors[i] = transform.forward;
         }
+        hitEffect.transform.SetParent(null);
+
     }
 
     void Update()
     {
-        //Curvy Start
-
-        for (int i = segmentCount - 1; i > 0; i--)
+        if (!connected)
         {
-            resultVectors[i] = resultVectors[i - 1];
-        }
-        resultVectors[0] = transform.forward;
-        resultVectors[segmentCount] = resultVectors[segmentCount - 1];
-        float blockLength = maxLength / segmentCount;
+            //Curvy Start
 
-
-        currentPosition = new Vector3(0, 0, 0);
-
-        for (int i = 0; i < segmentCount; i++)
-        {
-            currentPosition = transform.position;
-            for (int j = 0; j < i; j++)
+            for (int i = segmentCount - 1; i > 0; i--)
             {
-                currentPosition += resultVectors[j] * blockLength;
+                resultVectors[i] = resultVectors[i - 1];
             }
-            lr.SetPosition(i, currentPosition);
-        }
-
-        //Curvy End
-
+            resultVectors[0] = transform.forward;
+            resultVectors[segmentCount] = resultVectors[segmentCount - 1];
+            float blockLength = maxLength / segmentCount;
 
 
-        //Collision Start
+            currentPosition = new Vector3(0, 0, 0);
+
+            for (int i = 0; i < segmentCount; i++)
+            {
+                currentPosition = transform.position;
+                for (int j = 0; j < i; j++)
+                {
+                    currentPosition += resultVectors[j] * blockLength;
+                }
+                lr.SetPosition(i, currentPosition);
+            }
+
+            //Curvy End
+
+
+
+            //Collision Start
 
             for (int i = 0; i < segmentCount; i++)
             {
@@ -95,43 +101,49 @@ public class ConLaser : MonoBehaviour
                 }
             }
 
-        //Collision End
+            //Collision End
 
 
-        //Emit Particles on Collision Start
+            //Emit Particles on Collision Start
 
-        if (hitEffect)
-        {
-            if (globalProgress < 0.75f)
+            if (hitEffect)
             {
-                foreach (ParticleSystem ps in hitPsArray)
+                if (globalProgress < 0.75f)
                 {
-                    pl.enabled = true;
+                    foreach (ParticleSystem ps in hitPsArray)
+                    {
+                        pl.enabled = true;
 
-                    var em = ps.emission;
-                    em.enabled = true;
-                    //ps.enableEmission = true;
+                        var em = ps.emission;
+                        em.enabled = true;
+                        //ps.enableEmission = true;
+                    }
                 }
-            }
-            else
-            {
-                foreach (ParticleSystem ps in hitPsArray)
+                else
                 {
-                    pl.enabled = false;
+                    foreach (ParticleSystem ps in hitPsArray)
+                    {
+                        pl.enabled = false;
 
-                    var em = ps.emission;
-                    em.enabled = false;
-                    //ps.enableEmission = false;
+                        var em = ps.emission;
+                        em.enabled = false;
+                        //ps.enableEmission = false;
+                    }
                 }
             }
         }
+        else
+        {
 
+            hitEffect.transform.position = CCL.endPoint.position;
+            dist = 25f;
+        }
         //Emit Particles on Collision End
 
         GetComponent<Renderer>().material.SetFloat("_Distance", dist);
         GetComponent<Renderer>().material.SetVector("_Position", transform.position);
 
-       
+
 
         if (globalProgress <= 1f)
         {
@@ -140,8 +152,8 @@ public class ConLaser : MonoBehaviour
 
         if (hitEffect)
         {
-            pl.intensity = shaderProgressCurve.Evaluate(globalProgress)*1.5f;
-        }        
+            pl.intensity = shaderProgressCurve.Evaluate(globalProgress) * 1.5f;
+        }
 
         float progress = shaderProgressCurve.Evaluate(globalProgress);
         GetComponent<Renderer>().material.SetFloat("_Progress", progress);
@@ -150,16 +162,15 @@ public class ConLaser : MonoBehaviour
         {
             meshRenderer1.material.SetFloat("_Progress", progress);
             meshRenderer2.material.SetFloat("_Progress", progress);
-        }       
+        }
 
         float width = lineWidthCurve.Evaluate(globalProgress) * WidthMultiplayer;
         lr.widthMultiplier = width;
 
-       
 
     }
 
-    public  void SetGlobalProgress()
+    public void SetGlobalProgress()
     {
         globalProgress = 0f;
     }

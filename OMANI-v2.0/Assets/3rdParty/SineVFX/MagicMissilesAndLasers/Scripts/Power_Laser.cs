@@ -9,7 +9,7 @@ public class Power_Laser : MonoBehaviour
     public ParticleSystem startParticles;
     public int startParticlesCount = 100;
     public GameObject laserShotPrefab;
-    public LaserColision laserColision;
+    public LaserColisionStandard laserColision;
     private Vector3 mouseWorldPosition;
     private Animator anim;
     private float contador = 0;
@@ -19,13 +19,16 @@ public class Power_Laser : MonoBehaviour
     float widthToSend = 1, scaleToSend = 0.15f;
     public Transform Sphere;
 
+    CableComponentLaser myCableComponent;
+
     void Start()
     {
         anim = GetComponent<Animator>();
         CLaser = GetComponentInChildren<ConLaser>();
         AudioControl = GetComponentInChildren<MetaAudioController>();
         lookdir = FindObjectOfType<LookDirectionsAndOrder>();
-        laserColision = FindObjectOfType<LaserColision>();
+        laserColision = FindObjectOfType<LaserColisionStandard>();
+        myCableComponent = GetComponentInChildren<CableComponentLaser>();
     }
 
     private void Update()
@@ -43,7 +46,7 @@ public class Power_Laser : MonoBehaviour
 
     }
     private void LateUpdate()
-    { 
+    {
         transform.LookAt(lookdir.miradaposition);
     }
 
@@ -63,13 +66,54 @@ public class Power_Laser : MonoBehaviour
         startParticles.Emit(startParticlesCount);
     }
 
-    public void EmitLaser()
+    public void EmitLaser(bool connected, Transform _endPosition)
+    {
+        if (!connected)
+        {
+            EmitLaserNormal();
+        }
+        else
+        {
+            EmitLaserConnected(_endPosition);
+        }
+    }
+    public void EmitLaserNormal()
     {
         AudioControl.ResetLaserProgress();
         CLaser.SetGlobalProgress();
         contador = 0.2f;
         anim.SetBool("Fire", true);
+
         laserColision.laserEnabled = true;
+
+        myCableComponent.enabled = false;
+        CLaser.Connected = false;
+    }
+
+    public void EmitLaserStop()
+    {
+        AudioControl.ResetLaserProgress();
+        CLaser.SetGlobalProgress();
+        contador = 0.2f;
+        anim.SetBool("Fire", true);
+
+        laserColision.laserEnabled = false;
+
+        myCableComponent.enabled = false;
+        CLaser.Connected = false;
+    }
+    public void EmitLaserConnected(Transform endPosition)
+    {
+        AudioControl.ResetLaserProgress();
+        CLaser.SetGlobalProgress();
+        contador = 0.2f;
+        anim.SetBool("Fire", true);
+        CLaser.Connected = true;
+
+        myCableComponent.enabled = true;
+        myCableComponent.endPoint = endPosition;
+        myCableComponent.InitCable();
+
     }
 
     public void setWidth(float _width)

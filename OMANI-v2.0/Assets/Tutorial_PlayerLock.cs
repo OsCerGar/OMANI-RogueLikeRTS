@@ -28,10 +28,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
         // ESTO LLAMA A LA CAMERACHANGE
         controls.PLAYER.WASD.performed += movement => CameraChange();
         controls.PLAYER.Joystick.performed += Controllermovement => CameraChange();
-        controls.PLAYER.LASERZONE.performed += context => CameraChange();
+        controls.PLAYER.OrderLaser.performed += context => CameraChange();
         controls.PLAYER.LASERZONERELEASE.performed += context => CameraChange();
-        controls.PLAYER.LASERSTRONGPREPARATION.performed += context => CameraChange();
-        controls.PLAYER.LASERSTRONG.performed += context => CameraChange();
         disablePlayer.SetActive(true);
         controls.PLAYER.RadialMenuUp.Disable();
         controls.PLAYER.RadialMenuDown.Disable();
@@ -57,10 +55,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
     }
     private void StartRestrictions()
     {
-        controls.PLAYER.LASERZONE.Enable();
+        controls.PLAYER.OrderLaser.Enable();
         controls.PLAYER.LASERZONERELEASE.Enable();
-        controls.PLAYER.LASERSTRONGPREPARATION.Enable();
-        controls.PLAYER.LASERSTRONG.Enable();
     }
 
     public void LegRelease(int _leg)

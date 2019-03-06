@@ -20,7 +20,7 @@ public class DisablePlayerControls : MonoBehaviour
         powers.enabled = false;
 
         //Disables Orders
-        controls.PLAYER.Order.Disable();
+        controls.PLAYER.OrderLaser.Disable();
 
     }
 
@@ -35,7 +35,7 @@ public class DisablePlayerControls : MonoBehaviour
         powers.enabled = true;
 
         //Enables Orders
-        controls.PLAYER.Order.Enable();
+        controls.PLAYER.OrderLaser.Enable();
     }
     public void movementSpeedBack()
     {

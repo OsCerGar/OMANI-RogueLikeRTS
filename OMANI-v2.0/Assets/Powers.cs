@@ -11,6 +11,7 @@ public class Powers : MonoBehaviour
     PowerManager powerManager;
     PW_Dash dash;
     Power_Laser lasers;
+    Army army;
     #endregion
 
     [SerializeField]
@@ -25,17 +26,18 @@ public class Powers : MonoBehaviour
     public OMANINPUT controls;
     public bool zonelaservalue = false, stronglaservalue = false, hearthStoneValue = false;
 
+
+    public bool connected;
+    public Transform connectObject;
+
     #region Initializers
     private void Awake()
     {
         Initializer();
 
-        controls.PLAYER.LASERZONE.performed += context => ZoneLaserValue();
+        controls.PLAYER.OrderLaser.performed += context => ZoneLaserValue();
         controls.PLAYER.LASERZONERELEASE.performed += context => ZoneLaserValueRelease();
         //controls.PLAYER.LASERZONERELEASE.cancelled += context => ZoneLaserValueRelease();
-        controls.PLAYER.LASERSTRONGPREPARATION.performed += context => StrongLaserValue();
-        controls.PLAYER.LASERSTRONGPREPARATION.cancelled += context => StrongLaserValue();
-        controls.PLAYER.LASERSTRONG.performed += context => StrongLaser();
         controls.PLAYER.HEARTHSTONE.performed += context => HearthstoneValue();
     }
     void Initializer()
@@ -43,6 +45,7 @@ public class Powers : MonoBehaviour
         ennuisMask = 1 << LayerMask.NameToLayer("Interactible");
         hearthStone = transform.GetComponent<PW_Hearthstone>();
         lookDirection = FindObjectOfType<LookDirectionsAndOrder>();
+        army = FindObjectOfType<Army>();
         powerManager = FindObjectOfType<PowerManager>();
         dash = FindObjectOfType<PW_Dash>();
         lasers = FindObjectOfType<Power_Laser>();
@@ -78,20 +81,22 @@ public class Powers : MonoBehaviour
 
     }
 
+    public void ConnectedValue(bool _connectedValue, Transform _connectedObject)
+    {
+        connected = _connectedValue;
+        connectObject = _connectedObject;
+    }
+
     private void enable()
     {
-        controls.PLAYER.LASERZONE.Enable();
+        controls.PLAYER.OrderLaser.Enable();
         controls.PLAYER.LASERZONERELEASE.Enable();
-        controls.PLAYER.LASERSTRONG.Enable();
-        controls.PLAYER.LASERSTRONGPREPARATION.Enable();
         controls.PLAYER.HEARTHSTONE.Enable();
     }
     private void disable()
     {
-        controls.PLAYER.LASERZONE.Disable();
+        controls.PLAYER.OrderLaser.Disable();
         controls.PLAYER.LASERZONERELEASE.Disable();
-        controls.PLAYER.LASERSTRONG.Disable();
-        controls.PLAYER.LASERSTRONGPREPARATION.Disable();
         controls.PLAYER.HEARTHSTONE.Disable();
     }
     // Update is called once per frame
@@ -134,20 +139,34 @@ public class Powers : MonoBehaviour
     #region InputRelated
     private void ZoneLaser()
     {
-        lasers.EmitLaser();
+        if (connectObject != null && !connectObject.gameObject.activeInHierarchy)
+        {
+            ConnectedValue(false, null);
+            lasers.EmitLaserStop();
+        }
+
+        lasers.EmitLaser(connected, connectObject);
+
     }
+
     private void ZoneLaserValue()
     {
-        if (!stronglaservalue)
+        if (army.currentFighter == null)
         {
-            zonelaservalue = true;
-            lasers.StartEffects();
+            if (!stronglaservalue)
+            {
+                zonelaservalue = true;
+                lasers.StartEffects();
+            }
         }
     }
 
     private void ZoneLaserValueRelease()
     {
         zonelaservalue = false;
+        ConnectedValue(false, null);
+        lasers.EmitLaserStop();
+
     }
 
     private void StrongLaserValue()

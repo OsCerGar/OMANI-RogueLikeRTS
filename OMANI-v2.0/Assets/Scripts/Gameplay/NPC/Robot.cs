@@ -20,6 +20,8 @@ public class Robot : NPC
     [SerializeField]
     private ParticleSystem DeathExplosion;
 
+    public Transform ball;
+
     //reclute pool fix
     public bool recluted;
 
@@ -39,6 +41,8 @@ public class Robot : NPC
         commander = FindObjectOfType<Army>();
         workerSM = GetComponentInChildren<WorkerSM>();
         workerSM.transform.parent = null;
+
+        ball = transform.FindDeepChild("StartSphereMesh");
 
         if (powerPool != maxpowerPool)
         {

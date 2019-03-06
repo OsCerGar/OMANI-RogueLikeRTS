@@ -18,38 +18,56 @@ public class Army : MonoBehaviour
     private RadialMenu_GUI radialMenu;
     private int ArmyCellSelected;
 
-    private Robot currentFighter;
+    public Robot currentFighter;
 
     PW_SlowMotion slowMo;
 
     public OMANINPUT controls;
     bool radialMenuOn;
 
+    Power_Laser power_Laser;
+
     private void Awake()
     {
         controls.PLAYER.RadialMenuUp.performed += context => radialMenuValue();
         controls.PLAYER.RadialMenuDown.performed += context => radialMenuValue();
-        controls.PLAYER.Order.performed += context => Order();
+        controls.PLAYER.SUMMON.performed += context => SummonRobot();
+        controls.PLAYER.OrderLaser.performed += context => Order();
     }
     private void OnEnable()
     {
         controls.PLAYER.RadialMenuUp.Enable();
         controls.PLAYER.RadialMenuDown.Enable();
-        controls.PLAYER.Order.Enable();
+        controls.PLAYER.SUMMON.Enable();
+        controls.PLAYER.OrderLaser.Enable();
     }
 
     private void OnDisable()
     {
         controls.PLAYER.RadialMenuUp.Disable();
         controls.PLAYER.RadialMenuDown.Disable();
-        controls.PLAYER.Order.Disable();
+        controls.PLAYER.SUMMON.Disable();
+        controls.PLAYER.OrderLaser.Disable();
     }
     private void Start()
     {
         look = FindObjectOfType<LookDirectionsAndOrder>();
+        power_Laser = FindObjectOfType<Power_Laser>();
         radialMenu = FindObjectOfType<RadialMenu_GUI>();
         slowMo = FindObjectOfType<PW_SlowMotion>();
 
+    }
+
+    private void LateUpdate()
+    {
+        if (currentFighter != null)
+        {
+            //EMIT LASER
+            power_Laser.EmitLaser(true, currentFighter.ball);
+
+            //DISABLE INPUTS
+
+        }
     }
 
     private void radialMenuValue()
@@ -192,11 +210,21 @@ public class Army : MonoBehaviour
     public void Order()
     {
         //Makes a Robot Appear if there is no other robot doing stuff.
-
         if (currentFighter != null)
         {
             //Attacks
             currentFighter.FighterAttack(look.pointerDirection.gameObject);
+        }
+    }
+
+    private void SummonRobot()
+    {
+        if (currentFighter != null)
+        {
+            //Attacks
+            Robot _transitionStateRobot = currentFighter;
+            Remove(currentFighter);
+            Reclute(_transitionStateRobot);
         }
 
         else
@@ -215,8 +243,8 @@ public class Army : MonoBehaviour
                 RemoveWithoutFighter(currentFighter);
                 armyCell[ArmyCellSelected].Transaction();
             }
-        }
 
+        }
     }
 
     public void Remove(Robot _robot)

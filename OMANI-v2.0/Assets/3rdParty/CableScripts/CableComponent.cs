@@ -7,7 +7,7 @@ public class CableComponent : MonoBehaviour
 {
     #region Class members
 
-    [SerializeField] private Transform endPoint;
+    [SerializeField] public Transform endPoint;
     [SerializeField] private Material cableMaterial;
 
     // Cable config
