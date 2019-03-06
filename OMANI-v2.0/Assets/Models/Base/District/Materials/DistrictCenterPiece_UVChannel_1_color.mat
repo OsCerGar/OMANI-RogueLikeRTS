@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: DistrictCenterPiece_UVChannel_1_color
   m_Shader: {fileID: 4800000, guid: 881c73b45dda42d4ba29f8c7742329be, type: 3}
-  m_ShaderKeywords: _EMISSION _MK_ALBEDO_MAP _MK_BUMP_MAP _MK_EMISSION_MAP _MK_LIGHTMODEL_MINNAERT
-    _MK_LIGHTTYPE_RAMP _NORMALMAP
+  m_ShaderKeywords: _EMISSION _MK_ALBEDO_MAP _MK_BUMP_MAP _MK_EMISSION_MAP _MK_LIGHTMODEL_BLINN_PHONG
+    _MK_LIGHTTYPE_CEL_SHADE_MULTI _MK_SPECULAR_MAP _NORMALMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -110,10 +110,10 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _LightCuts: 3
-    - _LightModel: 4
+    - _LightModel: 3
     - _LightSmoothness: 0
     - _LightThreshold: 0.3
-    - _LightType: 3
+    - _LightType: 2
     - _MKEditorShowDetailBehavior: 0
     - _MKEditorShowDissolveBehavior: 0
     - _MKEditorShowLightBehavior: 1
@@ -124,7 +124,7 @@ Material:
     - _MKEditorShowRimBehavior: 0
     - _MKEditorShowShadowBehavior: 0
     - _MKEditorShowSketchBehavior: 0
-    - _MKEditorShowSpecularBehavior: 0
+    - _MKEditorShowSpecularBehavior: 1
     - _MKEditorShowTranslucentBehavior: 0
     - _Metallic: 0
     - _Mode: 0
@@ -139,7 +139,7 @@ Material:
     - _Roughness: 0.1
     - _Saturation: 1
     - _ShadowIntensity: 1
-    - _Shininess: 0.275
+    - _Shininess: 0.6
     - _SketchScale: 16
     - _SketchToneMax: 1
     - _SketchToneMin: 0.5
