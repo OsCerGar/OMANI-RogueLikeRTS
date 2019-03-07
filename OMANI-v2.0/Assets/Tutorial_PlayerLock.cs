@@ -14,7 +14,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
     [SerializeField] GameObject StartingCamera, mouse, disablePlayer;
     //Wind sound effect
     [SerializeField]
-    AudioSource wind;
+    AudioSource wind, music;
     [SerializeField]
     float finalVolume;
 
@@ -24,10 +24,10 @@ public class Tutorial_PlayerLock : MonoBehaviour
     private void Awake()
     {
         timeline_interface = GetComponent<TIMELINE_INTERFACE>();
-
+       
         // ESTO LLAMA A LA CAMERACHANGE
         controls.PLAYER.WASD.performed += movement => CameraChange();
-        controls.PLAYER.Joystick.performed += Controllermovement => CameraChange();
+        //controls.PLAYER.Joystick.performed += Controllermovement => CameraChange();
         controls.PLAYER.OrderLaser.performed += context => CameraChange();
         controls.PLAYER.LASERZONERELEASE.performed += context => CameraChange();
         disablePlayer.SetActive(true);
@@ -103,6 +103,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
             //powersBack (esto debería llamarse en la timeline cuando la transición acabe)
 
             //Te devuelve los poderes
+
+            music.Play();
             cameraChanged = true;
             windDown = true;
             StartingCamera.SetActive(false);

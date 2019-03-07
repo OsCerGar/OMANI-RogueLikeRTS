@@ -17,8 +17,11 @@ public class DisablePlayerControls : MonoBehaviour
         MouseSprite2.enabled = false;
         //disablespowers
 
-        powers.enabled = false;
-
+        //enablesspowers
+        if (powers != null)
+        {
+            powers.enabled = false;
+        }
         //Disables Orders
         controls.PLAYER.OrderLaser.Disable();
 
@@ -32,7 +35,10 @@ public class DisablePlayerControls : MonoBehaviour
         MouseSprite2.enabled = true;
 
         //enablesspowers
-        powers.enabled = true;
+        if (powers != null)
+        {
+            powers.enabled = true;
+        }
 
         //Enables Orders
         controls.PLAYER.OrderLaser.Enable();
