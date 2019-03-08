@@ -9543,13 +9543,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackAudioSource: {fileID: 626571248}
-  AS: {fileID: 626571247}
+  StepAudioSource: {fileID: 626571247}
   HitClips:
   - {fileID: 8300000, guid: 57a82956a8e06fe42a738b5eb8364d74, type: 3}
   MissClips:
   - {fileID: 8300000, guid: 6cb1acadbefabbd4d94e9fb2793ca38d, type: 3}
   - {fileID: 8300000, guid: 1e717ecd66d0619469b4b092c35d1a48, type: 3}
-  Steps: []
+  Steps:
+  - {fileID: 8300000, guid: 66289fcd5522e784b9f38b2aed96b2ba, type: 3}
 --- !u!82 &626571248
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9656,9 +9657,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 66289fcd5522e784b9f38b2aed96b2ba, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -14499,7 +14500,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676577169}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 07fa492ab167cc448a9c7ff16d181e08, type: 3}
+  m_Avatar: {fileID: 9000000, guid: b7ca849d51f0295418116ba965d9186d, type: 3}
   m_Controller: {fileID: 9100000, guid: 66bd56f848c53cf41bdc540d04a4a345, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -35122,7 +35123,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: ec2e0abaedb41104bb55c2f55a70238f, type: 3}
+  m_Mesh: {fileID: 4300000, guid: b7ca849d51f0295418116ba965d9186d, type: 3}
   m_Bones:
   - {fileID: 2844176875760787670}
   - {fileID: 6028950209340663228}

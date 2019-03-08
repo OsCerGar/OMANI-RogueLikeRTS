@@ -46,13 +46,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackAudioSource: {fileID: 46656330}
-  AS: {fileID: 8306285458186958711}
+  StepAudioSource: {fileID: 8306285458186958711}
   HitClips:
   - {fileID: 8300000, guid: 751a93993f5020b4f8041e50d330bd1b, type: 3}
   MissClips:
   - {fileID: 8300000, guid: 6cb1acadbefabbd4d94e9fb2793ca38d, type: 3}
   - {fileID: 8300000, guid: 1e717ecd66d0619469b4b092c35d1a48, type: 3}
-  Steps: []
+  Steps:
+  - {fileID: 8300000, guid: 4ac7a173648733f46bdb4f93af4c1959, type: 3}
+  - {fileID: 8300000, guid: 6979c40a309ec9f458c050e7cc6b6a8d, type: 3}
+  - {fileID: 8300000, guid: f4c90a5d9273c414eaccf15e8110b131, type: 3}
+  - {fileID: 8300000, guid: 95daa1f7f3613914c9dc15527b547a2e, type: 3}
 --- !u!82 &46656330
 AudioSource:
   m_ObjectHideFlags: 0
@@ -161,7 +165,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

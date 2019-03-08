@@ -4,7 +4,7 @@ public class EnemyPooler : MonoBehaviour
 {
 
 
-    EZObjectPool SurkaMele, SurkaRat, SwordsmanPool, ArcherPool;
+    EZObjectPool SurkaMele, SurkaRanged, CorruptedDemon;
     // Use this for initialization
     GameObject Spawned;
     void Start()
@@ -17,9 +17,13 @@ public class EnemyPooler : MonoBehaviour
             {
                 SurkaMele = item;
             }
-            if (item.PoolName == "SurkaRat")
+            if (item.PoolName == "SurkaRanged")
             {
-                SurkaRat = item;
+                SurkaRanged = item;
+            }
+            if (item.PoolName == "CorruptedDemon")
+            {
+                CorruptedDemon = item;
             }
         }
     }
@@ -38,9 +42,22 @@ public class EnemyPooler : MonoBehaviour
             }
 
         }
-        else if (_EnemyName == "SurkaRat")
+        else if (_EnemyName == "SurkaRanged")
         {
-            SurkaRat.TryGetNextObject(spawnPos.position, spawnPos.rotation, out Spawned);
+            SurkaRanged.TryGetNextObject(spawnPos.position, spawnPos.rotation, out Spawned);
+            if (Spawned != null)
+            {
+                var spawnNpc = Spawned.GetComponent<NPC>();
+                if (spawnNpc.life < spawnNpc.startLife)
+                {
+                    spawnNpc.life = spawnNpc.startLife;
+                }
+            }
+
+        }
+        else if (_EnemyName == "CorruptedDemon")
+        {
+            CorruptedDemon.TryGetNextObject(spawnPos.position, spawnPos.rotation, out Spawned);
             if (Spawned != null)
             {
                 var spawnNpc = Spawned.GetComponent<NPC>();

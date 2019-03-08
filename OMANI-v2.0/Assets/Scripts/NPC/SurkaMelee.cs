@@ -24,5 +24,4 @@ public class SurkaMelee : Enemy {
         Attackzone.SetActive(true);
         Slash.Play();
     }
-
 }

@@ -53,7 +53,7 @@ public class CleanCorruption : MonoBehaviour
         {
             timeline.TPlay();
         }
-        StartCoroutine(Dematerialize(0.1f));
+        StartCoroutine(Dematerialize(0.2f));
     }
     private IEnumerator Dematerialize(float DistanceGrower)
     {
@@ -70,7 +70,7 @@ public class CleanCorruption : MonoBehaviour
                 if (Vector3.Distance (Pointlight.transform.position,renderer.transform.position) < dissolveDistance)
                 {
                     
-                        MK.Toon.MKToonMaterialHelper.SetDissolveAmount(renderer.material, MK.Toon.MKToonMaterialHelper.GetDissolveAmount(renderer.material) + Time.deltaTime);
+                        MK.Toon.MKToonMaterialHelper.SetDissolveAmount(renderer.material, MK.Toon.MKToonMaterialHelper.GetDissolveAmount(renderer.material) + Time.deltaTime/1.5f);
                 }
                 
             }
@@ -80,7 +80,7 @@ public class CleanCorruption : MonoBehaviour
                 if (Vector3.Distance(Pointlight.transform.position, renderer.transform.position) < dissolveDistance)
                 {
                     renderer.transform.parent.GetComponent<Corruption>().Die();
-                    MK.Toon.MKToonMaterialHelper.SetDissolveAmount(renderer.material, MK.Toon.MKToonMaterialHelper.GetDissolveAmount(renderer.material) + Time.deltaTime);
+                    MK.Toon.MKToonMaterialHelper.SetDissolveAmount(renderer.material, MK.Toon.MKToonMaterialHelper.GetDissolveAmount(renderer.material) + Time.deltaTime/1.5f);
 
                     
                     
@@ -92,7 +92,7 @@ public class CleanCorruption : MonoBehaviour
             {
                 Pointlight.intensity += 0.05f;
             }
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSeconds(Time.deltaTime*2);
 
            
             

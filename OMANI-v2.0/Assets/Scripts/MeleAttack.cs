@@ -27,7 +27,6 @@ public class MeleAttack : MonoBehaviour {
         if (IsInLayerMask(other.gameObject, LayerMasktoAttack))
         {
             var EnemyNPC = other.GetComponent<NPC>();
-            var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             if (Damage == 0)
             {
                 Damage = thisNpcScript.Damage;

@@ -4,25 +4,41 @@ using UnityEngine;
 
 public class SoundsManager : MonoBehaviour {
     public AudioSource AttackAudioSource;
-     public AudioSource AS;
+     public AudioSource StepAudioSource;
     [SerializeField] AudioClip[] HitClips;
     [SerializeField] AudioClip[] MissClips;
     [SerializeField] AudioClip[] Steps;
+
     
+
+
+
+
     public void AttackHit()
     {
-        AttackAudioSource.clip = HitClips[Random.Range(0, HitClips.Length-1)];
-        AttackAudioSource.Play();
+         if (HitClips.Length > 0)
+        {
+            AttackAudioSource.clip = HitClips[Random.Range(0, HitClips.Length)];
+            AttackAudioSource.Play();
+        }
     }
     public void AttackMiss()
     {
-        AttackAudioSource.clip = MissClips[Random.Range(0, HitClips.Length - 1)];
-        AttackAudioSource.Play();
+
+        if (MissClips.Length > 0)
+        {
+            AttackAudioSource.clip = MissClips[Random.Range(0, MissClips.Length)];
+            AttackAudioSource.Play();
+        }
 
     }
     public void Step()
     {
-        AS.clip = Steps[Random.Range(0, HitClips.Length - 1)];
-        AS.Play();
+        if (Steps.Length > 0)
+        {
+            StepAudioSource.clip = Steps[Random.Range(0, Steps.Length)];
+            StepAudioSource.Play();
+        }
     }
+
 }

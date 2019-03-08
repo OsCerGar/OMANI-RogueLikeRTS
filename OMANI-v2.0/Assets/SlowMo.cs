@@ -16,6 +16,15 @@ public class SlowMo : MonoBehaviour
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
 
     }
+
+    private void Update()
+    {
+        if (active)
+        {
+            Time.timeScale = slowdownFactor;
+            Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        }
+    }
     private void OnDisable()
     {
         // if already active becomes inactive and loads the regular postfx.

@@ -34,4 +34,9 @@ public class Enemy : NPC
     {
         base.Die();
     }
+
+    public void StepSound()
+    {
+        SM.Step();
+    }
 }
