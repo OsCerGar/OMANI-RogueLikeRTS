@@ -21,6 +21,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public float viewRadius, mouseRadius = 1;
     [Range(0, 360)]
     public float viewAngle;
+    private float lookTimer;
 
     //Gameplay
     public Army commander;
@@ -68,16 +69,19 @@ public class LookDirectionsAndOrder : MonoBehaviour
         pointerOrder = transform.Find("OrderDirection").gameObject;
 
         omanInput.PLAYER.RightStick.performed += ControllerLookAxis;
+        omanInput.PLAYER.ControllerFree.performed += ControllerFreeMode;
         omanInput.PLAYER.RightStick.cancelled += RestartControllerMoveAxis;
     }
     private void OnEnable()
     {
         omanInput.PLAYER.RightStick.Enable();
+        omanInput.PLAYER.ControllerFree.Enable();
 
     }
     private void OnDisable()
     {
         omanInput.PLAYER.RightStick.Disable();
+        omanInput.PLAYER.ControllerFree.Disable();
 
     }
     void Update()
@@ -93,17 +97,17 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         LookAt(hrj, vrj);
 
-        // Look At Mode
-        if (Input.GetKeyDown("joystick button 11"))
+    }
+
+    private void ControllerFreeMode(InputAction.CallbackContext context)
+    {
+        if (controllerLookModel)
         {
-            if (controllerLookModel)
-            {
-                controllerLookModel = false;
-            }
-            else
-            {
-                controllerLookModel = true;
-            }
+            controllerLookModel = false;
+        }
+        else
+        {
+            controllerLookModel = true;
         }
     }
 
@@ -114,7 +118,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     }
     void RestartControllerMoveAxis(InputAction.CallbackContext context)
     {
-        Debug.Log("e");
         hrj = 0;
         vrj = 0;
     }
@@ -172,13 +175,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (pointerDirection.enabled)
         {
             pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position,
-                transform.position + (transform.forward * (viewRadius / 2)), 0.4f);
-
-            //Just in case
-            pointerDirection.gameObject.SetActive(true);
-
-            //Just in case
-            pointerOrder.SetActive(false);
+                transform.position + (transform.forward * (viewRadius / 1.5f)), 0.4f);
         }
     }
     private void GUI_MousePointer()
@@ -187,28 +184,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         {
             pointerDirection.transform.position = miradaposition;
         }
-
-        if (selectedTypeList.Count > 0 && selectedTypeInt < selectedTypeList.Count)
-        {
-            if (closestEnemyTarget != null)
-            {
-
-                pointerOrder.transform.position = closestEnemyTarget.transform.position;
-
-                pointerOrder.transform.localScale = closestEnemyTarget.ui_information.transform.localScale;
-                //pointerSelection.gameObject.SetActive(false);
-                pointerOrder.SetActive(true);
-            }
-            else
-            {
-                pointerOrder.SetActive(false);
-            }
-        }
-        else
-        {
-            pointerOrder.SetActive(false);
-        }
-
     }
     private void GUI_SpecialPointer()
     {
@@ -467,6 +442,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (_hrj != 0 || _vrj != 0)
             {
                 Vector3 tdirection = new Vector3(_hrj, 0, _vrj);
+                if (!controllerLookModel)
+                {
+                    tdirection = tdirection.normalized;
+                }
                 miradaposition = transform.position + (tdirection) * viewRadius / 2;
                 transform.LookAt(miradaposition);
 
@@ -506,11 +485,15 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         if (hrj == 0 && vrj == 0)
         {
-            
-            Vector3 tdirection = new Vector3(_playerHrj, 0, _playerVrj);
-            miradaposition = transform.position + (tdirection) * viewRadius / 2;
-            transform.LookAt(miradaposition);
+            lookTimer += Time.deltaTime;
+            if (lookTimer > 1.5f)
+            {
+                Vector3 tdirection = new Vector3(_playerHrj, 0, _playerVrj);
+                miradaposition = transform.position + (tdirection) * viewRadius / 2;
+                transform.LookAt(miradaposition);
+            }
         }
+        else { lookTimer = 0; }
     }
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {

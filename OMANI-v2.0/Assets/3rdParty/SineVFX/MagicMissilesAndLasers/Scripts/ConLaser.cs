@@ -134,7 +134,6 @@ public class ConLaser : MonoBehaviour
         }
         else
         {
-
             hitEffect.transform.position = CCL.endPoint.position;
             dist = 25f;
         }

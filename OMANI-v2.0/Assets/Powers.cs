@@ -36,8 +36,6 @@ public class Powers : MonoBehaviour
         Initializer();
 
         controls.PLAYER.OrderLaser.performed += context => ZoneLaserValue();
-        controls.PLAYER.LASERZONERELEASE.performed += context => ZoneLaserValueRelease();
-        //controls.PLAYER.LASERZONERELEASE.cancelled += context => ZoneLaserValueRelease();
         controls.PLAYER.HEARTHSTONE.performed += context => HearthstoneValue();
     }
     void Initializer()
@@ -153,20 +151,18 @@ public class Powers : MonoBehaviour
     {
         if (army.currentFighter == null)
         {
-            if (!stronglaservalue)
+            if (zonelaservalue)
+            {
+                zonelaservalue = false;
+                ConnectedValue(false, null);
+                lasers.EmitLaserStop();
+            }
+            else
             {
                 zonelaservalue = true;
                 lasers.StartEffects();
             }
         }
-    }
-
-    private void ZoneLaserValueRelease()
-    {
-        zonelaservalue = false;
-        ConnectedValue(false, null);
-        lasers.EmitLaserStop();
-
     }
 
     private void StrongLaserValue()

@@ -111,7 +111,7 @@ public class Power_Laser : MonoBehaviour
         CLaser.Connected = true;
 
         myCableComponent.enabled = true;
-        myCableComponent.endPoint = endPosition;
+        myCableComponent.endPointUpdate(endPosition);
         myCableComponent.InitCable();
 
     }

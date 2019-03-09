@@ -29,6 +29,7 @@ public class OMANINPUT : InputActionAssetReference
         m_PLAYER_LASERZONERELEASE = m_PLAYER.GetAction("LASERZONERELEASE");
         m_PLAYER_HEARTHSTONE = m_PLAYER.GetAction("HEARTHSTONE");
         m_PLAYER_RightStick = m_PLAYER.GetAction("RightStick");
+        m_PLAYER_ControllerFree = m_PLAYER.GetAction("ControllerFree");
         m_Initialized = true;
     }
     private void Uninitialize()
@@ -43,6 +44,7 @@ public class OMANINPUT : InputActionAssetReference
         m_PLAYER_LASERZONERELEASE = null;
         m_PLAYER_HEARTHSTONE = null;
         m_PLAYER_RightStick = null;
+        m_PLAYER_ControllerFree = null;
         m_Initialized = false;
     }
     public void SetAsset(InputActionAsset newAsset)
@@ -66,6 +68,7 @@ public class OMANINPUT : InputActionAssetReference
     private InputAction m_PLAYER_LASERZONERELEASE;
     private InputAction m_PLAYER_HEARTHSTONE;
     private InputAction m_PLAYER_RightStick;
+    private InputAction m_PLAYER_ControllerFree;
     public struct PLAYERActions
     {
         private OMANINPUT m_Wrapper;
@@ -79,6 +82,7 @@ public class OMANINPUT : InputActionAssetReference
         public InputAction @LASERZONERELEASE { get { return m_Wrapper.m_PLAYER_LASERZONERELEASE; } }
         public InputAction @HEARTHSTONE { get { return m_Wrapper.m_PLAYER_HEARTHSTONE; } }
         public InputAction @RightStick { get { return m_Wrapper.m_PLAYER_RightStick; } }
+        public InputAction @ControllerFree { get { return m_Wrapper.m_PLAYER_ControllerFree; } }
         public InputActionMap Get() { return m_Wrapper.m_PLAYER; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }

@@ -11,6 +11,8 @@ public class LaserColisionStandard : MonoBehaviour
 
     Rigidbody MovableObjectRigid;
     Powers powers;
+    private bool connected;
+    private Transform connectObject;
 
     private void Awake()
     {
@@ -22,7 +24,15 @@ public class LaserColisionStandard : MonoBehaviour
     {
         if (laserEnabled)
         {
-            LaserCollisions();
+            if (!connected)
+            {
+                LaserCollisions();
+            }
+
+            if (connected)
+            {
+                ConnectedLaserBehaviour();
+            }
 
             //emit effect of zone
             if (PSArea != null)
@@ -35,10 +45,26 @@ public class LaserColisionStandard : MonoBehaviour
         else
         {
             PSArea.Stop();
-
+            ConnectedValue(false, null);
         }
 
 
+    }
+
+    private void ConnectedLaserBehaviour()
+    {
+        //Distance to player check
+        if (Vector3.Distance(powers.transform.position, connectObject.transform.position) > 20f)
+        {
+            ConnectedValue(false, null);
+        }
+    }
+
+    public void ConnectedValue(bool _connectedValue, Transform _connectedObject)
+    {
+        connected = _connectedValue;
+        connectObject = _connectedObject;
+        powers.ConnectedValue(_connectedValue, _connectedObject);
     }
 
     private void LaserCollisions()
@@ -62,8 +88,7 @@ public class LaserColisionStandard : MonoBehaviour
                     {
                         powerLaser.setWidth(interactible.linkPrice);
                         somethingHitted = true;
-                        powers.ConnectedValue(true, interactible.transform);
-
+                        ConnectedValue(true, interactible.transform);
                     }
 
                 }
@@ -78,8 +103,7 @@ public class LaserColisionStandard : MonoBehaviour
                 {
                     enemy.TakeWeakLaserDamage(4f, 1);
                     somethingHitted = true;
-                    powers.ConnectedValue(true, enemy.transform);
-
+                    ConnectedValue(true, enemy.transform);
                 }
             }
 
@@ -90,11 +114,9 @@ public class LaserColisionStandard : MonoBehaviour
 
                 if (ally != null)
                 {
-                    
                     ally.robot_energy.Action();
                     somethingHitted = true;
-                    powers.ConnectedValue(true, ally.ball);
-
+                    ConnectedValue(true, ally.ball);
                 }
             }
 
@@ -107,8 +129,7 @@ public class LaserColisionStandard : MonoBehaviour
                 {
                     ally.robot_energy.Action();
                     somethingHitted = true;
-                    powers.ConnectedValue(true, ally.ball);
-
+                    ConnectedValue(true, ally.ball);
                 }
             }
 
@@ -126,7 +147,7 @@ public class LaserColisionStandard : MonoBehaviour
             }
         }
 
-        if (somethingHitted != true)
+        if (!somethingHitted)
         {
             powerLaser.setWidth(1);
             //powers.ConnectedValue(false, null);

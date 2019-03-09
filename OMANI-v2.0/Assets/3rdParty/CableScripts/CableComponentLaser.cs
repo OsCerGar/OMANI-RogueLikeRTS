@@ -9,7 +9,7 @@ public class CableComponentLaser : MonoBehaviour
     [SerializeField] private Material cableMaterial;
 
     // Cable config
-    [SerializeField] private float cableLength = 0.5f;
+    [SerializeField] private float cableLength = 15f;
     [SerializeField] private int totalSegments = 5;
     [SerializeField] private float segmentsPerUnit = 2f;
     private int segments = 0;
@@ -28,15 +28,18 @@ public class CableComponentLaser : MonoBehaviour
     public bool energy;
     Color32 lineMaterial;
 
+    [SerializeField]
+    SpringJoint spring;
 
     #endregion
 
 
     #region Initial setup
 
-    private void Start()
+    private void Awake()
     {
-        InitLineRenderer();
+        line = gameObject.GetComponent<LineRenderer>();
+        spring = gameObject.GetComponent<SpringJoint>();
     }
     private void OnDisable()
     {
@@ -46,6 +49,12 @@ public class CableComponentLaser : MonoBehaviour
     public void InitCable()
     {
         InitCableParticles();
+        InitLineRenderer();
+    }
+    public void endPointUpdate(Transform _endPoint)
+    {
+        endPoint = _endPoint;
+        spring.connectedBody = _endPoint.GetComponent<Rigidbody>();
     }
     /**
 	 * Init cable particles
@@ -89,9 +98,8 @@ public class CableComponentLaser : MonoBehaviour
 	 */
     void InitLineRenderer()
     {
-        line = gameObject.GetComponent<LineRenderer>();
-        //line.startWidth = cableWidth;
-        //line.endWidth = cableWidth;
+        line.startWidth = cableWidth;
+        line.endWidth = cableWidth;
 
         line.positionCount = segments + 1;
         //line.material = cableMaterial;

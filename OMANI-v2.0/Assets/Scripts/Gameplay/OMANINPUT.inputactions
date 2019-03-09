@@ -58,6 +58,12 @@
                     "id": "35bfcbbd-d36c-4aed-8d59-e0f2fd29fad3",
                     "expectedControlLayout": "Stick",
                     "bindings": []
+                },
+                {
+                    "name": "ControllerFree",
+                    "id": "c31845c5-faab-4432-9869-1fad8152abb1",
+                    "expectedControlLayout": "",
+                    "bindings": []
                 }
             ],
             "bindings": [
@@ -448,7 +454,7 @@
                 {
                     "name": "",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Press",
+                    "interactions": "Press(pressPoint=1),PressAndRelease",
                     "processors": "",
                     "groups": "key+mouse",
                     "action": "OrderLaser",
@@ -460,7 +466,7 @@
                 {
                     "name": "",
                     "path": "<XInputControllerWindows>/rightTrigger",
-                    "interactions": "Press(pressPoint=1)",
+                    "interactions": "Press,PressAndRelease",
                     "processors": "",
                     "groups": "GenericController",
                     "action": "OrderLaser",
@@ -472,7 +478,7 @@
                 {
                     "name": "",
                     "path": "<DualShockGamepadHID>/rightTrigger",
-                    "interactions": "Press(pressPoint=1)",
+                    "interactions": "Press,PressAndRelease",
                     "processors": "",
                     "groups": "GenericController2",
                     "action": "OrderLaser",
@@ -484,7 +490,7 @@
                 {
                     "name": "",
                     "path": "<PS4DualShockGamepad>/rightTrigger",
-                    "interactions": "Press(pressPoint=1)",
+                    "interactions": "Press,PressAndRelease",
                     "processors": "",
                     "groups": "GenericController2",
                     "action": "OrderLaser",
@@ -860,6 +866,18 @@
                     "processors": "",
                     "groups": "GenericController",
                     "action": "RightStick",
+                    "chainWithPrevious": false,
+                    "isComposite": false,
+                    "isPartOfComposite": false,
+                    "modifiers": ""
+                },
+                {
+                    "name": "right",
+                    "path": "<XInputControllerWindows>/rightStickPress",
+                    "interactions": "Press(pressPoint=1)",
+                    "processors": "",
+                    "groups": "GenericController",
+                    "action": "ControllerFree",
                     "chainWithPrevious": false,
                     "isComposite": false,
                     "isPartOfComposite": false,

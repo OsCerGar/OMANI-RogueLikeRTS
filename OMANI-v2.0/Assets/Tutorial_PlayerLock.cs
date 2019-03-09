@@ -55,6 +55,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
     }
     private void StartRestrictions()
     {
+        movement.speed = 0;
         controls.PLAYER.OrderLaser.Enable();
         controls.PLAYER.LASERZONERELEASE.Enable();
     }
@@ -120,7 +121,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
         windDown = false;
         currentLerpTime = 0;
         disablePlayer.SetActive(false);
-
+        movement.speed = 0;
     }
 
     private void SurkaEntersTheShow()

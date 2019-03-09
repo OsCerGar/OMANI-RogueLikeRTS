@@ -26,7 +26,6 @@ public class Army : MonoBehaviour
     bool radialMenuOn;
 
     Power_Laser power_Laser;
-
     private void Awake()
     {
         controls.PLAYER.RadialMenuUp.performed += context => radialMenuValue();
