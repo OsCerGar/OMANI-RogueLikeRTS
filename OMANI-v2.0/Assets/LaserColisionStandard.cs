@@ -13,6 +13,9 @@ public class LaserColisionStandard : MonoBehaviour
     Powers powers;
     private bool connected;
     private Transform connectObject;
+    Enemy enemy;
+    Interactible interactible;
+    Robot ally;
 
     private void Awake()
     {
@@ -58,6 +61,25 @@ public class LaserColisionStandard : MonoBehaviour
         {
             ConnectedValue(false, null);
         }
+
+        //Energy
+        if (enemy != null)
+        {
+            enemy.TakeWeakLaserDamage(4f, 1);
+
+        }
+        if (interactible != null)
+        {
+            interactible.Action();
+            if (interactible.actionBool)
+            {
+                powerLaser.setWidth(interactible.linkPrice);
+            }
+        }
+        if (ally != null)
+        {
+            ally.robot_energy.Action();
+        }
     }
 
     public void ConnectedValue(bool _connectedValue, Transform _connectedObject)
@@ -69,16 +91,16 @@ public class LaserColisionStandard : MonoBehaviour
 
     private void LaserCollisions()
     {
-        Enemy enemy;
-        Interactible interactible;
-        Robot ally;
+        enemy = null;
+        ally = null;
+        interactible = null;
+
         bool somethingHitted = false;
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, rad);
         foreach (Collider other in targetsInViewRadius)
         {
             if (other.CompareTag("Building"))
             {
-
                 interactible = other.GetComponent<Interactible>();
 
                 if (interactible != null)
@@ -96,7 +118,6 @@ public class LaserColisionStandard : MonoBehaviour
 
             else if (other.CompareTag("Enemy"))
             {
-
                 enemy = other.GetComponent<Enemy>();
 
                 if (enemy != null)
@@ -122,7 +143,6 @@ public class LaserColisionStandard : MonoBehaviour
 
             else if (other.CompareTag("Inactive"))
             {
-
                 ally = other.GetComponent<Robot>();
 
                 if (ally != null)
