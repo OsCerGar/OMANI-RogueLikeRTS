@@ -78,7 +78,6 @@ public class ConLaser : MonoBehaviour
 
             for (int i = 0; i < segmentCount; i++)
             {
-
                 currentPosition = transform.position;
                 for (int j = 0; j < i; j++)
                 {

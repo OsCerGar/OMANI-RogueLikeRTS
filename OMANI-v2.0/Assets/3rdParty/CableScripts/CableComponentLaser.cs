@@ -236,6 +236,7 @@ public class CableComponentLaser : MonoBehaviour
             }
         }
     }
+    
 
     /**
 	 * TODO: I'll implement this constraint to reinforce cable stiffness 

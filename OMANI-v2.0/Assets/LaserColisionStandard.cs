@@ -62,6 +62,12 @@ public class LaserColisionStandard : MonoBehaviour
             ConnectedValue(false, null);
         }
 
+        //Finished transmision
+        if (connectObject != null && !connectObject.gameObject.activeInHierarchy)
+        {
+            ConnectedValue(false, null);
+        }
+
         //Energy
         if (enemy != null)
         {

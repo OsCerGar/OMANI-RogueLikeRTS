@@ -137,14 +137,7 @@ public class Powers : MonoBehaviour
     #region InputRelated
     private void ZoneLaser()
     {
-        if (connectObject != null && !connectObject.gameObject.activeInHierarchy)
-        {
-            ConnectedValue(false, null);
-            lasers.EmitLaserStop();
-        }
-
         lasers.EmitLaser(connected, connectObject);
-
     }
 
     private void ZoneLaserValue()
