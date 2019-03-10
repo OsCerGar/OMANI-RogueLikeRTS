@@ -130,7 +130,7 @@ public class LaserColisionStandard : MonoBehaviour
                 {
                     enemy.TakeWeakLaserDamage(4f, 1);
                     somethingHitted = true;
-                    ConnectedValue(true, enemy.transform);
+                    ConnectedValue(true, enemy.laserTarget);
                 }
             }
 

@@ -4,15 +4,15 @@ public class Tutorial_Instructions : MonoBehaviour
 {
     public OMANINPUT controls;
     public GameObject parent, pcImage, controllerImage;
+    [SerializeField]
     Transform look;
 
 
     private void Awake()
     {
+        if (look == null) { look = FindObjectOfType<LookDirectionsAndOrder>().pointerDirection.transform; }
         controls.PLAYER.WASD.performed += movement => PCVersion();
         controls.PLAYER.Joystick.performed += Controllermovement => ControllerVersion();
-
-        look = FindObjectOfType<UI_PointerDirection>().transform;
     }
 
     private void FixedUpdate()
@@ -26,6 +26,7 @@ public class Tutorial_Instructions : MonoBehaviour
         {
             parent.SetActive(false);
         }
+
     }
 
     void PCVersion()

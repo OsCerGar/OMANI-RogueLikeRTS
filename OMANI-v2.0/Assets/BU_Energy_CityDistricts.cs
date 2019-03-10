@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class BU_Energy_CityDistricts : MonoBehaviour
 {
+    [SerializeField]
     private BU_UniqueBuilding building;
+    [SerializeField]
     private int totalEnergy;
 
     private BU_District_Animations animationsManager;
@@ -34,7 +36,7 @@ public class BU_Energy_CityDistricts : MonoBehaviour
     }
     public void totalEnergyUpdate(int _totalEnergy)
     {
-        //building.totalEnergy = _totalEnergy;
+        building.totalEnergy = totalEnergy;
         //animationsManager.energyLevel(_totalEnergy);
 
         animationsManager.repeaterAnimation();

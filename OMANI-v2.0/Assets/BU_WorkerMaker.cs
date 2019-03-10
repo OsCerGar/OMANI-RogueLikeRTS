@@ -6,7 +6,6 @@ public class BU_WorkerMaker : BU_UniqueBuilding
 
     PeoplePool peoplePool;
     [SerializeField]
-    private GameObject worker;
     private GameObject workerSpawn;
 
     #endregion

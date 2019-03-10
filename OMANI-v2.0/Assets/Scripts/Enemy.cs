@@ -3,7 +3,11 @@ using UnityEngine;
 
 public class Enemy : NPC
 {
-
+    public Transform laserTarget;
+    private void Awake()
+    {
+        laserTarget = transform.FindDeepChild("LaserObjective");
+    }
     public override void Update()
     {
         
@@ -28,11 +32,12 @@ public class Enemy : NPC
 
     private void OnEnable()
     {
-        
+        laserTarget.gameObject.SetActive(true);
     }
     public override void Die()
     {
         base.Die();
+        laserTarget.gameObject.SetActive(false);
     }
 
     public void StepSound()

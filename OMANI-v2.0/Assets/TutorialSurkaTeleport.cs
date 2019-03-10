@@ -6,7 +6,6 @@ public class TutorialSurkaTeleport : MonoBehaviour
     [SerializeField] Animator surkaAnim;
     [SerializeField] GameObject SurkaCamera;
     bool cameraChanged;
-    [SerializeField] GameObject cinemaMode;
     public OMANINPUT controls;
     public CharacterMovement movement;
 
@@ -25,13 +24,9 @@ public class TutorialSurkaTeleport : MonoBehaviour
         if (other.CompareTag("Player") && !cameraChanged)
         {
             cameraChanged = true;
-
-
             //DisableMovementAndPowers
-
             //Timelineshit
             timeline_interface.TPlay();
-            cinemaMode.SetActive(true);
         }
 
     }

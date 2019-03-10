@@ -17,16 +17,16 @@ public class BU_Energy_ElectricityMaster : MonoBehaviour
         #region EnergyDistrictInitializer
         EnergyDistrict1 = transform.Find("District1").GetComponent<BU_Energy_District>();
         EnergyDistrict2 = transform.Find("District2").GetComponent<BU_Energy_District>();
-        EnergyDistrict3 = transform.Find("District3").GetComponent<BU_Energy_District>();
-        EnergyDistrict4 = transform.Find("District4").GetComponent<BU_Energy_District>();
+        //EnergyDistrict3 = transform.Find("District3").GetComponent<BU_Energy_District>();
+        //EnergyDistrict4 = transform.Find("District4").GetComponent<BU_Energy_District>();
         #endregion
 
         #region BuildingDistrictInitializer
 
         CityDistricts1 = transform.root.Find("District1").GetComponent<BU_Energy_CityDistricts>();
         CityDistricts2 = transform.root.Find("District2").GetComponent<BU_Energy_CityDistricts>();
-        CityDistricts3 = transform.root.Find("District3").GetComponent<BU_Energy_CityDistricts>();
-        CityDistricts4 = transform.root.Find("District4").GetComponent<BU_Energy_CityDistricts>();
+        //CityDistricts3 = transform.root.Find("District3").GetComponent<BU_Energy_CityDistricts>();
+        //CityDistricts4 = transform.root.Find("District4").GetComponent<BU_Energy_CityDistricts>();
         #endregion
         StartCoroutine("EnergyCheck");
     }

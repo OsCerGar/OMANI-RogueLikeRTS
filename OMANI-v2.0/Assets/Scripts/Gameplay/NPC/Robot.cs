@@ -46,7 +46,6 @@ public class Robot : NPC
 
         if (powerPool != maxpowerPool)
         {
-            powerPool = 1;
             TakeDamage(5, Color.yellow);
         }
     }
@@ -74,7 +73,7 @@ public class Robot : NPC
         //Disables everything.
 
         //hago esto de la posicion porque le quito el parent en el start
-        workerSM.transform.position = this.transform.position;
+        workerSM.transform.position = transform.position;
         workerSM.Dematerialize();
         StartCoroutine(Dematerialize(0.1f));
 
@@ -84,7 +83,7 @@ public class Robot : NPC
     {
         //Dematerializes.
         transform.gameObject.SetActive(true);
-        workerSM.transform.position = this.transform.position;
+        workerSM.transform.position = transform.position;
         workerSM.Dematerialize();
 
         anim.Rebind();
@@ -107,7 +106,7 @@ public class Robot : NPC
     {
 
         StartCoroutine(gotHit());
-        numberPool.NumberSpawn(numbersTransform, damage, _damageType, numbersTransform.gameObject);
+        numberPool.NumberSpawn(numbersTransform, damage, Color.red, numbersTransform.gameObject);
 
         if (state == "Alive")
         {
@@ -115,10 +114,10 @@ public class Robot : NPC
             {
                 anim.SetTrigger("Hit");
             }
-            if (powerPool > 0)
+            if (reducePowerNow(damage))
             {
                 //Instead, it should recieve some damage.
-                reducePowerNow(maxpowerPool);
+
                 enableTree("CoolDown");
                 CoolDown();
                 //Fired();
@@ -137,8 +136,8 @@ public class Robot : NPC
         DeathExplosion.transform.position = transform.position + Vector3.up * 2;
         DeathExplosion.Play();
         transform.gameObject.SetActive(false);
-            
-        
+
+
     }
 
     public void AutoReclute()

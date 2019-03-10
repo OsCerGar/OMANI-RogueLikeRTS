@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+using UnityEngine.Experimental.Input;
 public class Powers : MonoBehaviour
 {
     #region ReferenceVariables
@@ -35,7 +35,7 @@ public class Powers : MonoBehaviour
     {
         Initializer();
 
-        controls.PLAYER.OrderLaser.performed += context => ZoneLaserValue();
+        controls.PLAYER.OrderLaser.performed += context => ZoneLaserValue(context);
         controls.PLAYER.HEARTHSTONE.performed += context => HearthstoneValue();
     }
     void Initializer()
@@ -66,17 +66,6 @@ public class Powers : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine("restartControls");
-    }
-
-    IEnumerator restartControls()
-    {
-        //maybethisworks
-        disable();
-
-        yield return new WaitForSeconds(1f);
-        enable();
-
     }
 
     public void ConnectedValue(bool _connectedValue, Transform _connectedObject)
@@ -140,7 +129,7 @@ public class Powers : MonoBehaviour
         lasers.EmitLaser(connected, connectObject);
     }
 
-    private void ZoneLaserValue()
+    private void ZoneLaserValue(InputAction.CallbackContext context)
     {
         if (army.currentFighter == null)
         {

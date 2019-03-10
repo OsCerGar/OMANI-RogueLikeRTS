@@ -29,10 +29,6 @@ public class WorldSpawnPos : MonoBehaviour
                     EPool.SpawnEnemy(NameOfEnemyToSpawn, transform);
                     FoundPlayer = true;
                 }
-                else {
-                    Debug.Log("too far" + Vector3.Distance(transform.position, Player.position));
-                        }
-
                 yield return new WaitForSeconds(1f);
             }
         }

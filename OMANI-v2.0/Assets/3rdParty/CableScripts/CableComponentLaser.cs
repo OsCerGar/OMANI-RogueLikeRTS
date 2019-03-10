@@ -41,6 +41,7 @@ public class CableComponentLaser : MonoBehaviour
         line = gameObject.GetComponent<LineRenderer>();
         spring = gameObject.GetComponent<SpringJoint>();
     }
+
     private void OnDisable()
     {
         endPoint = null;
@@ -98,8 +99,8 @@ public class CableComponentLaser : MonoBehaviour
 	 */
     void InitLineRenderer()
     {
-        line.startWidth = cableWidth;
-        line.endWidth = cableWidth;
+        //line.startWidth = cableWidth;
+        //line.endWidth = cableWidth;
 
         line.positionCount = segments + 1;
         //line.material = cableMaterial;

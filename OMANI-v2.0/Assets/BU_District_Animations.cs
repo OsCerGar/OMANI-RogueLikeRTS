@@ -34,6 +34,7 @@ public class BU_District_Animations : MonoBehaviour
 
     public void repeaterAnimation()
     {
+        /*
         foreach (Interactible_Repeater repeater in cityDistrict.energyDistrict.returnRepeatersEnergy())
         {
             if (repeater.energy > 0)
@@ -41,7 +42,8 @@ public class BU_District_Animations : MonoBehaviour
                 repeater.EnnuAnimation();
             }
         }
-    }
+    
+    */}
 
     public void energyLevel(int level)
     {
