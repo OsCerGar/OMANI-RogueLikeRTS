@@ -30,7 +30,6 @@ public class Power_Laser : MonoBehaviour
         laserColision = FindObjectOfType<LaserColisionStandard>();
         myCableComponent = GetComponentInChildren<CableComponentLaser>();
     }
-
     private void Update()
     {
 
@@ -53,6 +52,7 @@ public class Power_Laser : MonoBehaviour
     public void EmitOffensiveLaser()
     {
         AudioControl.ResetLaserProgress();
+
         StartEffects();
         contador = 0.1f;
         anim.SetBool("Fire", true);
@@ -62,6 +62,7 @@ public class Power_Laser : MonoBehaviour
     public void StartEffects()
     {
         AudioControl.StartSound();
+
         startWavePS.Emit(1);
         startParticles.Emit(startParticlesCount);
     }
@@ -79,7 +80,11 @@ public class Power_Laser : MonoBehaviour
     }
     public void EmitLaserNormal()
     {
-        AudioControl.ResetLaserProgress();
+        if (AudioControl != null)
+        {
+
+            AudioControl.ResetLaserProgress();
+        }
         CLaser.SetGlobalProgress();
         contador = 0.2f;
         anim.SetBool("Fire", true);
@@ -92,7 +97,10 @@ public class Power_Laser : MonoBehaviour
 
     public void EmitLaserStop()
     {
-        AudioControl.ResetLaserProgress();
+        if (AudioControl != null)
+        {
+            AudioControl.ResetLaserProgress();
+        }
         CLaser.SetGlobalProgress();
         contador = 0.2f;
         anim.SetBool("Fire", true);

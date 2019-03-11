@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 public class Player : NPC
 {
     /*
@@ -10,6 +11,7 @@ public class Player : NPC
 
     Powers powers;
     CharacterMovement characterMovement;
+    [SerializeField] PlayableDirector Director;
     bool protection;
     void Awake()
     {
@@ -20,7 +22,7 @@ public class Player : NPC
 
     public override void Die()
     {
-        SceneManager.LoadScene("GAME_ALPHA", LoadSceneMode.Single);
+        Director.Play();
     }
     public override void TakeDamage(int damage, Color damageType)
     {
@@ -38,7 +40,6 @@ public class Player : NPC
 
                 if (powers.powerPool < 1)
                 {
-                    Debug.Log("Close Death");
                     StartCoroutine(DamageProtection());
                     StartCoroutine(CoolDown());
                 }
@@ -58,21 +59,28 @@ public class Player : NPC
 
     IEnumerator CoolDown()
     {
+        
         powers.enabled = false;
-        characterMovement.enabled = false;
+        characterMovement.speed = 0;
         yield return new WaitForSeconds(5f);
-
-        characterMovement.enabled = true;
-        powers.enabled = true;
-        powers.powerPool = 25;
+        if (state != "Dead")
+        {
+            characterMovement.speed = 0.15f;
+            powers.enabled = true;
+            powers.powerPool = 25;
+        }
 
     }
 
     IEnumerator DamageProtection()
     {
-        protection = true;
-        yield return new WaitForSeconds(2f);
-        protection = false;
+       
+            protection = true;
+            yield return new WaitForSeconds(1f);
+        if (state != "Dead")
+        {
+            protection = false;
+        }
     }
 }
 

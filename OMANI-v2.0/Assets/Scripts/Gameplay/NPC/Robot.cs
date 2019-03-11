@@ -46,7 +46,7 @@ public class Robot : NPC
 
         if (powerPool != maxpowerPool)
         {
-            TakeDamage(5, Color.yellow);
+            TakeDamage(Mathf.RoundToInt(maxpowerPool), Color.yellow);
         }
     }
 
@@ -116,16 +116,20 @@ public class Robot : NPC
             }
             if (reducePowerNow(damage))
             {
-                //Instead, it should recieve some damage.
-
-                enableTree("CoolDown");
-                CoolDown();
-                //Fired();
             }
             else
             {
-                Die();
-                state = "Dead";
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Disconnected"))
+                {
+                    //Instead, it should recieve some damage.
+                    enableTree("CoolDown");
+                    CoolDown();
+                }
+                else
+                {
+                    Die();
+                    state = "Dead";
+                }
             }
         }
     }

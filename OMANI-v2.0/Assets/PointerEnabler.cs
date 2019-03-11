@@ -12,21 +12,31 @@ public class PointerEnabler : MonoBehaviour
     {
         controls.PLAYER.OrderLaser.performed += context => PointerState();
     }
+    private void OnEnable()
+    {
+        controls.PLAYER.OrderLaser.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.PLAYER.OrderLaser.Disable();
+    }
 
     private void PointerState()
     {
-
-        if (!state)
+        if (pointer != null)
         {
-            pointer.enabled = false;
-            dots.enabled = false;
-            state = true;
-        }
-        else
-        {
-            pointer.enabled = true;
-            dots.enabled = true;
-            state = false;
+            if (!state)
+            {
+                pointer.enabled = false;
+                dots.enabled = false;
+                state = true;
+            }
+            else
+            {
+                pointer.enabled = true;
+                dots.enabled = true;
+                state = false;
+            }
         }
     }
 }

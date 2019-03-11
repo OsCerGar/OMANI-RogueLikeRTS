@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Experimental.Input;
 public class Powers : MonoBehaviour
 {
@@ -34,8 +33,8 @@ public class Powers : MonoBehaviour
     private void Awake()
     {
         Initializer();
-
         controls.PLAYER.OrderLaser.performed += context => ZoneLaserValue(context);
+        
         controls.PLAYER.HEARTHSTONE.performed += context => HearthstoneValue();
     }
     void Initializer()
@@ -56,11 +55,24 @@ public class Powers : MonoBehaviour
     #region Events
     private void OnEnable()
     {
-        enable();
+        controls.PLAYER.OrderLaser.Enable();
+        controls.PLAYER.LASERZONERELEASE.Enable();
+        controls.PLAYER.HEARTHSTONE.Enable();
     }
     private void OnDisable()
     {
-        disable();
+        controls.PLAYER.OrderLaser.performed -= context => ZoneLaserValue(context);
+
+        controls.PLAYER.OrderLaser.Disable();
+        controls.PLAYER.LASERZONERELEASE.Disable();
+        controls.PLAYER.HEARTHSTONE.Disable();
+
+    }
+    private void OnDestroy()
+    {
+        controls.PLAYER.OrderLaser.Disable();
+        controls.PLAYER.LASERZONERELEASE.Disable();
+        controls.PLAYER.HEARTHSTONE.Disable();
     }
     #endregion
 
@@ -74,18 +86,6 @@ public class Powers : MonoBehaviour
         connectObject = _connectedObject;
     }
 
-    private void enable()
-    {
-        controls.PLAYER.OrderLaser.Enable();
-        controls.PLAYER.LASERZONERELEASE.Enable();
-        controls.PLAYER.HEARTHSTONE.Enable();
-    }
-    private void disable()
-    {
-        controls.PLAYER.OrderLaser.Disable();
-        controls.PLAYER.LASERZONERELEASE.Disable();
-        controls.PLAYER.HEARTHSTONE.Disable();
-    }
     // Update is called once per frame
     void Update()
     {

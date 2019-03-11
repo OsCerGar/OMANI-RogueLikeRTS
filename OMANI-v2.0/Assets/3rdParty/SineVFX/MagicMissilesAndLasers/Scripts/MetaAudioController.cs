@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Audio;
+﻿using UnityEngine;
 
 public class MetaAudioController : MonoBehaviour
 {
@@ -61,7 +58,10 @@ public class MetaAudioController : MonoBehaviour
 
     public void StartSound()
     {
-        Instantiate(waveSfxPrefabs[Random.Range(0, waveSfxPrefabs.Length)], transform.position, transform.rotation);
+        if (waveSfxPrefabs!= null ||waveSfxPrefabs.Length > 0)
+        {
+            Instantiate(waveSfxPrefabs[Random.Range(0, waveSfxPrefabs.Length)], transform.position, transform.rotation);
+        }
     }
 
     public void energyTransmisionSound(float value)

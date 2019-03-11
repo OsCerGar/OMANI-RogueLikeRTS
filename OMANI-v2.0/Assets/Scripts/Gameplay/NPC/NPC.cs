@@ -577,7 +577,7 @@ public class NPC : MonoBehaviour
     {
         foreach (BehaviorTree item in AllBehaviour)
         {
-            if (item.isActiveAndEnabled)
+            if (item.enabled)
             {
                 return item.BehaviorName;
             }
