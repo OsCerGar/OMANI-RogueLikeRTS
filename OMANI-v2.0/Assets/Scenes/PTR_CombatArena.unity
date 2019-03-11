@@ -113,12 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: f02fb4641cc16ff489d32d7f9b0e800d, type: 2}
---- !u!4 &133880516 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2028504741, guid: fc463987516aa774da87334bea8f2728,
-    type: 3}
-  m_PrefabInstance: {fileID: 526991919}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &146127893
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -173,10 +167,6 @@ PrefabInstance:
     - target: {fileID: 1864, guid: 1ed4a9ffc37206741b4326c6c8e5307b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2383, guid: 1ed4a9ffc37206741b4326c6c8e5307b, type: 3}
-      propertyPath: maxpowerPool
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2170, guid: 1ed4a9ffc37206741b4326c6c8e5307b, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -465,7 +455,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567930105}
-  m_LocalRotation: {x: 0.56460327, y: -0.0000000071058683, z: 0.00000000486487, w: 0.8253625}
+  m_LocalRotation: {x: 0.56460327, y: 0.0000000070956343, z: -0.00000000484991, w: 0.8253625}
   m_LocalPosition: {x: -236.35832, y: 4.2199993, z: 49.634785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -549,36 +539,6 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1883885981}
---- !u!1 &605905254
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 605905255}
-  m_Layer: 0
-  m_Name: LaserObjective
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &605905255
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605905254}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 133880516}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &735295320 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 574727685ed0bd940867e8c88502bc00,
@@ -662,42 +622,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 6b7200acb292cff4c9f1c5c031ce7cfb, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 847a91814a27d83478b4e79b71ea5a43, type: 3}
---- !u!4 &813719644 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3944045060405614718, guid: 95d54811046eeb24a908ce1fd7fb0c25,
-    type: 3}
-  m_PrefabInstance: {fileID: 4251623647039661508}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &828653341
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 828653342}
-  m_Layer: 0
-  m_Name: LaserObjective
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &828653342
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828653341}
-  m_LocalRotation: {x: -0.6352352, y: 0.31063142, z: -0.6351723, w: 0.31070969}
-  m_LocalPosition: {x: 0.7283495, y: 0.04692783, z: -0.079492286}
-  m_LocalScale: {x: 1.8329756, y: 1.8329785, z: 1.8329765}
-  m_Children: []
-  m_Father: {fileID: 813719644}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &879188039
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1043,14 +967,6 @@ PrefabInstance:
     - target: {fileID: 1757, guid: c6aab83e36116384f8ff2c560a411373, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2390, guid: c6aab83e36116384f8ff2c560a411373, type: 3}
-      propertyPath: maxpowerPool
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2390, guid: c6aab83e36116384f8ff2c560a411373, type: 3}
-      propertyPath: powerPool
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2163, guid: c6aab83e36116384f8ff2c560a411373, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1447,11 +1363,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 82c3b0928d604204583fbf1e97f7625d, type: 2}
-    - target: {fileID: 1290542420621760102, guid: 3bbf9aea9b4492f42b14cf441406d379,
-        type: 3}
-      propertyPath: maxpowerPool
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bbf9aea9b4492f42b14cf441406d379, type: 3}
 --- !u!1001 &1389251306
@@ -1623,7 +1534,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447550243}
-  m_LocalRotation: {x: 0.56460327, y: -0.0000000071058683, z: 0.00000000486487, w: 0.8253625}
+  m_LocalRotation: {x: 0.56460327, y: 0.0000000070956343, z: -0.00000000484991, w: 0.8253625}
   m_LocalPosition: {x: -236.35832, y: 4.2199993, z: 49.634785}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

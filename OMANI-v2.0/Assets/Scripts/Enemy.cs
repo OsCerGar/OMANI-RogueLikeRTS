@@ -7,6 +7,10 @@ public class Enemy : NPC
     private void Awake()
     {
         laserTarget = transform.FindDeepChild("LaserObjective");
+        if (laserTarget != null)
+        {
+            laserTarget.gameObject.SetActive(true);
+        }
     }
     public override void Update()
     {
@@ -32,7 +36,10 @@ public class Enemy : NPC
 
     private void OnEnable()
     {
-        laserTarget.gameObject.SetActive(true);
+        if (laserTarget != null)
+        {
+            laserTarget.gameObject.SetActive(true);
+        }
     }
     public override void Die()
     {
