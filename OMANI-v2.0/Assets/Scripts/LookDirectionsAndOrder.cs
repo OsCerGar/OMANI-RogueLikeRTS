@@ -25,6 +25,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     //Gameplay
     public Army commander;
+    public Transform alternativeCenter;
     public NPC closestTarget, closestEnemyTarget, latestClosestTarget;
     public BU_Cabin closestBUTarget, latestclosestBUTarget;
 
@@ -476,8 +477,14 @@ public class LookDirectionsAndOrder : MonoBehaviour
             miradaposition = new Vector3(mousePosition.x, mousePosition.y + 0.5f, mousePosition.z);
             transform.LookAt(miradaposition);
         }
-
-        transform.position = commander.transform.position;
+        if (alternativeCenter == null)
+        {
+            transform.position = commander.transform.position;
+        }
+        else
+        {
+            transform.position = alternativeCenter.transform.position;
+        }
     }
     public void LookAtWhileMoving(float _playerHrj, float _playerVrj)
     {
@@ -510,5 +517,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
         Gizmos.color = Color.yellow;
         // Gizmos.DrawSphere(miradaposition, 1);
         Gizmos.DrawSphere(orderPosition.transform.position, 1);
+    }
+
+    public void AlternativeCenter(Transform _alternative)
+    {
+        alternativeCenter = _alternative;
     }
 }

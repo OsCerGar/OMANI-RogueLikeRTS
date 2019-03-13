@@ -6,7 +6,7 @@ public class RadialMenu_GUI : MonoBehaviour
     LookDirectionsAndOrder lookD;
     // Radial Menu Stuff
     RadialMenu_GUI_BASE[] radialPart = new RadialMenu_GUI_BASE[4];
-    Canvas canvas;
+    Canvas radialCanvas, backgroundCanvas, robotsCanvas;
     private Vector2 Mouseposition;
     public Vector2 fromVector2M = new Vector2(0.5f, 1.0f);
     public Vector2 centercircle = new Vector2(0.5f, 0.5f);
@@ -31,7 +31,9 @@ public class RadialMenu_GUI : MonoBehaviour
         radialPart[3] = transform.GetChild(0).Find("4Base").GetComponent<RadialMenu_GUI_BASE>();
         army = FindObjectOfType<Army>();
         lookD = FindObjectOfType<LookDirectionsAndOrder>();
-        canvas = transform.GetChild(0).GetComponent<Canvas>();
+        radialCanvas = transform.GetChild(0).GetComponent<Canvas>();
+        backgroundCanvas = transform.GetChild(1).GetComponent<Canvas>();
+        robotsCanvas = transform.GetChild(2).GetComponent<Canvas>();
         menuItems = radialPart.Length;
     }
 
@@ -44,14 +46,18 @@ public class RadialMenu_GUI : MonoBehaviour
     }
     public void PopUp()
     {
-        canvas.enabled = true;
+        radialCanvas.enabled = true;
+        backgroundCanvas.enabled = true;
+        robotsCanvas.enabled = true;
         enabled = true;
     }
 
     public int PopDown()
     {
         GetCurrentMenuItem();
-        canvas.enabled = false;
+        radialCanvas.enabled = false;
+        backgroundCanvas.enabled = false;
+        robotsCanvas.enabled = false;
         enabled = false;
         return curMenuItem;
     }

@@ -7,7 +7,7 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
     private List<RadialMenuFeedback> amountOfRobots = new List<RadialMenuFeedback>();
     public List<Sprite> robotTypes = new List<Sprite>();
 
-    private Image Robot;
+    public Image Robot;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,6 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
         amountOfRobots.Add(transform.Find("3Robot").GetComponent<RadialMenuFeedback>());
         amountOfRobots.Add(transform.Find("4Robot").GetComponent<RadialMenuFeedback>());
 
-        Robot = transform.Find("Robot").GetComponent<Image>();
     }
 
     public void DisableAll()
@@ -52,7 +51,6 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
                 if (robotSprite.name.Equals(_robotType))
                 {
                     found = true;
-
                     Robot.enabled = true;
                     Robot.sprite = robotSprite;
                 }
@@ -73,7 +71,6 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
     {
         DisableAll();
         amountOfRobots[_quantityOfRobots].gameObject.SetActive(true);
-        Robot.enabled = true;
     }
 
     public void VisualFeedBack()

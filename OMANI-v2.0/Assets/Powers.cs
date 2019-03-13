@@ -62,7 +62,6 @@ public class Powers : MonoBehaviour
     private void OnDisable()
     {
         controls.PLAYER.OrderLaser.performed -= context => ZoneLaserValue(context);
-
         controls.PLAYER.OrderLaser.Disable();
         controls.PLAYER.LASERZONERELEASE.Disable();
         controls.PLAYER.HEARTHSTONE.Disable();
