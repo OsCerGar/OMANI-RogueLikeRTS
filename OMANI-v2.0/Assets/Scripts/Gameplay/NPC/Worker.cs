@@ -20,19 +20,10 @@ public class Worker : Robot
     }
     public override void FighterAttack(GameObject _position)
     {
-        if (anim.GetBool("Roll"))
-        {
-            RollAttackFinished();
-            anim.SetBool("Roll", false);
-
-        }
-        else
-        {
-            base.FighterAttack(_position);
-            StartRollAttack();
-            //enableTree("Attack");
-            anim.SetBool("Roll",true);
-        }
+        base.FighterAttack(_position);
+        RollAttack();
+        enableTree("Attack");
+        Fired();
     }
 
     void Awake()
@@ -42,14 +33,13 @@ public class Worker : Robot
     }
     public void Trail()
     {
-        TrailEffect.gameObject.SetActive(true);
         TrailEffect.Play();
     }
     public void FlipSound()
     {
         wsm.Flip();
     }
-    public void StartRollAttack()
+    public void RollAttack()
     {
         Trail();
         wsm.Flip();
@@ -62,7 +52,6 @@ public class Worker : Robot
     public void RollCollision()
     {
         anim.SetTrigger("AttackCollision");
-        Fired();
     }
 
 
