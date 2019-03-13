@@ -22,6 +22,7 @@ public class Worker : Robot
     {
         if (anim.GetBool("Roll"))
         {
+            enableTree("Follow");
             RollAttackFinished();
             anim.SetBool("Roll", false);
 
@@ -29,6 +30,7 @@ public class Worker : Robot
         else
         {
             base.FighterAttack(_position);
+            enableTree("Attack");
             StartRollAttack();
             //enableTree("Attack");
             anim.SetBool("Roll",true);

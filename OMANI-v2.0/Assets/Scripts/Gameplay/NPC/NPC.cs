@@ -480,7 +480,7 @@ public class NPC : MonoBehaviour
     }
     public virtual void Attack(GameObject attackPosition)
     {
-        UI_Attack.attackingUI();
+        //UI_Attack.attackingUI();
         var stateVariable = (SharedGameObject)AttackTree.GetVariable("Enemy");
         stateVariable.Value = attackPosition;
         enableTree("Attack");
