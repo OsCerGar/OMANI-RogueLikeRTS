@@ -53,6 +53,7 @@ public class Corruption : Enemy
     public override void Die()
     {
         dead = true;
+        laserTarget.gameObject.SetActive(false);
 
         CM.speed = playerspeed;
         anim.SetTrigger("Die");
@@ -66,7 +67,7 @@ public class Corruption : Enemy
         
             MK.Toon.MKToonMaterialHelper.SetSaturation(Renderer.material, 0);
         // suspend execution for 5 seconds
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(5);
         dead = false;
         life = startLife;
         State = "Alive";

@@ -18,45 +18,56 @@ public class LightIntensity : MonoBehaviour
     float maxVolume, normalVolume;
 
     float currentLerpTime, lerpTime = 0.25f;
-    bool justPassed1, justPassed2  = true;
+    bool firstTimePassed, justPassed1, justPassed2 = true;
 
     // Update is called once per frame
     void Update()
     {
+
         playerDistance = Vector3.Distance(player.transform.position, transform.position);
-        if (playerDistance < 35f)
+
+        if (firstTimePassed)
         {
-            if (!justPassed1)
+            if (playerDistance < 35f)
             {
-                resetCurrentLerpTime();
-                justPassed1 = true;
-                justPassed2 = false;
+                if (!justPassed1)
+                {
+                    resetCurrentLerpTime();
+                    justPassed1 = true;
+                    justPassed2 = false;
+                }
+
+                currentLerpTime += Time.deltaTime;
+                float t = currentLerpTime / lerpTime;
+                t = Mathf.Sin(t * Mathf.PI * 0.0025f);
+
+                //t = Mathf.Sin(t * Mathf.PI * 0.0025f);
+                directional.intensity = Mathf.Lerp(directional.intensity, 1f, t);
+                wind.volume = Mathf.Lerp(wind.volume, maxVolume, t);
+
             }
+            else
+            {
+                if (!justPassed2)
+                {
+                    resetCurrentLerpTime();
+                    justPassed2 = true;
+                    justPassed1 = false;
+                }
 
-            currentLerpTime += Time.deltaTime;
-            float t = currentLerpTime / lerpTime;
-            t = Mathf.Sin(t * Mathf.PI * 0.0025f);
+                currentLerpTime += Time.deltaTime;
+                float t = currentLerpTime / lerpTime;
+                t = Mathf.Sin(t * Mathf.PI * 0.0025f);
 
-            //t = Mathf.Sin(t * Mathf.PI * 0.0025f);
-            directional.intensity = Mathf.Lerp(directional.intensity, 1f, t);
-            wind.volume = Mathf.Lerp(wind.volume, maxVolume, t);
-
+                directional.intensity = Mathf.Lerp(directional.intensity, 0.75f, t);
+                wind.volume = Mathf.Lerp(wind.volume, normalVolume, t);
+            }
         }
+
+
         else
         {
-            if (!justPassed2)
-            {
-                resetCurrentLerpTime();
-                justPassed2 = true;
-                justPassed1 = false;
-            }
-
-            currentLerpTime += Time.deltaTime;
-            float t = currentLerpTime / lerpTime;
-            t = Mathf.Sin(t * Mathf.PI * 0.0025f);
-
-            directional.intensity = Mathf.Lerp(directional.intensity, 0.5f, t);
-            wind.volume = Mathf.Lerp(wind.volume, normalVolume, t);
+            if (playerDistance < 90f) { firstTimePassed = true; }
         }
     }
 

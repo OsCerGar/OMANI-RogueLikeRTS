@@ -10,6 +10,7 @@ public class LaserColisionStandard : MonoBehaviour
     ParticleSystem PSArea;
 
     Rigidbody MovableObjectRigid;
+    [SerializeField]
     Powers powers;
     private bool connected;
     private Transform connectObject;
@@ -114,9 +115,10 @@ public class LaserColisionStandard : MonoBehaviour
                     interactible.Action();
                     if (interactible.actionBool)
                     {
-                        powerLaser.setWidth(interactible.linkPrice);
+                        var width = Mathf.Clamp(interactible.linkPrice, 0, 3f);
+                        powerLaser.setWidth(Mathf.Clamp(interactible.linkPrice, 0, 3f));
                         somethingHitted = true;
-                        ConnectedValue(true, interactible.transform);
+                        ConnectedValue(true, interactible.laserTarget);
                     }
 
                 }

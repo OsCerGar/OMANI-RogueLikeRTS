@@ -134,7 +134,7 @@ public class Power_Laser : MonoBehaviour
         {
             widthToSend -= Time.unscaledDeltaTime * 10;
         }
-        widthToSend = Mathf.Clamp(widthToSend, 0.5f, 5f);
+        widthToSend = Mathf.Clamp(widthToSend, 0.5f, 2.5f);
         CLaser.WidthMultiplayer = widthToSend;
     }
 

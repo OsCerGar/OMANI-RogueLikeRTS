@@ -2,7 +2,6 @@
 
 public class Tutorial_Instructions : MonoBehaviour
 {
-    public OMANINPUT controls;
     public GameObject parent, pcImage, controllerImage;
     [SerializeField]
     Transform look;
@@ -11,31 +10,34 @@ public class Tutorial_Instructions : MonoBehaviour
     private void Awake()
     {
         if (look == null) { look = FindObjectOfType<LookDirectionsAndOrder>().pointerDirection.transform; }
-        controls.PLAYER.WASD.performed += movement => PCVersion();
-        controls.PLAYER.Joystick.performed += Controllermovement => ControllerVersion();
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        if (Vector3.Distance(look.transform.position, transform.position) < 3f)
+        if (Input.GetMouseButton(0))
         {
-            parent.SetActive(true);
-
+            PCVersion();
         }
         else
         {
             parent.SetActive(false);
         }
-
+        /*if()
+        {
+            ControllerVersion();
+        }*/
     }
 
     void PCVersion()
     {
+        parent.SetActive(true);
+
         pcImage.SetActive(true);
         controllerImage.SetActive(false);
     }
     void ControllerVersion()
     {
+        parent.SetActive(true);
         pcImage.SetActive(false);
         controllerImage.SetActive(true);
     }

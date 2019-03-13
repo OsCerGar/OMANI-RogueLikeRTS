@@ -115331,8 +115331,8 @@ MonoBehaviour:
   life: 250
   damage: 100
   powerUpCost: 10
-  maxpowerPool: 100
-  powerPool: 100
+  maxpowerPool: 10
+  powerPool: 0
   increaseAmount: 1
   powerReduced: 0
   linkPrice: 7.5
@@ -115402,6 +115402,7 @@ MonoBehaviour:
   laserAudio: {fileID: 0}
   numberPool: {fileID: 0}
   numbersTransform: {fileID: 0}
+  laserTarget: {fileID: 0}
   _robot: {fileID: 0}
 --- !u!136 &2061
 CapsuleCollider:
@@ -140395,21 +140396,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathExplosion
       objectReference: {fileID: 0}
-    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
-        type: 3}
-      propertyPath: startDelay.scalar
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8089638625762632509, guid: af8df6085d228924a89c006c30a4692a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -140509,6 +140495,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.3128066
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
+        type: 3}
+      propertyPath: startDelay.scalar
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4498447071411773716, guid: af8df6085d228924a89c006c30a4692a,
         type: 3}

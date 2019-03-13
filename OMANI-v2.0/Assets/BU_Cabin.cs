@@ -75,7 +75,7 @@ public class BU_Cabin : MonoBehaviour
 
     public virtual void TurnWorker()
     {
-        peoplePool.SpearWarriorSpawn(direction.transform);
+        peoplePool.WarriorSpawn(direction.transform);
         workerInside = false;
         alreadyReady = false;
     }

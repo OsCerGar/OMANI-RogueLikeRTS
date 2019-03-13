@@ -27,10 +27,13 @@ public class Interactible : MonoBehaviour
     [HideInInspector]
     public NumberPool numberPool;
     public Transform numbersTransform;
+    public Transform laserTarget;
 
 
     public virtual void Initialize()
     {
+        laserTarget = transform.FindDeepChild("LaserObjective");
+
         myRigidBody = GetComponent<Rigidbody>();
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();

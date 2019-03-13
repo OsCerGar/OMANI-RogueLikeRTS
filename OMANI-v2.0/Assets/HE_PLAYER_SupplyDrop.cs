@@ -30,8 +30,8 @@ public class HE_PLAYER_SupplyDrop : MonoBehaviour
         playerPowers.addPower(250);
         peoplePool.WorkerSpawn(transform, transform.position);
         peoplePool.WorkerSpawn(transform, transform.position);
-        peoplePool.SpearWarriorSpawn(transform);
-        peoplePool.SpearWarriorSpawn(transform);
+        peoplePool.WarriorSpawn(transform);
+        peoplePool.WarriorSpawn(transform);
         myMesh.enabled = false;
         anim.SetTrigger("Done");
 

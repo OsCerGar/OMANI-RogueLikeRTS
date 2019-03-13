@@ -11,6 +11,9 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
     bool summons;
     bool summoned;
 
+    [SerializeField]
+    string whatToSummon;
+
     public override void Start()
     {
         base.Start();
@@ -34,7 +37,7 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
     IEnumerator SpawnRoutine()
     {
         yield return new WaitForSeconds(2f);
-        peoplePool.WorkerSpawn(transform, new Vector3(SpawnPoint.transform.position.x, SpawnPoint.transform.position.y, SpawnPoint.transform.position.z));
+        peoplePool.Spawn(transform, new Vector3(SpawnPoint.transform.position.x, SpawnPoint.transform.position.y, SpawnPoint.transform.position.z), whatToSummon);
 
     }
 }

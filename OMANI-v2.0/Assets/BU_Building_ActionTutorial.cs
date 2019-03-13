@@ -34,7 +34,10 @@ public class BU_Building_ActionTutorial : Interactible
 
         pilarmovement = transform.Find("Sounds").Find("PilarMovement").GetComponent<AudioSource>();
         pilarReturned = transform.Find("Sounds").Find("PilarReturnedProgram").GetComponent<AudioSource>();
-        instructions = transform.Find("Tutorial_Instruction").gameObject;
+        if (transform.Find("Tutorial_Instruction") != null)
+        {
+            instructions = transform.Find("Tutorial_Instruction").gameObject;
+        }
         renderere = GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
@@ -154,7 +157,11 @@ public class BU_Building_ActionTutorial : Interactible
         pilarmovement.Stop();
         pilarReturned.Stop();
 
-        instructions.SetActive(false);
+        if (instructions != null)
+        {
+            instructions.SetActive(false);
+        }
+        laserTarget.gameObject.SetActive(false);
         enabled = false;
         GetComponent<BoxCollider>().enabled = false;
     }

@@ -112,6 +112,11 @@ public class CableComponent : MonoBehaviour
 	 */
     void RenderCable()
     {
+        var dist = Vector3.Distance(cableEnd.transform.position, transform.position);
+
+        GetComponent<Renderer>().material.SetFloat("_Distance", dist);
+        GetComponent<Renderer>().material.SetVector("_Position", transform.position);
+
         for (int pointIdx = 0; pointIdx < segments + 1; pointIdx++)
         {
             line.SetPosition(pointIdx, points[pointIdx].Position);

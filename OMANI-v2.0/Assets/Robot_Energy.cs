@@ -12,7 +12,7 @@ public class Robot_Energy : Interactible
     {
         base.Start();
         _robot = GetComponent<Robot>();
-        workerSM = GetComponentInChildren<WorkerSM>();
+        workerSM = _robot.workerSM;
         price = 75;
         linkPrice = 2;
         finalLinkPrice = 7;

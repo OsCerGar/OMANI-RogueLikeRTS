@@ -15,7 +15,8 @@ public class Robot : NPC
     private ParticleSystem DematerializeParticleSystem;
     [SerializeField]
     private ParticleSystem MaterializeParticleSystem;
-    private WorkerSM workerSM;
+    [HideInInspector]
+    public WorkerSM workerSM;
     private float materializeCounter;
     [SerializeField]
     private ParticleSystem DeathExplosion;
@@ -30,6 +31,11 @@ public class Robot : NPC
         SparkEffect.Play();
     }
 
+    public virtual void Awake()
+    {
+        workerSM = GetComponentInChildren<WorkerSM>();
+        workerSM.transform.parent = null;
+    }
 
     public override void Start()
     {
@@ -39,8 +45,6 @@ public class Robot : NPC
         powers = FindObjectOfType<Powers>();
         dissolveEffect = GetComponentInChildren<DissolveEffectController>();
         commander = FindObjectOfType<Army>();
-        workerSM = GetComponentInChildren<WorkerSM>();
-        workerSM.transform.parent = null;
 
         ball = transform.FindDeepChild("StartSphereMesh");
 

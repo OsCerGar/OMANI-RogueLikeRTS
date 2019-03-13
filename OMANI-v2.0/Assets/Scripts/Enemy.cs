@@ -7,14 +7,12 @@ public class Enemy : NPC
     private void Awake()
     {
         laserTarget = transform.FindDeepChild("LaserObjective");
-        if (laserTarget != null)
-        {
-            laserTarget.gameObject.SetActive(true);
-        }
+        laserTarget.gameObject.SetActive(true);
+
     }
     public override void Update()
     {
-        
+
         if (Nav != null)
         {
             TPC.Move(Nav.desiredVelocity);

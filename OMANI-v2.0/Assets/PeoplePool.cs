@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using EZObjectPools;
 using UnityEngine;
-using EZObjectPools;
 
 public class PeoplePool : MonoBehaviour
 {
 
-    EZObjectPool Worker, SpearWarrior;
+    EZObjectPool Worker, Warrior;
     GameObject Spawned;
 
     // Use this for initialization
@@ -19,12 +17,24 @@ public class PeoplePool : MonoBehaviour
             {
                 Worker = item;
             }
-            if (item.PoolName == "SpearWarrior")
+            if (item.PoolName == "Warrior")
             {
-                SpearWarrior = item;
+                Warrior = item;
             }
         }
 
+    }
+
+    public void Spawn(Transform tr, Vector3 ps, string _name)
+    {
+        if (_name == "Worker" || _name == "worker")
+        {
+            WorkerSpawn(tr, ps);
+        }
+        if (_name == "Warrior" || _name == "warrior")
+        {
+            WarriorSpawn(tr);
+        }
     }
 
     public void WorkerSpawn(Transform tr, Vector3 ps)
@@ -32,9 +42,9 @@ public class PeoplePool : MonoBehaviour
         Worker.TryGetNextObject(ps, tr.rotation, out Spawned);
 
     }
-    public void SpearWarriorSpawn(Transform tr)
+    public void WarriorSpawn(Transform tr)
     {
-        SpearWarrior.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+        Warrior.TryGetNextObject(tr.position, tr.rotation, out Spawned);
     }
 
 }

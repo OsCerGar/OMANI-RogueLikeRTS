@@ -8,8 +8,7 @@ public class Worker : Robot
 
     [SerializeField]
     private GameObject RollHillBox;
-
-    WorkerSM wsm;
+    LookDirectionsAndOrder LookDAO;
     public bool animationRollAttack;
 
     public override void AttackHit()
@@ -37,10 +36,11 @@ public class Worker : Robot
         }
     }
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         boyType = "Worker";
-        wsm = GetComponentInChildren<WorkerSM>();
+        LookDAO = FindObjectOfType<LookDirectionsAndOrder>();
     }
     public void Trail()
     {
@@ -49,17 +49,19 @@ public class Worker : Robot
     }
     public void FlipSound()
     {
-        wsm.Flip();
+        workerSM.Flip();
     }
     public void StartRollAttack()
     {
+        LookDAO.AlternativeCenter(transform);
         Trail();
-        wsm.Flip();
+        workerSM.Flip();
         RollHillBox.SetActive(true);
     }
     public void RollAttackFinished()
     {
         RollHillBox.SetActive(false);
+        LookDAO.AlternativeCenter(null);
     }
     public void RollCollision()
     {

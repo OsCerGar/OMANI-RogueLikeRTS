@@ -62,8 +62,8 @@ public class BU_TOOL_SlotMachine : HE
         //goldennu
         else
         {
-            peoplePool.SpearWarriorSpawn(workerSpawn.transform);
-            peoplePool.SpearWarriorSpawn(workerSpawn.transform);
+            peoplePool.WarriorSpawn(workerSpawn.transform);
+            peoplePool.WarriorSpawn(workerSpawn.transform);
         }
     }
 }
