@@ -115,8 +115,7 @@ public class LaserColisionStandard : MonoBehaviour
                     interactible.Action();
                     if (interactible.actionBool)
                     {
-                        var width = Mathf.Clamp(interactible.linkPrice, 0, 3f);
-                        powerLaser.setWidth(Mathf.Clamp(interactible.linkPrice, 0, 3f));
+                        powerLaser.setWidth(interactible.linkPrice);
                         somethingHitted = true;
                         ConnectedValue(true, interactible.laserTarget);
                     }

@@ -21,10 +21,13 @@ public class Tutorial_PlayerLock : MonoBehaviour
     float currentLerpTime, lerpTime = 1f;
     bool windDown;
 
+
+    GameObject tutorials;
+
     private void Awake()
     {
         timeline_interface = GetComponent<TIMELINE_INTERFACE>();
-       
+        tutorials = transform.Find("Tutorials").gameObject;
         // ESTO LLAMA A LA CAMERACHANGE
         controls.PLAYER.WASD.performed += movement => CameraChange();
         //controls.PLAYER.Joystick.performed += Controllermovement => CameraChange();
@@ -82,6 +85,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
         if (!surkaSpawned)
         {
+            if (releasedLegs > 0) { tutorials.SetActive(false); }
             if (releasedLegs > 2)
             {
                 SurkaEntersTheShow();

@@ -5,7 +5,8 @@ public class Tutorial_Instructions : MonoBehaviour
     public GameObject parent, pcImage, controllerImage;
     [SerializeField]
     Transform look;
-
+    [SerializeField]
+    int input = 0;
 
     private void Awake()
     {
@@ -14,7 +15,7 @@ public class Tutorial_Instructions : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Input.GetMouseButton(0))
+        if (!Input.GetMouseButton(input))
         {
             PCVersion();
         }

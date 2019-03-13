@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class TutorialButtonActivated : MonoBehaviour
 {
-    [SerializeField]
-    List<GameObject> inputGuides = new List<GameObject>();
-
     BU_Building_ActionTutorial action2;
     bool done;
     TIMELINE_INTERFACE timeline;
@@ -23,11 +20,6 @@ public class TutorialButtonActivated : MonoBehaviour
 
     public void inputGuidesOn()
     {
-        foreach (GameObject guide in inputGuides)
-        {
-            guide.SetActive(true);
-        }
-
         timeline.TPlay();
     }
 }
