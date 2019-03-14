@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Tutorial_PlayerLock : MonoBehaviour
 {
-    public OMANINPUT controls;
     public CharacterMovement movement;
 
     [SerializeField] private InverseKinematics leg1, leg2, leg3, leg4;
@@ -17,7 +16,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
     AudioSource wind, music;
     [SerializeField]
     float finalVolume;
-
+    float originalSpeed;
     float currentLerpTime, lerpTime = 1f;
     bool windDown;
 
@@ -26,16 +25,10 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     private void Awake()
     {
+        originalSpeed = movement.speed;
         timeline_interface = GetComponent<TIMELINE_INTERFACE>();
         tutorials = transform.Find("Tutorials").gameObject;
-        // ESTO LLAMA A LA CAMERACHANGE
-        controls.PLAYER.WASD.performed += movement => CameraChange();
-        //controls.PLAYER.Joystick.performed += Controllermovement => CameraChange();
-        controls.PLAYER.OrderLaser.performed += context => CameraChange();
-        controls.PLAYER.LASERZONERELEASE.performed += context => CameraChange();
         disablePlayer.SetActive(true);
-        controls.PLAYER.RadialMenuUp.Disable();
-        controls.PLAYER.RadialMenuDown.Disable();
     }
 
 
@@ -47,6 +40,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     private void Update()
     {
+        if (Input.anyKeyDown) { CameraChange(); }
+
         if (windDown)
         {
             currentLerpTime += Time.deltaTime;
@@ -59,8 +54,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
     private void StartRestrictions()
     {
         movement.speed = 0;
-        controls.PLAYER.OrderLaser.Enable();
-        controls.PLAYER.LASERZONERELEASE.Enable();
+        //controls.PLAYER.OrderLaser.Enable();
+        //controls.PLAYER.LASERZONERELEASE.Enable();
     }
 
     public void LegRelease(int _leg)
@@ -94,7 +89,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
         if (releasedLegs > 3)
         {
-            movement.speed = 0.15f;
+            movement.speed = originalSpeed;
         }
     }
 

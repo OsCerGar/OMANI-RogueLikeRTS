@@ -5,22 +5,40 @@ public class PointerEnabler : MonoBehaviour
     [SerializeField]
     SpriteRenderer pointer, dots;
 
-    [SerializeField]
-    OMANINPUT controls;
-    bool state;
-    private void Awake()
+    private bool state, pressed;
+
+    private void Update()
     {
-        controls.PLAYER.OrderLaser.performed += context => PointerState();
-    }
-    private void OnEnable()
-    {
-        controls.PLAYER.OrderLaser.Enable();
-    }
-    private void OnDisable()
-    {
-        controls.PLAYER.OrderLaser.Disable();
+
+        Inputs();
     }
 
+    private void Inputs()
+    {
+        if (Input.GetMouseButtonDown(0)) { PointerState(); }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            PointerState();
+        }
+
+        if (Input.GetAxis("R2") > 0.5f)
+        {
+            if (!pressed)
+            {
+                PointerState();
+                pressed = true;
+            }
+        }
+        if (Input.GetAxis("R2") < 0.5f)
+        {
+            if (pressed)
+            {
+                PointerState();
+                pressed = false;
+            }
+        }
+    }
     private void PointerState()
     {
         if (pointer != null)

@@ -11,13 +11,13 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
     private GameObject weapons;
     private GameObject spinningStructure;
 
-    BU_WeaponsMaker_Animation animator;
+    BU_WeaponsMaker_Animation weaponAnimator;
 
 
     public override void Start()
     {
         base.Start();
-        animator = transform.Find("Animations").GetComponent<BU_WeaponsMaker_Animation>();
+        weaponAnimator = transform.Find("Animations").GetComponent<BU_WeaponsMaker_Animation>();
 
         buildingActionMesh = transform.GetComponentInChildren<BU_Building_Action>();
 
@@ -55,7 +55,7 @@ public class BU_WeaponsMaker : BU_UniqueBuilding
 
     public void LateUpdate()
     {
-        animator.buildingAnimations(totalEnergy);
+        weaponAnimator.buildingAnimations(totalEnergy);
     }
 
     public override void BuildingAction()

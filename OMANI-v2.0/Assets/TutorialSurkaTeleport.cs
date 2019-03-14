@@ -6,7 +6,6 @@ public class TutorialSurkaTeleport : MonoBehaviour
     [SerializeField] Animator surkaAnim;
     [SerializeField] GameObject SurkaCamera;
     bool cameraChanged;
-    public OMANINPUT controls;
     public CharacterMovement movement;
 
     public SpriteRenderer MouseSprite, MouseSprite2;

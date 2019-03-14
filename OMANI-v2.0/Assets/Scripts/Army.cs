@@ -20,64 +20,66 @@ public class Army : MonoBehaviour
 
     public Robot currentFighter;
 
-    public OMANINPUT controls;
     bool radialMenuOn;
 
     Power_Laser power_Laser;
-    private void Awake()
-    {
-        controls.PLAYER.RadialMenuUp.performed += context => radialMenuValue();
-        controls.PLAYER.RadialMenuDown.performed += context => radialMenuValue();
-        controls.PLAYER.SUMMON.performed += context => SummonRobot();
-        controls.PLAYER.OrderLaser.performed += context => Order();
-    }
-    private void OnEnable()
-    {
-        controls.PLAYER.RadialMenuUp.Enable();
-        controls.PLAYER.RadialMenuDown.Enable();
-        controls.PLAYER.SUMMON.Enable();
-        controls.PLAYER.OrderLaser.Enable();
-    }
+    Powers powers;
+    private bool pressedR2, pressedL2, pressedMouse;
 
-    private void OnDisable()
-    {
-        controls.PLAYER.RadialMenuUp.Disable();
-        controls.PLAYER.RadialMenuDown.Disable();
-        controls.PLAYER.SUMMON.Disable();
-        controls.PLAYER.OrderLaser.Disable();
-    }
     private void Start()
     {
         look = FindObjectOfType<LookDirectionsAndOrder>();
+        powers = FindObjectOfType<Powers>();
         power_Laser = FindObjectOfType<Power_Laser>();
         radialMenu = FindObjectOfType<RadialMenu_GUI>();
     }
-
-    private void LateUpdate()
+    private void Update()
     {
+        Inputs();
+
         if (currentFighter != null)
         {
+
             //EMIT LASER
             power_Laser.EmitLaser(true, currentFighter.ball);
 
-            //DISABLE INPUTS
-
+            //si current fighter pasa a ser null, y no se ha hecho U. Se queda colgao
+            if (Input.GetMouseButtonDown(0)) { if (!pressedMouse) { Order(); pressedMouse = true; } }
+            if (Input.GetAxis("R2") > 0.5f)
+            {
+                if (!pressedR2)
+                {
+                    Order(); pressedR2 = true;
+                }
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (pressedMouse)
+                {
+                    Order();
+                    pressedMouse = false;
+                }
+            }
+            if (Input.GetAxis("R2") < 0.5f)
+            {
+                if (pressedR2)
+                {
+                    Order();
+                    pressedR2 = false;
+                }
+            }
         }
+
     }
 
-    private void radialMenuValue()
+    private void Inputs()
     {
-        if (!radialMenuOn)
-        {
-            radialMenuOn = true;
-            radialMenuPopUp();
-        }
-        else
-        {
-            radialMenuOn = false;
-            radialMenuPopDown();
+        if (Input.GetAxis("L2") > 0.5f) { if (!pressedL2) { radialMenuPopUp(); pressedL2 = true; } }
+        if (Input.GetAxis("L2") < 0.25f) { if (pressedL2) { radialMenuPopDown(); pressedL2 = false; } }
+        if (Input.GetMouseButtonDown(2)) { radialMenuPopUp(); }
+        if (Input.GetMouseButtonUp(2)) { radialMenuPopDown(); }
+        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("Summon")) { SummonRobot(); }
 
-        }
     }
 
     //Makes the RadialMenu Visible
@@ -203,15 +205,16 @@ public class Army : MonoBehaviour
     public void Order()
     {
         //Makes a Robot Appear if there is no other robot doing stuff.
-        if (currentFighter != null)
-        {
-            //Attacks
-            currentFighter.FighterAttack(look.pointerDirection.gameObject);
-        }
+        //Attacks
+        currentFighter.FighterAttack(look.pointerDirection.gameObject);
+
     }
 
-    private void SummonRobot()
+    public void SummonRobot()
     {
+        pressedL2 = false;
+        pressedR2 = false;
+        pressedMouse = false;
         if (currentFighter != null)
         {
             //Attacks

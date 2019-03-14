@@ -109,6 +109,13 @@ public class Power_Laser : MonoBehaviour
 
         myCableComponent.enabled = false;
         CLaser.Connected = false;
+        startParticles.Stop();
+
+    }
+    public void StopParticles()
+    {
+        startParticles.Stop();
+
     }
     public void EmitLaserConnected(Transform endPosition)
     {
@@ -134,7 +141,7 @@ public class Power_Laser : MonoBehaviour
         {
             widthToSend -= Time.unscaledDeltaTime * 10;
         }
-        widthToSend = Mathf.Clamp(widthToSend, 0.5f, 2.5f);
+        widthToSend = Mathf.Clamp(widthToSend, 0.5f, 1.5f);
         CLaser.WidthMultiplayer = widthToSend;
     }
 

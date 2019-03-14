@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
-using UnityEngine.Experimental.Input;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public OMANINPUT controls;
-
     //Objects
     Vector2 movementAxis, movementAxisController;
 
     Rigidbody rb;
     LookDirectionsAndOrder LookDirection;
-    [SerializeField]
-    public float speed = 1, smooth = 5f;
+    
+    public float speed = 0.073f, smooth = 5f;
     [SerializeField]
     private float minDistanceToGround, maxDistanceToGround;
     CharacterController controller;
@@ -29,29 +26,6 @@ public class CharacterMovement : MonoBehaviour
     public static event Stopped OnStopping;
 
 
-    private void Awake()
-    {
-
-        controls.PLAYER.WASD.performed += movement => MoveAxis(movement.ReadValue<Vector2>());
-        controls.PLAYER.WASD.cancelled += movement => RestartAxis();
-        //controls.PLAYER.Joystick.performed += Controllermovement => ControllerMoveAxis(Controllermovement.ReadValue<Vector2>());
-        controls.PLAYER.Joystick.performed += ControllerMoveAxis;
-        controls.PLAYER.Joystick.cancelled += movement => RestartControllerAxis();
-
-    }
-    private void OnEnable()
-    {
-        controls.PLAYER.WASD.Enable();
-        controls.PLAYER.Joystick.Enable();
-
-    }
-
-    private void OnDisable()
-    {
-        controls.PLAYER.WASD.Disable();
-        controls.PLAYER.Joystick.Disable();
-    }
-
     // Use this for initialization
     void Start()
     {
@@ -60,29 +34,27 @@ public class CharacterMovement : MonoBehaviour
         LookDirection = FindObjectOfType<LookDirectionsAndOrder>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+        MoveAxis();
 
         //This function controls the movement.
         MovementController();
-
     }
 
-    void MoveAxis(Vector2 _axis)
+    void MoveAxis()
     {
-        movementAxis = _axis;
+        RestartControllerAxis();
+        movementAxisController.x = Input.GetAxis("HorizontalJoystick");
+        movementAxisController.y = Input.GetAxis("VerticalJoystick");
+        movementAxis.x = Input.GetAxis("Horizontal");
+        movementAxis.y = Input.GetAxis("Vertical");
     }
-    void RestartAxis()
-    {
-        movementAxis = new Vector2(0, 0);
-    }
-    void ControllerMoveAxis(InputAction.CallbackContext context)
-    {
-        movementAxisController = context.ReadValue<Vector2>();
-    }
+
     void RestartControllerAxis()
     {
         movementAxisController = new Vector2(0, 0);
+        movementAxis = new Vector2(0, 0);
     }
 
     //Function in charge of the Main Character movement. Sends commands to the animator and allows the character to rotate.
@@ -106,14 +78,13 @@ public class CharacterMovement : MonoBehaviour
             }
 
             desiredDirection.y -= 2 * Time.deltaTime;
-
             controller.Move(desiredDirection * speed);
             Rotate(desiredDirection);
 
         }
 
         // If the axis has any sort of input on Joystick.
-        else if (movementAxisController.x != 0f || movementAxisController.y != 0f)
+        else if (movementAxisController.x > 0.2f || movementAxisController.x < -0.2f || movementAxisController.y > 0.2f || movementAxisController.y < -0.2f)
         {
             if (controller.isGrounded)
             {

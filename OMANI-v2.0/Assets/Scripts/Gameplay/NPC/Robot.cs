@@ -87,8 +87,9 @@ public class Robot : NPC
     public void Materialize(GameObject _ShootingPosition, GameObject _miradaPosition)
     {
         //Dematerializes.
-        transform.gameObject.SetActive(true);
         workerSM.transform.position = transform.position;
+        transform.position = _ShootingPosition.transform.position;
+        transform.gameObject.SetActive(true);
         workerSM.Dematerialize();
 
         anim.Rebind();
@@ -96,7 +97,6 @@ public class Robot : NPC
 
         StartCoroutine(Materialize(0.1f));
         //Disables everything.
-        transform.position = _ShootingPosition.transform.position;
 
         Follow(_ShootingPosition, _miradaPosition);
     }

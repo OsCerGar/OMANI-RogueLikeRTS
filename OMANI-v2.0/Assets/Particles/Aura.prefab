@@ -1,0 +1,760 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &772890765094226442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 772890765094226443}
+  - component: {fileID: 772890765094226440}
+  m_Layer: 0
+  m_Name: Aura Global VolumeGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &772890765094226443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772890765094226442}
+  m_LocalRotation: {x: 0.6883546, y: -0.000000006932069, z: -0.000000006932069, w: 0.72537434}
+  m_LocalPosition: {x: 0.03, y: 1.006, z: -0.242}
+  m_LocalScale: {x: 1.0000001, y: 0.9999996, z: 0.9999996}
+  m_Children: []
+  m_Father: {fileID: 8051019128769677324}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 87, y: -0.000015258789, z: -0.000015258789}
+--- !u!114 &772890765094226440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772890765094226442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b142c931e4f39c429a012dc68ba0659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeShape:
+    shape: 1
+    fading:
+      falloffExponent: 2
+      xPositiveCubeFade: 0.25
+      xNegativeCubeFade: 0.25
+      yPositiveCubeFade: 0.25
+      yNegativeCubeFade: 0.25
+      zPositiveCubeFade: 0.25
+      zNegativeCubeFade: 0.25
+      angularConeFade: 0.25
+      distanceConeFade: 0.25
+      widthCylinderFade: 0.25
+      yNegativeCylinderFade: 0.25
+      yPositiveCylinderFade: 0.25
+      heightPlaneFade: 1
+      distanceSphereFade: 0.25
+  textureMask:
+    clipComputationBasedOnAlpha: 0
+    clippingThreshold: 0.5
+    enable: 0
+    filterMode: 2
+    texture: {fileID: 0}
+    textureIndex: -1
+    transform:
+      space: 1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+      animatePosition: 0
+      positionSpeed: {x: 0, y: 0, z: 0}
+      animateRotation: 0
+      rotationSpeed: {x: 0, y: 0, z: 0}
+    wrapMode: 2
+  noiseMask:
+    enable: 0
+    speed: 0.5
+    offset: 1
+    transform:
+      space: 0
+      position: {x: 204375.47, y: 0, z: 0}
+      rotation: {x: 13.355957, y: 0, z: 0}
+      scale: {x: 30, y: 85, z: 4}
+      animatePosition: 1
+      positionSpeed: {x: 2, y: 0, z: 0}
+      animateRotation: 1
+      rotationSpeed: {x: 4.25, y: 0, z: 0}
+  density:
+    injectionParameters:
+      enable: 1
+      strength: 0.05
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0.5375
+        levelHiThreshold: 1
+        outputLowValue: 0.14
+        outputHiValue: 1
+        contrast: 1.64
+  anisotropy:
+    injectionParameters:
+      enable: 1
+      strength: 2
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+  color:
+    injectionParameters:
+      enable: 1
+      strength: 1.1
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0.10884356
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 5
+        contrast: 1
+    color: {r: 0.3367412, g: 1, b: 0.25343573, a: 1}
+  gizmoColor: {r: 1, g: 0.80170244, b: 0.5, a: 1}
+--- !u!1 &772890765600880741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 772890765600880738}
+  - component: {fileID: 772890765600880739}
+  m_Layer: 0
+  m_Name: Aura Global VolumeGroundVersion2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &772890765600880738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772890765600880741}
+  m_LocalRotation: {x: 0.70710564, y: -0, z: -0, w: 0.7071079}
+  m_LocalPosition: {x: 0.03, y: -0.05, z: -0.71}
+  m_LocalScale: {x: 1.0000001, y: 0.99999917, z: 0.99999917}
+  m_Children: []
+  m_Father: {fileID: 8051019128769677324}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 89.98, y: 0, z: 0}
+--- !u!114 &772890765600880739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772890765600880741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b142c931e4f39c429a012dc68ba0659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeShape:
+    shape: 1
+    fading:
+      falloffExponent: 1
+      xPositiveCubeFade: 0.25
+      xNegativeCubeFade: 0.25
+      yPositiveCubeFade: 0.25
+      yNegativeCubeFade: 0.25
+      zPositiveCubeFade: 0.25
+      zNegativeCubeFade: 0.25
+      angularConeFade: 0.25
+      distanceConeFade: 0.25
+      widthCylinderFade: 0.25
+      yNegativeCylinderFade: 0.25
+      yPositiveCylinderFade: 0.25
+      heightPlaneFade: 0.073
+      distanceSphereFade: 0.25
+  textureMask:
+    clipComputationBasedOnAlpha: 0
+    clippingThreshold: 0.5
+    enable: 0
+    filterMode: 2
+    texture: {fileID: 0}
+    textureIndex: -1
+    transform:
+      space: 1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+      animatePosition: 0
+      positionSpeed: {x: 0, y: 0, z: 0}
+      animateRotation: 0
+      rotationSpeed: {x: 0, y: 0, z: 0}
+    wrapMode: 2
+  noiseMask:
+    enable: 0
+    speed: 0.5
+    offset: 1
+    transform:
+      space: 0
+      position: {x: 151554.5, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+      scale: {x: 30, y: 85, z: 4}
+      animatePosition: 1
+      positionSpeed: {x: 2, y: 0, z: 0}
+      animateRotation: 0
+      rotationSpeed: {x: 4.25, y: 0, z: 0}
+  density:
+    injectionParameters:
+      enable: 1
+      strength: 3
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0.5375
+        levelHiThreshold: 1
+        outputLowValue: 0.14
+        outputHiValue: 1
+        contrast: 1.64
+  anisotropy:
+    injectionParameters:
+      enable: 0
+      strength: 2
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+  color:
+    injectionParameters:
+      enable: 1
+      strength: 0.1
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0.10884356
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 5
+        contrast: 1
+    color: {r: 1, g: 0.97154737, b: 0.99535006, a: 1}
+  gizmoColor: {r: 1, g: 0.80170244, b: 0.5, a: 1}
+--- !u!1 &5844047017447210238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7514396056290891888}
+  - component: {fileID: 7694509677339940753}
+  m_Layer: 0
+  m_Name: Aura Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7514396056290891888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5844047017447210238}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.03, y: -0.05, z: -0.72}
+  m_LocalScale: {x: 1.7960968, y: 1.7960968, z: 1.7960968}
+  m_Children: []
+  m_Father: {fileID: 8051019128769677324}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &7694509677339940753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5844047017447210238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b142c931e4f39c429a012dc68ba0659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeShape:
+    shape: 1
+    fading:
+      falloffExponent: 1.38
+      xPositiveCubeFade: 0.25
+      xNegativeCubeFade: 0.25
+      yPositiveCubeFade: 0.25
+      yNegativeCubeFade: 0.25
+      zPositiveCubeFade: 0.25
+      zNegativeCubeFade: 0.25
+      angularConeFade: 0.25
+      distanceConeFade: 0.25
+      widthCylinderFade: 0.25
+      yNegativeCylinderFade: 0.25
+      yPositiveCylinderFade: 0.25
+      heightPlaneFade: 1
+      distanceSphereFade: 0.25
+  textureMask:
+    clipComputationBasedOnAlpha: 0
+    clippingThreshold: 0.5
+    enable: 0
+    filterMode: 2
+    texture: {fileID: 0}
+    textureIndex: -1
+    transform:
+      space: 1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+      animatePosition: 0
+      positionSpeed: {x: 0, y: 0, z: 0}
+      animateRotation: 0
+      rotationSpeed: {x: 0, y: 0, z: 0}
+    wrapMode: 2
+  noiseMask:
+    enable: 1
+    speed: 0.25
+    offset: 1
+    transform:
+      space: 0
+      position: {x: 486437.53, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+      scale: {x: 25, y: 15, z: 12}
+      animatePosition: 1
+      positionSpeed: {x: 2, y: 0, z: 0}
+      animateRotation: 0
+      rotationSpeed: {x: 4.25, y: 0, z: 0}
+  density:
+    injectionParameters:
+      enable: 1
+      strength: 0.05
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0.5375
+        levelHiThreshold: 1
+        outputLowValue: 0.14
+        outputHiValue: 1
+        contrast: 1.64
+  anisotropy:
+    injectionParameters:
+      enable: 1
+      strength: 1
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+  color:
+    injectionParameters:
+      enable: 1
+      strength: 0.75
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0.10884356
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 5
+        contrast: 1
+    color: {r: 0.7831214, g: 1, b: 0.7024731, a: 1}
+  gizmoColor: {r: 1, g: 0.80170244, b: 0.5, a: 1}
+--- !u!1 &5852714419255393813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8051019128769677324}
+  - component: {fileID: 1444012420131512872}
+  m_Layer: 0
+  m_Name: Aura
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8051019128769677324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5852714419255393813}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.8, z: -1.08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7514396056290891888}
+  - {fileID: 772890765094226443}
+  - {fileID: 772890765600880738}
+  - {fileID: 727470319448982058}
+  - {fileID: 5037706952297271219}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1444012420131512872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5852714419255393813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902ffb11a0befd840afa2ccbfcc98d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AuraLights:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  AuraLightVolume:
+  - {fileID: 772890765094226440}
+  - {fileID: 7694509677339940753}
+--- !u!1 &6366779150099621190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727470319448982058}
+  - component: {fileID: 3120827388350926321}
+  m_Layer: 0
+  m_Name: Aura Global VolumeGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &727470319448982058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6366779150099621190}
+  m_LocalRotation: {x: 0.6883546, y: -0.000000006932069, z: -0.000000006932069, w: 0.72537434}
+  m_LocalPosition: {x: 0.217, y: 2.023, z: 0.354}
+  m_LocalScale: {x: 1.0000001, y: 0.9999996, z: 0.9999996}
+  m_Children: []
+  m_Father: {fileID: 8051019128769677324}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 87, y: -0.000015258789, z: -0.000015258789}
+--- !u!114 &3120827388350926321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6366779150099621190}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b142c931e4f39c429a012dc68ba0659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeShape:
+    shape: 1
+    fading:
+      falloffExponent: 30
+      xPositiveCubeFade: 0.25
+      xNegativeCubeFade: 0.25
+      yPositiveCubeFade: 0.25
+      yNegativeCubeFade: 0.25
+      zPositiveCubeFade: 0.25
+      zNegativeCubeFade: 0.25
+      angularConeFade: 0.25
+      distanceConeFade: 0.25
+      widthCylinderFade: 0.25
+      yNegativeCylinderFade: 0.25
+      yPositiveCylinderFade: 0.25
+      heightPlaneFade: 1
+      distanceSphereFade: 0.25
+  textureMask:
+    clipComputationBasedOnAlpha: 0
+    clippingThreshold: 0.5
+    enable: 0
+    filterMode: 2
+    texture: {fileID: 0}
+    textureIndex: -1
+    transform:
+      space: 1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+      animatePosition: 0
+      positionSpeed: {x: 0, y: 0, z: 0}
+      animateRotation: 0
+      rotationSpeed: {x: 0, y: 0, z: 0}
+    wrapMode: 2
+  noiseMask:
+    enable: 0
+    speed: 0.5
+    offset: 1
+    transform:
+      space: 0
+      position: {x: 151554.5, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+      scale: {x: 30, y: 85, z: 4}
+      animatePosition: 1
+      positionSpeed: {x: 2, y: 0, z: 0}
+      animateRotation: 0
+      rotationSpeed: {x: 4.25, y: 0, z: 0}
+  density:
+    injectionParameters:
+      enable: 1
+      strength: 0.01
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0.5375
+        levelHiThreshold: 1
+        outputLowValue: 0.14
+        outputHiValue: 1
+        contrast: 1.64
+  anisotropy:
+    injectionParameters:
+      enable: 1
+      strength: 2
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+  color:
+    injectionParameters:
+      enable: 1
+      strength: 1.1
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0.10884356
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 5
+        contrast: 1
+    color: {r: 0.60996276, g: 1, b: 0.166192, a: 1}
+  gizmoColor: {r: 1, g: 0.80170244, b: 0.5, a: 1}
+--- !u!1 &6384206035837858121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5037706952297271219}
+  - component: {fileID: 3673499769720064462}
+  m_Layer: 0
+  m_Name: Aura Global VolumeGroundVersion2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5037706952297271219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6384206035837858121}
+  m_LocalRotation: {x: 0.70710564, y: -0, z: -0, w: 0.7071079}
+  m_LocalPosition: {x: 0.03, y: -0.05, z: -0.71}
+  m_LocalScale: {x: 1.0000001, y: 0.99999917, z: 0.99999917}
+  m_Children: []
+  m_Father: {fileID: 8051019128769677324}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 89.98, y: 0, z: 0}
+--- !u!114 &3673499769720064462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6384206035837858121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b142c931e4f39c429a012dc68ba0659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeShape:
+    shape: 1
+    fading:
+      falloffExponent: 1
+      xPositiveCubeFade: 0.25
+      xNegativeCubeFade: 0.25
+      yPositiveCubeFade: 0.25
+      yNegativeCubeFade: 0.25
+      zPositiveCubeFade: 0.25
+      zNegativeCubeFade: 0.25
+      angularConeFade: 0.25
+      distanceConeFade: 0.25
+      widthCylinderFade: 0.25
+      yNegativeCylinderFade: 0.25
+      yPositiveCylinderFade: 0.25
+      heightPlaneFade: 0.073
+      distanceSphereFade: 0.25
+  textureMask:
+    clipComputationBasedOnAlpha: 0
+    clippingThreshold: 0.5
+    enable: 0
+    filterMode: 2
+    texture: {fileID: 0}
+    textureIndex: -1
+    transform:
+      space: 1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+      scale: {x: 1, y: 1, z: 1}
+      animatePosition: 0
+      positionSpeed: {x: 0, y: 0, z: 0}
+      animateRotation: 0
+      rotationSpeed: {x: 0, y: 0, z: 0}
+    wrapMode: 2
+  noiseMask:
+    enable: 0
+    speed: 0.5
+    offset: 1
+    transform:
+      space: 0
+      position: {x: 151554.5, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+      scale: {x: 30, y: 85, z: 4}
+      animatePosition: 1
+      positionSpeed: {x: 2, y: 0, z: 0}
+      animateRotation: 0
+      rotationSpeed: {x: 4.25, y: 0, z: 0}
+  density:
+    injectionParameters:
+      enable: 1
+      strength: 3
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0.5375
+        levelHiThreshold: 1
+        outputLowValue: 0.14
+        outputHiValue: 1
+        contrast: 1.64
+  anisotropy:
+    injectionParameters:
+      enable: 0
+      strength: 2
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+  color:
+    injectionParameters:
+      enable: 1
+      strength: 0.1
+      textureMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 1
+        contrast: 1
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0.10884356
+        levelHiThreshold: 1
+        outputLowValue: 0
+        outputHiValue: 5
+        contrast: 1
+    color: {r: 1, g: 0.97154737, b: 0.99535006, a: 1}
+  gizmoColor: {r: 1, g: 0.80170244, b: 0.5, a: 1}

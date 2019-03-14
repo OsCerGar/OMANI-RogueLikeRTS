@@ -135,6 +135,20 @@ public class ConLaser : MonoBehaviour
         {
             hitEffect.transform.position = CCL.endPoint.position;
             dist = 25f;
+
+            if (hitEffect)
+            {
+                foreach (ParticleSystem ps in hitPsArray)
+                {
+                    pl.enabled = false;
+
+                    var em = ps.emission;
+                    em.enabled = false;
+                    //ps.enableEmission = true;
+                }
+
+            }
+
         }
         //Emit Particles on Collision End
 

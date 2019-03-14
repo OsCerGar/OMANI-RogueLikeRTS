@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Input;
 
 public class LookDirectionsAndOrder : MonoBehaviour
 {
@@ -55,8 +54,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
     //sound
     AudioSource reclute, order;
-    [SerializeField]
-    OMANINPUT omanInput;
     #endregion
 
     // Use this for initialization
@@ -65,25 +62,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         commander = FindObjectOfType<Army>();
         reclute = GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
-        //pointerDirection = GetComponent<UI_PointerDirection>();
-
         pointerOrder = transform.Find("OrderDirection").gameObject;
-
-        omanInput.PLAYER.RightStick.performed += ControllerLookAxis;
-        omanInput.PLAYER.ControllerFree.performed += ControllerFreeMode;
-        omanInput.PLAYER.RightStick.cancelled += RestartControllerMoveAxis;
-    }
-    private void OnEnable()
-    {
-        omanInput.PLAYER.RightStick.Enable();
-        omanInput.PLAYER.ControllerFree.Enable();
-
-    }
-    private void OnDisable()
-    {
-        omanInput.PLAYER.RightStick.Disable();
-        omanInput.PLAYER.ControllerFree.Disable();
-
     }
     void Update()
     {
@@ -91,16 +70,14 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #region Inputs
         //RightJoystick
         //restart
-        //hrj = 0;
-        //vrj = 0;
-
+        ControllerLookAxis();
         #endregion
 
         LookAt(hrj, vrj);
-
+        if (Input.GetButtonDown("FreeMode")) { ControllerFreeMode(); }
     }
 
-    private void ControllerFreeMode(InputAction.CallbackContext context)
+    private void ControllerFreeMode()
     {
         if (controllerLookModel)
         {
@@ -112,16 +89,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
     }
 
-    void ControllerLookAxis(InputAction.CallbackContext context)
+    void ControllerLookAxis()
     {
-        hrj = context.ReadValue<Vector2>().x;
-        vrj = context.ReadValue<Vector2>().y;
+        hrj = Input.GetAxis("HorizontalRightJoystick");
+        vrj = Input.GetAxis("VerticalRightJoystick");
     }
-    void RestartControllerMoveAxis(InputAction.CallbackContext context)
-    {
-        hrj = 0;
-        vrj = 0;
-    }
+
     private void LateUpdate()
     {
         GUI();

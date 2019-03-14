@@ -8,6 +8,8 @@ public class Tutorial_Instructions : MonoBehaviour
     [SerializeField]
     int input = 0;
 
+    bool pc = true;
+
     private void Awake()
     {
         if (look == null) { look = FindObjectOfType<LookDirectionsAndOrder>().pointerDirection.transform; }
@@ -15,13 +17,48 @@ public class Tutorial_Instructions : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!Input.GetMouseButton(input))
+        if (pc)
         {
-            PCVersion();
+            if (!Input.GetMouseButton(input))
+            {
+                PCVersion();
+            }
+            else
+            {
+                parent.SetActive(false);
+            }
         }
-        else
+
+        if (input == 0)
         {
-            parent.SetActive(false);
+            if (Input.GetAxis("R2") > 0.5f)
+            {
+                pc = false;
+            }
+            if (Input.GetAxis("R2") < 0.5f)
+            {
+                ControllerVersion();
+            }
+            else
+            {
+                parent.SetActive(false);
+            }
+        }
+        if (input == 1)
+        {
+            if (Input.GetAxis("L2") > 0.5f)
+            {
+                pc = false;
+            }
+            if (Input.GetAxis("L2") > 0.5f)
+            {
+                ControllerVersion();
+                pc = false;
+            }
+            else
+            {
+                parent.SetActive(false);
+            }
         }
         /*if()
         {

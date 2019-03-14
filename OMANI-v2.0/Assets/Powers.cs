@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Experimental.Input;
 public class Powers : MonoBehaviour
 {
     #region ReferenceVariables
@@ -22,20 +21,21 @@ public class Powers : MonoBehaviour
     float radius = 3;
 
     //INPUTS
-    public OMANINPUT controls;
     public bool zonelaservalue = false, stronglaservalue = false, hearthStoneValue = false;
 
 
     public bool connected;
     public Transform connectObject;
 
+    #region controller variables
+    private bool pressed;
+
+    #endregion
     #region Initializers
     private void Awake()
     {
         Initializer();
-        controls.PLAYER.OrderLaser.performed += context => ZoneLaserValue(context);
-        
-        controls.PLAYER.HEARTHSTONE.performed += context => HearthstoneValue();
+        //controls.PLAYER.HEARTHSTONE.performed += context => HearthstoneValue();
     }
     void Initializer()
     {
@@ -52,32 +52,6 @@ public class Powers : MonoBehaviour
 
     }
     #endregion
-    #region Events
-    private void OnEnable()
-    {
-        controls.PLAYER.OrderLaser.Enable();
-        controls.PLAYER.LASERZONERELEASE.Enable();
-        controls.PLAYER.HEARTHSTONE.Enable();
-    }
-    private void OnDisable()
-    {
-        controls.PLAYER.OrderLaser.performed -= context => ZoneLaserValue(context);
-        controls.PLAYER.OrderLaser.Disable();
-        controls.PLAYER.LASERZONERELEASE.Disable();
-        controls.PLAYER.HEARTHSTONE.Disable();
-
-    }
-    private void OnDestroy()
-    {
-        controls.PLAYER.OrderLaser.Disable();
-        controls.PLAYER.LASERZONERELEASE.Disable();
-        controls.PLAYER.HEARTHSTONE.Disable();
-    }
-    #endregion
-
-    public void Start()
-    {
-    }
 
     public void ConnectedValue(bool _connectedValue, Transform _connectedObject)
     {
@@ -88,13 +62,40 @@ public class Powers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (army.currentFighter == null)
+        {
+            #region Inputs 
+            if (Input.GetMouseButtonDown(0)) { lasers.StartEffects(); }
+            if (Input.GetAxis("R2") > 0.5f) { if (!pressed) { lasers.StartEffects(); pressed = true; } }
+            if (Input.GetMouseButton(0) || Input.GetAxis("R2") > 0.5f) { ZoneLaser(); }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                lasers.EmitLaserStop();
+                ConnectedValue(false, null);
+
+            }
+            if (Input.GetAxis("R2") < 0.5f)
+            {
+                if (pressed)
+                {
+                    lasers.EmitLaserStop();
+                    ConnectedValue(false, null);
+                    pressed = false;
+                }
+            }
+
+            #endregion
+        }
+        else
+        {
+            lasers.StopParticles();
+            pressed = false;
+        }
         #region LaserBeams
 
         // /3 because the limit size of the sphere is 0.33.
         lasers.setSphereWidth((powerPool / maxpowerPool) / 3);
-
-        //ZoneLaser
-        if (zonelaservalue) { ZoneLaser(); }
 
         #endregion
         #region IncreasePowerPool
@@ -128,24 +129,8 @@ public class Powers : MonoBehaviour
         lasers.EmitLaser(connected, connectObject);
     }
 
-    private void ZoneLaserValue(InputAction.CallbackContext context)
-    {
-        if (army.currentFighter == null)
-        {
-            if (zonelaservalue)
-            {
-                zonelaservalue = false;
-                ConnectedValue(false, null);
-                lasers.EmitLaserStop();
-            }
-            else
-            {
-                zonelaservalue = true;
-                lasers.StartEffects();
-            }
-        }
-    }
 
+    //for the future
     private void StrongLaserValue()
     {
         if (stronglaservalue)

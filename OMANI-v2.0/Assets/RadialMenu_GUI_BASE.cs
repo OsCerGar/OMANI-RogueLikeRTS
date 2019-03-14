@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class RadialMenu_GUI_BASE : MonoBehaviour
 {
+    [SerializeField]
     private List<RadialMenuFeedback> amountOfRobots = new List<RadialMenuFeedback>();
     public List<Sprite> robotTypes = new List<Sprite>();
 

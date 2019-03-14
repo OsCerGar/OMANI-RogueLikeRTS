@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
 public class Player : NPC
 {
@@ -59,13 +58,13 @@ public class Player : NPC
 
     IEnumerator CoolDown()
     {
-        
+
         powers.enabled = false;
         characterMovement.speed = 0;
         yield return new WaitForSeconds(5f);
         if (state != "Dead")
         {
-            characterMovement.speed = 0.15f;
+            characterMovement.speed = 0.073f;
             powers.enabled = true;
             powers.powerPool = 25;
         }
@@ -74,9 +73,9 @@ public class Player : NPC
 
     IEnumerator DamageProtection()
     {
-       
-            protection = true;
-            yield return new WaitForSeconds(1f);
+
+        protection = true;
+        yield return new WaitForSeconds(1f);
         if (state != "Dead")
         {
             protection = false;

@@ -1,17 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DisablePlayerControls : MonoBehaviour
 {
 
     public CharacterMovement movement;
-    public OMANINPUT controls;
     public SpriteRenderer MouseSprite, MouseSprite2;
     public Powers powers;
+    public Army army;
+    float originalspeed;
 
     private void OnEnable()
     {
+        //!!!!!!!!!!!
+        if (army == null)
+        {
+            army = FindObjectOfType<Army>();
+        }
+        if (army.enabled == true)
+        {
+            if (army.currentFighter != null) { army.SummonRobot(); }
+        }
+
+        originalspeed = movement.speed;
         movement.speed = 0;
         MouseSprite.enabled = false;
         MouseSprite2.enabled = false;
@@ -22,15 +32,12 @@ public class DisablePlayerControls : MonoBehaviour
         {
             powers.enabled = false;
         }
-        //Disables Orders
-        controls.PLAYER.OrderLaser.Disable();
-
     }
 
     private void OnDisable()
     {
-       
-         movementSpeedBack();
+
+        movementSpeedBack();
         MouseSprite.enabled = true;
         MouseSprite2.enabled = true;
 
@@ -39,12 +46,10 @@ public class DisablePlayerControls : MonoBehaviour
         {
             powers.enabled = true;
         }
-
-        //Enables Orders
-        controls.PLAYER.OrderLaser.Enable();
     }
+
     public void movementSpeedBack()
     {
-        movement.speed = 0.15f;
+        movement.speed = originalspeed;
     }
 }
