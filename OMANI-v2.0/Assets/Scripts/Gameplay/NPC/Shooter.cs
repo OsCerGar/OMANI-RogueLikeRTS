@@ -11,8 +11,9 @@ public class Shooter : Robot
     GameObject aimAt;
     Vector3 aimAtPos;
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         boyType = "Shooter";
     }
     public override void Update()

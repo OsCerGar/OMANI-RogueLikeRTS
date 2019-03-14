@@ -398,8 +398,7 @@ public class NPC : MonoBehaviour
         anim.SetTrigger("Die");
         
         Nav.isStopped = true;
-        gameObject.GetComponent<Collider>().isTrigger = true;
-        gameObject.layer = 0;
+        Nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     public virtual void Heal(int _heal)

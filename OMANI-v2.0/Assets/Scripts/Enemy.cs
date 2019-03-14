@@ -43,6 +43,7 @@ public class Enemy : NPC
     {
         base.Die();
         laserTarget.gameObject.SetActive(false);
+
     }
 
     public void StepSound()

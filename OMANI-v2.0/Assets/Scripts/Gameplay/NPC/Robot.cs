@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 public class Robot : NPC
 {
     bool link = false;
@@ -70,7 +71,7 @@ public class Robot : NPC
 
     }
 
-    public void Dematerialize()
+    public virtual void Dematerialize()
     {
         //Dematerializes.
 
@@ -177,6 +178,9 @@ public class Robot : NPC
 
     public virtual void CoolDown()
     {
+
+        Nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        enableTree("Cooldown");
         anim.SetTrigger("CoolDown");
         Fired();
     }

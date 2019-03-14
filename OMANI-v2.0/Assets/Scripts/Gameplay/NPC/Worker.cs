@@ -14,25 +14,21 @@ public class Worker : Robot
     public override void AttackHit()
     {
         base.AttackHit();
-        RollAttackFinished();
+        RollDisableCheck();
         TrailEffect.Stop();
     }
     public override void FighterAttack(GameObject _position)
     {
         if (anim.GetBool("Roll"))
         {
-            enableTree("Follow");
             RollAttackFinished();
-            anim.SetBool("Roll", false);
 
         }
         else
         {
             base.FighterAttack(_position);
-            enableTree("Attack");
             StartRollAttack();
             //enableTree("Attack");
-            anim.SetBool("Roll",true);
         }
     }
 
@@ -53,6 +49,8 @@ public class Worker : Robot
     }
     public void StartRollAttack()
     {
+        enableTree("Attack");
+        anim.SetBool("Roll", true);
         LookDAO.AlternativeCenter(transform);
         Trail();
         workerSM.Flip();
@@ -60,6 +58,8 @@ public class Worker : Robot
     }
     public void RollAttackFinished()
     {
+        enableTree("Follow");
+        anim.SetBool("Roll", false);
         RollHillBox.SetActive(false);
         LookDAO.AlternativeCenter(null);
     }
@@ -69,5 +69,27 @@ public class Worker : Robot
         Fired();
     }
 
+    public override void CoolDown()
+    {
+        RollDisableCheck();
+        base.CoolDown();
+    }
+    
+    public override void Die()
+    {
+        RollDisableCheck();
+        base.Die();
+    }
+    public override void Dematerialize()
+    {
+        RollDisableCheck();
+        base.Dematerialize();
+    }
+    private void RollDisableCheck()
+    {
+        anim.SetBool("Roll", false);
+        RollHillBox.SetActive(false);
+        LookDAO.AlternativeCenter(null);
+    }
 
 }
