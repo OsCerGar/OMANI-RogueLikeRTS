@@ -62361,7 +62361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1690
 Transform:
   m_ObjectHideFlags: 0
@@ -62404,6 +62404,8 @@ MonoBehaviour:
   Knockback: 0
   ActiveHitboxTime: 0.1
   Damage: 0
+  damageOffset: 5
+  criticalChance: 10
   LayerMasktoAttack:
     serializedVersion: 2
     m_Bits: 1024
@@ -105590,6 +105592,8 @@ MonoBehaviour:
   Knockback: 0
   ActiveHitboxTime: 0.3
   Damage: 0
+  damageOffset: 5
+  criticalChance: 5
   LayerMasktoAttack:
     serializedVersion: 2
     m_Bits: 1024
@@ -115329,10 +115333,10 @@ MonoBehaviour:
   state: Alive
   startLife: 250
   life: 250
-  damage: 100
+  damage: 25
   powerUpCost: 10
-  maxpowerPool: 10
-  powerPool: 0
+  maxpowerPool: 100
+  powerPool: 100
   increaseAmount: 1
   powerReduced: 0
   linkPrice: 7.5
@@ -115370,6 +115374,7 @@ MonoBehaviour:
   SparkEffect: {fileID: 2102}
   DematerializeParticleSystem: {fileID: 2078}
   MaterializeParticleSystem: {fileID: 2097}
+  workerSM: {fileID: 0}
   DeathExplosion: {fileID: 2820562271985100525}
   ball: {fileID: 0}
   recluted: 0
@@ -134825,7 +134830,6 @@ MonoBehaviour:
   StepAudioSource: {fileID: 0}
   HitClips:
   - {fileID: 8300000, guid: bec5ff55824297a45b05d4fbc72cf1ce, type: 3}
-  - {fileID: 8300000, guid: f48da5c7a832fff4fa56966ae52f979e, type: 3}
   MissClips:
   - {fileID: 8300000, guid: e4517db1e59c07a45a0635858002b25b, type: 3}
   - {fileID: 8300000, guid: f7065fbf93c6ac446878cd8bbbce9354, type: 3}

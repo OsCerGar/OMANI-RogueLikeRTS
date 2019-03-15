@@ -8,7 +8,7 @@ public class CharacterMovement : MonoBehaviour
     Rigidbody rb;
     LookDirectionsAndOrder LookDirection;
     
-    public float speed = 0.073f, smooth = 5f;
+    public float speed = 0.073f, originalSpeed = 0.073f, smooth = 5f;
     [SerializeField]
     private float minDistanceToGround, maxDistanceToGround;
     CharacterController controller;

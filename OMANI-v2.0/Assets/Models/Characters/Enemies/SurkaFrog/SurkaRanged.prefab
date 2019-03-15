@@ -14452,8 +14452,8 @@ MonoBehaviour:
   boyType: SurkaRanged
   state: Alive
   startLife: 0
-  life: 150
-  damage: 50
+  life: 50
+  damage: 30
   powerUpCost: 10
   maxpowerPool: 5
   powerPool: 0
@@ -14489,6 +14489,7 @@ MonoBehaviour:
   TPC: {fileID: 0}
   numberPool: {fileID: 0}
   numbersTransform: {fileID: 0}
+  laserTarget: {fileID: 0}
   AttackTrail: {fileID: 0}
   Shoot: {fileID: 198693686117038997}
 --- !u!95 &1676577170
@@ -24532,8 +24533,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 5
-      minScalar: 5
+      scalar: 15
+      minScalar: 10
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -29169,6 +29170,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Knockback: 0
   Damage: 0
+  damageOffset: 6
+  criticalChance: 5
   thisNpcScript: {fileID: 1676577172}
   LayerMasktoAttack:
     serializedVersion: 2

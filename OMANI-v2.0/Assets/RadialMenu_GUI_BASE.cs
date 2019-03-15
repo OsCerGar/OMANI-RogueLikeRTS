@@ -7,7 +7,7 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
     [SerializeField]
     private List<RadialMenuFeedback> amountOfRobots = new List<RadialMenuFeedback>();
     public List<Sprite> robotTypes = new List<Sprite>();
-
+    private string robotType;
     public Image Robot;
 
     // Start is called before the first frame update
@@ -36,14 +36,19 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
         }
     }
 
-    private List<RadialMenuFeedback> GetAmountOfRobots()
+    public List<RadialMenuFeedback> GetAmountOfRobots()
     {
         return amountOfRobots;
     }
 
+    public string GetRobotType()
+    {
+        return robotType;
+    }
     //Set the robot
     public void UISetRobot(string _robotType)
     {
+        robotType = _robotType;
         bool found = false;
         if (_robotType != null)
         {

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class MeleAttack : MonoBehaviour {
     [SerializeField] bool Knockback;
     [SerializeField] float ActiveHitboxTime = 0.1f;
-    [SerializeField] int Damage = 0;
+    [SerializeField] int Damage = 0, damageOffset = 1, criticalChance = 5;
     [SerializeField] LayerMask LayerMasktoAttack;
     [HideInInspector]public  bool PowerUp;
     [SerializeField] ParticleSystem Effect;
@@ -40,7 +40,21 @@ public class MeleAttack : MonoBehaviour {
             }
             else
             {
-                EnemyNPC.TakeDamage(Damage, Color.white);
+                int damageFinal;
+                int offset = Random.Range(-damageOffset, damageOffset + 1);
+                int criticalChanceTemporal = Random.Range(0, 100);
+
+                if (criticalChanceTemporal < criticalChance)
+                {
+                    damageFinal = (Damage + offset) * 2;
+                    EnemyNPC.TakeDamage(damageFinal, Color.yellow);
+                }
+                else
+                {
+                    damageFinal = Damage + offset;
+                    EnemyNPC.TakeDamage(damageFinal, Color.white);
+                }
+
             }
             //If he's dead, then forget about him
             missed = false;

@@ -6,13 +6,14 @@ public class RadialMenu_GUI : MonoBehaviour
     LookDirectionsAndOrder lookD;
     // Radial Menu Stuff
     RadialMenu_GUI_BASE[] radialPart = new RadialMenu_GUI_BASE[4];
-    Canvas radialCanvas, backgroundCanvas, robotsCanvas;
+    RadialMenu_Quickslot quickSlot;
+    Canvas radialCanvas, backgroundCanvas, robotsCanvas, quickSlotCanvas;
     private Vector2 Mouseposition;
     public Vector2 fromVector2M = new Vector2(0.5f, 1.0f);
     public Vector2 centercircle = new Vector2(0.5f, 0.5f);
     public Vector2 toVector2M;
     private int menuItems;
-    private int curMenuItem;
+    private int curMenuItem = 0;
     private int oldMenuItem;
 
     bool enabled;
@@ -31,9 +32,12 @@ public class RadialMenu_GUI : MonoBehaviour
         radialPart[3] = transform.GetChild(0).Find("4Base").GetComponent<RadialMenu_GUI_BASE>();
         army = FindObjectOfType<Army>();
         lookD = FindObjectOfType<LookDirectionsAndOrder>();
-        radialCanvas = transform.GetChild(0).GetComponent<Canvas>();
-        backgroundCanvas = transform.GetChild(1).GetComponent<Canvas>();
-        robotsCanvas = transform.GetChild(2).GetComponent<Canvas>();
+
+        radialCanvas = transform.Find("Canvas").GetComponent<Canvas>();
+        backgroundCanvas = transform.Find("CanvasBackground").GetComponent<Canvas>();
+        robotsCanvas = transform.Find("CanvasRobots").GetComponent<Canvas>();
+        quickSlotCanvas = transform.Find("CanvasQuickslot").GetComponent<Canvas>();
+        quickSlot = transform.Find("CanvasQuickslot").GetComponent<RadialMenu_Quickslot>();
         menuItems = radialPart.Length;
     }
 
@@ -43,24 +47,38 @@ public class RadialMenu_GUI : MonoBehaviour
         {
             GetCurrentMenuItem();
         }
+        if (army.currentFighter != null)
+        {
+            quickSlot.background.sprite = quickSlot.backgroundSelected;
+        }
+        else
+        {
+            quickSlot.background.sprite = quickSlot.backgroundNormal;
+        }
+
     }
     public void PopUp()
     {
         radialCanvas.enabled = true;
         backgroundCanvas.enabled = true;
         robotsCanvas.enabled = true;
+        quickSlotCanvas.enabled = false;
         enabled = true;
     }
 
     public int PopDown()
     {
         GetCurrentMenuItem();
+        UpdateState();
         radialCanvas.enabled = false;
         backgroundCanvas.enabled = false;
         robotsCanvas.enabled = false;
+        quickSlotCanvas.enabled = true;
+
         enabled = false;
         return curMenuItem;
     }
+
     public void GetCurrentMenuItem()
     {
         float angle = 0;
@@ -76,7 +94,7 @@ public class RadialMenu_GUI : MonoBehaviour
             toVector2M = new Vector2(Mouseposition.x / Screen.width, Mouseposition.y / Screen.height);
             angle = Mathf.Atan2(fromVector2M.y - centercircle.y, fromVector2M.x - centercircle.x) - Mathf.Atan2(toVector2M.y - centercircle.y, toVector2M.x - centercircle.x) * Mathf.Rad2Deg;
         }
-
+        angle += 135;
         if (angle < 0) { angle += 360; }
 
         curMenuItem = (int)(angle / (360 / menuItems));
@@ -101,6 +119,7 @@ public class RadialMenu_GUI : MonoBehaviour
             radialPart[i].UISetRobot(army.getCells()[i].getRobotType()); // sets robot type
             radialPart[i].UISetAmountOfRobots(army.getCells()[i].getRobotQuantity());
         }
+        quickSlot.UISetRobot(radialPart[curMenuItem].GetRobotType());
     }
 
     private void CurrentButtonVisualFeedback()

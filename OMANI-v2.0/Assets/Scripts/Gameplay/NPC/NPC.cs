@@ -26,7 +26,7 @@ public class NPC : MonoBehaviour
 
 
     // DAMAGE More useless variables
-    float laser_damage;
+    float acumulatedDamage;
 
     //Required for run animations synced with NevMesh
     [HideInInspector]
@@ -335,6 +335,7 @@ public class NPC : MonoBehaviour
     {
         numberPool.NumberSpawn(numbersTransform, damage, damageType, numbersTransform.gameObject);
 
+
         StartCoroutine(gotHit());
         if (state == "Alive")
         {
@@ -353,17 +354,17 @@ public class NPC : MonoBehaviour
     }
 
     //Max damage is decided by the laser, in case of future upgrades to the Laser. 
-    public virtual void TakeWeakLaserDamage(float damage, int maxDamage)
+    public virtual void TakeWeakLaserDamage(float _laserSpeed, int _Damage)
     {
         if (state == "Alive")
         {
-            laser_damage += damage * Time.unscaledDeltaTime;
+            acumulatedDamage += (_laserSpeed * Time.unscaledDeltaTime) * _Damage;
 
-            if (laser_damage > maxDamage)
+            if (acumulatedDamage > _Damage / _laserSpeed)
             {
-                TakeDamage(maxDamage, Color.white);
+                TakeDamage(Mathf.RoundToInt(_Damage / _laserSpeed), Color.white);
                 //Reset
-                laser_damage = 0;
+                acumulatedDamage = 0;
             }
         }
 
@@ -396,7 +397,7 @@ public class NPC : MonoBehaviour
         }
         life = 0;
         anim.SetTrigger("Die");
-        
+
         Nav.isStopped = true;
         Nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }

@@ -1,8 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using BehaviorDesigner.Runtime.Tasks;
-using BehaviorDesigner.Runtime;
 
 public class Corruption : Enemy
 {
@@ -12,9 +9,10 @@ public class Corruption : Enemy
     float playerspeed;
     CharacterMovement CM;
     bool dead = false;
+    Collider coll;
     public override void Update()
     {
-      
+
     }
     public override void AttackHit()
     {
@@ -23,7 +21,12 @@ public class Corruption : Enemy
     public override void Start()
     {
         CM = FindObjectOfType<CharacterMovement>();
-        if (CM!= null) playerspeed = CM.speed;
+        coll = GetComponent<Collider>();
+        if (CM != null)
+        {
+            playerspeed = CM.originalSpeed;
+        }
+
         SM = GetComponentInChildren<SoundsManager>();
         anim = gameObject.GetComponent<Animator>();
         if (transform.Find("UI") != null)
@@ -54,6 +57,8 @@ public class Corruption : Enemy
     {
         dead = true;
         laserTarget.gameObject.SetActive(false);
+        //collider reset
+        coll.enabled = false;
 
         CM.speed = playerspeed;
         anim.SetTrigger("Die");
@@ -64,14 +69,16 @@ public class Corruption : Enemy
 
     private IEnumerator DieTempo()
     {
-        
-            MK.Toon.MKToonMaterialHelper.SetSaturation(Renderer.material, 0);
+
+        MK.Toon.MKToonMaterialHelper.SetSaturation(Renderer.material, 0);
         // suspend execution for 5 seconds
         yield return new WaitForSeconds(5);
         dead = false;
         life = startLife;
         State = "Alive";
         anim.SetTrigger("Resurrect");
+        coll.enabled = true;
+
         MK.Toon.MKToonMaterialHelper.SetSaturation(Renderer.material, 1);
     }
 
@@ -88,22 +95,19 @@ public class Corruption : Enemy
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (IsInLayerMask(other.gameObject, LayerMasktoAttack))
-        {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            {
-                anim.SetTrigger("Attack");
-            }
-        }
     }
     private bool IsInLayerMask(GameObject obj, LayerMask layerMask)
     {
         // Convert the object's layer to a bitfield for comparison
         int objLayerMask = (1 << obj.layer);
         if ((layerMask.value & objLayerMask) > 0)  // Extra round brackets required!
+        {
             return true;
+        }
         else
+        {
             return false;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -127,18 +131,33 @@ public class Corruption : Enemy
     {
         if (!dead)
         {
-                if (IsInLayerMask(other.gameObject, LayerMasktoAttack))
+            if (IsInLayerMask(other.gameObject, LayerMasktoAttack))
             {
-                if (CM != null)
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
                 {
-                    CM.speed = 0.05f;
-                }
-                else
-                {
-                    CM = FindObjectOfType<CharacterMovement>();
-                    if (CM.speed > 0.05f)
+                    if (other.GetComponent<Corruption>() == null)
                     {
-                        playerspeed = CM.speed;
+                        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                        {
+                            anim.SetTrigger("Attack");
+                        }
+                    }
+                }
+
+                //check for player and robot
+                if (other.CompareTag("Player"))
+                {
+                    if (CM != null)
+                    {
+                        CM.speed = 0.05f;
+                    }
+                    else
+                    {
+                        CM = FindObjectOfType<CharacterMovement>();
+                        if (CM.speed > 0.05f)
+                        {
+                            playerspeed = CM.originalSpeed;
+                        }
                     }
                 }
             }

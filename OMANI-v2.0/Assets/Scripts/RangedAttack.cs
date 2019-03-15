@@ -1,18 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using BehaviorDesigner.Runtime.Tasks;
-using BehaviorDesigner.Runtime;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class RangedAttack : MonoBehaviour {
-    
+public class RangedAttack : MonoBehaviour
+{
+
     [SerializeField] bool Knockback;
-    [SerializeField] int Damage = 1;
+    [SerializeField] int Damage = 1, damageOffset = 1, criticalChance = 10;
     [SerializeField] NPC thisNpcScript;
     [SerializeField] LayerMask LayerMasktoAttack;
     AudioSource AudiosSource;
-
 
     private void Start()
     {
@@ -27,7 +23,7 @@ public class RangedAttack : MonoBehaviour {
         }
         if (IsInLayerMask(other.gameObject, LayerMasktoAttack))
         {
-            
+
             var EnemyNPC = other.GetComponent<NPC>();
             var EnemyNavMesh = other.GetComponent<NavMeshAgent>();
             if (Damage == 0)
@@ -43,9 +39,22 @@ public class RangedAttack : MonoBehaviour {
             }
             else
             {
-                EnemyNPC.TakeDamage(Damage, Color.white);
+                int damageFinal;
+                int offset = Random.Range(-damageOffset, damageOffset + 1);
+                int criticalChanceTemporal = Random.Range(0, 100);
+
+                if (criticalChanceTemporal < criticalChance)
+                {
+                    damageFinal = (Damage + offset) * 2;
+                    EnemyNPC.TakeDamage(damageFinal, Color.yellow);
+                }
+                else
+                {
+                    damageFinal = Damage + offset;
+                    EnemyNPC.TakeDamage(damageFinal, Color.white);
+                }
             }
-            
+
 
         }
     }
@@ -55,8 +64,12 @@ public class RangedAttack : MonoBehaviour {
         // Convert the object's layer to a bitfield for comparison
         int objLayerMask = (1 << obj.layer);
         if ((layerMask.value & objLayerMask) > 0)  // Extra round brackets required!
+        {
             return true;
+        }
         else
+        {
             return false;
+        }
     }
 }

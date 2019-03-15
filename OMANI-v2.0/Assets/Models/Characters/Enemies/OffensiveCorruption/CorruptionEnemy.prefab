@@ -245,7 +245,7 @@ Transform:
   m_GameObject: {fileID: 8981648752296451589}
   m_LocalRotation: {x: -0, y: -0.99950165, z: 0, w: -0.03156776}
   m_LocalPosition: {x: -8.29, y: 3.7626, z: -10.41}
-  m_LocalScale: {x: 2.31147, y: 2.3114705, z: 2.31147}
+  m_LocalScale: {x: 3.467205, y: 3.4672058, z: 3.467205}
   m_Children:
   - {fileID: 8981648752775147229}
   - {fileID: 8981648752315033799}
@@ -304,8 +304,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.79
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.45
+  m_Center: {x: 0, y: 0.61, z: 0}
 --- !u!114 &8981648752296451594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +362,7 @@ MonoBehaviour:
   Slash: {fileID: 0}
   LayerMasktoAttack:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
 --- !u!1 &8981648752315033798
 GameObject:
   m_ObjectHideFlags: 0
@@ -10127,7 +10127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8981648753057932759
 Transform:
   m_ObjectHideFlags: 0
@@ -10157,9 +10157,11 @@ MonoBehaviour:
   Knockback: 0
   ActiveHitboxTime: 0.1
   Damage: 15
+  damageOffset: 5
+  criticalChance: 5
   LayerMasktoAttack:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
   PowerUp: 0
   Effect: {fileID: 8981648752639423622}
   thisNpcScript: {fileID: 8981648752296451594}
@@ -10175,7 +10177,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.75
+  m_Radius: 0.45
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8981648753109096475
 GameObject:

@@ -72,7 +72,7 @@ public class LaserColisionStandard : MonoBehaviour
         //Energy
         if (enemy != null)
         {
-            enemy.TakeWeakLaserDamage(4f, 1);
+            enemy.TakeWeakLaserDamage(2f, 4);
 
         }
         if (interactible != null)
