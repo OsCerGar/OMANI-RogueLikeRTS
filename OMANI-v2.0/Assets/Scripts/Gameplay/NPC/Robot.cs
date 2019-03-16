@@ -21,7 +21,7 @@ public class Robot : NPC
     private float materializeCounter;
     [SerializeField]
     private ParticleSystem DeathExplosion;
-
+    bool materialize;
     public Transform ball;
 
     //reclute pool fix
@@ -68,7 +68,27 @@ public class Robot : NPC
         {
             GUI_Script.DisableCircle();
         }
-
+        if (materialize)
+        {
+            if (materializeCounter > 0)
+            {
+                materializeCounter -= Time.deltaTime * 2f;
+                MK.Toon.MKToonMaterialHelper.SetDissolveAmount(Renderer.material, materializeCounter);
+            }
+        }
+        else
+        {
+            
+            if (materializeCounter < 1)
+            {
+                materializeCounter += Time.deltaTime * 2f;
+                MK.Toon.MKToonMaterialHelper.SetDissolveAmount(Renderer.material, materializeCounter);
+            }
+            else
+            {
+                transform.gameObject.SetActive(false);
+            }
+        }
     }
 
     public virtual void Dematerialize()
@@ -80,7 +100,11 @@ public class Robot : NPC
         //hago esto de la posicion porque le quito el parent en el start
         workerSM.transform.position = transform.position;
         workerSM.Dematerialize();
-        StartCoroutine(Dematerialize(0.1f));
+
+        DematerializeParticleSystem.Play();
+        materialize = false;
+
+        Idle();
 
     }
 
@@ -91,11 +115,11 @@ public class Robot : NPC
         transform.position = _ShootingPosition.transform.position;
         transform.gameObject.SetActive(true);
         workerSM.Dematerialize();
-
         anim.Rebind();
+        MaterializeParticleSystem.Play();
 
 
-        StartCoroutine(Materialize(0.1f));
+        materialize = true;
         //Disables everything.
 
         Follow(_ShootingPosition, _miradaPosition);
@@ -185,30 +209,4 @@ public class Robot : NPC
         Fired();
     }
 
-    private IEnumerator Dematerialize(float waitTime)
-    {
-        DematerializeParticleSystem.Play();
-        while (materializeCounter < 1)
-        {
-            materializeCounter += waitTime;
-            MK.Toon.MKToonMaterialHelper.SetDissolveAmount(Renderer.material, materializeCounter);
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
-        transform.gameObject.SetActive(false);
-
-
-    }
-    private IEnumerator Materialize(float waitTime)
-    {
-
-        MaterializeParticleSystem.Play();
-        while (materializeCounter > 0)
-        {
-            materializeCounter -= waitTime;
-            MK.Toon.MKToonMaterialHelper.SetDissolveAmount(Renderer.material, materializeCounter);
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
-
-
-    }
 }

@@ -34,6 +34,8 @@ public class Be_RootMotion : StateMachineBehaviour {
             rb.isKinematic = true;
             //NAgent.updatePosition = true;
             npcScript.RootMotion = false;
+
+            npcScript.Nav.nextPosition = npcScript.transform.position;
             npcScript.Nav.updateRotation = true;
             npcScript.Nav.updatePosition = true;
            
