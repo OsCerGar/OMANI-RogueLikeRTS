@@ -25,26 +25,30 @@ public class PeoplePool : MonoBehaviour
 
     }
 
-    public void Spawn(Transform tr, Vector3 ps, string _name)
+    public GameObject Spawn(Transform tr, Vector3 ps, string _name)
     {
         if (_name == "Worker" || _name == "worker")
         {
-            WorkerSpawn(tr, ps);
+            return WorkerSpawn(tr, ps);
         }
         if (_name == "Warrior" || _name == "warrior")
         {
-            WarriorSpawn(tr);
+            return WarriorSpawn(tr);
         }
+        return null;
     }
 
-    public void WorkerSpawn(Transform tr, Vector3 ps)
+    public GameObject WorkerSpawn(Transform tr, Vector3 ps)
     {
         Worker.TryGetNextObject(ps, tr.rotation, out Spawned);
-
+        return Spawned;
     }
-    public void WarriorSpawn(Transform tr)
+
+    public GameObject WarriorSpawn(Transform tr)
     {
         Warrior.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+        return Spawned;
+
     }
 
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 public class Robot : NPC
 {
@@ -26,6 +25,9 @@ public class Robot : NPC
 
     //reclute pool fix
     public bool recluted;
+
+    public delegate void DieEvent(GameObject _robot);
+    public static event DieEvent OnDie;
 
     public void Sparks()
     {
@@ -78,7 +80,7 @@ public class Robot : NPC
         }
         else
         {
-            
+
             if (materializeCounter < 1)
             {
                 materializeCounter += Time.deltaTime * 2f;
@@ -170,6 +172,10 @@ public class Robot : NPC
         DeathExplosion.Play();
         transform.gameObject.SetActive(false);
 
+        if (OnDie != null)
+        {
+            OnDie(this.gameObject);
+        }
 
     }
 

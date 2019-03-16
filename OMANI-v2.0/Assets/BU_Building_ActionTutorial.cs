@@ -56,30 +56,7 @@ public class BU_Building_ActionTutorial : Interactible
     {
         if (!fullActioned)
         {
-            if (!animator.GetBool("Energy") && powerReduced < price)
-            {
-                animator.Play("PilarDown", 0, powerReduced / price);
-
-                if (Time.time - actionDone > 0.1f)
-                {
-                    if (powerReduced > 1f)
-                    {
-                        firstTimepowerReduced = true;
-                        pilarReturned.enabled = false;
-                        pilarmovement.volume = 0.07f;
-                        pilarmovement.pitch = 0.8f;
-                    }
-                    else
-                    {
-                        if (firstTimepowerReduced)
-                        {
-                            firstTimepowerReduced = false;
-                            pilarReturned.enabled = true;
-                        }
-                        pilarmovement.volume = 0f;
-                    }
-                }
-            }
+            Link();
 
             base.LateUpdate();
 
@@ -93,12 +70,45 @@ public class BU_Building_ActionTutorial : Interactible
                 //fullActioned = false;
             }
 
-            currentLerpTime += Time.deltaTime;
-            float t = currentLerpTime / lerpTime;
-            t = Mathf.Sin(t * Mathf.PI * 0.0025f);
+            FullActionLink();
+        }
+    }
 
-            latestFullActionPowerReduced = Mathf.Lerp(latestFullActionPowerReduced, 1, t);
-            animator.Play("PilarDown", 0, latestFullActionPowerReduced);
+    private void FullActionLink()
+    {
+        currentLerpTime += Time.deltaTime;
+        float t = currentLerpTime / lerpTime;
+        t = Mathf.Sin(t * Mathf.PI * 0.0025f);
+
+        latestFullActionPowerReduced = Mathf.Lerp(latestFullActionPowerReduced, 1, t);
+        animator.Play("PilarDown", 0, latestFullActionPowerReduced);
+    }
+
+    private void Link()
+    {
+        if (!animator.GetBool("Energy") && powerReduced < price)
+        {
+            animator.Play("PilarDown", 0, powerReduced / price);
+
+            if (Time.time - actionDone > 0.1f)
+            {
+                if (powerReduced > 1f)
+                {
+                    firstTimepowerReduced = true;
+                    pilarReturned.enabled = false;
+                    pilarmovement.volume = 0.07f;
+                    pilarmovement.pitch = 0.8f;
+                }
+                else
+                {
+                    if (firstTimepowerReduced)
+                    {
+                        firstTimepowerReduced = false;
+                        pilarReturned.enabled = true;
+                    }
+                    pilarmovement.volume = 0f;
+                }
+            }
         }
     }
 
@@ -147,7 +157,10 @@ public class BU_Building_ActionTutorial : Interactible
         //parentResources.buildingDistrict.energyUpdateReduced();
         base.ActionCompleted();
 
+    }
 
+    private void disableButton()
+    {
         foreach (Material mat in renderere.materials)
         {
             MK.Toon.MKToonMaterialHelper.SetEmissionColor(mat, Color.black);
@@ -164,6 +177,19 @@ public class BU_Building_ActionTutorial : Interactible
         laserTarget.gameObject.SetActive(false);
         enabled = false;
         GetComponent<BoxCollider>().enabled = false;
+    }
+    public void enableButton()
+    {
+        foreach (Material mat in renderere.materials)
+        {
+            MK.Toon.MKToonMaterialHelper.SetEmissionColor(mat, Color.green);
+            MK.Toon.MKToonMaterialHelper.SetOutlineColor(mat, Color.green);
+        }
+
+        laserTarget.gameObject.SetActive(true);
+        enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
+        Ready();
     }
 
     public void StopWorkingAnimator()

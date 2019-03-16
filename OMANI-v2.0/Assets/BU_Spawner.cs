@@ -6,6 +6,7 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
 {
     [SerializeField] GameObject SpawnPoint;
     PeoplePool peoplePool;
+    BU_Building_ActionTutorial tutorialButton;
 
     [SerializeField]
     bool summons;
@@ -13,11 +14,33 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
 
     [SerializeField]
     string whatToSummon;
+    GameObject worker;
+
+    void OnEnable()
+    {
+        Robot.OnDie += robotDied;
+    }
+
+
+    void OnDisable()
+    {
+        Robot.OnDie -= robotDied;
+    }
+
+    void robotDied(GameObject _robot)
+    {
+        if (_robot = worker)
+        {
+            summoned = false;
+            tutorialButton.enableButton();
+        }
+    }
 
     public override void Start()
     {
         base.Start();
         peoplePool = FindObjectOfType<PeoplePool>();
+        tutorialButton = GetComponentInChildren<BU_Building_ActionTutorial>();
 
     }
     public override void BuildingAction()
@@ -37,7 +60,7 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
     IEnumerator SpawnRoutine()
     {
         yield return new WaitForSeconds(2f);
-        peoplePool.Spawn(transform, new Vector3(SpawnPoint.transform.position.x, SpawnPoint.transform.position.y, SpawnPoint.transform.position.z), whatToSummon);
-
+        worker = peoplePool.Spawn(transform, new Vector3(SpawnPoint.transform.position.x, SpawnPoint.transform.position.y, SpawnPoint.transform.position.z), whatToSummon);
+        tutorialButton.enableButton();
     }
 }

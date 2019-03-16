@@ -8,7 +8,7 @@ public class CharacterMovement : MonoBehaviour
     Rigidbody rb;
     LookDirectionsAndOrder LookDirection;
     
-    public float speed = 0.073f, originalSpeed = 0.073f, smooth = 5f;
+    public float speed = 0.073f, originalSpeed = 6f, smooth = 5f;
     [SerializeField]
     private float minDistanceToGround, maxDistanceToGround;
     CharacterController controller;
@@ -60,7 +60,6 @@ public class CharacterMovement : MonoBehaviour
     //Function in charge of the Main Character movement. Sends commands to the animator and allows the character to rotate.
     void MovementController()
     {
-        //MOVEMENT IF NOT ROLLIN
         // If the axis has any sort of input on WASD.
         if (movementAxis.x != 0f || movementAxis.y != 0f)
         {
@@ -77,8 +76,9 @@ public class CharacterMovement : MonoBehaviour
                 }
             }
 
-            desiredDirection.y -= 2 * Time.deltaTime;
-            controller.Move(desiredDirection * speed);
+            desiredDirection.y -= 1 * Time.deltaTime;
+
+            controller.Move(desiredDirection * speed * Time.deltaTime);
             Rotate(desiredDirection);
 
         }
@@ -86,6 +86,8 @@ public class CharacterMovement : MonoBehaviour
         // If the axis has any sort of input on Joystick.
         else if (movementAxisController.x > 0.2f || movementAxisController.x < -0.2f || movementAxisController.y > 0.2f || movementAxisController.y < -0.2f)
         {
+
+
             if (controller.isGrounded)
             {
                 onMovement = true;
@@ -101,7 +103,7 @@ public class CharacterMovement : MonoBehaviour
             }
             desiredDirection.y -= 1 * Time.deltaTime;
 
-            controller.Move(desiredDirection * speed);
+            controller.Move(desiredDirection * speed * Time.deltaTime);
 
             LookDirection.LookAtWhileMoving(movementAxisController.x, movementAxisController.y);
             Rotate(desiredDirection);

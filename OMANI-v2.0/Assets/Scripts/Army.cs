@@ -75,9 +75,9 @@ public class Army : MonoBehaviour
     private void Inputs()
     {
         if (Input.GetAxis("L2") > 0.5f) { if (!pressedL2) { radialMenuPopUp(); pressedL2 = true; } }
-        if (Input.GetAxis("L2") < 0.25f) { if (pressedL2) { radialMenuPopDown(); pressedL2 = false; } }
+        if (Input.GetAxis("L2") < 0.25f) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
         if (Input.GetMouseButtonDown(2)) { radialMenuPopUp(); }
-        if (Input.GetMouseButtonUp(2)) { radialMenuPopDown(); }
+        if (Input.GetMouseButtonUp(2)) { radialMenuPopDown(null); }
         if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("Summon")) { SummonRobot(); }
 
     }
@@ -89,9 +89,18 @@ public class Army : MonoBehaviour
     }
 
     //Makes the RadialMenu invisible and gets the selected menu item.
-    private void radialMenuPopDown()
+    public void radialMenuPopDown(int? _newSelected)
     {
-        int newArmyCellSelected = radialMenu.PopDown();
+        int newArmyCellSelected;
+
+        if (_newSelected == null)
+        {
+            newArmyCellSelected = radialMenu.PopDown();
+        }
+        else
+        {
+            newArmyCellSelected = (int)_newSelected;
+        }
 
         // Debería deseleccionar.
         //If currentFighter tiene toda la energia, debería desmaterializarse y volver.

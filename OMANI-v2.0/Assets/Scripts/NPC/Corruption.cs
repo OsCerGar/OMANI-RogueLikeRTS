@@ -149,12 +149,12 @@ public class Corruption : Enemy
                 {
                     if (CM != null)
                     {
-                        CM.speed = 0.05f;
+                        CM.speed = 2f;
                     }
                     else
                     {
                         CM = FindObjectOfType<CharacterMovement>();
-                        if (CM.speed > 0.05f)
+                        if (CM.speed > 2f)
                         {
                             playerspeed = CM.originalSpeed;
                         }

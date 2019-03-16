@@ -18,6 +18,8 @@ public class RadialMenu_GUI : MonoBehaviour
 
     bool enabled;
 
+    private Vector2 DPAD;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +58,37 @@ public class RadialMenu_GUI : MonoBehaviour
             quickSlot.background.sprite = quickSlot.backgroundNormal;
         }
 
+        //Inputs
+        Inputs();
     }
+
+    private void Inputs()
+    {
+        AxisUpdate();
+        if (DPAD.x == 1) { menuItem(1); }
+        if (DPAD.x == -1) { menuItem(3); }
+        if (DPAD.y == 1) { menuItem(0); }
+        if (DPAD.y == -1) { menuItem(2); }
+        if (Input.GetKeyDown("1")) { menuItem(0); }
+        if (Input.GetKeyDown("2")) { menuItem(1); }
+        if (Input.GetKeyDown("3")) { menuItem(2); }
+        if (Input.GetKeyDown("4")) { menuItem(3); }
+    }
+    private void AxisUpdate()
+    {
+        DPAD = new Vector2();
+        DPAD.x = Input.GetAxis("DPADHorizontal");
+        DPAD.y = Input.GetAxis("DPADVertical");
+    }
+
+    private void menuItem(int i)
+    {
+        oldMenuItem = curMenuItem;
+        curMenuItem = i;
+        UpdateState();
+        army.radialMenuPopDown(curMenuItem);
+    }
+
     public void PopUp()
     {
         radialCanvas.enabled = true;

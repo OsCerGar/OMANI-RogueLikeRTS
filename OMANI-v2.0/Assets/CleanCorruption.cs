@@ -16,9 +16,7 @@ public class CleanCorruption : MonoBehaviour
     float dissolveDistance;
     Light Pointlight;
     
-    
 
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +38,8 @@ public class CleanCorruption : MonoBehaviour
             renderer.shadowCastingMode = ShadowCastingMode.Off;
             
         }
+
+        DissolveAndClear();
     }
 
 
