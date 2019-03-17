@@ -11,12 +11,13 @@ public class Robot_Energy : Interactible
     public override void Start()
     {
         base.Start();
-        price = 75;
-        linkPrice = 2;
-        finalLinkPrice = 7;
+        _robot = GetComponent<Robot>();
+
+        price = _robot.maxpowerPool;
+        linkPrice = 15;
+        finalLinkPrice = 60;
         currentLinkPrice = 0;
         t = 0.2f;
-        _robot = GetComponent<Robot>();
         workerSM = _robot.workerSM;
 
     }
