@@ -64,7 +64,7 @@ public class Player : NPC
         yield return new WaitForSeconds(5f);
         if (state != "Dead")
         {
-            characterMovement.speed = 0.073f;
+            characterMovement.speed = characterMovement.originalSpeed;
             powers.enabled = true;
             powers.powerPool = 25;
         }

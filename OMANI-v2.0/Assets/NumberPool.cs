@@ -10,7 +10,7 @@ public class NumberPool : MonoBehaviour
     List<NumberScript> texts = new List<NumberScript>();
     Transform camera;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         var AllPoolers = FindObjectsOfType<EZObjectPool>();
         camera = Camera.main.transform;

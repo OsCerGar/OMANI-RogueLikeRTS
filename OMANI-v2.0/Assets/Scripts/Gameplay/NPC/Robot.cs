@@ -168,7 +168,6 @@ public class Robot : NPC
 
     public override void Die()
     {
-        Debug.Log("Die");
         DeathExplosion.transform.parent = null;
         DeathExplosion.transform.position = transform.position + Vector3.up * 2;
         DeathExplosion.Play();

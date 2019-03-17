@@ -141,25 +141,21 @@ public class BU_Building_ActionTutorial : Interactible
             pilarmovement.volume = 0.5f;
 
         }
-        else if (!animator.GetBool("Energy"))
-        {
-            //animator.SetTrigger("NotReady");
-        }
+
     }
 
     public override void ActionCompleted()
     {
         BuildingAction();
-        readyToSpawn = false;
-        fullActioned = false;
+        //readyToSpawn = false;
+        //fullActioned = false;
 
-        //parentResources.buildingDistrict.removeEnergy(parentResources.requiredEnergy);
-        //parentResources.buildingDistrict.energyUpdateReduced();
         base.ActionCompleted();
+        disableButton();
 
     }
 
-    private void disableButton()
+    public void disableButton()
     {
         foreach (Material mat in renderere.materials)
         {
@@ -174,8 +170,9 @@ public class BU_Building_ActionTutorial : Interactible
         {
             instructions.SetActive(false);
         }
+
         laserTarget.gameObject.SetActive(false);
-        enabled = false;
+        //enabled = false;
         GetComponent<BoxCollider>().enabled = false;
     }
     public void enableButton()
@@ -187,7 +184,7 @@ public class BU_Building_ActionTutorial : Interactible
         }
 
         laserTarget.gameObject.SetActive(true);
-        enabled = true;
+        //enabled = true;
         GetComponent<BoxCollider>().enabled = true;
         Ready();
     }
@@ -195,7 +192,7 @@ public class BU_Building_ActionTutorial : Interactible
     public void StopWorkingAnimator()
     {
         animator.SetBool("Energy", true);
-        currentLinkPrice = 0;
+        //currentLinkPrice = 0;
     }
     public void Ready()
     {

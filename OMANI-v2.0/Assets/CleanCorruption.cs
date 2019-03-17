@@ -15,8 +15,9 @@ public class CleanCorruption : MonoBehaviour
     EnemyPooler EnemyPooler;
     float dissolveDistance;
     Light Pointlight;
-    
 
+    [SerializeField]
+    GameObject enemies;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,8 +54,13 @@ public class CleanCorruption : MonoBehaviour
         {
             timeline.TPlay();
         }
+        if (enemies != null)
+        {
+            enemies.SetActive(true);
+        }
         StartCoroutine(Dematerialize(0.2f));
     }
+
     private IEnumerator Dematerialize(float DistanceGrower)
     {
         dissolveDistance = 8;

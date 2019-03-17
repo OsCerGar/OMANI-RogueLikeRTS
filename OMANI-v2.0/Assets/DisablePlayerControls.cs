@@ -23,8 +23,12 @@ public class DisablePlayerControls : MonoBehaviour
 
         originalspeed = movement.speed;
         movement.speed = 0;
-        MouseSprite.enabled = false;
-        MouseSprite2.enabled = false;
+        if (MouseSprite != null)
+        {
+
+            MouseSprite.enabled = false;
+            MouseSprite2.enabled = false;
+        }
         //disablespowers
 
         //enablesspowers
@@ -38,8 +42,11 @@ public class DisablePlayerControls : MonoBehaviour
     {
 
         movementSpeedBack();
-        MouseSprite.enabled = true;
-        MouseSprite2.enabled = true;
+        if (MouseSprite != null)
+        {
+            MouseSprite.enabled = true;
+            MouseSprite2.enabled = true;
+        }
 
         //enablesspowers
         if (powers != null)

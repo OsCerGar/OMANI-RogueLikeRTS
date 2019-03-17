@@ -4,7 +4,7 @@ using UnityEngine;
 public class PeoplePool : MonoBehaviour
 {
 
-    EZObjectPool Worker, Warrior;
+    EZObjectPool Worker, Warrior, Shooter;
     GameObject Spawned;
 
     // Use this for initialization
@@ -21,6 +21,10 @@ public class PeoplePool : MonoBehaviour
             {
                 Warrior = item;
             }
+            if (item.PoolName == "Shooter")
+            {
+                Shooter = item;
+            }
         }
 
     }
@@ -34,6 +38,10 @@ public class PeoplePool : MonoBehaviour
         if (_name == "Warrior" || _name == "warrior")
         {
             return WarriorSpawn(tr);
+        }
+        if (_name == "Shooter" || _name == "shooter")
+        {
+            return ShooterSpawn(tr);
         }
         return null;
     }
@@ -50,5 +58,10 @@ public class PeoplePool : MonoBehaviour
         return Spawned;
 
     }
+    public GameObject ShooterSpawn(Transform tr)
+    {
+        Shooter.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+        return Spawned;
 
+    }
 }

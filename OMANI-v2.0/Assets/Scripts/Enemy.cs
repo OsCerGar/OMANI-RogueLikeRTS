@@ -3,9 +3,16 @@ using UnityEngine;
 
 public class Enemy : NPC
 {
+    public delegate void DieEvent(Enemy _robot);
+    public static event DieEvent OnDie;
+    private Collider col;
+    public delegate void Summoned();
+    public static event Summoned OnSummon;
+
     public Transform laserTarget;
     private void Awake()
     {
+        col = GetComponent<Collider>();
         laserTarget = transform.FindDeepChild("LaserObjective");
         laserTarget.gameObject.SetActive(true);
 
@@ -38,11 +45,33 @@ public class Enemy : NPC
         {
             laserTarget.gameObject.SetActive(true);
         }
+
+        if (OnSummon != null)
+        {
+            OnSummon();
+        }
+        col.enabled = true;
+
     }
+    /*
+    private void OnDisable()
+    {
+        if (OnDie != null)
+        {
+            OnDie(gameObject);
+        }
+    }
+    */
     public override void Die()
     {
         base.Die();
+        col.enabled = false;
         laserTarget.gameObject.SetActive(false);
+
+        if (OnDie != null)
+        {
+            OnDie(this);
+        }
 
     }
 

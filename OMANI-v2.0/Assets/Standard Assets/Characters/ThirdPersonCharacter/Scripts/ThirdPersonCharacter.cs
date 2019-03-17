@@ -23,7 +23,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         Animator anim;
         NavMeshAgent Nav;
 
-        void Start()
+        void Awake()
 		{
 			m_Animator = GetComponent<Animator>();
 			m_Rigidbody = GetComponent<Rigidbody>();

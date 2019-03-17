@@ -77,7 +77,7 @@ public class BU_Building_Action : Interactible
         else
         {
             //If the animation is almost finished.
-            if (latestFullActionPowerReduced > 0.95f)
+            if (latestFullActionPowerReduced >= 0.95f)
             {
                 base.LateUpdate();
 

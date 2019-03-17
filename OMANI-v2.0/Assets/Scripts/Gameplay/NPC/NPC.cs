@@ -178,6 +178,8 @@ public class NPC : MonoBehaviour
         circle = gameObject.GetComponentInChildren<SpriteRenderer>();
         if (transform.Find("UI") != null)
         {
+            numbersTransform = transform.Find("UI").Find("Numbers");
+
             if (transform.Find("UI/SelectionAnimationParent") != null)
             {
                 GUI = transform.Find("UI/SelectionAnimationParent").gameObject;
@@ -194,7 +196,6 @@ public class NPC : MonoBehaviour
             Nav.updateRotation = false;
             // Nav.updatePosition = false;
         }
-        numbersTransform = transform.Find("UI").Find("Numbers");
         numberPool = FindObjectOfType<NumberPool>();
         UI_Attack = GetComponentInChildren<UI_RobotAttack>();
 
@@ -397,7 +398,7 @@ public class NPC : MonoBehaviour
         }
         life = 0;
         anim.SetTrigger("Die");
-
+        
         Nav.isStopped = true;
         Nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }

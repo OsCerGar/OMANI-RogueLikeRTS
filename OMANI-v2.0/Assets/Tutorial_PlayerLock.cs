@@ -16,7 +16,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
     AudioSource wind, music;
     [SerializeField]
     float finalVolume;
-    float originalSpeed;
     float currentLerpTime, lerpTime = 1f;
     bool windDown;
 
@@ -25,7 +24,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     private void Awake()
     {
-        originalSpeed = movement.speed;
         timeline_interface = GetComponent<TIMELINE_INTERFACE>();
         tutorials = transform.Find("Tutorials").gameObject;
         disablePlayer.SetActive(true);
@@ -89,7 +87,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
         if (releasedLegs > 3)
         {
-            movement.speed = originalSpeed;
+            movement.speed = movement.originalSpeed;
         }
     }
 

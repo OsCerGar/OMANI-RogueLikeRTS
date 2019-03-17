@@ -45,7 +45,7 @@ public class Robot_Energy : Interactible
         }
         if (_robot.powerPool - Mathf.Floor(oldPowerPool) >= 0.95f)
         {
-            numberPool.NumberSpawn(numbersTransform, 1, Color.cyan, gameObject);
+            numberPool.NumberSpawn(_robot.numbersTransform, 1, Color.cyan, gameObject);
         }
     }
 
@@ -53,7 +53,7 @@ public class Robot_Energy : Interactible
     {
         _robot.powerPool = powers.reduceAsMuchPower(_robot.maxpowerPool);
 
-        numberPool.NumberSpawn(numbersTransform, powers.reduceAsMuchPower(_robot.maxpowerPool), Color.cyan, gameObject);
+        numberPool.NumberSpawn(_robot.numbersTransform, powers.reduceAsMuchPower(_robot.maxpowerPool), Color.cyan, gameObject);
 
         laserAudio.energyTransmisionSound(currentLinkPrice);
     }
