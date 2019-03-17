@@ -20,7 +20,7 @@ public class Robot : NPC
     private float materializeCounter;
     [SerializeField]
     private ParticleSystem DeathExplosion;
-    bool materialize;
+    bool materialize = true;
     public Transform ball;
 
     //reclute pool fix
@@ -50,11 +50,12 @@ public class Robot : NPC
         commander = FindObjectOfType<Army>();
 
         ball = transform.FindDeepChild("StartSphereMesh");
-
+        
         if (powerPool != maxpowerPool)
         {
             TakeDamage(Mathf.RoundToInt(maxpowerPool), Color.yellow);
         }
+        
     }
 
     public override void AttackHit()
@@ -167,6 +168,7 @@ public class Robot : NPC
 
     public override void Die()
     {
+        Debug.Log("Die");
         DeathExplosion.transform.parent = null;
         DeathExplosion.transform.position = transform.position + Vector3.up * 2;
         DeathExplosion.Play();
