@@ -14,6 +14,7 @@ public class WorkerRoll : MonoBehaviour {
         if (IsInLayerMask(other.gameObject, LayerMasktoAttack))
         {
             thisNpcScript.RollCollision();
+            thisNpcScript.AttackHit();
 
         }
     }
