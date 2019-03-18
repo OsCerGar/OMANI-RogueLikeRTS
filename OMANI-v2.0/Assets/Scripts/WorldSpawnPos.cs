@@ -9,6 +9,10 @@ public class WorldSpawnPos : MonoBehaviour
     EnemyPooler EPool;
     Transform Player;
     [SerializeField] string NameOfEnemyToSpawn;
+
+    public delegate void Summoned();
+    public static event Summoned OnSummon;
+
     private void Start()
     {
         Player = FindObjectOfType<Player>().transform;
@@ -28,6 +32,7 @@ public class WorldSpawnPos : MonoBehaviour
                 {
                     EPool.SpawnEnemy(NameOfEnemyToSpawn, transform);
                     FoundPlayer = true;
+                    OnSummon();
                 }
                 yield return new WaitForSeconds(1f);
             }

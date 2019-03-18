@@ -18,6 +18,11 @@ public class LaserColisionStandard : MonoBehaviour
     Interactible interactible;
     Robot ally;
 
+    [SerializeField]
+    AudioSource laserLoop;
+    [SerializeField]
+    AudioClip regularLaserLoop, interactibleLaserLoop, damageLaserLoop;
+
     private void Awake()
     {
         powerLaser = FindObjectOfType<Power_Laser>();
@@ -118,6 +123,11 @@ public class LaserColisionStandard : MonoBehaviour
                         powerLaser.setWidth(interactible.linkPrice);
                         somethingHitted = true;
                         ConnectedValue(true, interactible.laserTarget);
+                        laserLoop.clip = interactibleLaserLoop;
+                        if (!laserLoop.isPlaying)
+                        {
+                            laserLoop.Play();
+                        }
                     }
 
                 }
@@ -132,6 +142,11 @@ public class LaserColisionStandard : MonoBehaviour
                     enemy.TakeWeakLaserDamage(4f, 1);
                     somethingHitted = true;
                     ConnectedValue(true, enemy.laserTarget);
+                    laserLoop.clip = damageLaserLoop;
+                    if (!laserLoop.isPlaying)
+                    {
+                        laserLoop.Play();
+                    }
                 }
             }
 
@@ -145,6 +160,11 @@ public class LaserColisionStandard : MonoBehaviour
                     ally.robot_energy.Action();
                     somethingHitted = true;
                     ConnectedValue(true, ally.ball);
+                    laserLoop.clip = interactibleLaserLoop;
+                    if (!laserLoop.isPlaying)
+                    {
+                        laserLoop.Play();
+                    }
                 }
             }
 
@@ -157,6 +177,12 @@ public class LaserColisionStandard : MonoBehaviour
                     ally.robot_energy.Action();
                     somethingHitted = true;
                     ConnectedValue(true, ally.ball);
+                    laserLoop.clip = interactibleLaserLoop;
+                    if (!laserLoop.isPlaying)
+                    {
+                        laserLoop.Play();
+                    }
+
                 }
             }
 
@@ -177,7 +203,17 @@ public class LaserColisionStandard : MonoBehaviour
         if (!somethingHitted)
         {
             powerLaser.setWidth(1);
+            laserLoop.clip = regularLaserLoop;
+            if (!laserLoop.isPlaying)
+            {
+                laserLoop.Play();
+            }
+
             //powers.ConnectedValue(false, null);
+        }
+        else
+        {
+
         }
 
 

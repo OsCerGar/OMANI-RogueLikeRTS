@@ -6,8 +6,6 @@ public class Enemy : NPC
     public delegate void DieEvent(Enemy _robot);
     public static event DieEvent OnDie;
     private Collider col;
-    public delegate void Summoned();
-    public static event Summoned OnSummon;
 
     public Transform laserTarget;
     private void Awake()
@@ -39,20 +37,16 @@ public class Enemy : NPC
         Attackzone.SetActive(true);
     }
 
-    private void OnEnable()
+    public virtual void OnEnable()
     {
         if (laserTarget != null)
         {
             laserTarget.gameObject.SetActive(true);
         }
 
-        if (OnSummon != null)
-        {
-            OnSummon();
-        }
         col.enabled = true;
-
     }
+
     /*
     private void OnDisable()
     {

@@ -16,9 +16,12 @@ public class RadialMenu_GUI : MonoBehaviour
     private int curMenuItem = 0;
     private int oldMenuItem;
 
-    bool enabled;
+    bool enabled, quickPlayed;
 
     private Vector2 DPAD;
+
+    [SerializeField]
+    AudioSource openMenuAudio, closeMenuAudio, selectedAudio, selectedAudioEmpty;
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +68,14 @@ public class RadialMenu_GUI : MonoBehaviour
     private void Inputs()
     {
         AxisUpdate();
+        if (quickPlayed)
+        {
+            if (DPAD.x == 0) { menuItem(1); }
+            if (DPAD.x == 0) { menuItem(3); }
+            if (DPAD.y == 0) { menuItem(0); }
+            if (DPAD.y == 0) { menuItem(2); }
+        }
+
         if (DPAD.x == 1) { menuItem(1); }
         if (DPAD.x == -1) { menuItem(3); }
         if (DPAD.y == 1) { menuItem(0); }
@@ -83,6 +94,14 @@ public class RadialMenu_GUI : MonoBehaviour
 
     private void menuItem(int i)
     {
+        if (oldMenuItem != curMenuItem)
+        {
+            if (radialPart[curMenuItem].GetRobotType() != null)
+            {
+                selectedAudio.Play();
+            }
+            else { selectedAudioEmpty.Play(); }
+        }
         oldMenuItem = curMenuItem;
         curMenuItem = i;
         UpdateState();
@@ -96,6 +115,7 @@ public class RadialMenu_GUI : MonoBehaviour
         robotsCanvas.enabled = true;
         quickSlotCanvas.enabled = false;
         enabled = true;
+        openMenuAudio.Play();
     }
 
     public int PopDown()
@@ -106,6 +126,7 @@ public class RadialMenu_GUI : MonoBehaviour
         backgroundCanvas.enabled = false;
         robotsCanvas.enabled = false;
         quickSlotCanvas.enabled = true;
+        closeMenuAudio.Play();
 
         enabled = false;
         return curMenuItem;
@@ -134,6 +155,12 @@ public class RadialMenu_GUI : MonoBehaviour
         if (curMenuItem != oldMenuItem)
         {
             CurrentButtonVisualFeedback();
+            //SelectedPlay
+            if (radialPart[curMenuItem].GetRobotType() != null)
+            {
+                selectedAudio.Play();
+            }
+            else { selectedAudioEmpty.Play(); }
         }
 
     }

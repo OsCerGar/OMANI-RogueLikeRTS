@@ -59,6 +59,8 @@ public class Corruption : Enemy
         laserTarget.gameObject.SetActive(false);
         //collider reset
         coll.enabled = false;
+        //audio
+        SM.Die();
 
         CM.speed = playerspeed;
         anim.SetTrigger("Die");
@@ -66,6 +68,13 @@ public class Corruption : Enemy
 
     }
 
+    public override void OnEnable()
+    {
+        if (laserTarget != null)
+        {
+            laserTarget.gameObject.SetActive(true);
+        }
+    }
 
     private IEnumerator DieTempo()
     {

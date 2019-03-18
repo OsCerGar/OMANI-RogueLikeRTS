@@ -61,6 +61,9 @@ public class CorruptionBoss : Enemy
         //collider reset
         coll.enabled = false;
 
+        //audio
+        SM.Die();
+
         CM.speed = playerspeed;
         anim.SetTrigger("Die");
         Clean.enabled = true;
@@ -114,6 +117,15 @@ public class CorruptionBoss : Enemy
 
         }
     }
+
+    public override void OnEnable()
+    {
+        if (laserTarget != null)
+        {
+            laserTarget.gameObject.SetActive(true);
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (!dead)

@@ -21,6 +21,7 @@ public class Tutorial_Instructions : MonoBehaviour
         {
             if (!Input.GetMouseButton(input))
             {
+                Debug.Log("PCVersion");
                 PCVersion();
             }
             else
@@ -35,13 +36,16 @@ public class Tutorial_Instructions : MonoBehaviour
             {
                 pc = false;
             }
-            if (Input.GetAxis("R2") < 0.5f)
+            if (!pc)
             {
-                ControllerVersion();
-            }
-            else
-            {
-                parent.SetActive(false);
+                if (Input.GetAxis("R2") < 0.5f)
+                {
+                    ControllerVersion();
+                }
+                else
+                {
+                    parent.SetActive(false);
+                }
             }
         }
         if (input == 1)
@@ -50,14 +54,20 @@ public class Tutorial_Instructions : MonoBehaviour
             {
                 pc = false;
             }
-            if (Input.GetAxis("L2") > 0.5f)
+            if (!pc)
             {
-                ControllerVersion();
-                pc = false;
-            }
-            else
-            {
-                parent.SetActive(false);
+
+                if (Input.GetAxis("L2") > 0.5f)
+                {
+
+                    ControllerVersion();
+                    pc = false;
+                }
+                else
+                {
+
+                    parent.SetActive(false);
+                }
             }
         }
         /*if()
@@ -75,6 +85,8 @@ public class Tutorial_Instructions : MonoBehaviour
     }
     void ControllerVersion()
     {
+        Debug.Log("Controller");
+
         parent.SetActive(true);
         pcImage.SetActive(false);
         controllerImage.SetActive(true);

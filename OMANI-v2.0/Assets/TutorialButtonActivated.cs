@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class TutorialButtonActivated : MonoBehaviour
 {
-    BU_Building_ActionTutorial action2;
+    [SerializeField]
+    Collider action2;
     bool done;
     TIMELINE_INTERFACE timeline;
 
     private void Start()
     {
-        action2 = GetComponent<BU_Building_ActionTutorial>();
+        action2 = GetComponent<Collider>();
         timeline = GetComponent<TIMELINE_INTERFACE>();
     }
     // Update is called once per frame

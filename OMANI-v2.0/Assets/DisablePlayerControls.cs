@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-
+﻿using System.Collections.Generic;
+using UnityEngine;
 public class DisablePlayerControls : MonoBehaviour
 {
 
@@ -9,6 +9,10 @@ public class DisablePlayerControls : MonoBehaviour
     public Army army;
     float originalspeed;
 
+    public List<Canvas> canvas;
+
+    [SerializeField]
+    GameObject extras;
     private void OnEnable()
     {
         //!!!!!!!!!!!
@@ -25,17 +29,21 @@ public class DisablePlayerControls : MonoBehaviour
         movement.speed = 0;
         if (MouseSprite != null)
         {
-
             MouseSprite.enabled = false;
             MouseSprite2.enabled = false;
         }
-        //disablespowers
 
-        //enablesspowers
         if (powers != null)
         {
             powers.enabled = false;
         }
+
+        foreach (Canvas canv in canvas)
+        {
+            canv.enabled = false;
+        }
+
+        if (extras != null) { extras.SetActive(false); }
     }
 
     private void OnDisable()
@@ -53,6 +61,14 @@ public class DisablePlayerControls : MonoBehaviour
         {
             powers.enabled = true;
         }
+
+        foreach (Canvas canv in canvas)
+        {
+            canv.enabled = true;
+        }
+
+        if (extras != null) { extras.SetActive(true); }
+
     }
 
     public void movementSpeedBack()

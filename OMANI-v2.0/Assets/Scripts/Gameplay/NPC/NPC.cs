@@ -398,7 +398,10 @@ public class NPC : MonoBehaviour
         }
         life = 0;
         anim.SetTrigger("Die");
-        
+
+
+        //audio
+        SM.Die();
         Nav.isStopped = true;
         Nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }

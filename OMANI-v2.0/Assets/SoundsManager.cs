@@ -1,22 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SoundsManager : MonoBehaviour {
+public class SoundsManager : MonoBehaviour
+{
     public AudioSource AttackAudioSource;
-     public AudioSource StepAudioSource;
+    public AudioSource StepAudioSource;
     [SerializeField] AudioClip[] HitClips;
     [SerializeField] AudioClip[] MissClips;
     [SerializeField] AudioClip[] Steps;
 
-    
+    public AudioSource dieAudio;
 
 
+    public void Die()
+    {
+        if (dieAudio != null)
+        {
+            dieAudio.Play();
+        }
+    }
 
 
     public void AttackHit()
     {
-         if (HitClips.Length > 0)
+        if (HitClips.Length > 0)
         {
             AttackAudioSource.clip = HitClips[Random.Range(0, HitClips.Length)];
             AttackAudioSource.Play();

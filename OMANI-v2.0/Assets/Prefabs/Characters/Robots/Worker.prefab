@@ -48246,9 +48246,9 @@ MonoBehaviour:
   StepAudioSource: {fileID: 0}
   HitClips:
   - {fileID: 8300000, guid: b1f8c692304de42479af0e0c48e8d79d, type: 3}
-  MissClips:
-  - {fileID: 8300000, guid: 6cb1acadbefabbd4d94e9fb2793ca38d, type: 3}
+  MissClips: []
   Steps: []
+  dieAudio: {fileID: 0}
   FlipClip: {fileID: 1596881831}
   robot_selection: {fileID: 2037}
   damageRecieved: {fileID: 2034}
@@ -48744,8 +48744,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_PlayOnAwake: 0
+  m_Volume: 0.498
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -48840,7 +48840,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
@@ -135933,21 +135933,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathExplosion
       objectReference: {fileID: 0}
-    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
-        type: 3}
-      propertyPath: startDelay.scalar
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8089638625762632509, guid: af8df6085d228924a89c006c30a4692a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -136017,6 +136002,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.282956
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
+        type: 3}
+      propertyPath: startDelay.scalar
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1753027832751785166, guid: af8df6085d228924a89c006c30a4692a,
         type: 3}
