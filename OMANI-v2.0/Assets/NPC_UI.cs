@@ -30,21 +30,18 @@ public class NPC_UI : MonoBehaviour
 
         }
         npc = transform.GetComponentInParent<NPC>();
+        powerClock.enabled = true;
+
     }
 
     // Update is called once per frame
     public virtual void LateUpdate()
     {
+        powerClock.fillAmount = npc.powerPool / npc.maxpowerPool;
+        //lastPowerPool = npc.powerPool;
+        //Restores rotation
+        powerClock.transform.rotation = fixedRotation;
 
-        if (lastPowerPool != npc.powerPool)
-        {
-            powerClockHidden = false;
-            powerClock.enabled = true;
-            powerClock.fillAmount = npc.powerPool / npc.maxpowerPool;
-            lastPowerPool = npc.powerPool;
-            //Restores rotation
-            powerClock.transform.rotation = fixedRotation;
-        }
     }
 }
 

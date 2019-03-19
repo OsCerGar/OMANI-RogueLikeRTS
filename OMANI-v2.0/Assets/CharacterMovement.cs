@@ -7,7 +7,7 @@ public class CharacterMovement : MonoBehaviour
 
     Rigidbody rb;
     LookDirectionsAndOrder LookDirection;
-    
+
     public float speed = 0.073f, originalSpeed = 6f, smooth = 5f;
     [SerializeField]
     private float minDistanceToGround, maxDistanceToGround;
@@ -18,7 +18,7 @@ public class CharacterMovement : MonoBehaviour
     //audio
     AudioSource _sand;
     bool onMovement = false;
-    public float onMovementTime;
+    public float onMovementTime, onNoMovementTime = 0;
 
     //Sound events
 
@@ -63,6 +63,9 @@ public class CharacterMovement : MonoBehaviour
         // If the axis has any sort of input on WASD.
         if (movementAxis.x != 0f || movementAxis.y != 0f)
         {
+
+            onNoMovementTime = 0;
+
             if (controller.isGrounded)
             {
                 onMovement = true;
@@ -86,6 +89,7 @@ public class CharacterMovement : MonoBehaviour
         // If the axis has any sort of input on Joystick.
         else if (movementAxisController.x > 0.2f || movementAxisController.x < -0.2f || movementAxisController.y > 0.2f || movementAxisController.y < -0.2f)
         {
+            onNoMovementTime = 0;
 
 
             if (controller.isGrounded)
@@ -117,13 +121,16 @@ public class CharacterMovement : MonoBehaviour
 
         if (onMovement)
         {
-            onMovementTime += Time.deltaTime;
             if (movementAxis.x == 0f && movementAxis.y == 0f)
             {
                 onMovement = false;
                 OnStopping();
                 onMovementTime = 0;
             }
+        }
+        else
+        {
+            onNoMovementTime += Time.deltaTime;
         }
     }
 
