@@ -26,6 +26,10 @@ public class Army : MonoBehaviour
     Powers powers;
     private bool pressedR2, pressedL2, pressedMouse;
 
+
+    [SerializeField]
+    AudioSource summonAndCant;
+
     private void Start()
     {
         look = FindObjectOfType<LookDirectionsAndOrder>();
@@ -234,6 +238,10 @@ public class Army : MonoBehaviour
 
         else
         {
+            if (!summonAndCant.isPlaying)
+            {
+                summonAndCant.Play();
+            }
             //If something is selected
             if (ArmyCellSelected != 4 && armyCell[ArmyCellSelected].getRobotType() != null)
             {

@@ -21,7 +21,6 @@ public class Tutorial_Instructions : MonoBehaviour
         {
             if (!Input.GetMouseButton(input))
             {
-                Debug.Log("PCVersion");
                 PCVersion();
             }
             else
@@ -85,8 +84,6 @@ public class Tutorial_Instructions : MonoBehaviour
     }
     void ControllerVersion()
     {
-        Debug.Log("Controller");
-
         parent.SetActive(true);
         pcImage.SetActive(false);
         controllerImage.SetActive(true);

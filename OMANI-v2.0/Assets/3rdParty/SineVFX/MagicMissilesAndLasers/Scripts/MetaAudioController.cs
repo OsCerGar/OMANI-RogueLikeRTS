@@ -55,6 +55,10 @@ public class MetaAudioController : MonoBehaviour
     {
         globalProgress = 1f;
     }
+    public void ResetLaserProgress(float progress)
+    {
+        globalProgress = progress;
+    }
 
     public void StartSound()
     {

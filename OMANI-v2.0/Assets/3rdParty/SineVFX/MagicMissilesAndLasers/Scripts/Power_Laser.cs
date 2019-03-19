@@ -14,7 +14,7 @@ public class Power_Laser : MonoBehaviour
     private Animator anim;
     private float contador = 0;
     ConLaser CLaser;
-    MetaAudioController AudioControl;
+    public MetaAudioController AudioControl;
     LookDirectionsAndOrder lookdir;
     float widthToSend = 1, scaleToSend = 0.15f;
     public Transform Sphere;
@@ -119,7 +119,7 @@ public class Power_Laser : MonoBehaviour
     }
     public void EmitLaserConnected(Transform endPosition)
     {
-        AudioControl.ResetLaserProgress();
+        AudioControl.ResetLaserProgress(0.25f);
         CLaser.SetGlobalProgress();
         contador = 0.2f;
         anim.SetBool("Fire", true);

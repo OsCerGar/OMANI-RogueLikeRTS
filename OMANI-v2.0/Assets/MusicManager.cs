@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    AudioSource combatMusic, combatStop;
+    AudioSource combatMusic, combatStop, mainTheme;
     bool isPlaying;
     int numberOfEnemies = 0;
 
@@ -30,7 +30,11 @@ public class MusicManager : MonoBehaviour
 
     void enemySummoned()
     {
-        if (!isPlaying) { combatMusic.Play(); isPlaying = true; }
+        if (!isPlaying)
+        {
+            combatMusic.Play(); mainTheme.volume = 0;
+            isPlaying = true;
+        }
         numberOfEnemies++;
     }
 
@@ -39,6 +43,7 @@ public class MusicManager : MonoBehaviour
     {
         combatMusic = transform.Find("CombatMusic").GetComponent<AudioSource>();
         combatStop = transform.Find("CombatMusicStop").GetComponent<AudioSource>();
+        mainTheme = transform.Find("MainTheme").GetComponent<AudioSource>();
     }
 
     private IEnumerator stopMusic()
@@ -49,6 +54,7 @@ public class MusicManager : MonoBehaviour
 
             combatMusic.Stop();
             combatStop.Play();
+            mainTheme.volume = 0.85f;
             isPlaying = false;
         }
     }

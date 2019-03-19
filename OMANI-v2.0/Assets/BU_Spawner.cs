@@ -15,6 +15,9 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
     string whatToSummon;
     GameObject worker;
 
+    [SerializeField]
+    AudioSource idle, summon;
+
     void OnEnable()
     {
         Robot.OnDie += robotDied;
@@ -46,6 +49,10 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
         lastTotalEnergy = 100;
 
     }
+
+    public void IdleStart() { if (!idle.isPlaying) {  idle.Play(); } }
+    public void IdleStop() { if (idle.isPlaying) {  idle.Stop(); } }
+    public void Summon() { if (!summon.isPlaying) { summon.Play(); } }
     public override void BuildingAction()
     {
         if (!summoned)
