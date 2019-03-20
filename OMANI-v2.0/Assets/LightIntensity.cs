@@ -42,7 +42,7 @@ public class LightIntensity : MonoBehaviour
                 t = Mathf.Sin(t * Mathf.PI * 0.0025f);
 
                 //t = Mathf.Sin(t * Mathf.PI * 0.0025f);
-                directional.intensity = Mathf.Lerp(directional.intensity, 1f, t);
+                directional.intensity = Mathf.Lerp(directional.intensity, 1.25f, t);
                 wind.volume = Mathf.Lerp(wind.volume, maxVolume, t);
 
             }

@@ -7,10 +7,18 @@ public class PointerEnabler : MonoBehaviour
 
     private bool state, pressed;
 
+    public bool disablePlayerControl;
+
     private void Update()
     {
-
+        if (!disablePlayerControl) { 
         Inputs();
+        }
+        else
+        {
+            pointer.enabled = false;
+            dots.enabled = false;
+        }
     }
 
     private void Inputs()

@@ -4,7 +4,7 @@ public class DisablePlayerControls : MonoBehaviour
 {
 
     public CharacterMovement movement;
-    public SpriteRenderer MouseSprite, MouseSprite2;
+    public PointerEnabler pointer;
     public Powers powers;
     public Army army;
     float originalspeed;
@@ -13,8 +13,10 @@ public class DisablePlayerControls : MonoBehaviour
 
     [SerializeField]
     GameObject extras;
+
     private void OnEnable()
     {
+        pointer = FindObjectOfType<PointerEnabler>();
         //!!!!!!!!!!!
         if (army == null)
         {
@@ -27,11 +29,7 @@ public class DisablePlayerControls : MonoBehaviour
 
         originalspeed = movement.speed;
         movement.speed = 0;
-        if (MouseSprite != null)
-        {
-            MouseSprite.enabled = false;
-            MouseSprite2.enabled = false;
-        }
+        pointer.disablePlayerControl = true;
 
         if (powers != null)
         {
@@ -50,11 +48,8 @@ public class DisablePlayerControls : MonoBehaviour
     {
 
         movementSpeedBack();
-        if (MouseSprite != null)
-        {
-            MouseSprite.enabled = true;
-            MouseSprite2.enabled = true;
-        }
+        pointer.disablePlayerControl = false;
+
 
         //enablesspowers
         if (powers != null)

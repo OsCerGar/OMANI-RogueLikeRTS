@@ -238,10 +238,6 @@ public class Army : MonoBehaviour
 
         else
         {
-            if (!summonAndCant.isPlaying)
-            {
-                summonAndCant.Play();
-            }
             //If something is selected
             if (ArmyCellSelected != 4 && armyCell[ArmyCellSelected].getRobotType() != null)
             {
@@ -255,6 +251,13 @@ public class Army : MonoBehaviour
                 //Removes from list to update UI, still currentFighter
                 RemoveWithoutFighter(currentFighter);
                 armyCell[ArmyCellSelected].Transaction();
+            }
+            else
+            {
+                if (!summonAndCant.isPlaying)
+                {
+                    summonAndCant.Play();
+                }
             }
 
         }
