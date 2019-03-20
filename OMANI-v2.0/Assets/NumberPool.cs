@@ -24,25 +24,27 @@ public class NumberPool : MonoBehaviour
 
     }
 
-    public void NumberSpawn(Transform tr, float damage_value, Color _type, GameObject numberOwner)
+    public void NumberSpawn(Transform tr, float damage_value, Color _type, GameObject numberOwner, bool _restoring)
     {
         bool alreadyOwned = false;
+
         foreach (NumberScript txt in texts)
         {
             if (txt.GetNumberOwner() == numberOwner)
             {
-                text.transform.position = numberOwner.transform.position;
-                text.transform.LookAt(camera);
-                text.numberUpdate(damage_value, _type);
+                txt.transform.position = numberOwner.transform.position;
+                txt.transform.LookAt(camera);
+                txt.numberUpdate(damage_value, _type, _restoring);
                 alreadyOwned = true;
             }
+
         }
         if (alreadyOwned == false)
         {
             damagenumber.TryGetNextObject(tr.position, damagenumber.gameObject.transform.rotation, out Spawned);
             text = Spawned.transform.GetComponentInChildren<NumberScript>();
             text.SetNumberOwner(numberOwner);
-            text.numberUpdate(damage_value, _type);
+            text.numberUpdate(damage_value, _type, _restoring);
 
             text.transform.LookAt(camera);
 

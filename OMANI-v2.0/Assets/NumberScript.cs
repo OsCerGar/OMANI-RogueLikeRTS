@@ -35,11 +35,19 @@ public class NumberScript : MonoBehaviour
         pool.RemoveText(this);
     }
 
-    public void numberUpdate(float damage_value, Color _color)
+    public void numberUpdate(float damage_value, Color _color, bool _restoring)
     {
         damageDealt += damage_value;
-        damageDealt = Mathf.RoundToInt(damageDealt);
-        number.text = damageDealt.ToString();
+        var finalDamage = Mathf.Floor(damageDealt);
+
+        if (_restoring)
+        {
+            number.text = "+" + finalDamage.ToString();
+        }
+        else
+        {
+            number.text = finalDamage.ToString();
+        }
         number.color = _color;
         anim.SetBool("Updated", true);
 

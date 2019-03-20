@@ -180,6 +180,21 @@ public class Powers : MonoBehaviour
     {
         powerPool = Mathf.Clamp(powerPool + amount, 0, maxpowerPool);
     }
+
+    public bool restorePower(float amount)
+    {
+        float finalAmount = amount * Time.unscaledDeltaTime;
+        if (powerPool + finalAmount < maxpowerPool)
+        {
+            powerPool += finalAmount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public bool reducePower(float amount)
     {
         float finalAmount = amount * Time.unscaledDeltaTime;

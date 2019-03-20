@@ -15,11 +15,24 @@ public class PointerEnabler : MonoBehaviour
 
     private void Inputs()
     {
-        if (Input.GetMouseButtonDown(0)) { PointerState(); }
+        if (!Input.GetMouseButton(0))
+        {
+            pointer.enabled = true;
+            dots.enabled = true;
+            state = false;
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            pointer.enabled = false;
+            dots.enabled = false;
+            state = true;
+        }
 
         if (Input.GetMouseButtonUp(0))
         {
-            PointerState();
+            pointer.enabled = true;
+            dots.enabled = true;
+            state = false;
         }
 
         if (Input.GetAxis("R2") > 0.5f)

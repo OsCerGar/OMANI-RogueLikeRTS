@@ -23,12 +23,12 @@ public class Tutorial_ArmLock : Enemy
     {
         if (damageType == Color.green)
         {
-            numberPool.NumberSpawn(numbersTransform, 0, damageType, gameObject);
+            numberPool.NumberSpawn(numbersTransform, 0, damageType, gameObject, false);
         }
 
         else
         {
-            numberPool.NumberSpawn(numbersTransform, damage, damageType, gameObject);
+            numberPool.NumberSpawn(numbersTransform, damage, damageType, gameObject, false);
 
             StartCoroutine(gotHit());
             if (state == "Alive")

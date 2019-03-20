@@ -39,9 +39,9 @@ public class Interactible : MonoBehaviour
         powers = FindObjectOfType<Powers>();
         laserAudio = FindObjectOfType<MetaAudioController>();
         numberPool = FindObjectOfType<NumberPool>();
-        if (transform.Find("UI") && transform.Find("UI").Find("Numbers"))
+        if (transform.FindDeepChild("UI"))
         {
-            numbersTransform = transform.Find("UI").Find("Numbers");
+            numbersTransform = transform.FindDeepChild("Numbers");
         }
     }
 
@@ -83,14 +83,15 @@ public class Interactible : MonoBehaviour
         currentLinkPrice = Mathf.Lerp(linkPrice, finalLinkPrice, t);
         t += t * Time.unscaledDeltaTime;
 
-        float oldPowerReduced = powerReduced;
-
         startTime = Time.time;
 
         if (powers.reducePower(currentLinkPrice))
         {
             laserAudio.energyTransmisionSound(currentLinkPrice);
-            powerReduced += currentLinkPrice * Time.unscaledDeltaTime;
+            float reduceamount = currentLinkPrice * Time.unscaledDeltaTime;
+
+            powerReduced += reduceamount;
+            numberPool.NumberSpawn(numbersTransform, reduceamount, Color.cyan, numbersTransform.gameObject, true);
 
             actionBool = true;
         }
@@ -98,17 +99,12 @@ public class Interactible : MonoBehaviour
         {
             actionBool = false;
         }
-        if (powerReduced - Mathf.Floor(oldPowerReduced) >= 0.95f)
-        {
-            numberPool.NumberSpawn(numbersTransform, 1, Color.cyan, numbersTransform.gameObject);
-        }
-
     }
 
     public virtual void FullAction()
     {
         latestFullActionPowerReduced = powerReduced / price;
-        numberPool.NumberSpawn(numbersTransform, latestFullActionPowerReduced, Color.cyan, numbersTransform.gameObject);
+        numberPool.NumberSpawn(numbersTransform, latestFullActionPowerReduced, Color.cyan, numbersTransform.gameObject, true);
 
         powerReduced += powers.reduceAsMuchPower(price - powerReduced);
         //In case it gets close, free energy for the people

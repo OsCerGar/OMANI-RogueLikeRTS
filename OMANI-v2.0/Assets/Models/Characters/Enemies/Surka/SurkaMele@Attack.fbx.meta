@@ -134,11 +134,24 @@ ModelImporter:
       has scale animation that will be discarded.\n\t'upperleg.r' has scale animation
       that will be discarded.\n\t'lowerleg.r' has scale animation that will be discarded.\n\t'foot.r'
       has scale animation that will be discarded.\n"
-    animationRetargetingWarnings: "\nRetargeting quality report for clip 'Armature|ArmatureAction':\n\tLeftFoot
-      average position error 1.2 mm and maximum position error 1.8 mm at time 0:50
-      (62.5%) Frame 50\n\tRightFoot average position error 1.0 mm and maximum position
-      error 2.9 mm at time 0: 0 (0.0%) Frame 0\n\tLeftFoot average orientation error
-      0.4 deg and maximum orientation error 1.9 deg at time 0:30 (37.5%) Frame 30\n"
+    animationRetargetingWarnings: "\nRetargeting quality report for clip 'Armature|ArmatureAction':\n\tLeftLowerLeg
+      average position error 414.8 mm and maximum position error 663.7 mm at time
+      0:15 (18.8%) Frame 15\n\tLeftFoot average position error 740.6 mm and maximum
+      position error 882.4 mm at time 0: 0 (0.0%) Frame 0\n\tRightLowerLeg average
+      position error 376.0 mm and maximum position error 536.5 mm at time 0:50 (62.5%)
+      Frame 50\n\tRightFoot average position error 741.3 mm and maximum position error
+      913.8 mm at time 0:50 (62.5%) Frame 50\n\tLeftUpperArm average position error
+      372.3 mm and maximum position error 459.3 mm at time 0:10 (12.5%) Frame 10\n\tLeftLowerArm
+      average position error 536.7 mm and maximum position error 652.5 mm at time
+      1: 3 (78.8%) Frame 63\n\tLeftHand average position error 599.8 mm and maximum
+      position error 854.7 mm at time 0:38 (47.5%) Frame 38\n\tRightUpperArm average
+      position error 382.6 mm and maximum position error 445.7 mm at time 0:56 (70.0%)
+      Frame 56\n\tRightLowerArm average position error 569.9 mm and maximum position
+      error 675.0 mm at time 0:17 (21.3%) Frame 17\n\tRightHand average position error
+      606.5 mm and maximum position error 760.9 mm at time 0: 0 (0.0%) Frame 0\n\tHead
+      average position error 365.6 mm and maximum position error 483.2 mm at time
+      0:50 (62.5%) Frame 50\n\tLeftFoot average orientation error 0.2 deg and maximum
+      orientation error 1.1 deg at time 0:30 (37.5%) Frame 30\n"
     animationDoRetargetingWarnings: 1
     importAnimatedCustomProperties: 0
     importConstraints: 0
@@ -425,7 +438,7 @@ ModelImporter:
       parentName: SurkaMele(Clone)
       position: {x: -0, y: 2.6424322, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-      scale: {x: 100, y: 100, z: 100}
+      scale: {x: 1, y: 1, z: 1}
     - name: armik.r
       parentName: Armature
       position: {x: 0.022985436, y: -0.007827831, z: 0.01594372}
@@ -448,9 +461,9 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: Hip
       parentName: MainMotionBone
-      position: {x: -0, y: -0.011838023, z: 0.026424322}
+      position: {x: 0, y: -0.011838023, z: 0.026427155}
       rotation: {x: 0.000000055421456, y: 0.6809952, z: 0.7322879, w: 0.00000005155917}
-      scale: {x: 1, y: 0.9999995, z: 0.9999998}
+      scale: {x: 1, y: 1, z: 1}
     - name: Stomach
       parentName: Hip
       position: {x: -8.881784e-18, y: 0.0068414104, z: 0}
@@ -524,43 +537,43 @@ ModelImporter:
     - name: upperleg.l
       parentName: Hip
       position: {x: -0.0028753008, y: 0.00001134932, z: -0.00044880842}
-      rotation: {x: -0.0008468947, y: -0.0028327191, z: 0.9999932, w: -0.0021978375}
-      scale: {x: 1.0010834, y: 1, z: 1.0017812}
+      rotation: {x: 0.00083777, y: -0.0000018424257, z: -0.99999726, w: 0.0021991963}
+      scale: {x: 1, y: 1, z: 1}
     - name: lowerleg.l
       parentName: upperleg.l
       position: {x: 3.6079292e-11, y: 0.010937747, z: -1.0128133e-10}
-      rotation: {x: -0.07224828, y: 0.000067074216, z: -0.012618055, w: 0.9973069}
-      scale: {x: 0.99999994, y: 1, z: 1}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: foot.l
       parentName: lowerleg.l
       position: {x: -5.9663385e-13, y: 0.01347535, z: -7.799826e-11}
-      rotation: {x: 0.038648248, y: 0.8562195, z: 0.51362956, w: 0.039740812}
+      rotation: {x: 0.00000008486677, y: 0.8905461, z: 0.45489317, w: -0.00000016693525}
       scale: {x: 1, y: 1.0000002, z: 1}
     - name: toe.l
       parentName: foot.l
       position: {x: -1.7684215e-10, y: 0.0035644514, z: -2.9802322e-10}
-      rotation: {x: 0.10570787, y: 0.93832916, z: -0.15642276, w: -0.28964847}
-      scale: {x: 0.9999999, y: 0.9999998, z: 0.99999994}
+      rotation: {x: 0.054347306, y: 0.97685325, z: -0.18532406, w: -0.091972984}
+      scale: {x: 1, y: 1, z: 1}
     - name: upperleg.r
       parentName: Hip
       position: {x: 0.0028753008, y: 0.00001135051, z: -0.0004488092}
       rotation: {x: -0.0002709261, y: -0.0028262017, z: 0.99999356, w: 0.002209338}
-      scale: {x: 0.99933815, y: 0.9999999, z: 0.9989113}
+      scale: {x: 1, y: 1, z: 1}
     - name: lowerleg.r
       parentName: upperleg.r
       position: {x: -1.7346642e-10, y: 0.0109377485, z: -3.6670826e-11}
-      rotation: {x: -0.07250842, y: -0.000072639545, z: 0.01263982, w: 0.99728775}
-      scale: {x: 1, y: 1, z: 0.99999994}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: foot.r
       parentName: lowerleg.r
       position: {x: -5.5977895e-10, y: 0.013476335, z: 2.8285284e-11}
-      rotation: {x: -0.038704123, y: 0.85576344, z: 0.51438475, w: -0.03974084}
+      rotation: {x: -0, y: 0.8845668, z: 0.46641353, w: 9.1858965e-11}
       scale: {x: 1.0000001, y: 1, z: 1}
     - name: toe.r
       parentName: foot.r
       position: {x: 1.1568772e-11, y: 0.003570655, z: 7.0780515e-10}
-      rotation: {x: -0.10559783, y: 0.9383258, z: -0.15626794, w: 0.2897828}
-      scale: {x: 1, y: 0.99999976, z: 0.99999994}
+      rotation: {x: 0.015782436, y: 0.9442291, z: -0.16041161, w: 0.28714195}
+      scale: {x: 1, y: 1, z: 1}
     - name: SPINEPOLE
       parentName: Armature
       position: {x: -3.775099e-18, y: 0.030432906, z: 0.029698275}
@@ -571,13 +584,13 @@ ModelImporter:
       position: {x: -0, y: 2.6930335, z: 0}
       rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 1, y: 1, z: 1}
-    armTwist: 0.46
-    foreArmTwist: 0.44
-    upperLegTwist: 0.49
-    legTwist: 0.49
-    armStretch: 0.52
-    legStretch: 0.57
-    feetSpacing: 0.58
+    armTwist: 0
+    foreArmTwist: 0
+    upperLegTwist: 0
+    legTwist: 0
+    armStretch: 0.34
+    legStretch: 0
+    feetSpacing: 0
     rootMotionBoneName: 
     hasTranslationDoF: 1
     hasExtraRoot: 1
