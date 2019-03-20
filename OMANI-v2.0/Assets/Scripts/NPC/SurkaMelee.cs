@@ -4,7 +4,7 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
 
-public class SurkaMelee : Enemy {
+public class SurkaMelee: Enemy {
     [SerializeField] ParticleSystem AttackTrail;
     [SerializeField] ParticleSystem Slash;
 

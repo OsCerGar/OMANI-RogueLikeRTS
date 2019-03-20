@@ -22,7 +22,6 @@ public class Robot : NPC
     private ParticleSystem DeathExplosion;
     bool materialize = true;
     public Transform ball;
-    public Collider coll;
     //reclute pool fix
     public bool recluted;
 
@@ -36,8 +35,7 @@ public class Robot : NPC
 
     public virtual void Awake()
     {
-        workerSM = GetComponentInChildren<WorkerSM>();
-        coll = GetComponent<Collider>();
+        workerSM = GetComponentInChildren<WorkerSM>(); 
         workerSM.transform.parent = null;
     }
 
@@ -111,10 +109,7 @@ public class Robot : NPC
         Idle();
 
     }
-    private void OnEnable()
-    {
-        coll.enabled = true;
-    }
+   
     public void Materialize(GameObject _ShootingPosition, GameObject _miradaPosition)
     {
         //Dematerializes.
@@ -186,7 +181,6 @@ public class Robot : NPC
 
     public void AutoReclute()
     {
-        coll.enabled = false;
         commander.Reclute(this);
     }
 

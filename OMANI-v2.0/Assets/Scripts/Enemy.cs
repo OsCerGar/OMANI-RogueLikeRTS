@@ -44,7 +44,8 @@ public class Enemy : NPC
             laserTarget.gameObject.SetActive(true);
         }
 
-        col.enabled = true;
+        if (col != null) { col.enabled = true; }
+      
     }
 
     /*
