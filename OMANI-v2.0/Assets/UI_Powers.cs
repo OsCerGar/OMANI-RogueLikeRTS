@@ -26,7 +26,7 @@ public class UI_Powers : MonoBehaviour
             foreach (Image img in dyingEffect)
             {
                 var tempColor = img.color;
-                tempColor.a = 1 - (powers.powerPool / powers.maxpowerPool);
+                tempColor.a = 1 - (powers.powerPool / powers.startingPoint);
                 img.color = tempColor;
             }
         }

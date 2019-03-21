@@ -8,7 +8,7 @@ public class MusicManager : MonoBehaviour
     int numberOfEnemies = 0;
     float timeToStop;
 
-    float lerpTime = 10f;
+    float lerpTime = 12f;
     float currentLerpTime;
 
 
@@ -69,7 +69,7 @@ public class MusicManager : MonoBehaviour
             combatMusic.volume = Mathf.Lerp(combatMusic.volume, 0f, t);
             mainTheme.volume = Mathf.Lerp(mainTheme.volume, 0.85f, t);
 
-            if (combatMusic.isPlaying && combatMusic.volume <= 0.02f)
+            if (combatMusic.isPlaying && combatMusic.volume <= 0.1f)
             {
                 combatMusic.Stop();
                 combatStop.Play();
