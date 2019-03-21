@@ -12,8 +12,8 @@ public class Tutorials_Robot : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        tutorialRight = transform.FindDeepChild("Tutorial_right").gameObject;
-        tutorialLeft = transform.FindDeepChild("Tutorial_left").gameObject;
+        tutorialRight = transform.FindDeepChild("Tutorial_Right").gameObject;
+        tutorialLeft = transform.FindDeepChild("Tutorial_Left").gameObject;
         commanders = FindObjectOfType<Army>();
     }
 
