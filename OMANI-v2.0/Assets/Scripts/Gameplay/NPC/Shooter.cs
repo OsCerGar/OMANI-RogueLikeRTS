@@ -24,7 +24,7 @@ public class Shooter : Robot
     {
         Shoot.Play();
         SoundManager.AttackHit();
-        reducePowerNow(maxpowerPool);
+        //reducePowerNow(maxpowerPool);
     }
    
 

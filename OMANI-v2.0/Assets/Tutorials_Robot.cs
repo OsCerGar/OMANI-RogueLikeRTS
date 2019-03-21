@@ -2,6 +2,7 @@
 
 public class Tutorials_Robot : MonoBehaviour
 {
+    [SerializeField]
     GameObject tutorialRight, tutorialLeft;
     Army commanders;
 
@@ -9,37 +10,58 @@ public class Tutorials_Robot : MonoBehaviour
     [SerializeField]
     GameObject robot;
     bool summoned, tutorialStart;
+
+    public bool version2;
     // Start is called before the first frame update
     void Awake()
     {
-        tutorialRight = transform.FindDeepChild("Tutorial_Right").gameObject;
-        tutorialLeft = transform.FindDeepChild("Tutorial_Left").gameObject;
+        if (tutorialRight == null)
+        {
+            tutorialRight = transform.FindDeepChild("Tutorial_Right").gameObject;
+        }
+
+        if (tutorialLeft == null)
+        {
+            tutorialLeft = transform.FindDeepChild("Tutorial_Left").gameObject;
+        }
         commanders = FindObjectOfType<Army>();
+
     }
 
     void Update()
     {
-        if (robot.activeInHierarchy) { summoned = true; }
-        if (summoned)
+        if (!version2)
         {
-            if (!robot.activeInHierarchy) { tutorialStart = true; }
-
-            if (tutorialStart)
+            if (robot.activeInHierarchy) { summoned = true; }
+            if (summoned)
             {
-                if (commanders.currentFighter == null)
-                {
-                    tutorialRight.SetActive(true);
-                    tutorialLeft.SetActive(false);
-                }
-                else
-                {
+                if (!robot.activeInHierarchy) { tutorialStart = true; }
 
-                    tutorialRight.SetActive(false);
-                    tutorialLeft.SetActive(true);
-                }
+                if (tutorialStart)
+                {
+                    if (commanders.currentFighter == null)
+                    {
+                        tutorialRight.SetActive(true);
+                        tutorialLeft.SetActive(false);
+                    }
+                    else
+                    {
 
+                        tutorialRight.SetActive(false);
+                        tutorialLeft.SetActive(true);
+                    }
+
+                }
             }
         }
+        else
+        {
+            if (commanders.currentFighter != null)
+            {
+                tutorialRight.SetActive(false);
+                tutorialLeft.SetActive(false);            
+            }
 
+        }
     }
 }

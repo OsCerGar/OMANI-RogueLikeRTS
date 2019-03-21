@@ -8,7 +8,7 @@ public class Tutorial_Instructions : MonoBehaviour
     [SerializeField]
     int input = 0;
 
-    bool pc = true;
+    bool pc = false;
 
     private void Awake()
     {
@@ -31,6 +31,12 @@ public class Tutorial_Instructions : MonoBehaviour
 
         if (input == 0)
         {
+            if (Input.GetMouseButtonDown(input))
+            {
+                pc = true;
+                PCVersion();
+            }
+
             if (Input.GetAxis("R2") > 0.5f)
             {
                 pc = false;
@@ -49,14 +55,21 @@ public class Tutorial_Instructions : MonoBehaviour
         }
         if (input == 1)
         {
+            if (Input.GetMouseButtonDown(2))
+            {
+                pc = true;
+                PCVersion();
+            }
+
             if (Input.GetAxis("L2") > 0.5f)
             {
                 pc = false;
             }
+
             if (!pc)
             {
 
-                if (Input.GetAxis("L2") > 0.5f)
+                if (Input.GetAxis("L2") < 0.5f)
                 {
 
                     ControllerVersion();
@@ -64,10 +77,10 @@ public class Tutorial_Instructions : MonoBehaviour
                 }
                 else
                 {
-
                     parent.SetActive(false);
                 }
             }
+
         }
         /*if()
         {
