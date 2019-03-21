@@ -35,12 +35,14 @@ public class DisablePlayerControls : MonoBehaviour
         {
             powers.enabled = false;
         }
-
-        foreach (Canvas canv in canvas)
+        if (canvas != null && canvas.Count > 0)
         {
-            canv.enabled = false;
-        }
 
+            foreach (Canvas canv in canvas)
+            {
+                canv.enabled = false;
+            }
+        }
         if (extras != null) { extras.SetActive(false); }
     }
 
@@ -57,11 +59,13 @@ public class DisablePlayerControls : MonoBehaviour
             powers.enabled = true;
         }
 
-        foreach (Canvas canv in canvas)
+        if (canvas != null && canvas.Count > 0)
         {
-            canv.enabled = true;
+            foreach (Canvas canv in canvas)
+            {
+                canv.enabled = true;
+            }
         }
-
         if (extras != null) { extras.SetActive(true); }
 
     }

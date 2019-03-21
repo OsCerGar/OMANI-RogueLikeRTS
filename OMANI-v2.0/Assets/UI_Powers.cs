@@ -1,82 +1,47 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class UI_Powers : MonoBehaviour
 {
 
-    public Image powerClock, lifeClock;
+    public List<Image> dyingEffect = new List<Image>();
+    bool dying;
     Powers powers;
-    Player player;
-    Camera mainCamera;
-    float lastPowerPool, lastLife;
-    bool powerClockHidden, lifeClockHidden;
-    Quaternion fixedRotation;
+    float startingPoint;
 
     // Use this for initialization
     void Start()
     {
-        foreach (Image ui_clock in transform.GetComponentsInChildren<Image>())
-        {
-            if (ui_clock.name == "PowerClock")
-            {
-                Image realClock = ui_clock.transform.GetChild(0).GetComponent<Image>();
-                powerClock = realClock;
-                fixedRotation = powerClock.transform.rotation;
-
-            }
-            if (ui_clock.name == "LifeClock")
-            {
-                //Image realClock = ui_clock.transform.GetChild(0).GetComponent<Image>();
-                //lifeClock = realClock;
-            }
-        }
-        player = transform.root.GetComponentInChildren<Player>();
         powers = transform.root.GetComponentInChildren<Powers>();
-        mainCamera = Camera.main;
+        startingPoint = powers.maxpowerPool / 2f;
     }
 
     // Update is called once per frame
     void LateUpdate()
-    {/*
-        if (lastPowerPool != powers.powerPool)
+    {
+        if (powers.powerPool < startingPoint)
         {
-            powerClockHidden = false;
-            powerClock.enabled = true;
-            powerClock.fillAmount = powers.powerPool / powers.maxpowerPool;
-            lastPowerPool = powers.powerPool;
-            //Restores rotation
-            powerClock.transform.rotation = fixedRotation;
-
+            dying = false;
+            foreach (Image img in dyingEffect)
+            {
+                var tempColor = img.color;
+                tempColor.a = 1 - (powers.powerPool / powers.maxpowerPool);
+                img.color = tempColor;
+            }
         }
         else
         {
-            if (!powerClockHidden)
+            if (!dying)
             {
-                powerClock.enabled = false;
-
-                powerClockHidden = true;
+                dying = true;
+                foreach (Image img in dyingEffect)
+                {
+                    var tempColor = img.color;
+                    tempColor.a = 0f;
+                    img.color = tempColor;
+                }
             }
         }
-        /*
-        if (lastLife != player.life)
-        {
-            lifeClockHidden = false;
-            lifeClock.enabled = true;
-            lifeClock.fillAmount = ((float)player.life / (float)player.startLife);
-            lastLife = player.life;
-            //Restores rotation
-            lifeClock.transform.rotation = fixedRotation;
-
-        }
-        else
-        {
-            if (!lifeClockHidden)
-            {
-                lifeClock.enabled = false;
-
-                lifeClockHidden = true;
-            }
-        }
-        */
     }
 }
