@@ -14,4 +14,8 @@ public class SurkaActor : MonoBehaviour
     {
         SM.Step();
     }
+    public void Puke()
+    {
+    }
+
 }

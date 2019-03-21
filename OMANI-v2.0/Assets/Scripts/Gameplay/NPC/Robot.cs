@@ -49,12 +49,31 @@ public class Robot : NPC
         commander = FindObjectOfType<Army>();
 
         ball = transform.FindDeepChild("StartSphereMesh");
-
+        
         if (powerPool != maxpowerPool)
         {
             TakeDamage(Mathf.RoundToInt(maxpowerPool), Color.yellow);
         }
 
+    
+
+
+    }
+    private void OnEnable()
+    {
+        state = "Alive";
+        if (numberPool != null)
+        {
+            if (commander.currentFighter != this)
+            {
+                if (powerPool != maxpowerPool)
+                {
+                    TakeDamage(Mathf.RoundToInt(maxpowerPool), Color.yellow);
+                }
+            }
+        }
+
+           
     }
 
     public override void AttackHit()
@@ -115,9 +134,9 @@ public class Robot : NPC
         //Dematerializes.
         workerSM.transform.position = transform.position;
         transform.position = _ShootingPosition.transform.position;
+        anim.Rebind();
         transform.gameObject.SetActive(true);
         workerSM.Dematerialize();
-        anim.Rebind();
         MaterializeParticleSystem.Play();
 
 

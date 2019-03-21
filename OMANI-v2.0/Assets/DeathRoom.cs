@@ -37,7 +37,10 @@ public class DeathRoom : MonoBehaviour
         if (other.CompareTag("Player") && !done)
         {
             done = true;
-            door.gameObject.SetActive(true);
+            if (door != null)
+            {
+                door.gameObject.SetActive(true);
+            }
         }
     }
 }

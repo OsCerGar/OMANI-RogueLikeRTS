@@ -72,6 +72,9 @@ public class Enemy : NPC
 
     public void StepSound()
     {
-        SM.Step();
+        if (SM != null)
+        {
+            SM.Step();
+        }
     }
 }

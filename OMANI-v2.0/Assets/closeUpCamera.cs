@@ -5,6 +5,7 @@ public class closeUpCamera : MonoBehaviour
 {
     CharacterMovement movementController;
     public CinemachineVirtualCamera closeCamera, playerCamera;
+    public CinemachineBrain brain;
     public List<CinemachineVirtualCamera> cinematicCameras;
     bool closedUp;
 
@@ -13,6 +14,7 @@ public class closeUpCamera : MonoBehaviour
     void Awake()
     {
         movementController = FindObjectOfType<CharacterMovement>();
+        brain = FindObjectOfType<CinemachineBrain>();
         if (closeCamera == null || playerCamera == null) { stop = true; }
     }
 
@@ -21,17 +23,21 @@ public class closeUpCamera : MonoBehaviour
     {
         if (!stop)
         {
-            if (movementController.onNoMovementTime > 15f)
+            if (movementController.onNoMovementTime > 3f)
             {
                 closedUp = true;
 
+                /*
                 if (cinematicCameras.Count > 0)
                 {
                     foreach (CinemachineVirtualCamera camera in cinematicCameras)
                     {
-                        if (camera.enabled == true) { closedUp = false; }
+                        Debug.Log("cine " + brain.ActiveVirtualCamera.VirtualCameraGameObject.name);
+                        Debug.Log("no " + camera.gameObject.name);
+                        if (brain.ActiveVirtualCamera.VirtualCameraGameObject == camera.gameObject) { Debug.Log("really");  closedUp = false; }
                     }
                 }
+                */
 
                 if (closedUp == true)
                 {

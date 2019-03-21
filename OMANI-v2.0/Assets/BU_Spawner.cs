@@ -34,7 +34,7 @@ public class BU_Spawner : BU_UniqueBuildingNoDistrict
         if (_robot = worker)
         {
             Debug.Log("hello");
-
+            anim.SetTrigger("Reset");
             summoned = false;
             tutorialButton.enableButton();
         }
