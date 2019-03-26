@@ -37,10 +37,17 @@ public class DisablePlayerControls : MonoBehaviour
         }
         if (canvas != null && canvas.Count > 0)
         {
-
             foreach (Canvas canv in canvas)
             {
-                canv.enabled = false;
+                if (canv != null)
+                {
+                    if (canv.transform.Find("StartSphereMesh") != null)
+                    {
+                        canv.transform.Find("StartSphereMesh").gameObject.SetActive(false);
+                    }
+                    canv.enabled = false;
+                }
+
             }
         }
         if (extras != null) { extras.SetActive(false); }
@@ -63,7 +70,16 @@ public class DisablePlayerControls : MonoBehaviour
         {
             foreach (Canvas canv in canvas)
             {
-                canv.enabled = true;
+                if (canv != null)
+                {
+                    if (canv.transform.Find("StartSphereMesh") != null)
+                    {
+                        Debug.Log("hello");
+                        canv.transform.Find("StartSphereMesh").gameObject.SetActive(true);
+                    }
+                    canv.enabled = true;
+
+                }
             }
         }
         if (extras != null) { extras.SetActive(true); }

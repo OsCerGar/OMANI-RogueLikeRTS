@@ -10,7 +10,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
     bool cameraChanged, surkaSpawned;
     TIMELINE_INTERFACE timeline_interface;
 
-    [SerializeField] GameObject StartingCamera, mouse, disablePlayer;
+    [SerializeField] GameObject StartingCamera, mouse, disablePlayer, doorLock;
     //Wind sound effect
     [SerializeField]
     AudioSource wind, music;
@@ -88,6 +88,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
         if (releasedLegs > 3)
         {
             movement.speed = movement.originalSpeed;
+            doorLock.SetActive(false);
         }
     }
 

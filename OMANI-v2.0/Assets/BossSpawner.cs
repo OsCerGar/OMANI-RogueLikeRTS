@@ -10,6 +10,7 @@ public class BossSpawner : MonoBehaviour
     [SerializeField] Transform posToSpawn;
     GameObject thisEnemy;
     Enemy thisEnemyScript;
+    bool spawn = false;
     
     void OnEnable()
     {
@@ -19,6 +20,7 @@ public class BossSpawner : MonoBehaviour
         Enemy.OnDie += SpawnEnemy;
         thisEnemy = EPool.SpawnEnemy(NameOfEnemyToSpawn, posToSpawn);
         thisEnemyScript = thisEnemy.GetComponent<Enemy>();
+        spawn = true;
     }
 
 
@@ -29,10 +31,25 @@ public class BossSpawner : MonoBehaviour
 
     private void SpawnEnemy(Enemy enem)
     {
-        if (enem = thisEnemyScript)
+        if (spawn)
         {
-            thisEnemy = EPool.SpawnEnemy(NameOfEnemyToSpawn, posToSpawn);
-            thisEnemyScript = thisEnemy.GetComponent<Enemy>();
+            if (enem == thisEnemyScript)
+            {
+                spawn = false;
+
+                StartCoroutine("SpawnEnemyAfterTime");
+            }
         }
     }
+
+    private IEnumerator SpawnEnemyAfterTime()
+    {
+
+        yield return new WaitForSeconds(60f);
+        spawn = true;
+        thisEnemy = EPool.SpawnEnemy(NameOfEnemyToSpawn, posToSpawn);
+            thisEnemyScript = thisEnemy.GetComponent<Enemy>();
+            spawn = false;
+    }
+
 }

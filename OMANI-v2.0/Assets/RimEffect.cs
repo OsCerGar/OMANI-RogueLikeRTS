@@ -28,4 +28,9 @@ public class RimEffect : MonoBehaviour
             MK.Toon.MKToonMaterialHelper.SetRimIntensity(renderer.material, amount);
         }
     }
+    public void setRimToZero()
+    {
+        amount = 0;
+        MK.Toon.MKToonMaterialHelper.SetRimIntensity(renderer.material, amount);
+    }
 }

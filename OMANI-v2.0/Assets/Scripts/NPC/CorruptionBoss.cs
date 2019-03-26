@@ -11,6 +11,7 @@ public class CorruptionBoss : Enemy
     bool dead = false;
     Collider coll;
     [SerializeField]CleanCorruption Clean;
+    RimEffect rim;
     public override void Update()
     {
 
@@ -67,6 +68,9 @@ public class CorruptionBoss : Enemy
         CM.speed = playerspeed;
         anim.SetTrigger("Die");
         Clean.enabled = true;
+        rim = GetComponentInChildren<RimEffect>();
+        rim.setRimToZero();
+        rim.enabled = false;
 
     }
 

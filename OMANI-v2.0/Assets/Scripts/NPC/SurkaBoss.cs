@@ -1,15 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using BehaviorDesigner.Runtime;
+using System.Collections;
 using UnityEngine;
-using BehaviorDesigner.Runtime.Tasks;
-using BehaviorDesigner.Runtime;
+using UnityEngine.Playables;
 
-public class SurkaBoss: Enemy {
+public class SurkaBoss : Enemy
+{
     [SerializeField] ParticleSystem AttackTrail;
     [SerializeField] ParticleSystem Slash;
     [SerializeField] ParticleSystem Shoot;
     [SerializeField] ParticleSystem ShootPuke;
     [SerializeField] string TreeToEnable;
+    [SerializeField] PlayableDirector Director;
+
+    bool fase1, fase2, fase3;
 
     public void SetMaster(GameObject master)
     {
@@ -18,9 +21,9 @@ public class SurkaBoss: Enemy {
 
     }
     public void StartAttackTrail()
-        {
-             AttackTrail.Play();
-        }
+    {
+        AttackTrail.Play();
+    }
 
     public override void AttackHit()
     {
@@ -43,4 +46,51 @@ public class SurkaBoss: Enemy {
         enableTree(TreeToEnable);
 
     }
+    public override void Update()
+    {
+        base.Update();
+        if (!fase1)
+        {
+            if (life > startLife / 3 * 2)
+            {
+                enableTree("Idle");
+                fase1 = true;
+            }
+        }
+        else
+        if (!fase2)
+        {
+            if (life < startLife / 3 * 2)
+            {
+                enableTree("IdleFase2");
+                fase2 = true;
+            }
+        }
+        if (!fase3)
+        {
+            if (life < startLife / 3)
+            {
+                enableTree("IdleFase3");
+                fase3 = true;
+            }
+        }
+
+
+
+    }
+    public override void Die()
+    {
+        base.Die();
+
+        Director.Play();
+        StartCoroutine("LoadScene");
+    }
+
+    private IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(8f);
+        Initiate.Fade("Tutorial", Color.black, 0.5f);
+
+    }
+
 }

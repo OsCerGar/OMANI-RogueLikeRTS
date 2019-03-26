@@ -9,8 +9,10 @@ public class Tutorial_ArmLock : Enemy
     public override void Die()
     {
         playerLock.LegRelease(legToRelease);
-        enabled = false;
+        //Renderer renderer = GetComponent<Renderer>();
+        //MK.Toon.MKToonMaterialHelper.SetRimIntensity(renderer.material, 0f);
         dissolveController.StartDissolving();
+        enabled = false;
     }
 
     public override void Update()

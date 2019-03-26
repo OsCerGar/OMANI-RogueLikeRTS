@@ -58,7 +58,7 @@ public class MusicManager : MonoBehaviour
             currentLerpTime += Time.deltaTime;
             float t = currentLerpTime / lerpTime;
             t = t * t * t * (t * (6f * t - 15f) + 10f);
-            combatMusic.volume = Mathf.Lerp(combatMusic.volume, 0.2f, t);
+            combatMusic.volume = 1f;
             mainTheme.volume = Mathf.Lerp(mainTheme.volume, 0f, t);
         }
         else
@@ -66,8 +66,8 @@ public class MusicManager : MonoBehaviour
             currentLerpTime += Time.deltaTime;
             float t = currentLerpTime / lerpTime;
             t = t * t * t * (t * (6f * t - 15f) + 10f);
-            combatMusic.volume = Mathf.Lerp(combatMusic.volume, 0f, t);
-            mainTheme.volume = Mathf.Lerp(mainTheme.volume, 0.85f, t);
+            combatMusic.volume = 0f;
+            mainTheme.volume = Mathf.Lerp(mainTheme.volume, 1f, t);
 
             if (combatMusic.isPlaying && combatMusic.volume <= 0.1f)
             {

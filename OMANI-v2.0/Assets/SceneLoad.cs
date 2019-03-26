@@ -7,30 +7,23 @@ public class SceneLoad : MonoBehaviour
     [SerializeField] Animator TeleporterAnimation;
     [SerializeField] ParticleSystem TPEffect;
     [SerializeField] AudioSource TeleportSFX;
-    bool inside;
+
+    [SerializeField]  GameObject DisablePlayer;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag.Equals("Player"))
         {
-            inside = true;
+            DisablePlayer.SetActive(true);
             TeleporterAnimation.SetTrigger("Activated");
             TPEffect.transform.gameObject.SetActive(true);
             TeleportSFX.Play();
         }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag.Equals("Player"))
-        {
-            inside = false;
-        }
-    }
+
     public void LoadNextScene()
     {
-        if (inside)
-        {
-            Initiate.Fade(sceneToLoad, Color.white, 0.5f);
-        }
+        Initiate.Fade(sceneToLoad, Color.white, 0.5f);
+
     }
 }

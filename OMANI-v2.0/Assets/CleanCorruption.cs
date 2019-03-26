@@ -49,7 +49,10 @@ public class CleanCorruption : MonoBehaviour
 
     public void DissolveAndClear()
     {
-        BoltsPE.Play();
+        if (BoltsPE != null)
+        {
+            BoltsPE.Play();
+        }
         if (playAnimation)
         {
             timeline.TPlay();

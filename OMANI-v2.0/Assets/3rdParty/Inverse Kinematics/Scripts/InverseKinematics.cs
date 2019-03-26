@@ -52,7 +52,7 @@ public class InverseKinematics : MonoBehaviour {
 
 			angle = Mathf.Acos (adyacent / upperArm_Length) * Mathf.Rad2Deg;
 
-            if (Vector3.Distance(upperArm.position,target.position) > 0.1f)
+            if (Vector3.Distance(hand.position,target.position) > 0.1f)
             {
                 upperArm.RotateAround(upperArm.position, cross, -angle);
             }

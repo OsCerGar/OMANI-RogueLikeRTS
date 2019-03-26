@@ -35,7 +35,7 @@ public class Robot : NPC
 
     public virtual void Awake()
     {
-        workerSM = GetComponentInChildren<WorkerSM>(); 
+        workerSM = GetComponentInChildren<WorkerSM>();
         workerSM.transform.parent = null;
     }
 
@@ -49,13 +49,14 @@ public class Robot : NPC
         commander = FindObjectOfType<Army>();
 
         ball = transform.FindDeepChild("StartSphereMesh");
-        
+
         if (powerPool != maxpowerPool)
         {
-            TakeDamage(Mathf.RoundToInt(maxpowerPool), Color.yellow);
+            TakeDamage(Mathf.RoundToInt(1f), Color.yellow);
+            CoolDown();
         }
 
-    
+
 
 
     }
@@ -73,7 +74,7 @@ public class Robot : NPC
             }
         }
 
-           
+
     }
 
     public override void AttackHit()
@@ -128,7 +129,7 @@ public class Robot : NPC
         Idle();
 
     }
-   
+
     public void Materialize(GameObject _ShootingPosition, GameObject _miradaPosition)
     {
         //Dematerializes.
