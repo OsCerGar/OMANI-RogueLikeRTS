@@ -18,7 +18,7 @@ public class RadialMenu_GUI : MonoBehaviour
 
     bool enabled, quickPlayed;
 
-    private Vector2 DPAD;
+    public Vector2 DPAD;
 
     [SerializeField]
     AudioSource openMenuAudio, closeMenuAudio, selectedAudio, selectedAudioEmpty;
@@ -76,14 +76,6 @@ public class RadialMenu_GUI : MonoBehaviour
             if (DPAD.y == 0) { menuItem(2); }
         }
 
-        if (DPAD.x == 1) { menuItem(1); }
-        if (DPAD.x == -1) { menuItem(3); }
-        if (DPAD.y == 1) { menuItem(0); }
-        if (DPAD.y == -1) { menuItem(2); }
-        if (Input.GetKeyDown("1")) { menuItem(0); }
-        if (Input.GetKeyDown("2")) { menuItem(1); }
-        if (Input.GetKeyDown("3")) { menuItem(2); }
-        if (Input.GetKeyDown("4")) { menuItem(3); }
     }
     private void AxisUpdate()
     {
@@ -92,7 +84,7 @@ public class RadialMenu_GUI : MonoBehaviour
         DPAD.y = Input.GetAxis("DPADVertical");
     }
 
-    private void menuItem(int i)
+    public void menuItem(int i)
     {
         if (oldMenuItem != curMenuItem)
         {

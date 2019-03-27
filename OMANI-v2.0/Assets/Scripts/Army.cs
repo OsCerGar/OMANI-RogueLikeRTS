@@ -20,7 +20,7 @@ public class Army : MonoBehaviour
 
     public Robot currentFighter;
 
-    bool radialMenuOn;
+    [SerializeField] bool radialMenuEnabled = true;
 
     Power_Laser power_Laser;
     Powers powers;
@@ -78,10 +78,24 @@ public class Army : MonoBehaviour
 
     private void Inputs()
     {
-        if (Input.GetAxis("L2") > 0.5f) { if (!pressedL2) { radialMenuPopUp(); pressedL2 = true; } }
-        if (Input.GetAxis("L2") < 0.25f) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
-        if (Input.GetMouseButtonDown(2)) { radialMenuPopUp(); }
-        if (Input.GetMouseButtonUp(2)) { radialMenuPopDown(null); }
+        if (radialMenuEnabled)
+        {
+            if (Input.GetAxis("L2") > 0.5f) { if (!pressedL2) { radialMenuPopUp(); pressedL2 = true; } }
+            if (Input.GetAxis("L2") < 0.25f) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
+            if (Input.GetMouseButtonDown(2)) { radialMenuPopUp(); }
+            if (Input.GetMouseButtonUp(2)) { radialMenuPopDown(null); }
+
+
+            if (radialMenu.DPAD.x == 1) { radialMenu.menuItem(1); }
+            if (radialMenu.DPAD.x == -1) { radialMenu.menuItem(3); }
+            if (radialMenu.DPAD.y == 1) { radialMenu.menuItem(0); }
+            if (radialMenu.DPAD.y == -1) { radialMenu.menuItem(2); }
+            if (Input.GetKeyDown("1")) { radialMenu.menuItem(0); }
+            if (Input.GetKeyDown("2")) { radialMenu.menuItem(1); }
+            if (Input.GetKeyDown("3")) { radialMenu.menuItem(2); }
+            if (Input.GetKeyDown("4")) { radialMenu.menuItem(3); }
+        }
+
         if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("Summon")) { SummonRobot(); }
 
     }

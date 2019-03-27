@@ -33,7 +33,7 @@ public class NumberPool : MonoBehaviour
             if (txt.GetNumberOwner() == numberOwner)
             {
                 txt.transform.position = numberOwner.transform.position;
-                txt.transform.LookAt(camera);
+               //txt.transform.LookAt(camera);
                 txt.numberUpdate(damage_value, _type, _restoring);
                 alreadyOwned = true;
             }
@@ -46,8 +46,7 @@ public class NumberPool : MonoBehaviour
             text.SetNumberOwner(numberOwner);
             text.numberUpdate(damage_value, _type, _restoring);
 
-            text.transform.LookAt(camera);
-
+            text.transform.forward = -camera.transform.forward;
             texts.Add(text);
         }
     }

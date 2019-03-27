@@ -20,25 +20,24 @@ public class Tutorial_Instructions_Radial : MonoBehaviour
             {
                 PCVersion();
             }
+            /*
             else
             {
                 parent.SetActive(false);
             }
+            */
         }
 
         if (Input.GetMouseButtonDown(2))
         {
             pc = true;
             PCVersion();
-            transform.gameObject.SetActive(false);
-
         }
 
         if (Input.GetAxis("L2") > 0.5f)
         {
             pc = false;
             nextTutorial.SetActive(true);
-            transform.gameObject.SetActive(false);
         }
 
         if (!pc)
@@ -50,10 +49,12 @@ public class Tutorial_Instructions_Radial : MonoBehaviour
                 ControllerVersion();
                 pc = false;
             }
+            /*
             else
             {
                 parent.SetActive(false);
             }
+            */
         }
 
 

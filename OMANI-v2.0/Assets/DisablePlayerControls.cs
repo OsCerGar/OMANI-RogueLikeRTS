@@ -74,7 +74,6 @@ public class DisablePlayerControls : MonoBehaviour
                 {
                     if (canv.transform.Find("StartSphereMesh") != null)
                     {
-                        Debug.Log("hello");
                         canv.transform.Find("StartSphereMesh").gameObject.SetActive(true);
                     }
                     canv.enabled = true;

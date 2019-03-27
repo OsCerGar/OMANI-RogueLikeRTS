@@ -14,6 +14,8 @@ public class TutorialSurkaTeleport : MonoBehaviour
 
     TIMELINE_INTERFACE timeline_interface;
 
+    [SerializeField] GameObject MovementTutorial;
+
     private void Awake()
     {
         timeline_interface = GetComponent<TIMELINE_INTERFACE>();
@@ -25,6 +27,7 @@ public class TutorialSurkaTeleport : MonoBehaviour
             cameraChanged = true;
             //DisableMovementAndPowers
             //Timelineshit
+            MovementTutorial.SetActive(false);
             timeline_interface.TPlay();
         }
 

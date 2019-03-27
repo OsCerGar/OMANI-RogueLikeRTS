@@ -56,12 +56,20 @@ public class Tutorials_Robot : MonoBehaviour
         }
         else
         {
-            if (commanders.currentFighter != null)
+            if (!robot.activeInHierarchy && !summoned)
             {
-                tutorialRight.SetActive(false);
-                tutorialLeft.SetActive(false);            
+                summoned = true;
+                tutorialLeft.SetActive(false);
+                tutorialRight.SetActive(true);
             }
 
+            if (summoned)
+            {
+                if (robot.activeInHierarchy)
+                {
+                    tutorialRight.SetActive(false);
+                }
+            }
         }
     }
 }

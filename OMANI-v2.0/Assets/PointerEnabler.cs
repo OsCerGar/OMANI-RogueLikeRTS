@@ -11,8 +11,9 @@ public class PointerEnabler : MonoBehaviour
 
     private void Update()
     {
-        if (!disablePlayerControl) { 
-        Inputs();
+        if (!disablePlayerControl)
+        {
+            Inputs();
         }
         else
         {
@@ -23,12 +24,14 @@ public class PointerEnabler : MonoBehaviour
 
     private void Inputs()
     {
+        
         if (!Input.GetMouseButton(0))
         {
             pointer.enabled = true;
             dots.enabled = true;
             state = false;
         }
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             pointer.enabled = false;
@@ -42,7 +45,7 @@ public class PointerEnabler : MonoBehaviour
             dots.enabled = true;
             state = false;
         }
-
+        */
         if (Input.GetAxis("R2") > 0.5f)
         {
             if (!pressed)

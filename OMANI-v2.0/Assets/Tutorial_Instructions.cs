@@ -8,7 +8,7 @@ public class Tutorial_Instructions : MonoBehaviour
     [SerializeField]
     int input = 0;
 
-    bool pc = false;
+    bool pc = true;
 
     private void Awake()
     {
@@ -17,21 +17,11 @@ public class Tutorial_Instructions : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (pc)
-        {
-            if (!Input.GetMouseButton(input))
-            {
-                PCVersion();
-            }
-            else
-            {
-                parent.SetActive(false);
-            }
-        }
+
 
         if (input == 0)
         {
-            if (Input.GetMouseButtonDown(input))
+            if (Input.GetMouseButtonDown(0))
             {
                 pc = true;
                 PCVersion();
@@ -46,6 +36,18 @@ public class Tutorial_Instructions : MonoBehaviour
                 if (Input.GetAxis("R2") < 0.5f)
                 {
                     ControllerVersion();
+                }
+                else
+                {
+                    parent.SetActive(false);
+                }
+            }
+
+            if (pc)
+            {
+                if (!Input.GetMouseButton(0))
+                {
+                    PCVersion();
                 }
                 else
                 {
@@ -81,7 +83,60 @@ public class Tutorial_Instructions : MonoBehaviour
                 }
             }
 
+            if (pc)
+            {
+                if (!Input.GetMouseButton(2))
+                {
+                    PCVersion();
+                }
+                else
+                {
+                    parent.SetActive(false);
+                }
+            }
+
         }
+        if (input == 2)
+        {
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            {
+                pc = true;
+                PCVersion();
+            }
+
+            if (Input.GetAxis("HorizontalJoystick") > 0.2f || Input.GetAxis("HorizontalJoystick") < -0.2f || Input.GetAxis("VerticalJoystick") > 0.2f || Input.GetAxis("VerticalJoystick") < -0.2f)
+            {
+                pc = false;
+            }
+
+            if (!pc)
+            {
+
+                if (Input.GetAxis("HorizontalJoystick") < 0.2f || Input.GetAxis("HorizontalJoystick") > -0.2f || Input.GetAxis("VerticalJoystick") < 0.2f || Input.GetAxis("VerticalJoystick") > -0.2f)
+                {
+
+                    ControllerVersion();
+                    pc = false;
+                }
+                else
+                {
+                    parent.SetActive(false);
+                }
+            }
+
+            if (pc)
+            {
+                if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+                {
+                    parent.SetActive(false);
+                }
+                else
+                {
+                    PCVersion();
+                }
+            }
+        }
+
         /*if()
         {
             ControllerVersion();

@@ -19,8 +19,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
     float currentLerpTime, lerpTime = 1f;
     bool windDown;
 
-
-    GameObject tutorials;
+    [SerializeField]
+    GameObject tutorials, tutorialMovement;
 
     private void Awake()
     {
@@ -89,6 +89,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
         {
             movement.speed = movement.originalSpeed;
             doorLock.SetActive(false);
+            tutorialMovement.SetActive(true);
         }
     }
 
