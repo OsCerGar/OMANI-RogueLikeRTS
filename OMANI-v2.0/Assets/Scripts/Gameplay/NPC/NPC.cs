@@ -12,6 +12,7 @@ public class NPC : MonoBehaviour
     [SerializeField]
     public string boyType;
 
+    [HideInInspector]
     //State on NPC, not to get confused with Behaviour Tree State.  
     public string state;
 

@@ -32,6 +32,9 @@ public class Powers : MonoBehaviour
 
     #endregion
     #region Initializers
+
+    //input
+    PlayerInputInterface player;
     private void Awake()
     {
         Initializer();
@@ -44,6 +47,7 @@ public class Powers : MonoBehaviour
         lookDirection = FindObjectOfType<LookDirectionsAndOrder>();
         army = FindObjectOfType<Army>();
         powerManager = FindObjectOfType<PowerManager>();
+        player = FindObjectOfType<PlayerInputInterface>();
         dash = FindObjectOfType<PW_Dash>();
         lasers = FindObjectOfType<Power_Laser>();
         quarter = Mathf.RoundToInt(maxpowerPool * 0.25f);
@@ -65,17 +69,9 @@ public class Powers : MonoBehaviour
         if (army.currentFighter == null)
         {
             #region Inputs 
-            if (Input.GetMouseButtonDown(0)) { lasers.StartEffects(); }
-            if (Input.GetAxis("R2") > 0.5f) { if (!pressed) { lasers.StartEffects(); pressed = true; } }
-            if (Input.GetMouseButton(0) || Input.GetAxis("R2") > 0.5f) { ZoneLaser(); }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                lasers.EmitLaserStop();
-                ConnectedValue(false, null);
-
-            }
-            if (Input.GetAxis("R2") < 0.5f)
+            if (player.Laser) { if (!pressed) { lasers.StartEffects(); pressed = true; } }
+            if (player.Laser) { ZoneLaser(); }
+            if (!player.Laser)
             {
                 if (pressed)
                 {
@@ -95,7 +91,15 @@ public class Powers : MonoBehaviour
         #region LaserBeams
 
         // /3 because the limit size of the sphere is 0.33.
-        lasers.setSphereWidth((powerPool / maxpowerPool) / 3);
+        lasers.setSphereWidth((powerPool / maxpowerPool) / 2);
+        if (powerPool > 0)
+        {
+            if (player.ds4 != null)
+            {
+                player.ds4.SetLightColor(new Color(0, 0.75f, 0.0f, (powerPool / maxpowerPool)));
+            }
+        }
+        else { player.ds4.SetLightColor(new Color(1f, 0f, 0.0f, 1f)); }
 
         #endregion
         #region IncreasePowerPool

@@ -15,12 +15,14 @@ public class LookDirectionsAndOrder : MonoBehaviour
     float cursorPosition;
     bool catchCursor = true;
 
-    public float hrj, vrj;
-
     public float viewRadius, mouseRadius = 1;
     [Range(0, 360)]
     public float viewAngle;
     private float lookTimer;
+
+    //Inputs
+    PlayerInputInterface player;
+    bool controllerLookModel = true;
 
     //Gameplay
     public Army commander;
@@ -49,9 +51,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     GameObject pointerOrder;
     float alphaTarget = 0.111f;
 
-    [SerializeField]
-    bool controllerLookModel;
-
     //sound
     AudioSource reclute, order;
     #endregion
@@ -60,6 +59,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     void Awake()
     {
         commander = FindObjectOfType<Army>();
+        player = FindObjectOfType<PlayerInputInterface>();
         reclute = GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
         pointerOrder = transform.Find("OrderDirection").gameObject;
@@ -70,10 +70,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
         #region Inputs
         //RightJoystick
         //restart
-        ControllerLookAxis();
         #endregion
 
-        LookAt(hrj, vrj);
+        LookAt();
+
         if (Input.GetButtonDown("FreeMode")) { ControllerFreeMode(); }
     }
 
@@ -89,11 +89,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
     }
 
-    void ControllerLookAxis()
-    {
-        hrj = Input.GetAxis("HorizontalRightJoystick");
-        vrj = Input.GetAxis("VerticalRightJoystick");
-    }
+
 
     private void LateUpdate()
     {
@@ -375,7 +371,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         }
     }
     #endregion
-    void LookAt(float _hrj, float _vrj)
+    void LookAt()
     {
         Cursor.visible = false;
 
@@ -413,9 +409,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 }
             }
 
-            if (_hrj != 0 || _vrj != 0)
+            if (player.LookAxis.x != 0 || player.LookAxis.y != 0)
             {
-                Vector3 tdirection = new Vector3(_hrj, 0, _vrj);
+                Vector3 tdirection = new Vector3(player.LookAxis.x, 0, player.LookAxis.y);
                 if (!controllerLookModel)
                 {
                     tdirection = tdirection.normalized;
@@ -463,7 +459,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     {
         playingOnController = true;
 
-        if (hrj == 0 && vrj == 0)
+        if (player.LookAxis.x == 0 && player.LookAxis.y == 0)
         {
             lookTimer += Time.deltaTime;
             if (lookTimer > 1.5f)

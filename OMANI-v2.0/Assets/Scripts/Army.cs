@@ -25,7 +25,8 @@ public class Army : MonoBehaviour
     Power_Laser power_Laser;
     Powers powers;
     private bool pressedR2, pressedL2, pressedMouse;
-
+    //Inputs 
+    PlayerInputInterface player;
 
     [SerializeField]
     AudioSource summonAndCant;
@@ -33,6 +34,7 @@ public class Army : MonoBehaviour
     private void Start()
     {
         look = FindObjectOfType<LookDirectionsAndOrder>();
+        player = FindObjectOfType<PlayerInputInterface>();
         powers = FindObjectOfType<Powers>();
         power_Laser = FindObjectOfType<Power_Laser>();
         radialMenu = FindObjectOfType<RadialMenu_GUI>();
@@ -48,23 +50,14 @@ public class Army : MonoBehaviour
             power_Laser.EmitLaser(true, currentFighter.ball);
 
             //si current fighter pasa a ser null, y no se ha hecho U. Se queda colgao
-            if (Input.GetMouseButtonDown(0)) { if (!pressedMouse) { Order(); pressedMouse = true; } }
-            if (Input.GetAxis("R2") > 0.5f)
+            if (player.Laser)
             {
                 if (!pressedR2)
                 {
                     Order(); pressedR2 = true;
                 }
             }
-            if (Input.GetMouseButtonUp(0))
-            {
-                if (pressedMouse)
-                {
-                    Order();
-                    pressedMouse = false;
-                }
-            }
-            if (Input.GetAxis("R2") < 0.5f)
+            if (!player.Laser)
             {
                 if (pressedR2)
                 {
@@ -80,23 +73,17 @@ public class Army : MonoBehaviour
     {
         if (radialMenuEnabled)
         {
-            if (Input.GetAxis("L2") > 0.5f) { if (!pressedL2) { radialMenuPopUp(); pressedL2 = true; } }
-            if (Input.GetAxis("L2") < 0.25f) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
-            if (Input.GetMouseButtonDown(2)) { radialMenuPopUp(); }
-            if (Input.GetMouseButtonUp(2)) { radialMenuPopDown(null); }
+            if (player.inputs.GetButtonDown("Radial Menu")) { if (!pressedL2) { radialMenuPopUp(); pressedL2 = true; } }
+            if (player.inputs.GetButtonUp("Radial Menu")) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
+            if (player.inputs.GetButtonDown("FireLaser")) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
 
-
-            if (radialMenu.DPAD.x == 1) { radialMenu.menuItem(1); }
-            if (radialMenu.DPAD.x == -1) { radialMenu.menuItem(3); }
-            if (radialMenu.DPAD.y == 1) { radialMenu.menuItem(0); }
-            if (radialMenu.DPAD.y == -1) { radialMenu.menuItem(2); }
-            if (Input.GetKeyDown("1")) { radialMenu.menuItem(0); }
-            if (Input.GetKeyDown("2")) { radialMenu.menuItem(1); }
-            if (Input.GetKeyDown("3")) { radialMenu.menuItem(2); }
-            if (Input.GetKeyDown("4")) { radialMenu.menuItem(3); }
+            if (player.RobotQuickSelection.x == 1) { radialMenu.menuItem(1); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
+            if (player.RobotQuickSelection.x == -1) { radialMenu.menuItem(3); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
+            if (player.RobotQuickSelection.y == 1) { radialMenu.menuItem(0); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
+            if (player.RobotQuickSelection.y == -1) { radialMenu.menuItem(2); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
         }
 
-        if (Input.GetMouseButtonDown(1) || Input.GetButtonDown("Summon")) { SummonRobot(); }
+        if (player.inputs.GetButtonDown("Summon")) { SummonRobot();  }
 
     }
 
@@ -265,6 +252,7 @@ public class Army : MonoBehaviour
                 //Removes from list to update UI, still currentFighter
                 RemoveWithoutFighter(currentFighter);
                 armyCell[ArmyCellSelected].Transaction();
+                player.SetVibration(0, 0.25f, 0.25f, false);
             }
             else
             {

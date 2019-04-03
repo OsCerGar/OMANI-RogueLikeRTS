@@ -28,6 +28,9 @@ public class Robot : NPC
     public delegate void DieEvent(GameObject _robot);
     public static event DieEvent OnDie;
 
+    //Inputs
+    PlayerInputInterface inputController;
+
     public void Sparks()
     {
         SparkEffect.Play();
@@ -47,6 +50,7 @@ public class Robot : NPC
         powers = FindObjectOfType<Powers>();
         dissolveEffect = GetComponentInChildren<DissolveEffectController>();
         commander = FindObjectOfType<Army>();
+        inputController = FindObjectOfType<PlayerInputInterface>();
 
         ball = transform.FindDeepChild("StartSphereMesh");
 
@@ -164,6 +168,9 @@ public class Robot : NPC
             if (anim != null)
             {
                 anim.SetTrigger("Hit");
+                inputController.SetVibration(0, 0.5f, 0.25f, false);
+                inputController.SetVibration(1, 0.5f, 0.25f, false);
+
             }
             if (reducePowerNow(damage))
             {
@@ -174,11 +181,17 @@ public class Robot : NPC
                 {
                     //Instead, it should recieve some damage.
                     enableTree("CoolDown");
+                    inputController.SetVibration(0, 0.75f, 0.25f, false);
+                    inputController.SetVibration(1, 0.75f, 0.25f, false);
+
                     CoolDown();
                 }
                 else
                 {
                     Die();
+                    inputController.SetVibration(0, 1f, 0.25f, false);
+                    inputController.SetVibration(1, 1f, 0.25f, false);
+
                     state = "Dead";
                 }
             }

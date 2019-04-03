@@ -2,8 +2,6 @@
 
 public class CharacterMovement : MonoBehaviour
 {
-    //Objects
-    Vector2 movementAxis, movementAxisController;
 
     Rigidbody rb;
     LookDirectionsAndOrder LookDirection;
@@ -25,6 +23,7 @@ public class CharacterMovement : MonoBehaviour
     public delegate void Stopped();
     public static event Stopped OnStopping;
 
+    PlayerInputInterface inputs;
 
     // Use this for initialization
     void Start()
@@ -32,36 +31,20 @@ public class CharacterMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         LookDirection = FindObjectOfType<LookDirectionsAndOrder>();
+        inputs = FindObjectOfType<PlayerInputInterface>();
     }
 
     private void Update()
     {
-        MoveAxis();
-
         //This function controls the movement.
         MovementController();
-    }
-
-    void MoveAxis()
-    {
-        RestartControllerAxis();
-        movementAxisController.x = Input.GetAxis("HorizontalJoystick");
-        movementAxisController.y = Input.GetAxis("VerticalJoystick");
-        movementAxis.x = Input.GetAxis("Horizontal");
-        movementAxis.y = Input.GetAxis("Vertical");
-    }
-
-    void RestartControllerAxis()
-    {
-        movementAxisController = new Vector2(0, 0);
-        movementAxis = new Vector2(0, 0);
     }
 
     //Function in charge of the Main Character movement. Sends commands to the animator and allows the character to rotate.
     void MovementController()
     {
         // If the axis has any sort of input on WASD.
-        if (movementAxis.x != 0f || movementAxis.y != 0f)
+        if (inputs.MovementAxis.x != 0f || inputs.MovementAxis.y != 0f)
         {
 
             onNoMovementTime = 0;
@@ -70,7 +53,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 onMovement = true;
 
-                desiredDirection = new Vector3(movementAxis.x, 0f, movementAxis.y);
+                desiredDirection = new Vector3(inputs.MovementAxis.x, 0f, inputs.MovementAxis.y);
 
                 //In case the player moves diagonally, it's normalized so that the speed is the same.
                 if (desiredDirection.magnitude > 1)
@@ -87,7 +70,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         // If the axis has any sort of input on Joystick.
-        else if (movementAxisController.x > 0.2f || movementAxisController.x < -0.2f || movementAxisController.y > 0.2f || movementAxisController.y < -0.2f)
+        else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
         {
             onNoMovementTime = 0;
 
@@ -96,7 +79,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 onMovement = true;
 
-                desiredDirection = new Vector3(movementAxisController.x, 0f, movementAxisController.y);
+                desiredDirection = new Vector3(inputs.MovementAxisController.x, 0f, inputs.MovementAxisController.y);
 
                 //In case the player moves diagonally, it's normalized so that the speed is the same.
                 if (desiredDirection.magnitude > 1)
@@ -109,7 +92,7 @@ public class CharacterMovement : MonoBehaviour
 
             controller.Move(desiredDirection * speed * Time.deltaTime);
 
-            LookDirection.LookAtWhileMoving(movementAxisController.x, movementAxisController.y);
+            LookDirection.LookAtWhileMoving(inputs.MovementAxisController.x, inputs.MovementAxisController.y);
             Rotate(desiredDirection);
 
         }
@@ -121,7 +104,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (onMovement)
         {
-            if (movementAxis.x == 0f && movementAxis.y == 0f)
+            if (inputs.MovementAxis.x == 0f && inputs.MovementAxis.y == 0f)
             {
                 onMovement = false;
                 OnStopping();

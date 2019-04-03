@@ -43,7 +43,6 @@ public class closeUpCamera : MonoBehaviour
                 {
                     if (playerCamera.enabled)
                     {
-                        Debug.Log("enabled");
 
                         playerCamera.enabled = false;
                         closeCamera.enabled = true;
@@ -59,7 +58,6 @@ public class closeUpCamera : MonoBehaviour
                     closedUp = false;
                     if (!playerCamera.enabled)
                     {
-                        Debug.Log("disabled");
 
                         playerCamera.enabled = true;
                         closeCamera.enabled = false;

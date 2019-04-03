@@ -12,11 +12,16 @@ public class Player : NPC
     CharacterMovement characterMovement;
     [SerializeField] PlayableDirector Director;
     bool protection;
+
+    //Inputs
+    PlayerInputInterface inputController;
     void Awake()
     {
         boyType = "Swordsman";
         powers = GetComponent<Powers>();
         characterMovement = GetComponent<CharacterMovement>();
+        inputController = FindObjectOfType<PlayerInputInterface>();
+
     }
 
     public override void Die()
@@ -36,6 +41,8 @@ public class Player : NPC
                 StartCoroutine(gotHit());
 
                 powers.reduceAsMuchPower(damage);
+                inputController.SetVibration(0, 1f, 0.25f, false);
+                inputController.SetVibration(1, 1f, 0.25f, false);
 
                 if (powers.powerPool < 1)
                 {
@@ -58,6 +65,8 @@ public class Player : NPC
 
     IEnumerator CoolDown()
     {
+        inputController.SetVibration(0, 1f, 0.75f, false);
+        inputController.SetVibration(1, 1f, 0.75f, false);
 
         powers.enabled = false;
         characterMovement.speed = 0;

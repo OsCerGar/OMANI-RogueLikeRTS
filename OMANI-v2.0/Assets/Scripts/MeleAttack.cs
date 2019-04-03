@@ -18,8 +18,11 @@ public class MeleAttack : MonoBehaviour {
     string tagToAttack, secondTagToAttack;
     bool missed;
     ParticleSystem PowerUpEffect, PowerUpHitEffect;
-    
-    
+
+    //Inputs
+    PlayerInputInterface inputController;
+
+
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
@@ -48,11 +51,17 @@ public class MeleAttack : MonoBehaviour {
                 {
                     damageFinal = (Damage + offset) * 2;
                     EnemyNPC.TakeDamage(damageFinal, Color.yellow);
+
+                    inputController.SetVibration(0, 1f, 0.15f, false);
+                    inputController.SetVibration(1, 1f, 0.15f, false);
                 }
                 else
                 {
                     damageFinal = Damage + offset;
                     EnemyNPC.TakeDamage(damageFinal, Color.white);
+                    inputController.SetVibration(0, 0.25f, 0.15f, false);
+                    inputController.SetVibration(1, 0.25f, 0.15f, false);
+
                 }
 
             }
@@ -73,8 +82,9 @@ public class MeleAttack : MonoBehaviour {
         {
             Effect.Play();
         }
-        
-        
+
+        inputController = FindObjectOfType<PlayerInputInterface>();
+
         StartCoroutine(WaitandDisable());
     }
     

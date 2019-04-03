@@ -23,10 +23,14 @@ public class LaserColisionStandard : MonoBehaviour
     [SerializeField]
     AudioClip regularLaserLoop, interactibleLaserLoop, damageLaserLoop;
 
+    //Inputs
+    PlayerInputInterface inputController;
+
     private void Awake()
     {
         powerLaser = FindObjectOfType<Power_Laser>();
         powers = FindObjectOfType<Powers>();
+        inputController = FindObjectOfType<PlayerInputInterface>();
         PSArea = GetComponentInChildren<ParticleSystem>();
     }
     private void Update()
@@ -78,6 +82,8 @@ public class LaserColisionStandard : MonoBehaviour
         if (enemy != null)
         {
             enemy.TakeWeakLaserDamage(2f, 4);
+            inputController.SetVibration(0, 0.1f, 0.1f, false);
+            inputController.SetVibration(1, 0.1f, 0.1f, false);
 
         }
         if (interactible != null)
@@ -86,11 +92,19 @@ public class LaserColisionStandard : MonoBehaviour
             if (interactible.actionBool)
             {
                 powerLaser.setWidth(interactible.linkPrice);
+
+                inputController.SetVibration(0, interactible.currentLinkPrice / interactible.finalLinkPrice / 2, 0.15f, false);
+                inputController.SetVibration(1, interactible.currentLinkPrice / interactible.finalLinkPrice / 2, 0.15f, false);
+
+
             }
         }
         if (ally != null)
         {
             ally.robot_energy.Action();
+            inputController.SetVibration(0, ally.robot_energy.currentLinkPrice / ally.robot_energy.finalLinkPrice / 2, 0.15f, false);
+            inputController.SetVibration(1, ally.robot_energy.currentLinkPrice / ally.robot_energy.finalLinkPrice / 2, 0.15f, false);
+
         }
     }
 

@@ -3,7 +3,7 @@
 public class RadialMenu_GUI : MonoBehaviour
 {
     Army army;
-    LookDirectionsAndOrder lookD;
+    PlayerInputInterface player;
     // Radial Menu Stuff
     RadialMenu_GUI_BASE[] radialPart = new RadialMenu_GUI_BASE[4];
     RadialMenu_Quickslot quickSlot;
@@ -16,7 +16,7 @@ public class RadialMenu_GUI : MonoBehaviour
     private int curMenuItem = 0;
     private int oldMenuItem;
 
-    bool enabled, quickPlayed;
+    bool enabled;
 
     public Vector2 DPAD;
 
@@ -36,7 +36,7 @@ public class RadialMenu_GUI : MonoBehaviour
         radialPart[2] = transform.GetChild(0).Find("3Base").GetComponent<RadialMenu_GUI_BASE>();
         radialPart[3] = transform.GetChild(0).Find("4Base").GetComponent<RadialMenu_GUI_BASE>();
         army = FindObjectOfType<Army>();
-        lookD = FindObjectOfType<LookDirectionsAndOrder>();
+        player = FindObjectOfType<PlayerInputInterface>();
 
         radialCanvas = transform.Find("Canvas").GetComponent<Canvas>();
         backgroundCanvas = transform.Find("CanvasBackground").GetComponent<Canvas>();
@@ -60,28 +60,6 @@ public class RadialMenu_GUI : MonoBehaviour
         {
             quickSlot.background.sprite = quickSlot.backgroundNormal;
         }
-
-        //Inputs
-        Inputs();
-    }
-
-    private void Inputs()
-    {
-        AxisUpdate();
-        if (quickPlayed)
-        {
-            if (DPAD.x == 0) { menuItem(1); }
-            if (DPAD.x == 0) { menuItem(3); }
-            if (DPAD.y == 0) { menuItem(0); }
-            if (DPAD.y == 0) { menuItem(2); }
-        }
-
-    }
-    private void AxisUpdate()
-    {
-        DPAD = new Vector2();
-        DPAD.x = Input.GetAxis("DPADHorizontal");
-        DPAD.y = Input.GetAxis("DPADVertical");
     }
 
     public void menuItem(int i)
@@ -128,9 +106,9 @@ public class RadialMenu_GUI : MonoBehaviour
     {
         float angle = 0;
 
-        if (lookD.hrj != 0 || lookD.vrj != 0)
+        if (player.LookAxis.x != 0 || player.LookAxis.y != 0)
         {
-            angle = Mathf.Atan2(-lookD.vrj, lookD.hrj);
+            angle = Mathf.Atan2(-player.LookAxis.y, player.LookAxis.x);
             angle = angle * Mathf.Rad2Deg;
         }
         else
