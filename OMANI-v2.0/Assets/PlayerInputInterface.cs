@@ -82,8 +82,10 @@ public class PlayerInputInterface : MonoBehaviour
 
     public void SetVibration(int _motor, float _amount, float _time, bool _stops)
     {
-        inputs.SetVibration(_motor, _amount, _time);
-
+        if (inputs.controllers.Joysticks.Count > 0 && inputs.controllers.Joysticks[0].supportsVibration)
+        {
+            inputs.SetVibration(_motor, _amount, _time);
+        }
     }
 
     public void SetDS4Lights()
