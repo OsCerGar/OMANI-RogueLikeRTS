@@ -30,7 +30,7 @@ public class PlayerInputInterface : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         inputs = ReInput.players.GetPlayer(playerId);
         ds4 = inputs.controllers.Joysticks[0].GetExtension<IDualShock4Extension>();
@@ -88,8 +88,8 @@ public class PlayerInputInterface : MonoBehaviour
         }
     }
 
-    public void SetDS4Lights()
+    public void SetDS4Lights(Color _color)
     {
-
+        ds4.SetLightColor(_color);
     }
 }

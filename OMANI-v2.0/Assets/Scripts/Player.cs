@@ -65,8 +65,9 @@ public class Player : NPC
 
     IEnumerator CoolDown()
     {
-        inputController.SetVibration(0, 1f, 0.75f, false);
-        inputController.SetVibration(1, 1f, 0.75f, false);
+        inputController.SetVibration(0, 1f, 1f, false);
+        inputController.SetVibration(1, 1f, 1f, false);
+        inputController.SetDS4Lights(new Color(1f, 0f, 0.0f, 1f));
 
         powers.enabled = false;
         characterMovement.speed = 0;

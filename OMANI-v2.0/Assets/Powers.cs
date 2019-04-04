@@ -92,14 +92,13 @@ public class Powers : MonoBehaviour
 
         // /3 because the limit size of the sphere is 0.33.
         lasers.setSphereWidth((powerPool / maxpowerPool) / 2);
-        if (powerPool > 0)
-        {
+
+        //ds4light
             if (player.ds4 != null)
             {
-                player.ds4.SetLightColor(new Color(0, 0.75f, 0.0f, (powerPool / maxpowerPool)));
+                player.SetDS4Lights(new Color(0, 0.75f, 0.0f, (powerPool / maxpowerPool)));
             }
-        }
-        else { player.ds4.SetLightColor(new Color(1f, 0f, 0.0f, 1f)); }
+
 
         #endregion
         #region IncreasePowerPool
