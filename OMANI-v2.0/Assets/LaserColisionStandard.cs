@@ -82,8 +82,7 @@ public class LaserColisionStandard : MonoBehaviour
         if (enemy != null)
         {
             enemy.TakeWeakLaserDamage(2f, 4);
-            inputController.SetVibration(0, 0.1f, 0.1f, false);
-            inputController.SetVibration(1, 0.1f, 0.1f, false);
+            inputController.SetVibration(1, 0.25f, 0.1f, false);
 
         }
         if (interactible != null)
@@ -93,8 +92,7 @@ public class LaserColisionStandard : MonoBehaviour
             {
                 powerLaser.setWidth(interactible.linkPrice);
 
-                inputController.SetVibration(0, interactible.currentLinkPrice / interactible.finalLinkPrice / 2, 0.15f, false);
-                inputController.SetVibration(1, interactible.currentLinkPrice / interactible.finalLinkPrice / 2, 0.15f, false);
+                inputController.SetVibration(1, interactible.currentLinkPrice / interactible.finalLinkPrice / 3, 0.15f, false);
 
 
             }
@@ -102,8 +100,7 @@ public class LaserColisionStandard : MonoBehaviour
         if (ally != null)
         {
             ally.robot_energy.Action();
-            inputController.SetVibration(0, ally.robot_energy.currentLinkPrice / ally.robot_energy.finalLinkPrice / 2, 0.15f, false);
-            inputController.SetVibration(1, ally.robot_energy.currentLinkPrice / ally.robot_energy.finalLinkPrice / 2, 0.15f, false);
+            inputController.SetVibration(1, ally.robot_energy.currentLinkPrice / ally.robot_energy.finalLinkPrice / 3, 0.15f, false);
 
         }
     }

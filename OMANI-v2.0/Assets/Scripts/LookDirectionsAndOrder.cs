@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LookDirectionsAndOrder : MonoBehaviour
@@ -25,6 +24,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     bool controllerLookModel = true;
 
     //Gameplay
+    #region SerializeStuff
     public Army commander;
     public Transform alternativeCenter;
     public NPC closestTarget, closestEnemyTarget, latestClosestTarget;
@@ -37,12 +37,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private NPC boyInCharge;
     public GameObject orderPosition;
     private RaycastHit hit;
+    #endregion
 
-    public List<string> selectedTypeList;
-    public int selectedTypeInt;
-
-    public bool playingOnController;
-
+    private bool playingOnController;
+    private Vector3 oldDirection;
     //NEW UI
     public GameObject UISelectionSpawned;
     [SerializeField]
@@ -74,7 +72,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         LookAt();
 
-        if (Input.GetButtonDown("FreeMode")) { ControllerFreeMode(); }
+        if (player.inputs.GetButtonDown("SecondaryLookMode")) { ControllerFreeMode(); }
     }
 
     private void ControllerFreeMode()
@@ -148,6 +146,10 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 transform.position + (transform.forward * (viewRadius / 1.5f)), 0.4f);
         }
     }
+    private void GUI_SpecialPointer()
+    {
+        pointerDirection.transform.position = Vector3.Lerp(pointerDirection.transform.position, miradaposition, 0.4f);
+    }
     private void GUI_MousePointer()
     {
         if (pointerDirection.enabled)
@@ -155,10 +157,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
             pointerDirection.transform.position = miradaposition;
         }
     }
-    private void GUI_SpecialPointer()
-    {
-        pointerDirection.transform.position = miradaposition;
-    }
+
     #endregion
     #region FindVisibleTargets
     IEnumerator FindTargetsWithDelay(float delay)
@@ -416,11 +415,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 {
                     tdirection = tdirection.normalized;
                 }
+
                 miradaposition = transform.position + (tdirection) * viewRadius / 2;
                 transform.LookAt(miradaposition);
-
                 playingOnController = true;
             }
+            else { miradaposition = transform.position + (transform.forward * (viewRadius / 6f)); }
         }
 
         else
@@ -458,18 +458,21 @@ public class LookDirectionsAndOrder : MonoBehaviour
     public void LookAtWhileMoving(float _playerHrj, float _playerVrj)
     {
         playingOnController = true;
-
-        if (player.LookAxis.x == 0 && player.LookAxis.y == 0)
+        if (!controllerLookModel)
         {
-            lookTimer += Time.deltaTime;
-            if (lookTimer > 1.5f)
+
+            if (player.LookAxis.x == 0 && player.LookAxis.y == 0)
             {
-                Vector3 tdirection = new Vector3(_playerHrj, 0, _playerVrj);
-                miradaposition = transform.position + (tdirection) * viewRadius / 2;
-                transform.LookAt(miradaposition);
+                lookTimer += Time.deltaTime;
+                if (lookTimer > 1.5f)
+                {
+                    Vector3 tdirection = new Vector3(_playerHrj, 0, _playerVrj);
+                    miradaposition = transform.position + (tdirection) * viewRadius / 2;
+                    transform.LookAt(miradaposition);
+                }
             }
+            else { lookTimer = 0; }
         }
-        else { lookTimer = 0; }
     }
     public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
     {

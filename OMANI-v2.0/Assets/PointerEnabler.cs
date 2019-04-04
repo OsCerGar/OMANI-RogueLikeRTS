@@ -8,7 +8,13 @@ public class PointerEnabler : MonoBehaviour
     private bool state, pressed;
 
     public bool disablePlayerControl;
+    //Inputs
+    PlayerInputInterface inputController;
 
+    private void OnEnable()
+    {
+        inputController = FindObjectOfType<PlayerInputInterface>();
+    }
     private void Update()
     {
         if (!disablePlayerControl)
@@ -24,29 +30,8 @@ public class PointerEnabler : MonoBehaviour
 
     private void Inputs()
     {
-        
-        if (!Input.GetMouseButton(0))
-        {
-            pointer.enabled = true;
-            dots.enabled = true;
-            state = false;
-        }
-        /*
-        if (Input.GetMouseButtonDown(0))
-        {
-            pointer.enabled = false;
-            dots.enabled = false;
-            state = true;
-        }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            pointer.enabled = true;
-            dots.enabled = true;
-            state = false;
-        }
-        */
-        if (Input.GetAxis("R2") > 0.5f)
+        if (inputController.Laser)
         {
             if (!pressed)
             {
@@ -54,7 +39,7 @@ public class PointerEnabler : MonoBehaviour
                 pressed = true;
             }
         }
-        if (Input.GetAxis("R2") < 0.5f)
+        if (!inputController.Laser)
         {
             if (pressed)
             {
