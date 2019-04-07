@@ -14,19 +14,19 @@ public class UI_Powers : MonoBehaviour
     void Start()
     {
         powers = transform.root.GetComponentInChildren<Powers>();
-        startingPoint = powers.maxpowerPool / 2f;
+        startingPoint = powers.maxArmor / 2f;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if (powers.powerPool < startingPoint)
+        if (powers.armor < startingPoint)
         {
             dying = false;
             foreach (Image img in dyingEffect)
             {
                 var tempColor = img.color;
-                tempColor.a = 1 - (powers.powerPool / startingPoint);
+                tempColor.a = 1 - (powers.armor / startingPoint);
                 img.color = tempColor;
             }
         }

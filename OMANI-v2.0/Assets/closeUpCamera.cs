@@ -23,7 +23,7 @@ public class closeUpCamera : MonoBehaviour
     {
         if (!stop)
         {
-            if (movementController.onNoMovementTime > 3f)
+            if (movementController.onNoMovementTime > 15f)
             {
                 closedUp = true;
 

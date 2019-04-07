@@ -382,13 +382,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (Input.GetAxis("Mouse X") == cursorPosition)
         {
 
-            timeLeft -= Time.deltaTime;
-            if (timeLeft < 0)
-            {
-                timeLeft = visibleCursorTimer;
-                catchCursor = true;
-            }
-
             if (!playingOnController)
             {
                 // If the mouse is not moving, the cursor follows the camera movement.
@@ -416,11 +409,12 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     tdirection = tdirection.normalized;
                 }
 
-                miradaposition = transform.position + (tdirection) * viewRadius / 2;
+                // viewRadius / 2f - 2f is the distance, the higher the less distance it goes
+                miradaposition = transform.position + (tdirection) * viewRadius / 1.25f + new Vector3(0, -1f, 0);
                 transform.LookAt(miradaposition);
                 playingOnController = true;
             }
-            else { miradaposition = transform.position + (transform.forward * (viewRadius / 6f)); }
+            else if (playingOnController) { miradaposition = transform.position + (transform.forward * (viewRadius / 6f)); }
         }
 
         else
@@ -490,7 +484,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
         // Gizmos.DrawSphere(miradaposition, 1);
         Gizmos.DrawSphere(orderPosition.transform.position, 1);
     }
-
     public void AlternativeCenter(Transform _alternative)
     {
         alternativeCenter = _alternative;

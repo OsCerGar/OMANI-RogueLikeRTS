@@ -36,7 +36,7 @@ public class Player : NPC
 
         if (!protection)
         {
-            if (powers.powerPool > 0)
+            if (powers.armor > 0)
             {
                 StartCoroutine(gotHit());
 
@@ -44,7 +44,7 @@ public class Player : NPC
                 inputController.SetVibration(0, 1f, 0.25f, false);
                 inputController.SetVibration(1, 1f, 0.25f, false);
 
-                if (powers.powerPool < 1)
+                if (powers.armor < 1)
                 {
                     StartCoroutine(DamageProtection());
                     StartCoroutine(CoolDown());
@@ -76,7 +76,7 @@ public class Player : NPC
         {
             characterMovement.speed = characterMovement.originalSpeed;
             powers.enabled = true;
-            powers.powerPool = 25;
+            powers.armor = 25;
         }
 
     }

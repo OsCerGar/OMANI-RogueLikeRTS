@@ -12,7 +12,6 @@ public class Demon : Enemy {
         thisTarget.Value = master;
 
     }
-   
 
     public override void AttackHit()
     {

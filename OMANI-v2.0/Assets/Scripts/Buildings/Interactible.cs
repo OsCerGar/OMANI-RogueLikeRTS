@@ -63,7 +63,7 @@ public class Interactible : MonoBehaviour
     {
         if (Time.time - startTime > 5f && powerReduced > 0)
         {
-            ReducePower();
+            ReducePower(8);
         }
     }
 
@@ -85,7 +85,7 @@ public class Interactible : MonoBehaviour
 
         startTime = Time.time;
 
-        if (powers.reducePower(currentLinkPrice))
+        if (powers.reducePower(0))
         {
             laserAudio.energyTransmisionSound(currentLinkPrice);
             float reduceamount = currentLinkPrice * Time.unscaledDeltaTime;
@@ -122,11 +122,12 @@ public class Interactible : MonoBehaviour
         powerReduced = 0;
         currentLinkPrice = 0;
         t = 0.2f;
+        
     }
 
-    public virtual void ReducePower()
+    public virtual void ReducePower(float _quantity)
     {
-        powerReduced -= 8 * Time.unscaledDeltaTime;
+        powerReduced -= _quantity * Time.unscaledDeltaTime;
     }
 
     public virtual void ReducePower(int _reducePower)

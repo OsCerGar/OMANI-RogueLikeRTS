@@ -19,7 +19,7 @@ public class RadialMenu_GUI : MonoBehaviour
     bool enabled;
 
     public Vector2 DPAD;
-
+    float oldMouse;
     [SerializeField]
     AudioSource openMenuAudio, closeMenuAudio, selectedAudio, selectedAudioEmpty;
 
@@ -85,6 +85,8 @@ public class RadialMenu_GUI : MonoBehaviour
         robotsCanvas.enabled = true;
         quickSlotCanvas.enabled = false;
         enabled = true;
+        GetCurrentMenuItem();
+        UpdateState();
         openMenuAudio.Play();
     }
 
@@ -110,13 +112,22 @@ public class RadialMenu_GUI : MonoBehaviour
         {
             angle = Mathf.Atan2(-player.LookAxis.y, player.LookAxis.x);
             angle = angle * Mathf.Rad2Deg;
+            angle = AngleCalc(angle);
         }
-        else
+        if(Input.GetAxis("Mouse X") != oldMouse)
         {
+            oldMouse = Input.GetAxis("Mouse X");
             Mouseposition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             toVector2M = new Vector2(Mouseposition.x / Screen.width, Mouseposition.y / Screen.height);
             angle = Mathf.Atan2(fromVector2M.y - centercircle.y, fromVector2M.x - centercircle.x) - Mathf.Atan2(toVector2M.y - centercircle.y, toVector2M.x - centercircle.x) * Mathf.Rad2Deg;
+            angle = AngleCalc(angle);
         }
+
+
+    }
+
+    private float AngleCalc(float angle)
+    {
         angle += 135;
         if (angle < 0) { angle += 360; }
 
@@ -133,6 +144,7 @@ public class RadialMenu_GUI : MonoBehaviour
             else { selectedAudioEmpty.Play(); }
         }
 
+        return angle;
     }
 
     public int RadialMenuButtonAction()

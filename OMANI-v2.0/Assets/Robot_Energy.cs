@@ -32,7 +32,7 @@ public class Robot_Energy : Interactible
         {
             startTime = Time.time;
 
-            if (powers.reducePower(currentLinkPrice))
+            if (powers.reducePower(0))
             {
                 float reduceamount = currentLinkPrice * Time.unscaledDeltaTime;
                 _robot.powerPool += reduceamount;
@@ -88,7 +88,7 @@ public class Robot_Energy : Interactible
 
     }
 
-    public override void ReducePower()
+    public override void ReducePower(float _quantity)
     {
         _robot.powerPool -= 1 * Time.unscaledDeltaTime;
     }

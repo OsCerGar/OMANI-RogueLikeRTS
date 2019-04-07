@@ -2,7 +2,6 @@
 public class Powers : MonoBehaviour
 {
     #region ReferenceVariables
-    [SerializeField]
     int ennuisMask;
     PW_Hearthstone hearthStone;
     LookDirectionsAndOrder lookDirection;
@@ -13,12 +12,10 @@ public class Powers : MonoBehaviour
     #endregion
 
     [SerializeField]
-    public float maxpowerPool = 1000, powerPool = 1000, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1, laserCooldown = 1, laserTime;
+    public float maxArmor = 1000, armor = 1000, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1, laserCooldown = 1, laserTime;
     //Test
     public Vector3 MiradaPosition;
-    int quarter, half, quartandhalf;
-
-    float radius = 3;
+    float radius = 2;
 
     //INPUTS
     public bool zonelaservalue = false, stronglaservalue = false, hearthStoneValue = false;
@@ -50,9 +47,6 @@ public class Powers : MonoBehaviour
         player = FindObjectOfType<PlayerInputInterface>();
         dash = FindObjectOfType<PW_Dash>();
         lasers = FindObjectOfType<Power_Laser>();
-        quarter = Mathf.RoundToInt(maxpowerPool * 0.25f);
-        half = Mathf.RoundToInt(maxpowerPool * 0.5f);
-        quartandhalf = Mathf.RoundToInt(maxpowerPool * 0.75f);
 
     }
     #endregion
@@ -91,35 +85,16 @@ public class Powers : MonoBehaviour
         #region LaserBeams
 
         // /3 because the limit size of the sphere is 0.33.
-        lasers.setSphereWidth((powerPool / maxpowerPool) / 2);
+        lasers.setSphereWidth((armor / maxArmor) / 2);
 
         //ds4light
-            if (player.ds4 != null)
-            {
-                player.SetDS4Lights(new Color(0, 0.75f, 0.0f, (powerPool / maxpowerPool)));
-            }
+        if (player.ds4 != null)
+        {
+            player.SetDS4Lights(new Color(0, 0.75f, 0.0f, (armor / maxArmor)));
+        }
 
 
         #endregion
-        #region IncreasePowerPool
-        if (powerPool < quarter)
-        {
-            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, quarter);
-        }
-        else if (powerPool < half)
-        {
-            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, half);
-        }
-        else if (powerPool < quartandhalf)
-        {
-            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, quartandhalf);
-        }
-        else if (powerPool < maxpowerPool)
-        {
-            powerPool = Mathf.Clamp(powerPool + increaseAmount * Time.unscaledDeltaTime, 0, maxpowerPool);
-        }
-        #endregion
-
     }
     private void FixedUpdate()
     {
@@ -181,15 +156,29 @@ public class Powers : MonoBehaviour
     #region PowerRelated
     public void addPower(float amount)
     {
-        powerPool = Mathf.Clamp(powerPool + amount, 0, maxpowerPool);
+        armor = Mathf.Clamp(armor + amount, 0, maxArmor);
     }
+    public float addPowerReturn(float amount)
+    {
+        float excessArmor = armor + amount - maxArmor;
+        armor = Mathf.Clamp(armor + amount, 0, maxArmor);
 
+        if (excessArmor > 0)
+        {
+            return excessArmor;
+        }
+        else
+        {
+            return amount;
+        }
+
+    }
     public bool restorePower(float amount)
     {
         float finalAmount = amount * Time.unscaledDeltaTime;
-        if (powerPool + finalAmount < maxpowerPool)
+        if (armor + finalAmount < maxArmor)
         {
-            powerPool += finalAmount;
+            armor += finalAmount;
             return true;
         }
         else
@@ -201,9 +190,9 @@ public class Powers : MonoBehaviour
     public bool reducePower(float amount)
     {
         float finalAmount = amount * Time.unscaledDeltaTime;
-        if (powerPool - finalAmount >= 0)
+        if (armor - finalAmount >= 0)
         {
-            powerPool -= finalAmount;
+            armor -= finalAmount;
             return true;
         }
         else
@@ -213,9 +202,9 @@ public class Powers : MonoBehaviour
     }
     public bool reducePowerNow(float amount)
     {
-        if (powerPool - amount >= 0)
+        if (armor - amount >= 0)
         {
-            powerPool -= amount;
+            armor -= amount;
             return true;
         }
         else
@@ -226,15 +215,15 @@ public class Powers : MonoBehaviour
     public float reduceAsMuchPower(float amount)
     {
         float energyReduced;
-        if (powerPool - amount >= 0)
+        if (armor - amount >= 0)
         {
-            powerPool -= amount;
+            armor -= amount;
             energyReduced = amount;
         }
         else
         {
-            energyReduced = powerPool;
-            powerPool -= powerPool;
+            energyReduced = armor;
+            armor -= armor;
         }
         return energyReduced;
     }
@@ -243,17 +232,17 @@ public class Powers : MonoBehaviour
     #region EnnuiRelated
     private void FindEnnuis()
     {
-        if (powerPool < maxpowerPool)
+        if (armor < maxArmor)
         {
             Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, radius, ennuisMask);
             foreach (Collider col in targetsInViewRadius)
             {
                 if (col.tag == "Ennui")
                 {
+                    Debug.Log("Catched");
                     // Save the col as an NPC
                     Ennui_Ground ennui;
                     ennui = col.GetComponent<Ennui_Ground>();
-
                     if (ennui != null)
                     {
                         ennui.Action(this);

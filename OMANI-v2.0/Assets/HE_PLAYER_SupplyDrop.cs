@@ -19,7 +19,7 @@ public class HE_PLAYER_SupplyDrop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerPowers.powerPool < 10 && anim.GetCurrentAnimatorStateInfo(0).IsName("SupplyDropBuffActivatedIddle"))
+        if (playerPowers.armor < 10 && anim.GetCurrentAnimatorStateInfo(0).IsName("SupplyDropBuffActivatedIddle"))
         {
             SupplyDropRescue();
         }

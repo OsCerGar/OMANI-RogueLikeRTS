@@ -94,7 +94,6 @@ public class LaserColisionStandard : MonoBehaviour
 
                 inputController.SetVibration(1, interactible.currentLinkPrice / interactible.finalLinkPrice / 3, 0.15f, false);
 
-
             }
         }
         if (ally != null)
@@ -122,7 +121,7 @@ public class LaserColisionStandard : MonoBehaviour
         Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, rad);
         foreach (Collider other in targetsInViewRadius)
         {
-            if (other.CompareTag("Building"))
+            if (other.CompareTag("Building") || other.CompareTag("Ennui"))
             {
                 interactible = other.GetComponent<Interactible>();
 

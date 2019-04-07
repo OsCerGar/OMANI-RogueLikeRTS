@@ -12,6 +12,6 @@ public class CanvasPower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentLife.text = ((int)power.powerPool).ToString();
+        currentLife.text = ((int)power.armor).ToString();
     }
 }
