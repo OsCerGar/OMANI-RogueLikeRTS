@@ -404,12 +404,13 @@ public class LookDirectionsAndOrder : MonoBehaviour
             if (player.LookAxis.x != 0 || player.LookAxis.y != 0)
             {
                 Vector3 tdirection = new Vector3(player.LookAxis.x, 0, player.LookAxis.y);
+                if (tdirection.magnitude < (tdirection.normalized / 4).magnitude) { tdirection = tdirection.normalized / 4; }
+
                 if (!controllerLookModel)
                 {
                     tdirection = tdirection.normalized;
                 }
 
-                // viewRadius / 2f - 2f is the distance, the higher the less distance it goes
                 miradaposition = transform.position + (tdirection) * viewRadius / 1.25f + new Vector3(0, -1f, 0);
                 transform.LookAt(miradaposition);
                 playingOnController = true;

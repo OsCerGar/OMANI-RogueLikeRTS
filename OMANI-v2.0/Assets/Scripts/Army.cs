@@ -235,6 +235,8 @@ public class Army : MonoBehaviour
             Robot _transitionStateRobot = currentFighter;
             Remove(currentFighter);
             Reclute(_transitionStateRobot);
+            look.AlternativeCenter(null);
+
         }
 
         else
@@ -242,9 +244,11 @@ public class Army : MonoBehaviour
             //If something is selected
             if (ArmyCellSelected != 4 && armyCell[ArmyCellSelected].getRobotType() != null)
             {
+
                 //Materialice the next one
                 currentFighter = armyCell[ArmyCellSelected].GetRobot();
                 currentFighter.Materialize(ShootingPosition, look.pointerDirection.gameObject);
+                look.AlternativeCenter(currentFighter.transform);
 
                 //Recluted false so if he dies, he goes back to the pool
                 currentFighter.recluted = false;

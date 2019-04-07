@@ -5,7 +5,7 @@ public class Ennui_Ground : Interactible
 
     [SerializeField]
     private int energy = 5;
-    private float timer, totalTimer = 30;
+    private float timer, totalTimer = 10;
     int build, mask, peopl;
     public Animator ennuiAnimator;
     Collider colliderEnnui;

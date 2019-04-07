@@ -51,7 +51,6 @@ public class Worker : Robot
     {
         enableTree("Attack");
         anim.SetBool("Roll", true);
-        LookDAO.AlternativeCenter(transform);
         Trail();
         workerSM.Flip();
         RollHillBox.SetActive(true);
@@ -61,7 +60,6 @@ public class Worker : Robot
         enableTree("Follow");
         anim.SetBool("Roll", false);
         RollHillBox.SetActive(false);
-        LookDAO.AlternativeCenter(null);
     }
     public void RollCollision()
     {
