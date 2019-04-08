@@ -482,7 +482,8 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        // Gizmos.DrawSphere(miradaposition, 1);
+        Gizmos.DrawSphere(miradaposition, 1);
+        Gizmos.color = Color.green;
         Gizmos.DrawSphere(orderPosition.transform.position, 1);
     }
     public void AlternativeCenter(Transform _alternative)

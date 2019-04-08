@@ -12,13 +12,14 @@ public class Army : MonoBehaviour
 
     private List<GameObject> positions = new List<GameObject>();
     [SerializeField] private GameObject ShootingPosition;
-    LookDirectionsAndOrder look;
 
     //ArmyCellSelection
     private RadialMenu_GUI radialMenu;
+    LookDirectionsAndOrder look;
+    public Robot currentFighter;
+
     private int ArmyCellSelected;
 
-    public Robot currentFighter;
 
     [SerializeField] bool radialMenuEnabled = true;
 
@@ -30,6 +31,7 @@ public class Army : MonoBehaviour
 
     [SerializeField]
     AudioSource summonAndCant;
+
 
     private void Start()
     {

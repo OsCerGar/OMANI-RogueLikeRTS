@@ -41,7 +41,7 @@ public class NPC : MonoBehaviour
     [HideInInspector]
     public BehaviorTree[] AllBehaviour;
     [HideInInspector]
-    public BehaviorTree IdleTree, FollowTree, AttackTree, GoTree, CoolDownTree;
+    public BehaviorTree IdleTree, FollowTree, AttackTree, GoTree, CoolDownTree,DeployTree;
 
     //Variables for when disabled (knockback)
     bool disabled;
@@ -229,6 +229,10 @@ public class NPC : MonoBehaviour
             if (item.BehaviorName == "CoolDown")
             {
                 CoolDownTree = item;
+            }
+            if (item.BehaviorName == "Deploy")
+            {
+                DeployTree = item;
             }
         }
         enableTree("Idle");
@@ -425,6 +429,13 @@ public class NPC : MonoBehaviour
         stateVariable.Value = _variable;
 
     }
+    public void SetDeployTreeVariable(GameObject _variable, string _variableName)
+    {
+        var stateVariable = (SharedGameObject)DeployTree.GetVariable(_variableName);
+        stateVariable.Value = _variable;
+
+    }
+    
     public void SetAttackTreeVariable(GameObject _variable, string _variableName)
     {
         var stateVariable = (SharedGameObject)AttackTree.GetVariable(_variableName);

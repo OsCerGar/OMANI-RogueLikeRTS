@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using BehaviorDesigner.Runtime;
+
 public class Robot : NPC
 {
     bool link = false;
@@ -210,6 +212,28 @@ public class Robot : NPC
             OnDie(gameObject);
         }
 
+    }
+    public void Deploy(GameObject _flag)
+    {
+        workerSM.transform.position = _flag.transform.position;
+        transform.position = _flag.transform.position;
+        anim.Rebind();
+        transform.gameObject.SetActive(true);
+        workerSM.Dematerialize();
+        MaterializeParticleSystem.Play();
+
+        enableTree("Deploy");
+        SetDeployTreeVariable(_flag, "Position");
+
+
+        materialize = true;
+        //Disables everything.
+    }
+
+    public GameObject getDeployEnemy()
+    {
+        var targetVariable = (SharedGameObject)DeployTree.GetVariable("Enemy");
+        return targetVariable.Value;
     }
 
     public void AutoReclute()
