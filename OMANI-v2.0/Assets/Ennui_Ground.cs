@@ -12,11 +12,16 @@ public class Ennui_Ground : Interactible
     Powers power;
     bool completed;
 
+    public void Awake()
+    {
+        base.Awake();
+        ennuiAnimator = GetComponent<Animator>();
+        colliderEnnui = GetComponent<Collider>();
+
+    }
     public override void Start()
     {
         base.Start();
-        ennuiAnimator = GetComponent<Animator>();
-        colliderEnnui = GetComponent<Collider>();
         power = FindObjectOfType<Powers>();
         build = 1 << LayerMask.NameToLayer("Building");
         peopl = 1 << LayerMask.NameToLayer("People");
@@ -89,6 +94,9 @@ public class Ennui_Ground : Interactible
             ennuiAnimator.SetBool("Die", false);
             ennuiAnimator.SetBool("Explosion", false);
         }
+        colliderEnnui.enabled = true;
+
+        laserTarget.gameObject.SetActive(true);
         powerReduced = 0;
         currentLinkPrice = 0;
         t = 0.2f;

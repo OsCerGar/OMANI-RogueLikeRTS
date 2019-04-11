@@ -299,6 +299,15 @@ MonoBehaviour:
       _behaviorId: 2
       _userAssignable: 1
       _categoryId: 1
+    - _id: 12
+      _name: Throw
+      _type: 1
+      _descriptiveName: Throw
+      _positiveDescriptiveName: 
+      _negativeDescriptiveName: 
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 3
     actionCategories:
     - _name: Default
       _descriptiveName: Default
@@ -329,7 +338,7 @@ MonoBehaviour:
       - categoryId: 2
         actionIds: 000000000400000001000000030000000500000006000000
       - categoryId: 3
-        actionIds: 090000000700000002000000
+        actionIds: 0900000007000000020000000c000000
     inputBehaviors:
     - _id: 0
       _name: Default
@@ -521,7 +530,7 @@ MonoBehaviour:
         _modifierKey2: 0
         _modifierKey3: 0
       - _actionCategoryId: 0
-        _actionId: 9
+        _actionId: 12
         _elementType: 1
         _elementIdentifierId: 12
         _axisRange: 0
@@ -671,6 +680,17 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 12
+        _elementType: 1
+        _elementIdentifierId: -1
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 113
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     mouseMaps:
     - id: 0
       categoryId: 0
@@ -715,7 +735,7 @@ MonoBehaviour:
     customControllerMaps: []
     customControllers: []
     playerIdCounter: 2
-    actionIdCounter: 12
+    actionIdCounter: 13
     actionCategoryIdCounter: 4
     inputBehaviorIdCounter: 3
     mapCategoryIdCounter: 1
@@ -907,9 +927,7 @@ PrefabInstance:
       propertyPath: PoolName
       value: EnnuiSphere
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114966104648291036, guid: 964bc05ffdd22a049ba131906dbe6dc2, type: 3}
-    - {fileID: 114009390074237622, guid: 964bc05ffdd22a049ba131906dbe6dc2, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964bc05ffdd22a049ba131906dbe6dc2, type: 3}
 --- !u!1 &1916650865372605 stripped
 GameObject:
@@ -989,8 +1007,7 @@ PrefabInstance:
       propertyPath: PoolName
       value: CorruptedDemon
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114966104648291036, guid: 964bc05ffdd22a049ba131906dbe6dc2, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964bc05ffdd22a049ba131906dbe6dc2, type: 3}
 --- !u!1 &6407145475532945377 stripped
 GameObject:
@@ -1134,6 +1151,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114515777094509860, guid: 964bc05ffdd22a049ba131906dbe6dc2,
+        type: 3}
+      propertyPath: Template
+      value: 
+      objectReference: {fileID: 1574, guid: c6aab83e36116384f8ff2c560a411373, type: 3}
     - target: {fileID: 114009390074237622, guid: 964bc05ffdd22a049ba131906dbe6dc2,
         type: 3}
       propertyPath: Template
@@ -1144,11 +1166,6 @@ PrefabInstance:
       propertyPath: PoolName
       value: Warrior
       objectReference: {fileID: 0}
-    - target: {fileID: 114515777094509860, guid: 964bc05ffdd22a049ba131906dbe6dc2,
-        type: 3}
-      propertyPath: Template
-      value: 
-      objectReference: {fileID: 1574, guid: c6aab83e36116384f8ff2c560a411373, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964bc05ffdd22a049ba131906dbe6dc2, type: 3}
 --- !u!1 &7743536798391333068 stripped
