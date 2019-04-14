@@ -11,6 +11,7 @@ public class FlagThrowing : MonoBehaviour
     [SerializeField]
     List<Flag> flags = new List<Flag>();
     Robot robotToThrow = null;
+    RadialMenu_GUI radialMenu;
 
     [SerializeField]
     Sprite flagPointer;
@@ -20,13 +21,14 @@ public class FlagThrowing : MonoBehaviour
         lookDAO = FindObjectOfType<LookDirectionsAndOrder>();
         army = FindObjectOfType<Army>();
         player = FindObjectOfType<PlayerInputInterface>();
+        radialMenu = FindObjectOfType<RadialMenu_GUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (player.inputs.GetButtonDown("Throw") && army.currentFighter != null)
+        if (player.inputs.GetButtonDown("Throw") && army.getCells()[army.ArmyCellSelected] != null && army.getCells()[army.ArmyCellSelected].getRobotType() != null)
         {
             ThrowDown();
         }
@@ -50,8 +52,10 @@ public class FlagThrowing : MonoBehaviour
     private void ThrowDown()
     {
         lookDAO.pointerDirection.ChangePointer(flagPointer, new Vector3(0.35f, 0.35f, 0.35f));
-        robotToThrow = army.currentFighter;
+        if (army.getCells()[army.ArmyCellSelected].getRobotType() != null) { }
+        robotToThrow = army.getCells()[army.ArmyCellSelected].GetRobot();
         robotToThrow.Fired();
         robotToThrow.Dematerialize();
+        radialMenu.UpdateState();
     }
 }

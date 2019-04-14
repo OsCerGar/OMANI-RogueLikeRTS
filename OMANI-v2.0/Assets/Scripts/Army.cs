@@ -18,7 +18,7 @@ public class Army : MonoBehaviour
     LookDirectionsAndOrder look;
     public Robot currentFighter;
 
-    private int ArmyCellSelected;
+    public int ArmyCellSelected;
 
 
     [SerializeField] bool radialMenuEnabled = true;
