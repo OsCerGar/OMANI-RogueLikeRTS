@@ -20,6 +20,9 @@ public class RadialMenu_GUI : MonoBehaviour
 
     public Vector2 DPAD;
     float oldMouse;
+    bool onMouse = false;
+
+
     [SerializeField]
     AudioSource openMenuAudio, closeMenuAudio, selectedAudio, selectedAudioEmpty;
 
@@ -60,6 +63,20 @@ public class RadialMenu_GUI : MonoBehaviour
         {
             quickSlot.background.sprite = quickSlot.backgroundNormal;
         }
+
+        if (!onMouse)
+        {
+            if (Input.GetAxis("Mouse X") != oldMouse)
+            {
+                oldMouse = Input.GetAxis("Mouse X");
+                onMouse = true;
+            }
+        }
+        else
+        {
+            onMouse = false;
+        }
+
     }
 
     public void menuItem(int i)
@@ -107,19 +124,21 @@ public class RadialMenu_GUI : MonoBehaviour
     public void GetCurrentMenuItem()
     {
         float angle = 0;
+        if (onMouse)
+        {
+            Mouseposition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            toVector2M = new Vector2(Mouseposition.x / Screen.width, Mouseposition.y / Screen.height);
+            if (toVector2M.x > 0.25f || toVector2M.x < -0.25f || toVector2M.y > 0.25f || toVector2M.y < -0.25f)
+            {
+                angle = Mathf.Atan2(fromVector2M.y - centercircle.y, fromVector2M.x - centercircle.x) - Mathf.Atan2(toVector2M.y - centercircle.y, toVector2M.x - centercircle.x) * Mathf.Rad2Deg;
+                angle = AngleCalc(angle);
+            }
+        }
 
         if (player.LookAxis.x != 0 || player.LookAxis.y != 0)
         {
             angle = Mathf.Atan2(-player.LookAxis.y, player.LookAxis.x);
             angle = angle * Mathf.Rad2Deg;
-            angle = AngleCalc(angle);
-        }
-        if(Input.GetAxis("Mouse X") != oldMouse)
-        {
-            oldMouse = Input.GetAxis("Mouse X");
-            Mouseposition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            toVector2M = new Vector2(Mouseposition.x / Screen.width, Mouseposition.y / Screen.height);
-            angle = Mathf.Atan2(fromVector2M.y - centercircle.y, fromVector2M.x - centercircle.x) - Mathf.Atan2(toVector2M.y - centercircle.y, toVector2M.x - centercircle.x) * Mathf.Rad2Deg;
             angle = AngleCalc(angle);
         }
 
