@@ -7,6 +7,8 @@ public class RadialMenu_GUI : MonoBehaviour
     // Radial Menu Stuff
     RadialMenu_GUI_BASE[] radialPart = new RadialMenu_GUI_BASE[4];
     RadialMenu_Quickslot quickSlot;
+    LookDirectionsAndOrder lookDAO;
+
     Canvas radialCanvas, backgroundCanvas, robotsCanvas, quickSlotCanvas;
     private Vector2 Mouseposition;
     public Vector2 fromVector2M = new Vector2(0.5f, 1.0f);
@@ -40,6 +42,7 @@ public class RadialMenu_GUI : MonoBehaviour
         radialPart[3] = transform.GetChild(0).Find("4Base").GetComponent<RadialMenu_GUI_BASE>();
         army = FindObjectOfType<Army>();
         player = FindObjectOfType<PlayerInputInterface>();
+        lookDAO = FindObjectOfType<LookDirectionsAndOrder>();
 
         radialCanvas = transform.Find("Canvas").GetComponent<Canvas>();
         backgroundCanvas = transform.Find("CanvasBackground").GetComponent<Canvas>();
@@ -62,19 +65,6 @@ public class RadialMenu_GUI : MonoBehaviour
         else
         {
             quickSlot.background.sprite = quickSlot.backgroundNormal;
-        }
-
-        if (!onMouse)
-        {
-            if (Input.GetAxis("Mouse X") != oldMouse)
-            {
-                oldMouse = Input.GetAxis("Mouse X");
-                onMouse = true;
-            }
-        }
-        else
-        {
-            onMouse = false;
         }
 
     }
@@ -124,7 +114,7 @@ public class RadialMenu_GUI : MonoBehaviour
     public void GetCurrentMenuItem()
     {
         float angle = 0;
-        if (onMouse)
+        if (!lookDAO.playingOnController)
         {
             Mouseposition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             toVector2M = new Vector2(Mouseposition.x / Screen.width, Mouseposition.y / Screen.height);

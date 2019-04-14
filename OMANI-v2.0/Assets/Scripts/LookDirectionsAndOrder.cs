@@ -39,7 +39,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private RaycastHit hit;
     #endregion
 
-    private bool playingOnController;
+    public bool playingOnController;
     private Vector3 oldDirection;
     //NEW UI
     public GameObject UISelectionSpawned;

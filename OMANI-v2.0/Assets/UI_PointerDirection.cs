@@ -2,8 +2,9 @@
 
 public class UI_PointerDirection : MonoBehaviour
 {
-
-    SpriteRenderer dots, mouse;
+    Vector3 originalScale;
+    SpriteRenderer mouse;
+    Sprite normalMouse;
     [SerializeField]
     ParticleSystem dotsAnimation;
     bool timer;
@@ -14,24 +15,12 @@ public class UI_PointerDirection : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        dots = transform.Find("Dots").GetComponent<SpriteRenderer>();
         mouse = transform.GetComponent<SpriteRenderer>();
-        dots.material.renderQueue = 4000;
+        normalMouse = mouse.sprite;
+        originalScale = transform.localScale;
         originalEmission = mouse.material.GetColor("_EmissionColor");
         mouse.material.renderQueue = 4000;
         mask = LayerMask.GetMask("Terrain");
-    }
-
-    public void Click()
-    {
-        if (dots != null)
-        {
-            dots.enabled = false;
-
-            Instantiate(dotsAnimation, dots.transform.position, dots.transform.rotation);
-
-            timer = true;
-        }
     }
 
     // Update is called once per frame
@@ -46,14 +35,13 @@ public class UI_PointerDirection : MonoBehaviour
         {
             timerAnimation = 0;
             //Turns dots again.
-            dots.enabled = true;
             timer = false;
         }
     }
 
     private void FixedUpdate()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(dots.transform.position, 3f, mask);
+        Collider[] hitColliders = Physics.OverlapSphere(mouse.transform.position, 3f, mask);
         int i = 0;
         bool mouseNotUsable = false;
 
@@ -73,6 +61,17 @@ public class UI_PointerDirection : MonoBehaviour
             mouse.material.color = Color.green;
             mouse.material.SetColor("_EmissionColor", originalEmission);
         }
+    }
 
+    public void ChangePointer(Sprite _newPointer, Vector3 _scale)
+    {
+        mouse.sprite = _newPointer;
+        transform.localScale = _scale;
+    }
+
+    public void pointerDefault()
+    {
+        mouse.sprite = normalMouse;
+        transform.localScale = originalScale;
     }
 }

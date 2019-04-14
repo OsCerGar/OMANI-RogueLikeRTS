@@ -3,17 +3,19 @@
 public class PointerEnabler : MonoBehaviour
 {
     [SerializeField]
-    SpriteRenderer pointer, dots;
+    SpriteRenderer pointer;
 
     private bool state, pressed;
 
     public bool disablePlayerControl;
     //Inputs
     PlayerInputInterface inputController;
+    LookDirectionsAndOrder lookDAO;
 
     private void OnEnable()
     {
         inputController = FindObjectOfType<PlayerInputInterface>();
+        lookDAO = FindObjectOfType<LookDirectionsAndOrder>();
     }
     private void Update()
     {
@@ -24,27 +26,28 @@ public class PointerEnabler : MonoBehaviour
         else
         {
             pointer.enabled = false;
-            dots.enabled = false;
         }
     }
 
     private void Inputs()
     {
-
-        if (inputController.Laser)
+        if (lookDAO.playingOnController)
         {
-            if (!pressed)
+            if (inputController.Laser)
             {
-                PointerState();
-                pressed = true;
+                if (!pressed)
+                {
+                    PointerState();
+                    pressed = true;
+                }
             }
-        }
-        if (!inputController.Laser)
-        {
-            if (pressed)
+            if (!inputController.Laser)
             {
-                PointerState();
-                pressed = false;
+                if (pressed)
+                {
+                    PointerState();
+                    pressed = false;
+                }
             }
         }
     }
@@ -55,13 +58,11 @@ public class PointerEnabler : MonoBehaviour
             if (!state)
             {
                 pointer.enabled = false;
-                dots.enabled = false;
                 state = true;
             }
             else
             {
                 pointer.enabled = true;
-                dots.enabled = true;
                 state = false;
             }
         }

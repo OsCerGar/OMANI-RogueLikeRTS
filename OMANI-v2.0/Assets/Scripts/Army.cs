@@ -276,6 +276,7 @@ public class Army : MonoBehaviour
         if (_robot == currentFighter)
         {
             currentFighter = null;
+            look.AlternativeCenter(null);
         }
         foreach (ArmyCell cell in armyCell)
         {
