@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1166543655846818}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.17, y: 0.25, z: 4.11}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4046516700961054}
   m_Father: {fileID: 4039181813591954}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5a599e5d5c4671a4ca270b428b3be11e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c625870648817f8488dbed097846ba03, type: 3}
   m_Color: {r: 0.36112404, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -175,8 +175,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miradaposition: {x: 0, y: 0, z: 0}
-  hrj: 0
-  vrj: 0
   viewRadius: 17
   mouseRadius: 4
   viewAngle: 47
@@ -195,164 +193,8 @@ MonoBehaviour:
     m_Bits: 0
   orderPosition: {fileID: 1709850120066608, guid: 81713316a7bc26544a0f3e4a15ccc7a5,
     type: 3}
-  selectedTypeList: []
-  selectedTypeInt: 0
-  playingOnController: 0
   UISelectionSpawned: {fileID: 0}
   pointerDirection: {fileID: 114127224225490670}
-  controllerLookModel: 0
-  omanInput:
-    m_Asset: {fileID: 11400000, guid: d4f4d759f208d584d9963b8afca13d5d, type: 3}
-    m_PLAYERSUMMONActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERSUMMONActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERSUMMONActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYEROrderLaserActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYEROrderLaserActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYEROrderLaserActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERWASDActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERWASDActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERWASDActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERJoystickActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERJoystickActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERJoystickActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuUpActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuUpActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuUpActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuDownActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuDownActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuDownActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERLASERZONERELEASEActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERLASERZONERELEASEActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERLASERZONERELEASEActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERHEARTHSTONEActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERHEARTHSTONEActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERHEARTHSTONEActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRightStickActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRightStickActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRightStickActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERControllerFreeActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERControllerFreeActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERControllerFreeActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
 --- !u!82 &82380105773117858
 AudioSource:
   m_ObjectHideFlags: 0
@@ -463,158 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointer: {fileID: 212247459282418060}
   dots: {fileID: 212650708968249008}
-  controls:
-    m_Asset: {fileID: 11400000, guid: d4f4d759f208d584d9963b8afca13d5d, type: 3}
-    m_PLAYERSUMMONActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERSUMMONActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERSUMMONActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYEROrderLaserActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYEROrderLaserActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYEROrderLaserActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERWASDActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERWASDActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERWASDActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERJoystickActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERJoystickActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERJoystickActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuUpActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuUpActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuUpActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuDownActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuDownActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRadialMenuDownActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERLASERZONERELEASEActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERLASERZONERELEASEActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERLASERZONERELEASEActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERHEARTHSTONEActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERHEARTHSTONEActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERHEARTHSTONEActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRightStickActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRightStickActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERRightStickActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERControllerFreeActionStarted:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERControllerFreeActionPerformed:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-    m_PLAYERControllerFreeActionCancelled:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: OMANINPUT+ActionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
+  disablePlayerControl: 0
 --- !u!1 &1613375228091992
 GameObject:
   m_ObjectHideFlags: 0
