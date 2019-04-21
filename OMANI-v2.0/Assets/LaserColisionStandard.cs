@@ -45,6 +45,7 @@ public class LaserColisionStandard : MonoBehaviour
             if (connected)
             {
                 ConnectedLaserBehaviour();
+                if (powers.army.currentFighter != null) { enemy = null; interactible = null; ally = null; }
             }
 
             //emit effect of zone

@@ -18,7 +18,7 @@ public class NPC : MonoBehaviour
 
     [SerializeField]
     public int startLife, life, damage, powerUpCost = 10;
-    [SerializeField] public float maxpowerPool = 5, powerPool = 0, increaseAmount = 0.15f;
+    [SerializeField] public float maxpowerPool = 5, powerPool = 0, increaseAmount = 0.15f, lifeToHeal = 0;
     [HideInInspector] public float powerReduced = 0, linkPrice = 1;
     [HideInInspector] public int quarter, half, quarterAndHalf;
 
@@ -41,7 +41,7 @@ public class NPC : MonoBehaviour
     [HideInInspector]
     public BehaviorTree[] AllBehaviour;
     [HideInInspector]
-    public BehaviorTree IdleTree, FollowTree, AttackTree, GoTree, CoolDownTree,DeployTree;
+    public BehaviorTree IdleTree, FollowTree, AttackTree, GoTree, CoolDownTree, DeployTree;
 
     //Variables for when disabled (knockback)
     bool disabled;
@@ -423,6 +423,11 @@ public class NPC : MonoBehaviour
         }
     }
 
+    public virtual void slowPowerpoolHeal(float _lerpTime)
+    {
+        powerPool = Mathf.Lerp(powerPool, maxpowerPool, _lerpTime);
+
+    }
     public void SetTreeVariable(GameObject _variable, string _variableName)
     {
         var stateVariable = (SharedGameObject)FollowTree.GetVariable(_variableName);
@@ -435,7 +440,7 @@ public class NPC : MonoBehaviour
         stateVariable.Value = _variable;
 
     }
-    
+
     public void SetAttackTreeVariable(GameObject _variable, string _variableName)
     {
         var stateVariable = (SharedGameObject)AttackTree.GetVariable(_variableName);

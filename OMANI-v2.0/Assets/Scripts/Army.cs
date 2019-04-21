@@ -91,21 +91,21 @@ public class Army : MonoBehaviour
             }
             if (player.RobotQuickSelection.x == -1)
             {
-                if (armyCell[1].getRobotType() != null)
+                if (armyCell[3].getRobotType() != null)
                 {
                     radialMenu.menuItem(3); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; }
                 }
             }
             if (player.RobotQuickSelection.y == 1)
             {
-                if (armyCell[1].getRobotType() != null)
+                if (armyCell[0].getRobotType() != null)
                 {
                     radialMenu.menuItem(0); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; }
                 }
             }
             if (player.RobotQuickSelection.y == -1)
             {
-                if (armyCell[1].getRobotType() != null)
+                if (armyCell[2].getRobotType() != null)
                 {
                     radialMenu.menuItem(2); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; }
                 }
@@ -137,7 +137,6 @@ public class Army : MonoBehaviour
         {
             if (armyCell[radialMenu.PopDown()].getRobotType() != null)
             {
-                Debug.Log("Hello");
                 newArmyCellSelected = radialMenu.PopDown();
             }
         }
@@ -149,8 +148,12 @@ public class Army : MonoBehaviour
         // Debería deseleccionar.
         //If currentFighter tiene toda la energia, debería desmaterializarse y volver.
         //Si no, debería desconectarse.
+        string robotTypes = null;
 
-        string robotTypes = armyCell[newArmyCellSelected].getRobotType();
+        if (newArmyCellSelected != 4)
+        {
+            robotTypes = armyCell[newArmyCellSelected].getRobotType();
+        }
 
         if (robotTypes == null)
         {
@@ -336,12 +339,13 @@ public class Army : MonoBehaviour
             //here
 
             ArmyCell temporal = findArmyCellWithRobots();
-            if (temporal != null) { 
-            if (ArmyCellSelected != 4 && armyCell[ArmyCellSelected].getRobotType() == null)
+            if (temporal != null)
             {
-                ArmyCellSelected = armyCell.FindIndex(item => item == temporal);
-                radialMenu.SetCurrentMenuItem(ArmyCellSelected);
-            }
+                if (ArmyCellSelected != 4 && armyCell[ArmyCellSelected].getRobotType() == null)
+                {
+                    ArmyCellSelected = armyCell.FindIndex(item => item == temporal);
+                    radialMenu.SetCurrentMenuItem(ArmyCellSelected);
+                }
             }
         }
         foreach (ArmyCell cell in armyCell)

@@ -8,7 +8,7 @@ public class Powers : MonoBehaviour
     PowerManager powerManager;
     PW_Dash dash;
     Power_Laser lasers;
-    Army army;
+    public Army army;
     #endregion
 
     [SerializeField]

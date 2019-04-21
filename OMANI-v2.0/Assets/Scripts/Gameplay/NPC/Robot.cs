@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using BehaviorDesigner.Runtime;
+using UnityEngine;
 using UnityEngine.AI;
-using BehaviorDesigner.Runtime;
 
 public class Robot : NPC
 {
@@ -26,6 +26,7 @@ public class Robot : NPC
     public Transform ball;
     //reclute pool fix
     public bool recluted;
+    float lastTimeTakenDamage;
 
     public delegate void DieEvent(GameObject _robot);
     public static event DieEvent OnDie;
@@ -117,6 +118,11 @@ public class Robot : NPC
                 transform.gameObject.SetActive(false);
             }
         }
+
+        if (commander.currentFighter == this && Time.time - lastTimeTakenDamage > 5f)
+        {
+            slowPowerpoolHeal(0.01f);
+        }
     }
 
     public virtual void Dematerialize()
@@ -167,6 +173,7 @@ public class Robot : NPC
 
         if (state == "Alive")
         {
+            lastTimeTakenDamage = Time.time;
             if (anim != null)
             {
                 anim.SetTrigger("Hit");
