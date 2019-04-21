@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class UI_Powers : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class UI_Powers : MonoBehaviour
     bool dying;
     Powers powers;
     float startingPoint;
+    [SerializeField]
+    AudioMixer musicMixer;
 
     // Use this for initialization
     void Start()
@@ -27,6 +30,10 @@ public class UI_Powers : MonoBehaviour
             {
                 var tempColor = img.color;
                 tempColor.a = 1 - (powers.armor / startingPoint);
+                if (powers.armor < startingPoint / 2f)
+                {
+                    musicMixer.SetFloat("Lowpass", 5000 * (powers.armor / startingPoint));
+                }
                 img.color = tempColor;
             }
         }

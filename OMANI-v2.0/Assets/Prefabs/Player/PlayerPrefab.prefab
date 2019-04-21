@@ -8356,6 +8356,8 @@ PlayableDirector:
     value: {fileID: 867574458}
   - key: {fileID: 114521206373799640, guid: d491ce55f3bba9e42a2dd2ad7158537e, type: 2}
     value: {fileID: 598450230}
+  - key: {fileID: 114210469374596828, guid: d491ce55f3bba9e42a2dd2ad7158537e, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &1956609695
@@ -18394,7 +18396,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.020019531, y: -3.7800293}
+  m_AnchoredPosition: {x: -0.020019531, y: -3.7800903}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &223626629126043998
@@ -54073,6 +54075,7 @@ MonoBehaviour:
   - {fileID: 1298211264}
   - {fileID: 1345429734}
   - {fileID: 1100605867}
+  musicMixer: {fileID: 24100000, guid: cb37c6749aed6334c820d613dbcacd5a, type: 2}
 --- !u!1 &1643856512165012
 GameObject:
   m_ObjectHideFlags: 0
@@ -63810,6 +63813,7 @@ MonoBehaviour:
     type: 3}
   ShootingPosition: {fileID: 1226760591876065}
   currentFighter: {fileID: 0}
+  ArmyCellSelected: 0
   radialMenuEnabled: 1
   summonAndCant: {fileID: 561304059}
 --- !u!114 &114663079995077792
@@ -63833,6 +63837,7 @@ MonoBehaviour:
   maxpowerPool: 5
   powerPool: 0
   increaseAmount: 0.15
+  lifeToHeal: 0
   powerReduced: 0
   linkPrice: 1
   quarter: 0
@@ -63879,6 +63884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98459e4d6733d5e428e8e8a12e664f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  army: {fileID: 0}
   maxArmor: 500
   armor: 250
   increaseAmount: 1
