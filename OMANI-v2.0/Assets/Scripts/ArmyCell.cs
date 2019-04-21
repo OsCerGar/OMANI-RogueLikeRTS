@@ -5,9 +5,11 @@ public class ArmyCell : MonoBehaviour
 {
     [SerializeField]
     private List<Robot> robots = new List<Robot>();
-    private int limit = 4;
+    private int limit = 1;
     private string robotType = null;
     RadialMenu_GUI radialMenu;
+
+    int currentIndex = 0;
 
     private void Start()
     {
@@ -27,6 +29,7 @@ public class ArmyCell : MonoBehaviour
 
     public int getRobotQuantity()
     {
+
         return robots.Count;
     }
 
@@ -87,9 +90,33 @@ public class ArmyCell : MonoBehaviour
 
     public Robot GetRobot()
     {
-        return robots[0];
+        return robots[currentIndex];
     }
 
+    public void IndexUp()
+    {
+        if (currentIndex < robots.Count)
+        {
+            currentIndex++;
+        }
+        else
+        {
+            currentIndex = 0;
+
+        }
+    }
+
+    public void IndexDown()
+    {
+        if (currentIndex > 0)
+        {
+            currentIndex--;
+        }
+        else
+        {
+            currentIndex = robots.Count;
+        }
+    }
     public void Clean()
     {
         robots.Clear();

@@ -77,16 +77,48 @@ public class Army : MonoBehaviour
         {
             if (player.inputs.GetButtonDown("Radial Menu")) { if (!pressedL2) { radialMenuPopUp(); pressedL2 = true; } }
             if (player.inputs.GetButtonUp("Radial Menu")) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
+
+            //Esto tiene que ser la flechita de la opción seleccionada, sino, selecciona otra cosa del menu radial.
+            if (player.inputs.GetButtonUp("IndexUp")) { if (pressedL2) { IndexUp(); } }
             if (player.inputs.GetButtonDown("FireLaser")) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
 
-            if (player.RobotQuickSelection.x == 1) { radialMenu.menuItem(1); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
-            if (player.RobotQuickSelection.x == -1) { radialMenu.menuItem(3); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
-            if (player.RobotQuickSelection.y == 1) { radialMenu.menuItem(0); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
-            if (player.RobotQuickSelection.y == -1) { radialMenu.menuItem(2); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
+            if (player.RobotQuickSelection.x == 1)
+            {
+                if (armyCell[1].getRobotType() != null)
+                {
+                    radialMenu.menuItem(1); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; }
+                }
+            }
+            if (player.RobotQuickSelection.x == -1)
+            {
+                if (armyCell[1].getRobotType() != null)
+                {
+                    radialMenu.menuItem(3); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; }
+                }
+            }
+            if (player.RobotQuickSelection.y == 1)
+            {
+                if (armyCell[1].getRobotType() != null)
+                {
+                    radialMenu.menuItem(0); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; }
+                }
+            }
+            if (player.RobotQuickSelection.y == -1)
+            {
+                if (armyCell[1].getRobotType() != null)
+                {
+                    radialMenu.menuItem(2); if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; }
+                }
+            }
         }
 
-        if (player.inputs.GetButtonDown("Summon")) { SummonRobot();  }
+        if (player.inputs.GetButtonDown("Summon")) { SummonRobot(); }
 
+    }
+
+    private void IndexUp()
+    {
+        armyCell[ArmyCellSelected].IndexUp();
     }
 
     //Makes the RadialMenu Visible
@@ -99,10 +131,15 @@ public class Army : MonoBehaviour
     public void radialMenuPopDown(int? _newSelected)
     {
         int newArmyCellSelected;
+        newArmyCellSelected = ArmyCellSelected;
 
         if (_newSelected == null)
         {
-            newArmyCellSelected = radialMenu.PopDown();
+            if (armyCell[radialMenu.PopDown()].getRobotType() != null)
+            {
+                Debug.Log("Hello");
+                newArmyCellSelected = radialMenu.PopDown();
+            }
         }
         else
         {
@@ -177,6 +214,24 @@ public class Army : MonoBehaviour
         }
         return availableCell;
     }
+
+    public ArmyCell findArmyCellWithRobots()
+    {
+        ArmyCell cellWithRobot = null;
+
+        //Checks if there is already an ArmyCell with RobotType, or if there is space for a new one
+        foreach (ArmyCell cell in armyCell)
+        {
+            if (cell.getRobotType() != null)
+            {
+                cellWithRobot = cell;
+
+            }
+        }
+
+        return cellWithRobot;
+    }
+
     public bool checkArmyCellsSpace(ArmyCell _cell)
     {
         //Checks if there is space in available ArmyCells of the RobotType
@@ -212,9 +267,10 @@ public class Army : MonoBehaviour
             //Disable robot
             _robot.Dematerialize();
         }
-        else
+        if (ArmyCellSelected != 4 && armyCell[ArmyCellSelected].getRobotType() == null && currentFighter == null)
         {
-            //no space left sound or whatever
+            ArmyCellSelected = armyCell.FindIndex(item => item == cellToSaveRobot);
+            radialMenu.SetCurrentMenuItem(ArmyCellSelected);
         }
     }
 
@@ -277,6 +333,16 @@ public class Army : MonoBehaviour
         {
             currentFighter = null;
             look.AlternativeCenter(null);
+            //here
+
+            ArmyCell temporal = findArmyCellWithRobots();
+            if (temporal != null) { 
+            if (ArmyCellSelected != 4 && armyCell[ArmyCellSelected].getRobotType() == null)
+            {
+                ArmyCellSelected = armyCell.FindIndex(item => item == temporal);
+                radialMenu.SetCurrentMenuItem(ArmyCellSelected);
+            }
+            }
         }
         foreach (ArmyCell cell in armyCell)
         {

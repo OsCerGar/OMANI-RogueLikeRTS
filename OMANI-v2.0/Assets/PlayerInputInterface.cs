@@ -33,7 +33,10 @@ public class PlayerInputInterface : MonoBehaviour
     void OnEnable()
     {
         inputs = ReInput.players.GetPlayer(playerId);
-        ds4 = inputs.controllers.Joysticks[0].GetExtension<IDualShock4Extension>();
+        if (inputs.controllers.Joysticks.Count > 0)
+        {
+            ds4 = inputs.controllers.Joysticks[0].GetExtension<IDualShock4Extension>();
+        }
     }
 
     // Update is called once per frame
@@ -90,6 +93,9 @@ public class PlayerInputInterface : MonoBehaviour
 
     public void SetDS4Lights(Color _color)
     {
-        ds4.SetLightColor(_color);
+        if (ds4 != null)
+        {
+            ds4.SetLightColor(_color);
+        }
     }
 }

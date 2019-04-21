@@ -134,13 +134,20 @@ public class RadialMenu_GUI : MonoBehaviour
 
 
     }
+    public void SetCurrentMenuItem(int _currentMenuItem)
+    {
+        curMenuItem = _currentMenuItem;
+        UpdateState();
+    }
 
     private float AngleCalc(float angle)
     {
         angle += 135;
         if (angle < 0) { angle += 360; }
+        int temporalMenuItem = (int)(angle / (360 / menuItems));
 
-        curMenuItem = (int)(angle / (360 / menuItems));
+        //If the cell is empty it doesn't get selected
+        if (army.getCells()[temporalMenuItem].getRobotType() != null) { curMenuItem = temporalMenuItem; }
 
         if (curMenuItem != oldMenuItem)
         {
