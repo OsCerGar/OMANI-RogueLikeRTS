@@ -30,11 +30,11 @@ public class FlagThrowing : MonoBehaviour
 
         if (player.inputs.GetButtonDown("Throw") && army.getCells()[army.ArmyCellSelected] != null && army.getCells()[army.ArmyCellSelected].getRobotType() != null)
         {
-            ThrowDown();
+            //ThrowDown();
         }
         if (player.inputs.GetButtonUp("Throw") && robotToThrow != null)
         {
-            ThrowUp();
+            //ThrowUp();
         }
     }
 
