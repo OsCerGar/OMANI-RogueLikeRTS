@@ -50,6 +50,10 @@ public class PointerEnabler : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            pointer.enabled = true;
+        }
     }
     private void PointerState()
     {
