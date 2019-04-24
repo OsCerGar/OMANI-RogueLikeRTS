@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class DeathRoom : MonoBehaviour
 {
-    [SerializeField] int enemiesKilled, numberOfEnemies;
     [SerializeField] List<GameObject> door;
     [SerializeField] List<Animator> anim;
 
