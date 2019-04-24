@@ -8,7 +8,7 @@ public class DeathRoom : MonoBehaviour
 
     [SerializeField] List<GameObject> enemySpawners;
     bool done;
-
+    float timerSecureStop;
     void OnEnable()
     {
         Enemy.OnDie += enemyDied;
@@ -36,16 +36,7 @@ public class DeathRoom : MonoBehaviour
                     animi.SetBool("Dissapear", true);
                 }
             }
-        }
-    }
-
-    void enemyDied(Enemy enemy)
-    {
-        /*
-        if (done)
-        {
-            enemiesKilled++;
-            if (enemiesKilled >= numberOfEnemies)
+            if (Time.time - timerSecureStop > 20f)
             {
                 foreach (Animator animi in anim)
                 {
@@ -53,7 +44,11 @@ public class DeathRoom : MonoBehaviour
                 }
             }
         }
-        */
+    }
+
+    void enemyDied(Enemy enemy)
+    {
+        timerSecureStop = Time.time;
     }
 
 
@@ -61,12 +56,12 @@ public class DeathRoom : MonoBehaviour
     {
         if (other.CompareTag("Player") && !done)
         {
+            timerSecureStop = Time.time;
             done = true;
             if (door != null)
             {
                 foreach (GameObject doorT in door)
                 {
-
                     doorT.gameObject.SetActive(true);
                 }
             }
