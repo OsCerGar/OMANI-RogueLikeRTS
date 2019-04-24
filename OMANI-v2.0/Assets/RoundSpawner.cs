@@ -31,13 +31,17 @@ public class RoundSpawner : MonoBehaviour
 
     private void SpawnEnemy(Enemy enem)
     {
-        if (spawnNumber < numberToSpawn )
+        if (spawnNumber < numberToSpawn)
         {
             if (enem == thisEnemyScript)
             {
                 spawnNumber++;
                 StartCoroutine("SpawnEnemyAfterTime");
             }
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
         }
     }
 

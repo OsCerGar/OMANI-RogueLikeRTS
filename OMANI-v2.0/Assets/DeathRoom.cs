@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class DeathRoom : MonoBehaviour
 {
     [SerializeField] int enemiesKilled, numberOfEnemies;
-    [SerializeField] GameObject door;
-    [SerializeField] Animator anim;
+    [SerializeField] List<GameObject> door;
+    [SerializeField] List<Animator> anim;
 
+    [SerializeField] List<GameObject> enemySpawners;
     bool done;
 
     void OnEnable()
@@ -19,16 +21,40 @@ public class DeathRoom : MonoBehaviour
         Enemy.OnDie -= enemyDied;
     }
 
+    private void Update()
+    {
+        if (done)
+        {
+            bool allInactive = true;
+            foreach (GameObject enemySpawner in enemySpawners)
+            {
+                if (enemySpawner.activeSelf) { allInactive = false; }
+            }
+            if (allInactive)
+            {
+                foreach (Animator animi in anim)
+                {
+                    animi.SetBool("Dissapear", true);
+                }
+            }
+        }
+    }
+
     void enemyDied(Enemy enemy)
     {
+        /*
         if (done)
         {
             enemiesKilled++;
             if (enemiesKilled >= numberOfEnemies)
             {
-                anim.SetBool("Dissapear", true);
+                foreach (Animator animi in anim)
+                {
+                    animi.SetBool("Dissapear", true);
+                }
             }
         }
+        */
     }
 
 
@@ -39,7 +65,11 @@ public class DeathRoom : MonoBehaviour
             done = true;
             if (door != null)
             {
-                door.gameObject.SetActive(true);
+                foreach (GameObject doorT in door)
+                {
+
+                    doorT.gameObject.SetActive(true);
+                }
             }
         }
     }
