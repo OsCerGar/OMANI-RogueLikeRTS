@@ -18,7 +18,10 @@ public class RoundSpawner : MonoBehaviour
         EPool = FindObjectOfType<EnemyPooler>();
         Enemy.OnDie += SpawnEnemy;
         thisEnemy = EPool.SpawnEnemy(NameOfEnemyToSpawn, posToSpawn);
-        thisEnemyScript = thisEnemy.GetComponent<Enemy>();
+        if (thisEnemy != null)
+        {
+            thisEnemyScript = thisEnemy.GetComponent<Enemy>();
+        }
 
     }
 
@@ -49,6 +52,9 @@ public class RoundSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(10f);
         thisEnemy = EPool.SpawnEnemy(NameOfEnemyToSpawn, posToSpawn);
-        thisEnemyScript = thisEnemy.GetComponent<Enemy>();
+        if (thisEnemy != null)
+        {
+            thisEnemyScript = thisEnemy.GetComponent<Enemy>();
+        }
     }
 }
