@@ -1,0 +1,527 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1203679742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1203679743}
+  m_Layer: 0
+  m_Name: MagicDoor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1203679743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203679742}
+  m_LocalRotation: {x: 0.10659312, y: 0.678651, z: 0.07533138, w: 0.7227697}
+  m_LocalPosition: {x: -6.59, y: -6.99, z: 4.03}
+  m_LocalScale: {x: 1.1044945, y: 1.1044945, z: 1.1044949}
+  m_Children:
+  - {fileID: 1665613211521920177}
+  - {fileID: 1928691965}
+  m_Father: {fileID: 6227901197265462831}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 2.9710002, y: 86.777, z: 14.709001}
+--- !u!1 &1217165375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1217165376}
+  - component: {fileID: 1217165377}
+  m_Layer: 0
+  m_Name: SpawnerDemon (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: 669b39a307a5ac247a9577723d99ef17, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1217165376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217165375}
+  m_LocalRotation: {x: -0.09668149, y: -0.5860878, z: -0.08769036, w: 0.79966503}
+  m_LocalPosition: {x: -10.760989, y: 11.577852, z: 23.196987}
+  m_LocalScale: {x: 0.90539193, y: 0.90539145, z: 0.9053918}
+  m_Children: []
+  m_Father: {fileID: 1928691965}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 51.159004, z: 0}
+--- !u!114 &1217165377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217165375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8c840263c43074187d5113920f3035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameOfEnemyToSpawn: CorruptedDemon
+--- !u!1 &1405357327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1665613211521920177}
+  - component: {fileID: 5177660917476115413}
+  - component: {fileID: 8495089419120523128}
+  - component: {fileID: 5434227026919242467}
+  - component: {fileID: 2421300728715686675}
+  - component: {fileID: 4361904241145488284}
+  - component: {fileID: 1405357334}
+  m_Layer: 12
+  m_Name: RollEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1665613211521920177
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405357327}
+  m_LocalRotation: {x: -0.14800319, y: 0.019483658, z: -0.1290639, w: 0.98033565}
+  m_LocalPosition: {x: 3.5000007, y: 4.749998, z: 3.0599992}
+  m_LocalScale: {x: 42.22441, y: 32.440903, z: 4.796023}
+  m_Children:
+  - {fileID: 6435803600115464755}
+  m_Father: {fileID: 1203679743}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -16.568, y: 4.572, z: -15.666}
+--- !u!33 &5177660917476115413
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405357327}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8495089419120523128
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405357327}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 240d841c7c6242145baccb2a3a347819, type: 2}
+  - {fileID: 2100000, guid: 83a53aefa776917499be9e5745af93fb, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!114 &5434227026919242467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405357327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0cc5dbf32f205d4b8fb8de3f8a32da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnchantPoint: {fileID: 6435803600115464755}
+  EnchantMaterial: {fileID: 2100000, guid: 83a53aefa776917499be9e5745af93fb, type: 2}
+--- !u!64 &2421300728715686675
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405357327}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &4361904241145488284
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405357327}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!95 &1405357334
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405357327}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3299397943172ee489770c0487f396ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1586263093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1586263094}
+  - component: {fileID: 1586263095}
+  m_Layer: 0
+  m_Name: SpawnerDemon (15)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: 669b39a307a5ac247a9577723d99ef17, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1586263094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586263093}
+  m_LocalRotation: {x: -0.09668149, y: -0.5860878, z: -0.08769036, w: 0.79966503}
+  m_LocalPosition: {x: -3.6327744, y: 9.972805, z: 28.158041}
+  m_LocalScale: {x: 0.90539193, y: 0.90539145, z: 0.9053918}
+  m_Children: []
+  m_Father: {fileID: 1928691965}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 51.159004, z: 0}
+--- !u!114 &1586263095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586263093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8c840263c43074187d5113920f3035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameOfEnemyToSpawn: CorruptedDemon
+--- !u!1 &1636461439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1636461440}
+  - component: {fileID: 1636461441}
+  m_Layer: 0
+  m_Name: SpawnerDemon (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: 669b39a307a5ac247a9577723d99ef17, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1636461440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636461439}
+  m_LocalRotation: {x: -0.09668149, y: -0.5860878, z: -0.08769036, w: 0.79966503}
+  m_LocalPosition: {x: 11.206798, y: 5.8505354, z: 23.935495}
+  m_LocalScale: {x: 0.90539193, y: 0.90539145, z: 0.9053918}
+  m_Children: []
+  m_Father: {fileID: 1928691965}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 51.159004, z: 0}
+--- !u!114 &1636461441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636461439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8c840263c43074187d5113920f3035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameOfEnemyToSpawn: CorruptedDemon
+--- !u!1 &1928691964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1928691965}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1928691965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928691964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1217165376}
+  - {fileID: 1636461440}
+  - {fileID: 2119652090}
+  - {fileID: 1586263094}
+  - {fileID: 2080334677}
+  m_Father: {fileID: 1203679743}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2080334676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2080334677}
+  - component: {fileID: 2080334678}
+  m_Layer: 0
+  m_Name: SpawnerDemon (16)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: 669b39a307a5ac247a9577723d99ef17, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2080334677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080334676}
+  m_LocalRotation: {x: -0.09668149, y: -0.5860878, z: -0.08769036, w: 0.79966503}
+  m_LocalPosition: {x: -8.865415, y: 12.234104, z: 44.698128}
+  m_LocalScale: {x: 0.90539193, y: 0.90539145, z: 0.9053918}
+  m_Children: []
+  m_Father: {fileID: 1928691965}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 51.159004, z: 0}
+--- !u!114 &2080334678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080334676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8c840263c43074187d5113920f3035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameOfEnemyToSpawn: CorruptedDemon
+--- !u!1 &2119652089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119652090}
+  - component: {fileID: 2119652091}
+  m_Layer: 0
+  m_Name: SpawnerDemon (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 2800000, guid: 669b39a307a5ac247a9577723d99ef17, type: 3}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2119652090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119652089}
+  m_LocalRotation: {x: -0.09668149, y: -0.5860878, z: -0.08769036, w: 0.79966503}
+  m_LocalPosition: {x: 6.574199, y: 7.296095, z: 28.210415}
+  m_LocalScale: {x: 0.90539193, y: 0.90539145, z: 0.9053918}
+  m_Children: []
+  m_Father: {fileID: 1928691965}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 51.159004, z: 0}
+--- !u!114 &2119652091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119652089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8c840263c43074187d5113920f3035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameOfEnemyToSpawn: CorruptedDemon
+--- !u!1 &1834931632575926567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6227901197265462831}
+  - component: {fileID: 8142591025157629323}
+  - component: {fileID: 6629526000830338804}
+  m_Layer: 2
+  m_Name: DeathRoom1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6227901197265462831
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834931632575926567}
+  m_LocalRotation: {x: -0, y: 0.72264236, z: -0, w: 0.6912222}
+  m_LocalPosition: {x: -169.26, y: 3.97, z: -91.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1203679743}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 92.546005, z: 0}
+--- !u!114 &8142591025157629323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834931632575926567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67fb2c533d5c4c543a2b9eed71bf49ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesKilled: 0
+  numberOfEnemies: 5
+  door: {fileID: 1203679742}
+  anim: {fileID: 1405357334}
+--- !u!65 &6629526000830338804
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834931632575926567}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.21, y: 19.24, z: 38.24}
+  m_Center: {x: 8.35, y: 0.6, z: 6.3}
+--- !u!1 &8490534671936271182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6435803600115464755}
+  m_Layer: 12
+  m_Name: EnchantPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6435803600115464755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8490534671936271182}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.019, y: 0.058, z: 2.99}
+  m_LocalScale: {x: 9.90003, y: 9.90003, z: 9.90003}
+  m_Children: []
+  m_Father: {fileID: 1665613211521920177}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
