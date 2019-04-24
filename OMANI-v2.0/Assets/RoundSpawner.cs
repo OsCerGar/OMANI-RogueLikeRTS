@@ -47,7 +47,7 @@ public class RoundSpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemyAfterTime()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(10f);
         thisEnemy = EPool.SpawnEnemy(NameOfEnemyToSpawn, posToSpawn);
         thisEnemyScript = thisEnemy.GetComponent<Enemy>();
     }
