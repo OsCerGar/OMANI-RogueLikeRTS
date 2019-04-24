@@ -15,7 +15,7 @@ public class LightIntensity : MonoBehaviour
     [SerializeField]
     AudioSource wind;
     [SerializeField]
-    float maxVolume, normalVolume;
+    float maxVolume, normalVolume, distance;
 
     float currentLerpTime, lerpTime = 0.25f;
     bool firstTimePassed, justPassed1, justPassed2 = true;
@@ -28,7 +28,7 @@ public class LightIntensity : MonoBehaviour
 
         if (firstTimePassed)
         {
-            if (playerDistance < 35f)
+            if (playerDistance < distance)
             {
                 if (!justPassed1)
                 {

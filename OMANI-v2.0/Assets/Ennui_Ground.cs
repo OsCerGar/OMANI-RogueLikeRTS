@@ -11,6 +11,12 @@ public class Ennui_Ground : Interactible
     Collider colliderEnnui;
     Powers power;
     bool completed;
+    [SerializeField]GameObject originalSphere, secondSphere;
+
+    private void OnEnable()
+    {
+        originalSphere.SetActive(true);
+    }
 
     public void Awake()
     {
@@ -95,6 +101,8 @@ public class Ennui_Ground : Interactible
             ennuiAnimator.SetBool("Explosion", false);
         }
         colliderEnnui.enabled = true;
+        secondSphere.SetActive(false);
+        originalSphere.SetActive(true);
 
         laserTarget.gameObject.SetActive(true);
         powerReduced = 0;
