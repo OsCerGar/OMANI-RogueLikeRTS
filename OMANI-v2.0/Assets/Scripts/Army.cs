@@ -79,7 +79,7 @@ public class Army : MonoBehaviour
             if (player.inputs.GetButtonUp("Radial Menu")) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
 
             //Esto tiene que ser la flechita de la opción seleccionada, sino, selecciona otra cosa del menu radial.
-            if (player.inputs.GetButtonUp("IndexUp")) { if (pressedL2) { IndexUp(); } }
+            //if (player.inputs.GetButtonUp("IndexUp")) { if (pressedL2) { IndexUp(); } }
             if (player.inputs.GetButtonDown("FireLaser")) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
 
             if (player.RobotQuickSelection.x == 1)
@@ -131,14 +131,15 @@ public class Army : MonoBehaviour
     public void radialMenuPopDown(int? _newSelected)
     {
         int newArmyCellSelected;
-        newArmyCellSelected = ArmyCellSelected;
 
         if (_newSelected == null)
         {
             if (armyCell[radialMenu.PopDown()].getRobotType() != null)
             {
+
                 newArmyCellSelected = radialMenu.PopDown();
             }
+            else { newArmyCellSelected = 4; } 
         }
         else
         {
@@ -155,34 +156,20 @@ public class Army : MonoBehaviour
             robotTypes = armyCell[newArmyCellSelected].getRobotType();
         }
 
-        if (robotTypes == null)
+        if (currentFighter != null && robotTypes != currentFighter.boyType && robotTypes != null)
         {
-            ArmyCellSelected = 4;
 
-            if (currentFighter != null)
-            {
-                Robot _transitionStateRobot = currentFighter;
-                Remove(currentFighter);
-                Reclute(_transitionStateRobot);
-            }
-
-        }
-
-        else if (currentFighter != null && robotTypes != currentFighter.boyType)
-        {
             ArmyCellSelected = newArmyCellSelected;
-
             Robot _transitionStateRobot = currentFighter;
             Remove(currentFighter);
             Reclute(_transitionStateRobot);
+            SummonRobot();
         }
 
-        else
+        else if (robotTypes != null)
         {
             ArmyCellSelected = newArmyCellSelected;
         }
-
-
     }
 
     public ArmyCell checkArmyCellAvailable(Robot _newRobot)
@@ -270,11 +257,13 @@ public class Army : MonoBehaviour
             //Disable robot
             _robot.Dematerialize();
         }
-        if (ArmyCellSelected != 4 && armyCell[ArmyCellSelected].getRobotType() == null && currentFighter == null)
+        //selects the robot
+        if (armyCell[ArmyCellSelected].getRobotType() == null && currentFighter == null)
         {
             ArmyCellSelected = armyCell.FindIndex(item => item == cellToSaveRobot);
             radialMenu.SetCurrentMenuItem(ArmyCellSelected);
         }
+        armyCell[ArmyCellSelected].Transaction();
     }
 
     public void Order()
@@ -315,8 +304,8 @@ public class Army : MonoBehaviour
                 currentFighter.recluted = false;
 
                 //Removes from list to update UI, still currentFighter
-                RemoveWithoutFighter(currentFighter);
-                armyCell[ArmyCellSelected].Transaction();
+                //RemoveWithoutFighter(currentFighter);
+                //armyCell[ArmyCellSelected].Transaction();
                 player.SetVibration(0, 0.25f, 0.25f, false);
             }
             else
@@ -337,17 +326,9 @@ public class Army : MonoBehaviour
             currentFighter = null;
             look.AlternativeCenter(null);
             //here
-
-            ArmyCell temporal = findArmyCellWithRobots();
-            if (temporal != null)
-            {
-                if (ArmyCellSelected != 4 && armyCell[ArmyCellSelected].getRobotType() == null)
-                {
-                    ArmyCellSelected = armyCell.FindIndex(item => item == temporal);
-                    radialMenu.SetCurrentMenuItem(ArmyCellSelected);
-                }
-            }
+            armyCell[ArmyCellSelected].Transaction();
         }
+
         foreach (ArmyCell cell in armyCell)
         {
             cell.removeRobot(_robot);

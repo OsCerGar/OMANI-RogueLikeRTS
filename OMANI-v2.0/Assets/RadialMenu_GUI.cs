@@ -144,10 +144,7 @@ public class RadialMenu_GUI : MonoBehaviour
     {
         angle += 135;
         if (angle < 0) { angle += 360; }
-        int temporalMenuItem = (int)(angle / (360 / menuItems));
-
-        //If the cell is empty it doesn't get selected
-        if (army.getCells()[temporalMenuItem].getRobotType() != null) { curMenuItem = temporalMenuItem; }
+        curMenuItem = (int)(angle / (360 / menuItems));
 
         if (curMenuItem != oldMenuItem)
         {
