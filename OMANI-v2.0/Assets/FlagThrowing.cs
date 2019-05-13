@@ -30,16 +30,24 @@ public class FlagThrowing : MonoBehaviour
 
         if (player.inputs.GetButtonDown("Throw") && army.getCells()[army.ArmyCellSelected] != null && army.getCells()[army.ArmyCellSelected].getRobotType() != null)
         {
-            //ThrowDown();
+            ThrowDown();
         }
         if (player.inputs.GetButtonUp("Throw") && robotToThrow != null)
         {
-            //ThrowUp();
+            ThrowUp();
         }
+    }
+
+    private void ThrowingDown()
+    {
+        //Tiene que empezar a mover el miradaposition entre el jugador hasta la dirección fija
+
     }
 
     private void ThrowUp()
     {
+
+        //Lo suelta en el punto guardado.
         lookDAO.pointerDirection.pointerDefault();
         Flag thrownFlag = flags[flags.Count - 1];
         thrownFlag.transform.SetParent(null);

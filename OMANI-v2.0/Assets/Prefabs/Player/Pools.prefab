@@ -530,7 +530,7 @@ MonoBehaviour:
         _modifierKey2: 0
         _modifierKey3: 0
       - _actionCategoryId: 0
-        _actionId: 9
+        _actionId: 12
         _elementType: 1
         _elementIdentifierId: 12
         _axisRange: 0
@@ -775,6 +775,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a002fe45bd7424eba7dedff86581f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &832859734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6407145475532945377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2442016f8486197449f04daf3f9ca389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Template: {fileID: 451989207, guid: fc463987516aa774da87334bea8f2728, type: 3}
+  PoolName: SurkaMele
+  ObjectList: []
+  AutoResize: 0
+  PoolSize: 20
+  InstantiateOnAwake: 1
+  Shared: 0
 --- !u!114 &7656551054872599882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,25 +825,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf517ccf3440dd4ea94ee9942e27d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &832859734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6407145475532945377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2442016f8486197449f04daf3f9ca389, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Template: {fileID: 451989207, guid: fc463987516aa774da87334bea8f2728, type: 3}
-  PoolName: SurkaMele
-  ObjectList: []
-  AutoResize: 0
-  PoolSize: 20
-  InstantiateOnAwake: 1
-  Shared: 0
 --- !u!1 &7741791799921306655
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,8 +946,7 @@ PrefabInstance:
       propertyPath: PoolName
       value: EnnuiSphere
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114009390074237622, guid: 964bc05ffdd22a049ba131906dbe6dc2, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964bc05ffdd22a049ba131906dbe6dc2, type: 3}
 --- !u!1 &1916650865372605 stripped
 GameObject:
@@ -1171,6 +1170,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114515777094509860, guid: 964bc05ffdd22a049ba131906dbe6dc2,
+        type: 3}
+      propertyPath: Template
+      value: 
+      objectReference: {fileID: 1574, guid: c6aab83e36116384f8ff2c560a411373, type: 3}
     - target: {fileID: 114009390074237622, guid: 964bc05ffdd22a049ba131906dbe6dc2,
         type: 3}
       propertyPath: Template
@@ -1181,11 +1185,6 @@ PrefabInstance:
       propertyPath: PoolName
       value: Warrior
       objectReference: {fileID: 0}
-    - target: {fileID: 114515777094509860, guid: 964bc05ffdd22a049ba131906dbe6dc2,
-        type: 3}
-      propertyPath: Template
-      value: 
-      objectReference: {fileID: 1574, guid: c6aab83e36116384f8ff2c560a411373, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964bc05ffdd22a049ba131906dbe6dc2, type: 3}
 --- !u!1 &7743536798391333068 stripped
