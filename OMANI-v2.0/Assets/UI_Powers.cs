@@ -53,9 +53,9 @@ public class UI_Powers : MonoBehaviour
 
         if (!dying)
         {
-            //dyingEffect[0].transform.Rotate(0,0,0.5f, Space.Self);
-            dyingEffect[1].transform.Rotate(0,0,-0.5f, Space.Self);
-            dyingEffect[2].transform.Rotate(0, 0, 0.5f, Space.Self);
+            dyingEffect[0].transform.Rotate(0,0,0.25f, Space.Self);
+            dyingEffect[1].transform.Rotate(0,0,-0.15f, Space.Self);
+            dyingEffect[2].transform.Rotate(0, 0, 0.15f, Space.Self);
 
         }
     }
