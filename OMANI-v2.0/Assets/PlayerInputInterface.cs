@@ -87,7 +87,18 @@ public class PlayerInputInterface : MonoBehaviour
     {
         if (inputs.controllers.Joysticks.Count > 0 && inputs.controllers.Joysticks[0].supportsVibration)
         {
+            if (_motor < 2)
+            {
+                inputs.SetVibration(_motor, _amount, _time);
+            }
             inputs.SetVibration(_motor, _amount, _time);
+
+            if (_motor == 2)
+            {
+                inputs.SetVibration(0, _amount, _time);
+                inputs.SetVibration(1, _amount, _time);
+
+            }
         }
     }
 
