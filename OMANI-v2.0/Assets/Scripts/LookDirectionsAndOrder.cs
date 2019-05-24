@@ -75,7 +75,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (player.inputs.GetButtonDown("SecondaryLookMode")) { ControllerFreeMode(); }
     }
 
-    private void ControllerFreeMode()
+    public void ControllerFreeMode()
     {
         if (controllerLookModel)
         {

@@ -19,8 +19,15 @@ public class FlagThrowing : MonoBehaviour
     bool throwing, sweetSpot = false;
 
     float originalViewRadius, expValue;
+    public static FlagThrowing flagThrowing;
+    private void Awake()
+    {
+        if (flagThrowing == null)
+        {
+            flagThrowing = this;
+        }
 
-
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -63,8 +70,6 @@ public class FlagThrowing : MonoBehaviour
 
     private void ThrowUp()
     {
-        //Lo suelta en el punto guardado.
-        lookDAO.pointerDirection.pointerDefault();
         Flag thrownFlag = flags[flags.Count - 1];
         thrownFlag.transform.SetParent(null);
         thrownFlag.transform.position = lookDAO.miradaposition;
@@ -74,6 +79,9 @@ public class FlagThrowing : MonoBehaviour
 
         //restores view radius
         lookDAO.viewRadius = originalViewRadius;
+        lookDAO.ControllerFreeMode();
+        //Lo suelta en el punto guardado.
+        lookDAO.pointerDirection.pointerDefault();
 
         anim.SetTrigger("TriggerUp");
 
@@ -81,17 +89,27 @@ public class FlagThrowing : MonoBehaviour
 
     private void ThrowDown()
     {
-        lookDAO.pointerDirection.ChangePointer(flagPointer, new Vector3(0.35f, 0.35f, 0.35f));
         if (army.getCells()[army.ArmyCellSelected].getRobotType() != null) { }
         robotToThrow = army.getCells()[army.ArmyCellSelected].GetRobot();
         robotToThrow.Fired();
         robotToThrow.Dematerialize();
         radialMenu.UpdateState();
 
+        //Changes the pointer
+        lookDAO.pointerDirection.ChangePointer(flagPointer, new Vector3(0.35f, 0.35f, 0.35f), Color.white);
+        lookDAO.pointerDirection.FlagThrowing();
         //Starts moving position
         lookDAO.viewRadius = 0.5f;
+        lookDAO.ControllerFreeMode();
 
         anim.SetTrigger("TriggerDown");
+    }
+
+    public void PickUpFlag(Flag _flagToPickUp)
+    {
+        _flagToPickUp.transform.SetParent(transform);
+        _flagToPickUp.transform.position = new Vector3(0, 0, 0);
+        flags.Add(_flagToPickUp);
     }
 
     private void SweetSpot()
@@ -106,7 +124,6 @@ public class FlagThrowing : MonoBehaviour
         {
             sweetSpot = false;
         }
-        Debug.Log(sweetSpot);
 
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Shooter : Robot
 {
@@ -15,6 +13,12 @@ public class Shooter : Robot
     {
         base.Awake();
         boyType = "Shooter";
+
+    }
+    public override void Start()
+    {
+        base.Start();
+        damage = Mathf.RoundToInt(damage + (damage * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotBaseDamageLevel", GamemasterController.GameMaster.RobotBaseDamageLevel)[2]) / 100)));
     }
     public override void Update()
     {
@@ -26,7 +30,7 @@ public class Shooter : Robot
         SoundManager.AttackHit();
         //reducePowerNow(maxpowerPool);
     }
-   
+
 
     public override void FighterAttack(GameObject attackPosition)
     {
@@ -53,9 +57,9 @@ public class Shooter : Robot
             aimAtPos = new Vector3(aimAt.transform.position.x, aimAt.transform.position.y + 1.5f, aimAt.transform.position.z);
             //righthand
             anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
-                    anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
-                    anim.SetIKPosition(AvatarIKGoal.RightHand, aimAtPos);
-                    anim.SetIKRotation(AvatarIKGoal.RightHand, aimAt.transform.rotation);
+            anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
+            anim.SetIKPosition(AvatarIKGoal.RightHand, aimAtPos);
+            anim.SetIKRotation(AvatarIKGoal.RightHand, aimAt.transform.rotation);
             //leftHand
             anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
             anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);

@@ -1,5 +1,72 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1616652278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1616652279}
+  - component: {fileID: 1616652280}
+  m_Layer: 0
+  m_Name: GameMaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1616652279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616652278}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7741791799921306654}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1616652280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616652278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d025454006de26458f0f7266d03803c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Money: 0
+  robots: []
+  WorkerDamageLevel: 0
+  SwordmanDamageLevel: 0
+  ShooterDamageLevel: 0
+  RobotQuantityLevel: 0
+  RobotMaxLifeLevel: 0
+  RobotLoadSpeedLevel: 0
+  RobotCriticalChanceLevel: 0
+  RobotBaseDamageLevel: 0
+  RobotExpLevel: 0
+  RobotControlRadLevel: 0
+  FlagQuantityLevel: 0
+  FlagCriticalZoneLevel: 0
+  FlagCriticalZoneDamage: 0
+  FlagDurationLevel: 0
+  FlagReloadSpeedLevel: 0
+  FlagRadLevel: 0
+  LaserSelectedLevel: 0
+  LaserDamageLevel: 0
+  LaserMaxDistanceLevel: 0
+  LaserTransmisionLevel: 0
+  MaxLifeLevel: 0
+  MaxSpeedLevel: 0
 --- !u!1 &1920126887
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,6 +925,7 @@ Transform:
   - {fileID: 6412471435390258831}
   - {fileID: 1920126888}
   - {fileID: 4964542872278227}
+  - {fileID: 1616652279}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1170,11 +1238,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114515777094509860, guid: 964bc05ffdd22a049ba131906dbe6dc2,
-        type: 3}
-      propertyPath: Template
-      value: 
-      objectReference: {fileID: 1574, guid: c6aab83e36116384f8ff2c560a411373, type: 3}
     - target: {fileID: 114009390074237622, guid: 964bc05ffdd22a049ba131906dbe6dc2,
         type: 3}
       propertyPath: Template
@@ -1185,6 +1248,11 @@ PrefabInstance:
       propertyPath: PoolName
       value: Warrior
       objectReference: {fileID: 0}
+    - target: {fileID: 114515777094509860, guid: 964bc05ffdd22a049ba131906dbe6dc2,
+        type: 3}
+      propertyPath: Template
+      value: 
+      objectReference: {fileID: 1574, guid: c6aab83e36116384f8ff2c560a411373, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964bc05ffdd22a049ba131906dbe6dc2, type: 3}
 --- !u!1 &7743536798391333068 stripped

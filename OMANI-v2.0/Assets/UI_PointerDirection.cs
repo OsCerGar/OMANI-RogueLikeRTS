@@ -12,14 +12,19 @@ public class UI_PointerDirection : MonoBehaviour
     LayerMask mask;
 
     Color originalEmission;
+    LookDirectionsAndOrder lookDAO;
+
+    [SerializeField]LineRenderer line;
     // Use this for initialization
     void Start()
     {
         mouse = transform.GetComponent<SpriteRenderer>();
+        lookDAO = FindObjectOfType<LookDirectionsAndOrder>();
         normalMouse = mouse.sprite;
         originalScale = transform.localScale;
         originalEmission = mouse.material.GetColor("_EmissionColor");
         mouse.material.renderQueue = 4000;
+        //line = transform.GetComponentInChildren<LineRenderer>();
         mask = LayerMask.GetMask("Terrain");
     }
 
@@ -61,17 +66,35 @@ public class UI_PointerDirection : MonoBehaviour
             mouse.material.color = Color.green;
             mouse.material.SetColor("_EmissionColor", originalEmission);
         }
+
+        if (line.gameObject.activeSelf)
+        {
+            //line points get updated
+            line.SetPosition(0, lookDAO.transform.position);
+            line.SetPosition(1, lookDAO.pointerDirection.transform.position);
+        }
     }
 
-    public void ChangePointer(Sprite _newPointer, Vector3 _scale)
+    public void ChangePointer(Sprite _newPointer, Vector3 _scale, Color _color)
     {
         mouse.sprite = _newPointer;
+        mouse.color = _color;
         transform.localScale = _scale;
+    }
+
+    //flag throwing line on
+    public void FlagThrowing()
+    {
+        line.gameObject.SetActive(true);
     }
 
     public void pointerDefault()
     {
         mouse.sprite = normalMouse;
         transform.localScale = originalScale;
+
+        //flag throwing line off
+        line.gameObject.SetActive(false);
+
     }
 }

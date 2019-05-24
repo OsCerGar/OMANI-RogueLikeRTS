@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Army : MonoBehaviour
 {
+
+    public static Army army;
     [Space]
     [SerializeField]
     private List<ArmyCell> armyCell = new List<ArmyCell>();
@@ -40,6 +42,8 @@ public class Army : MonoBehaviour
         powers = FindObjectOfType<Powers>();
         power_Laser = FindObjectOfType<Power_Laser>();
         radialMenu = FindObjectOfType<RadialMenu_GUI>();
+
+        if (army == null) { army = this; }
     }
     private void Update()
     {
@@ -139,7 +143,7 @@ public class Army : MonoBehaviour
 
                 newArmyCellSelected = radialMenu.PopDown();
             }
-            else { newArmyCellSelected = 4; } 
+            else { newArmyCellSelected = 4; }
         }
         else
         {

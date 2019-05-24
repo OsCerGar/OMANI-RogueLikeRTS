@@ -8,6 +8,7 @@ public class Enemy : NPC
     private Collider col;
     public EnnuiSpawnerManager ennuis;
     public Transform laserTarget;
+
     private void Awake()
     {
         col = GetComponent<Collider>();
@@ -71,6 +72,10 @@ public class Enemy : NPC
 
         col.enabled = false;
         laserTarget.gameObject.SetActive(false);
+        GamemasterController.GameMaster.Money += 1;
+        GamemasterController.GameMaster.Save();
+
+        Debug.Log(GamemasterController.GameMaster.Money);
 
         if (OnDie != null)
         {

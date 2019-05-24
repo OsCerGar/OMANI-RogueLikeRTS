@@ -10,6 +10,14 @@ public class Swordman : Robot
     {
         base.Awake();
         boyType = "Swordsman";
+
+
+
+    }
+    public override void Start()
+    {
+        base.Start();
+        damage = Mathf.RoundToInt(damage + (damage * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotBaseDamageLevel", GamemasterController.GameMaster.RobotBaseDamageLevel)[2]) / 100)));
     }
     public override void Update()
     {

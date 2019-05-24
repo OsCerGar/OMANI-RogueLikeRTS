@@ -1,14 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class MeleAttack : MonoBehaviour {
+public class MeleAttack : MonoBehaviour
+{
     [SerializeField] bool Knockback;
     [SerializeField] float ActiveHitboxTime = 0.1f;
     [SerializeField] int Damage = 0, damageOffset = 1, criticalChance = 5;
     [SerializeField] LayerMask LayerMasktoAttack;
-    [HideInInspector]public  bool PowerUp;
+    [HideInInspector] public bool PowerUp;
     [SerializeField] ParticleSystem Effect;
     [SerializeField] NPC thisNpcScript;
 
@@ -22,11 +21,15 @@ public class MeleAttack : MonoBehaviour {
     //Inputs
     PlayerInputInterface inputController;
 
+    private void Start()
+    {
+        criticalChance = Mathf.RoundToInt(criticalChance + (criticalChance * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotCriticalChanceLevel", GamemasterController.GameMaster.RobotCriticalChanceLevel)[2]) / 100)));
+    }
 
     // Use this for initialization
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (IsInLayerMask(other.gameObject, LayerMasktoAttack))
         {
             var EnemyNPC = other.GetComponent<NPC>();
@@ -38,8 +41,8 @@ public class MeleAttack : MonoBehaviour {
             //Make his take damage;
             if (Knockback)
             {
-                EnemyNPC.TakeDamage(Damage, true, 5,transform.parent.transform);
-                
+                EnemyNPC.TakeDamage(Damage, true, 5, transform.parent.transform);
+
             }
             else
             {
@@ -72,12 +75,12 @@ public class MeleAttack : MonoBehaviour {
             {
                 SoundManager.AttackHit();
             }
-           
+
         }
     }
     private void OnEnable()
     {
-        missed = true; 
+        missed = true;
         if (Effect != null)
         {
             Effect.Play();
@@ -87,12 +90,13 @@ public class MeleAttack : MonoBehaviour {
 
         StartCoroutine(WaitandDisable());
     }
-    
+
     IEnumerator WaitandDisable()
     {
-        
+
         yield return new WaitForSeconds(ActiveHitboxTime);
-        if (missed) {
+        if (missed)
+        {
             if (SoundManager != null)
             {
                 SoundManager.AttackMiss();
@@ -106,8 +110,12 @@ public class MeleAttack : MonoBehaviour {
         // Convert the object's layer to a bitfield for comparison
         int objLayerMask = (1 << obj.layer);
         if ((layerMask.value & objLayerMask) > 0)  // Extra round brackets required!
+        {
             return true;
+        }
         else
+        {
             return false;
+        }
     }
 }

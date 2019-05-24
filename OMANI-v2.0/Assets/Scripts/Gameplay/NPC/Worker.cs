@@ -38,6 +38,12 @@ public class Worker : Robot
         boyType = "Worker";
         LookDAO = FindObjectOfType<LookDirectionsAndOrder>();
     }
+    public override void Start()
+    {
+        base.Start();
+        damage = Mathf.RoundToInt(damage + (damage * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotBaseDamageLevel", GamemasterController.GameMaster.RobotBaseDamageLevel)[2]) / 100)));
+        maxpowerPool = Mathf.RoundToInt(maxpowerPool + (maxpowerPool * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotMaxLifeLevel", GamemasterController.GameMaster.RobotMaxLifeLevel)[2]) / 100)));
+    }
     public void Trail()
     {
         TrailEffect.gameObject.SetActive(true);
@@ -72,7 +78,7 @@ public class Worker : Robot
         RollDisableCheck();
         base.CoolDown();
     }
-    
+
     public override void Die()
     {
         RollDisableCheck();
