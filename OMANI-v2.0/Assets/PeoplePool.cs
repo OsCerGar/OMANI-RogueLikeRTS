@@ -7,9 +7,12 @@ public class PeoplePool : MonoBehaviour
     EZObjectPool Worker, Warrior, Shooter;
     GameObject Spawned;
 
+    public static PeoplePool peoplePool;
+
     // Use this for initialization
-    void Start()
+    void Awake()
     {
+        if (peoplePool == null) { peoplePool = this; }
         var AllPoolers = FindObjectsOfType<EZObjectPool>();
         foreach (EZObjectPool item in AllPoolers)
         {
@@ -26,7 +29,6 @@ public class PeoplePool : MonoBehaviour
                 Shooter = item;
             }
         }
-
     }
 
     public GameObject Spawn(Transform tr, Vector3 ps, string _name)

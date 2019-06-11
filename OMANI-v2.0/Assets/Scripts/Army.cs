@@ -42,9 +42,24 @@ public class Army : MonoBehaviour
         powers = FindObjectOfType<Powers>();
         power_Laser = FindObjectOfType<Power_Laser>();
         radialMenu = FindObjectOfType<RadialMenu_GUI>();
-
         if (army == null) { army = this; }
+
+        //Reclute the robots you have bought and adds their data
+        if (GamemasterController.GameMaster.GetRobots().Count > 0)
+        {
+            for (int i = 0; i < GamemasterController.GameMaster.GetRobots().Count; i++)
+            {
+                GameObject spawned = PeoplePool.peoplePool.Spawn(transform, transform.position, GamemasterController.GameMaster.GetRobots()[i].robotType);
+                Robot spawnedRobot = spawned.GetComponent<Robot>();
+                spawnedRobot.level = GamemasterController.GameMaster.GetRobots()[i].level;
+                spawnedRobot.exp = GamemasterController.GameMaster.GetRobots()[i].exp;
+                //Reclute(spawnedRobot);
+            }
+        }
+
+
     }
+
     private void Update()
     {
         Inputs();
@@ -260,6 +275,10 @@ public class Army : MonoBehaviour
 
             //Disable robot
             _robot.Dematerialize();
+
+            //SaveGame robot list
+            GamemasterController.GameMaster.AddRobot(_robot);
+
         }
         //selects the robot
         if (armyCell[ArmyCellSelected].getRobotType() == null && currentFighter == null)
@@ -268,6 +287,8 @@ public class Army : MonoBehaviour
             radialMenu.SetCurrentMenuItem(ArmyCellSelected);
         }
         armyCell[ArmyCellSelected].Transaction();
+
+
     }
 
     public void Order()
@@ -335,6 +356,8 @@ public class Army : MonoBehaviour
 
         foreach (ArmyCell cell in armyCell)
         {
+            //SaveGame robot list
+            GamemasterController.GameMaster.RemoveRobot(_robot);
             cell.removeRobot(_robot);
         }
     }
@@ -344,5 +367,8 @@ public class Army : MonoBehaviour
         {
             cell.removeRobot(_robot);
         }
+        //SaveGame robot list
+        GamemasterController.GameMaster.RemoveRobot(_robot);
+
     }
 }

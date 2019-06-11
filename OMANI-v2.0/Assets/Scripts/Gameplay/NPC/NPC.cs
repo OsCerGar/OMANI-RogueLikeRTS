@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityStandardAssets.Characters.ThirdPerson;
-
 public class NPC : MonoBehaviour
 {
 
@@ -166,6 +165,11 @@ public class NPC : MonoBehaviour
         Debug.Log("Disabled by that");
     }
 
+    public void Awake()
+    {
+        SetTrees();
+    }
+
     // Use this for initialization
     public virtual void Start()
     {
@@ -173,7 +177,6 @@ public class NPC : MonoBehaviour
         SM = GetComponentInChildren<SoundsManager>();
         peopl = LayerMask.NameToLayer("People");
         //We get all behaviourTrees
-        SetTrees();
         anim = gameObject.GetComponent<Animator>();
         Nav = gameObject.GetComponent<NavMeshAgent>();
         circle = gameObject.GetComponentInChildren<SpriteRenderer>();

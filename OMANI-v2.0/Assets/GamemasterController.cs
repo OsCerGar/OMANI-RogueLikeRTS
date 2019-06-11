@@ -12,7 +12,7 @@ public class GamemasterController : MonoBehaviour
     public int Money;
 
     #region Robots
-    public List<Robot> robots;
+    private List<Robot.RobotData> savedRobots = new List<Robot.RobotData>();
     #region specificRobotValues
     //Worker
     public int WorkerDamageLevel;
@@ -77,7 +77,34 @@ public class GamemasterController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Debug.Log(Application.persistentDataPath);
         Load();
+    }
+
+    public void AddRobot(Robot _robot)
+    {
+        if (savedRobots != null)
+        {
+            if (!savedRobots.Contains(_robot.data))
+            {
+                savedRobots.Add(_robot.data);
+                Save();
+            }
+        }
+    }
+
+    public void RemoveRobot(Robot _robot)
+    {
+        if (savedRobots != null)
+        {
+            savedRobots.Remove(_robot.data);
+            Save();
+        }
+    }
+
+    public List<Robot.RobotData> GetRobots()
+    {
+        return savedRobots;
     }
 
     public void Save()
@@ -93,7 +120,7 @@ public class GamemasterController : MonoBehaviour
             data.Money = Money;
 
             #region Robots
-            data.robots = robots;
+            data.savedRobots = savedRobots;
             #region specificRobotValues
             //Worker
             data.WorkerDamageLevel = WorkerDamageLevel;
@@ -228,7 +255,7 @@ public class GamemasterController : MonoBehaviour
                 Money = data.Money;
 
                 #region Robots
-                robots = data.robots;
+                savedRobots = data.savedRobots;
                 #region specificRobotValues
                 //Worker
                 WorkerDamageLevel = data.WorkerDamageLevel;
@@ -311,13 +338,38 @@ public class GamemasterController : MonoBehaviour
 
     }
 
+    public string[] getCsvValues(String _statName)
+    {
+        using (var parser = new StreamReader(@"Assets\GameData.csv"))
+        {
+            while (!parser.EndOfStream)
+            {
+                var line = parser.ReadLine();
+                var values = line.Split(',');
+                try
+                {
+                    if (values[0].Equals(_statName))
+                    {
+                        return values;
+                    }
+                }
+                catch (FormatException)
+                {
+                    Debug.Log("Reading csv, string where a int is supossed to be");
+                }
+            }
+        }
+
+        return null;
+
+    }
     [Serializable]
     class GameData
     {
         public int Money;
 
         #region Robots
-        public List<Robot> robots;
+        public List<Robot.RobotData> savedRobots = new List<Robot.RobotData>();
         #region specificRobotValues
         //Worker
         public int WorkerDamageLevel;

@@ -17,7 +17,15 @@ public class Swordman : Robot
     public override void Start()
     {
         base.Start();
+
+        //damage
+        damage = int.Parse(GamemasterController.GameMaster.getCsvValues("Warrior")[2]);
         damage = Mathf.RoundToInt(damage + (damage * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotBaseDamageLevel", GamemasterController.GameMaster.RobotBaseDamageLevel)[2]) / 100)));
+
+        //MaxPowerPoolCalc
+        maxpowerPool = float.Parse(GamemasterController.GameMaster.getCsvValues("Warrior")[1]);
+        maxpowerPool = Mathf.RoundToInt(maxpowerPool + (maxpowerPool * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotMaxLifeLevel", GamemasterController.GameMaster.RobotMaxLifeLevel)[2]) / 100)));
+
     }
     public override void Update()
     {

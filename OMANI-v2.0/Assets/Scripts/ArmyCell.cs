@@ -79,7 +79,12 @@ public class ArmyCell : MonoBehaviour
 
     public void removeRobot(Robot _robot)
     {
-        robots.Remove(_robot);
+        if (robots.Remove(_robot))
+        {
+            Debug.Log("removed");
+            //SaveGame robot list
+            GamemasterController.GameMaster.RemoveRobot(_robot);
+        }
 
         if (robots.Count == 0)
         {

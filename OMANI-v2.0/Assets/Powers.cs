@@ -51,6 +51,12 @@ public class Powers : MonoBehaviour
     }
     #endregion
 
+    public void Start()
+    {
+
+        maxArmor = float.Parse(GamemasterController.GameMaster.getCsvValues("Omani")[1]);
+
+    }
     public void ConnectedValue(bool _connectedValue, Transform _connectedObject)
     {
         connected = _connectedValue;

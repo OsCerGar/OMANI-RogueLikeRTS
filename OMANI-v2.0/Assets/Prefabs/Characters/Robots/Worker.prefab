@@ -48444,8 +48444,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312}
-  m_LocalRotation: {x: -0.2096772, y: 0.9497002, z: -0.017904932, w: -0.23191461}
-  m_LocalPosition: {x: 0.0000010506907, y: 0.000014476177, z: -0.29919735}
+  m_LocalRotation: {x: -0.20967995, y: 0.9496993, z: -0.017904613, w: -0.23191619}
+  m_LocalPosition: {x: -0.00000043292349, y: 0.0000022862241, z: -0.29919964}
   m_LocalScale: {x: 1.0000001, y: 1, z: 0.99999994}
   m_Children:
   - {fileID: 1751}
@@ -68281,8 +68281,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1362}
-  m_LocalRotation: {x: -0.047643807, y: 0.9882082, z: 0.04458234, w: 0.13851762}
-  m_LocalPosition: {x: -0.0000010506907, y: -0.000014476177, z: 0.29919735}
+  m_LocalRotation: {x: -0.047655854, y: 0.9882082, z: 0.04458169, w: 0.13851358}
+  m_LocalPosition: {x: 0.00000043292349, y: -0.0000022862241, z: 0.29919964}
   m_LocalScale: {x: 1.0000001, y: 1, z: 0.99999994}
   m_Children:
   - {fileID: 1758}
@@ -68312,7 +68312,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367}
-  m_LocalRotation: {x: -0.038821936, y: -0.15362841, z: -0.14814688, w: 0.97618836}
+  m_LocalRotation: {x: -0.038821895, y: -0.1536308, z: -0.14814535, w: 0.9761882}
   m_LocalPosition: {x: -1.4634115, y: 0.00000055134245, z: 0.0000001899897}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -92065,7 +92065,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431}
-  m_LocalRotation: {x: -0, y: -0.000000029802319, z: 0.7071063, w: 0.70710737}
+  m_LocalRotation: {x: -3.5038777e-11, y: 6.319437e-11, z: 0.7071063, w: 0.70710737}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -116412,8 +116412,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1511}
-  m_LocalRotation: {x: -0.0835656, y: -0.257285, z: -0.9623558, w: 0.026316756}
-  m_LocalPosition: {x: 2.5272923, y: 0.02763209, z: -0.040815774}
+  m_LocalRotation: {x: -0.08356559, y: -0.25728503, z: -0.96235573, w: 0.026316727}
+  m_LocalPosition: {x: 2.5272932, y: 0.027648278, z: -0.040804807}
   m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
   m_Children:
   - {fileID: 1712}
@@ -116445,8 +116445,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512}
-  m_LocalRotation: {x: -0.0594276, y: 0.21291636, z: -0.055947397, w: 0.97365546}
-  m_LocalPosition: {x: -1.469194, y: 0.00000049368106, z: 0.000000104720286}
+  m_LocalRotation: {x: -0.059427362, y: 0.21291217, z: -0.055952486, w: 0.9736561}
+  m_LocalPosition: {x: -1.4691925, y: 0.0000004936805, z: 0.00000010472018}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
   m_Children:
   - {fileID: 1816}
@@ -135614,6 +135614,7 @@ MonoBehaviour:
   maxpowerPool: 50
   powerPool: 45
   increaseAmount: 1
+  lifeToHeal: 0
   powerReduced: 0
   linkPrice: 7.5
   quarter: 0
@@ -135633,6 +135634,7 @@ MonoBehaviour:
   AttackTree: {fileID: 0}
   GoTree: {fileID: 0}
   CoolDownTree: {fileID: 0}
+  DeployTree: {fileID: 0}
   ui_information: {fileID: 0}
   Attackzone: {fileID: 1441}
   RootMotion: 0
@@ -135646,6 +135648,10 @@ MonoBehaviour:
   TPC: {fileID: 0}
   numberPool: {fileID: 0}
   numbersTransform: {fileID: 2253}
+  data:
+    level: 0
+    exp: 0
+    robotType: Worker
   robot_energy: {fileID: 0}
   SparkEffect: {fileID: 2132}
   DematerializeParticleSystem: {fileID: 2093}
@@ -136019,8 +136025,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575}
-  m_LocalRotation: {x: -0.07732392, y: 0.0016022623, z: 0.38043088, w: 0.9215697}
-  m_LocalPosition: {x: -1.276937, y: -0.000010584743, z: -0.00000015565797}
+  m_LocalRotation: {x: -0.07732483, y: 0.0016027538, z: 0.3804316, w: 0.9215694}
+  m_LocalPosition: {x: -1.276943, y: 0.0000011285204, z: -0.00000134255}
   m_LocalScale: {x: 0.9999998, y: 0.9999998, z: 1}
   m_Children:
   - {fileID: 1689}
@@ -136050,8 +136056,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1577}
-  m_LocalRotation: {x: -0.066591516, y: -0.012083001, z: 0.22559996, w: 0.9718664}
-  m_LocalPosition: {x: -1.2819842, y: 0.000013775717, z: 0.000014515095}
+  m_LocalRotation: {x: -0.06659124, y: -0.012083702, z: 0.22561544, w: 0.97186273}
+  m_LocalPosition: {x: -1.281987, y: 0.0000044362478, z: 0.0000028796703}
   m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1}
   m_Children:
   - {fileID: 1705}
@@ -136351,6 +136357,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathExplosion
       objectReference: {fileID: 0}
+    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
+        type: 3}
+      propertyPath: startDelay.scalar
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8089638625762632509, guid: af8df6085d228924a89c006c30a4692a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -136420,21 +136441,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.282956
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8594273780099710267, guid: af8df6085d228924a89c006c30a4692a,
-        type: 3}
-      propertyPath: startDelay.scalar
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1753027832751785166, guid: af8df6085d228924a89c006c30a4692a,
         type: 3}

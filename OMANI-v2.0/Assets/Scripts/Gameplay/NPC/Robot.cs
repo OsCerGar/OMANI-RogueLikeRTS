@@ -1,9 +1,13 @@
 ﻿using BehaviorDesigner.Runtime;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Robot : NPC
 {
+    public RobotData data = new RobotData();
+    public int level, exp;
+
     bool link = false;
     Link linky;
     Powers powers = null;
@@ -43,6 +47,7 @@ public class Robot : NPC
     {
         workerSM = GetComponentInChildren<WorkerSM>();
         workerSM.transform.parent = null;
+        data.robotType = boyType;
     }
 
     public override void Start()
@@ -63,8 +68,7 @@ public class Robot : NPC
             CoolDown();
         }
 
-
-
+        //Read saved Data about the robot
 
     }
     private void OnEnable()
@@ -279,4 +283,11 @@ public class Robot : NPC
         Fired();
     }
 
+    [Serializable]
+    public class RobotData
+    {
+        public int level;
+        public int exp;
+        public String robotType;
+    }
 }
