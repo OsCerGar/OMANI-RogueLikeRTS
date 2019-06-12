@@ -115,6 +115,7 @@ public class QueenLegs : MonoBehaviour
 
         //visual
         stepPool.StepSpawn(_transform);
+        Debug.Log("StepSpawn");
     }
 
     public void CollisionOut(Collider collision, AudioSource _leg)
