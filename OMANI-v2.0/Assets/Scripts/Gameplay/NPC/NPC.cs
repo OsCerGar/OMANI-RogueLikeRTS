@@ -312,7 +312,7 @@ public class NPC : MonoBehaviour
     public virtual void TakeDamage(int damage, bool knockback, float knockbackTime, Transform _perpetrator)
     {
         numberPool.NumberSpawn(numbersTransform, damage, Color.red, numbersTransform.gameObject, false);
-
+        Debug.Log("Damage");
         if (state == "Alive")
         {
 
@@ -340,10 +340,9 @@ public class NPC : MonoBehaviour
 
     }
     //Simple way to take damage
-    public virtual void TakeDamage(int damage, Color damageType)
+    public virtual void TakeDamage(int damage, Color damageType, Transform _perpetrator)
     {
         numberPool.NumberSpawn(numbersTransform, damage, damageType, numbersTransform.gameObject, false);
-
 
         StartCoroutine(gotHit());
         if (state == "Alive")
@@ -371,7 +370,7 @@ public class NPC : MonoBehaviour
 
             if (acumulatedDamage > _Damage / _laserSpeed)
             {
-                TakeDamage(Mathf.RoundToInt(_Damage / _laserSpeed), Color.white);
+                TakeDamage(Mathf.RoundToInt(_Damage / _laserSpeed), Color.white, transform);
                 //Reset
                 acumulatedDamage = 0;
             }

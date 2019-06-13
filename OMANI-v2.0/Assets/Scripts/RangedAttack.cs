@@ -46,12 +46,12 @@ public class RangedAttack : MonoBehaviour
                 if (criticalChanceTemporal < criticalChance)
                 {
                     damageFinal = (Damage + offset) * 2;
-                    EnemyNPC.TakeDamage(damageFinal, Color.yellow);
+                    EnemyNPC.TakeDamage(damageFinal, Color.yellow, transform);
                 }
                 else
                 {
                     damageFinal = Damage + offset;
-                    EnemyNPC.TakeDamage(damageFinal, Color.white);
+                    EnemyNPC.TakeDamage(damageFinal, Color.white, transform);
                 }
             }
 

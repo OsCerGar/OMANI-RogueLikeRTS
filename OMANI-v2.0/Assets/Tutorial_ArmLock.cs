@@ -21,7 +21,7 @@ public class Tutorial_ArmLock : Enemy
     }
 
     //Simple way to take damage
-    public override void TakeDamage(int damage, Color damageType)
+    public override void TakeDamage(int damage, Color damageType, Transform transform)
     {
         if (damageType == Color.green)
         {
@@ -53,7 +53,7 @@ public class Tutorial_ArmLock : Enemy
     //Max damage is decided by the laser, in case of future upgrades to the Laser. 
     public override void TakeWeakLaserDamage(float damage, int maxDamage)
     {
-        TakeDamage(0, Color.green);
+        TakeDamage(0, Color.green, transform);
     }
 
 }

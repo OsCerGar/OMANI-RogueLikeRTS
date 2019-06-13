@@ -28,7 +28,7 @@ public class Player : NPC
     {
         Director.Play();
     }
-    public override void TakeDamage(int damage, Color damageType)
+    public override void TakeDamage(int damage, Color damageType, Transform transform)
     {
         //He dies if life lowers 
         //TODO : Make this an animation, and make it so that it swaps his layer and tag to something neutral

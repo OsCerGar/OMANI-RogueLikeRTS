@@ -65,7 +65,7 @@ public class RangedSpear : MonoBehaviour
             }
             else
             {
-                EnemyNPC.TakeDamage(attackDamage, Color.white);
+                EnemyNPC.TakeDamage(attackDamage, Color.white, transform);
             }
            
             //If he's dead, then forget about him

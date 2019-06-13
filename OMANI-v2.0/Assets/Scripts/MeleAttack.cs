@@ -53,7 +53,7 @@ public class MeleAttack : MonoBehaviour
                 if (criticalChanceTemporal < criticalChance)
                 {
                     damageFinal = (Damage + offset) * 2;
-                    EnemyNPC.TakeDamage(damageFinal, Color.yellow);
+                    EnemyNPC.TakeDamage(damageFinal, Color.yellow, thisNpcScript.transform);
 
                     inputController.SetVibration(0, 1f, 0.15f, false);
                     inputController.SetVibration(1, 1f, 0.15f, false);
@@ -61,7 +61,7 @@ public class MeleAttack : MonoBehaviour
                 else
                 {
                     damageFinal = Damage + offset;
-                    EnemyNPC.TakeDamage(damageFinal, Color.white);
+                    EnemyNPC.TakeDamage(damageFinal, Color.white, thisNpcScript.transform);
                     inputController.SetVibration(0, 0.25f, 0.15f, false);
                     inputController.SetVibration(1, 0.25f, 0.15f, false);
 

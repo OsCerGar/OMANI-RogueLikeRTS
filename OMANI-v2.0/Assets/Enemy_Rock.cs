@@ -40,7 +40,7 @@ public class Enemy_Rock : Enemy
     }
 
     //Simple way to take damage
-    public override void TakeDamage(int damage, Color damageType)
+    public override void TakeDamage(int damage, Color damageType, Transform transform)
     {
         if (state == "Alive")
         {

@@ -64,7 +64,7 @@ public class Robot : NPC
 
         if (powerPool != maxpowerPool)
         {
-            TakeDamage(Mathf.RoundToInt(1f), Color.yellow);
+            TakeDamage(Mathf.RoundToInt(1f), Color.yellow, transform);
             CoolDown();
         }
 
@@ -80,7 +80,7 @@ public class Robot : NPC
             {
                 if (powerPool != maxpowerPool)
                 {
-                    TakeDamage(Mathf.RoundToInt(maxpowerPool), Color.yellow);
+                    TakeDamage(Mathf.RoundToInt(maxpowerPool), Color.yellow, transform);
                 }
             }
         }
@@ -169,7 +169,7 @@ public class Robot : NPC
     }
 
     //Simple way to take damage
-    public override void TakeDamage(int damage, Color _damageType)
+    public override void TakeDamage(int damage, Color _damageType, Transform transform)
     {
 
         StartCoroutine(gotHit());

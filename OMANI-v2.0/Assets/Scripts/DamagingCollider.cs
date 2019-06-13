@@ -22,7 +22,7 @@ public class DamagingCollider : MonoBehaviour {
                 var npc = other.transform.GetComponent<NPC>();
                 if (npc != null)
                 {
-                    npc.TakeDamage(1, Color.yellow);
+                    npc.TakeDamage(1, Color.yellow, transform);
                 }
                 damageTickcd = 0;
             }
