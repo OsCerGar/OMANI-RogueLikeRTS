@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755c3f6aebdde774d90f9687776742cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boyType: Creep
+  boyType: SurkaMelee
   state: Alive
   startLife: 0
   life: 100
@@ -616,6 +616,7 @@ MonoBehaviour:
   maxpowerPool: 5
   powerPool: 0
   increaseAmount: 1
+  lifeToHeal: 0
   powerReduced: 0
   linkPrice: 1
   quarter: 0
@@ -635,6 +636,7 @@ MonoBehaviour:
   AttackTree: {fileID: 0}
   GoTree: {fileID: 0}
   CoolDownTree: {fileID: 0}
+  DeployTree: {fileID: 0}
   ui_information: {fileID: 0}
   Attackzone: {fileID: 1923398558}
   RootMotion: 1
@@ -25252,11 +25254,6 @@ PrefabInstance:
     - target: {fileID: 198000011254678926, guid: abb9f519b142e304d9c45b56afa768bc,
         type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].repeatInterval
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000011254678926, guid: abb9f519b142e304d9c45b56afa768bc,
-        type: 3}
-      propertyPath: ShapeModule.radiusThickness
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000013488956786, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}

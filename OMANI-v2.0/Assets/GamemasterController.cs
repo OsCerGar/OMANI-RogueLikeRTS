@@ -9,7 +9,7 @@ public class GamemasterController : MonoBehaviour
     public static GamemasterController GameMaster;
 
     bool developer;
-    public int Money;
+    public int Money, Difficulty;
 
     #region Robots
     private List<Robot.RobotData> savedRobots = new List<Robot.RobotData>();
@@ -118,6 +118,7 @@ public class GamemasterController : MonoBehaviour
 
             //Money
             data.Money = Money;
+            data.Difficulty = Difficulty;
 
             #region Robots
             data.savedRobots = savedRobots;
@@ -253,6 +254,7 @@ public class GamemasterController : MonoBehaviour
                 file.Close();
                 //Money
                 Money = data.Money;
+                Difficulty = data.Difficulty;
 
                 #region Robots
                 savedRobots = data.savedRobots;
@@ -367,6 +369,7 @@ public class GamemasterController : MonoBehaviour
     class GameData
     {
         public int Money;
+        public int Difficulty;
 
         #region Robots
         public List<Robot.RobotData> savedRobots = new List<Robot.RobotData>();

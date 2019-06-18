@@ -1,13 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using BehaviorDesigner.Runtime;
 using UnityEngine;
-using BehaviorDesigner.Runtime.Tasks;
-using BehaviorDesigner.Runtime;
 
-public class SurkaRanged : Enemy {
+public class SurkaRanged : Enemy
+{
     [SerializeField] ParticleSystem AttackTrail;
     [SerializeField] ParticleSystem Shoot;
 
+
+    private void Awake()
+    {
+        base.Awake();
+
+    }
+
+    public void Start()
+    {
+        base.Start();        
+        
+            //damage
+            damage = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[2]);
+            damage = Mathf.RoundToInt(damage + (GamemasterController.GameMaster.Difficulty * 2));
+            //life
+            life = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[1]);
+    }
     public void SetMaster(GameObject master)
     {
         var thisTarget = (SharedGameObject)transform.gameObject.GetComponent<BehaviorTree>().GetVariable("Master");
@@ -15,9 +30,9 @@ public class SurkaRanged : Enemy {
 
     }
     public void StartAttackTrail()
-        {
-             AttackTrail.Play();
-        }
+    {
+        AttackTrail.Play();
+    }
 
     public override void AttackHit()
     {

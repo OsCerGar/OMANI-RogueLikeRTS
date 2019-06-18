@@ -15,7 +15,9 @@ public class Enemy : NPC
         laserTarget = transform.FindDeepChild("LaserObjective");
         laserTarget.gameObject.SetActive(true);
         ennuis = FindObjectOfType<EnnuiSpawnerManager>();
+
     }
+
     public override void Update()
     {
 

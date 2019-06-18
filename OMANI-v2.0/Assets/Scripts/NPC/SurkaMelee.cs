@@ -1,12 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using BehaviorDesigner.Runtime;
 using UnityEngine;
-using BehaviorDesigner.Runtime.Tasks;
-using BehaviorDesigner.Runtime;
 
-public class SurkaMelee: Enemy {
+public class SurkaMelee : Enemy
+{
     [SerializeField] ParticleSystem AttackTrail;
     [SerializeField] ParticleSystem Slash;
+    public override void Start()
+    {
+        base.Start();
+        //damage
+        damage = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[2]);
+        damage = Mathf.RoundToInt(damage + (GamemasterController.GameMaster.Difficulty * 2));
+        //life
+        life = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[1]);
+
+    }
 
     public void SetMaster(GameObject master)
     {
@@ -15,9 +23,9 @@ public class SurkaMelee: Enemy {
 
     }
     public void StartAttackTrail()
-        {
-             AttackTrail.Play();
-        }
+    {
+        AttackTrail.Play();
+    }
 
     public override void AttackHit()
     {
