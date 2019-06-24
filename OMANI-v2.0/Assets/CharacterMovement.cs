@@ -25,6 +25,9 @@ public class CharacterMovement : MonoBehaviour
 
     PlayerInputInterface inputs;
 
+    //Animator 
+    [SerializeField]
+    Animator anim;
     // Use this for initialization
     void Start()
     {
@@ -64,8 +67,14 @@ public class CharacterMovement : MonoBehaviour
 
             desiredDirection.y -= 1 * Time.deltaTime;
 
-            controller.Move(desiredDirection * speed * Time.deltaTime);
-            Rotate(desiredDirection);
+            //controller.Move(desiredDirection * speed * Time.deltaTime);
+
+
+            anim.SetFloat("X", (LookDirection.miradaposition - transform.position).x);
+            anim.SetFloat("Y", (LookDirection.miradaposition - transform.position).z);
+
+            //Rotate(desiredDirection);
+            Rotate((LookDirection.miradaposition - transform.position).normalized);
 
         }
 
@@ -91,7 +100,8 @@ public class CharacterMovement : MonoBehaviour
             desiredDirection.y -= 1 * Time.deltaTime;
 
             controller.Move(desiredDirection * speed * Time.deltaTime);
-
+            anim.SetFloat("X", desiredDirection.x);
+            anim.SetFloat("Y", desiredDirection.z);
             LookDirection.LookAtWhileMoving(inputs.MovementAxisController.x, inputs.MovementAxisController.y);
             Rotate(desiredDirection);
 
@@ -107,7 +117,8 @@ public class CharacterMovement : MonoBehaviour
             if (inputs.MovementAxis.x == 0f && inputs.MovementAxis.y == 0f)
             {
                 onMovement = false;
-                OnStopping();
+                //sound 
+                //OnStopping();
                 onMovementTime = 0;
             }
         }
