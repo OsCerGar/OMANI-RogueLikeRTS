@@ -45,6 +45,7 @@ public class Army : MonoBehaviour
         if (army == null) { army = this; }
 
         //Reclute the robots you have bought and adds their data
+        /*
         if (GamemasterController.GameMaster.GetRobots().Count > 0)
         {
             for (int i = 0; i < GamemasterController.GameMaster.GetRobots().Count; i++)
@@ -56,7 +57,7 @@ public class Army : MonoBehaviour
                 //Reclute(spawnedRobot);
             }
         }
-
+        */
 
     }
 

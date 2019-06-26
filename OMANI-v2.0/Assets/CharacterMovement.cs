@@ -9,7 +9,6 @@ public class CharacterMovement : MonoBehaviour
     public float speed = 0.073f, originalSpeed = 6f, smooth = 5f;
     [SerializeField]
     private float minDistanceToGround, maxDistanceToGround;
-    CharacterController controller;
 
     Vector3 desiredDirection;
 
@@ -31,7 +30,6 @@ public class CharacterMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         LookDirection = FindObjectOfType<LookDirectionsAndOrder>();
         inputs = FindObjectOfType<PlayerInputInterface>();
@@ -52,26 +50,30 @@ public class CharacterMovement : MonoBehaviour
 
             onNoMovementTime = 0;
 
-            if (controller.isGrounded)
+            //if (controller.isGrounded)
+            //{
+            onMovement = true;
+
+            desiredDirection = new Vector3(inputs.MovementAxis.x, 0f, inputs.MovementAxis.y);
+            //In case the player moves diagonally, it's normalized so that the speed is the same.
+            if (desiredDirection.magnitude > 1)
             {
-                onMovement = true;
-
-                desiredDirection = new Vector3(inputs.MovementAxis.x, 0f, inputs.MovementAxis.y);
-
-                //In case the player moves diagonally, it's normalized so that the speed is the same.
-                if (desiredDirection.magnitude > 1)
-                {
-                    desiredDirection = desiredDirection.normalized;
-                }
+                desiredDirection = desiredDirection.normalized;
             }
+            //}
 
             desiredDirection.y -= 1 * Time.deltaTime;
 
             //controller.Move(desiredDirection * speed * Time.deltaTime);
 
+            //float angle = Vector3.Angle(Vector3.forward, transform.forward);
+            float angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
+            Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
 
-            anim.SetFloat("X", (LookDirection.miradaposition - transform.position).x);
-            anim.SetFloat("Y", (LookDirection.miradaposition - transform.position).z);
+
+            anim.SetFloat("X", finalDirection.x);
+            anim.SetFloat("Y", finalDirection.z);
+
 
             //Rotate(desiredDirection);
             Rotate((LookDirection.miradaposition - transform.position).normalized);
@@ -84,22 +86,22 @@ public class CharacterMovement : MonoBehaviour
             onNoMovementTime = 0;
 
 
-            if (controller.isGrounded)
+            //if (controller.isGrounded)
+            //{
+            onMovement = true;
+
+            desiredDirection = new Vector3(inputs.MovementAxisController.x, 0f, inputs.MovementAxisController.y);
+
+            //In case the player moves diagonally, it's normalized so that the speed is the same.
+            if (desiredDirection.magnitude > 1)
             {
-                onMovement = true;
-
-                desiredDirection = new Vector3(inputs.MovementAxisController.x, 0f, inputs.MovementAxisController.y);
-
-                //In case the player moves diagonally, it's normalized so that the speed is the same.
-                if (desiredDirection.magnitude > 1)
-                {
-                    desiredDirection = desiredDirection.normalized;
-                }
-
+                desiredDirection = desiredDirection.normalized;
             }
+
+            //}
             desiredDirection.y -= 1 * Time.deltaTime;
 
-            controller.Move(desiredDirection * speed * Time.deltaTime);
+            //controller.Move(desiredDirection * speed * Time.deltaTime);
             anim.SetFloat("X", desiredDirection.x);
             anim.SetFloat("Y", desiredDirection.z);
             LookDirection.LookAtWhileMoving(inputs.MovementAxisController.x, inputs.MovementAxisController.y);
@@ -109,7 +111,8 @@ public class CharacterMovement : MonoBehaviour
 
         else
         {
-            desiredDirection = new Vector3(0, 0, 0); controller.Move(desiredDirection * speed);
+            desiredDirection = new Vector3(0, 0, 0);
+            //controller.Move(desiredDirection * speed);
         }
 
         if (onMovement)
