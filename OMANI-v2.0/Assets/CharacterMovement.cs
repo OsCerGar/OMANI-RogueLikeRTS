@@ -114,37 +114,38 @@ public class CharacterMovement : MonoBehaviour
                 Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
 
                 float angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
+                {
+                    if (angleDesiredDirection > 80 && angleDesiredDirection < 150)
+                    {
+                        anim.SetBool("TurnLeft", true);
+                    }
+                    else if (angleDesiredDirection > 150)
+                    {
+                        anim.SetBool("TurnLeft180", true);
+                    }
+                    else if (angleDesiredDirection < -80 && angleDesiredDirection > -150)
+                    {
+                        anim.SetBool("TurnRight", true);
+                    }
+                    else if (angleDesiredDirection < -150)
+                    {
+                        anim.SetBool("TurnRight180", true);
+                    }
 
-                if (angleDesiredDirection > 80 && angleDesiredDirection < 150)
-                {
-                    anim.SetBool("TurnLeft", true);
-                }
-                else if (angleDesiredDirection > 150)
-                {
-                    anim.SetBool("TurnLeft180", true);
-                }
-                else if (angleDesiredDirection < -80 && angleDesiredDirection > -150)
-                {
-                    anim.SetBool("TurnRight", true);
-                }
-                else if (angleDesiredDirection < -150)
-                {
-                    anim.SetBool("TurnRight180", true);
-                }
+                    else
+                    {
+                        anim.SetBool("TurnRight", false);
+                        anim.SetBool("TurnRight180", false);
+                        anim.SetBool("TurnLeft", false);
+                        anim.SetBool("TurnLeft180", false);
+                        x = Mathf.Lerp(x, finalDirection.x, 0.2f);
+                        y = Mathf.Lerp(y, finalDirection.z, 0.2f);
+                        anim.SetFloat("X", x);
+                        anim.SetFloat("Y", y);
 
-                else
-                {
-                    anim.SetBool("TurnRight", false);
-                    anim.SetBool("TurnRight180", false);
-                    anim.SetBool("TurnLeft", false);
-                    anim.SetBool("TurnLeft180", false);
-                    x = Mathf.Lerp(x, finalDirection.x, 0.2f);
-                    y = Mathf.Lerp(y, finalDirection.z, 0.2f);
-                    anim.SetFloat("X", x);
-                    anim.SetFloat("Y", y);
-
+                    }
                 }
-
 
 
 
