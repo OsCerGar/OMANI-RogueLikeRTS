@@ -83,8 +83,8 @@ public class CharacterMovement : MonoBehaviour
                 float angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
                 Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
 
-                x = Mathf.Lerp(x, finalDirection.x, 0.2f);
-                y = Mathf.Lerp(y, finalDirection.z, 0.2f);
+                x = Mathf.Lerp(x, finalDirection.x, 0.5f);
+                y = Mathf.Lerp(y, finalDirection.z, 0.5f);
 
                 anim.SetFloat("X", x);
                 anim.SetFloat("Y", y);
@@ -139,8 +139,8 @@ public class CharacterMovement : MonoBehaviour
                         anim.SetBool("TurnRight180", false);
                         anim.SetBool("TurnLeft", false);
                         anim.SetBool("TurnLeft180", false);
-                        x = Mathf.Lerp(x, finalDirection.x, 0.2f);
-                        y = Mathf.Lerp(y, finalDirection.z, 0.2f);
+                        x = Mathf.Lerp(x, finalDirection.x, 0.5f);
+                        y = Mathf.Lerp(y, finalDirection.z, 0.5f);
                         anim.SetFloat("X", x);
                         anim.SetFloat("Y", y);
 
