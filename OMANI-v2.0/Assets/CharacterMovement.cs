@@ -7,6 +7,9 @@ public class CharacterMovement : MonoBehaviour
     LookDirectionsAndOrder LookDirection;
 
     public float speed = 0.073f, originalSpeed = 6f, smooth = 5f;
+
+    public float dashCooldown;
+
     [SerializeField]
     private float minDistanceToGround, maxDistanceToGround;
 
@@ -42,6 +45,19 @@ public class CharacterMovement : MonoBehaviour
         //This function controls the movement.
         MovementController();
 
+        dashCooldown += Time.deltaTime;
+        if (inputs.Dash)
+        {
+            if (dashCooldown > 3f)
+            {
+                anim.SetBool("Dash", true);
+                dashCooldown = 0;
+            }
+        }
+        else
+        {
+            anim.SetBool("Dash", false);
+        }
 
     }
 

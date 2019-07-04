@@ -14,11 +14,12 @@ public class PlayerInputInterface : MonoBehaviour
     //Input variables
     //Movement
     Vector2 movementAxis, movementAxisController, lookAxis, robotQuickSelection;
-    bool laser, summon, radialMenu;
+    bool laser, summon, radialMenu, dash;
 
     public Vector2 MovementAxis { get => movementAxis; set => movementAxis = value; }
     public Vector2 MovementAxisController { get => movementAxisController; set => movementAxisController = value; }
     public bool Laser { get => laser; set => laser = value; }
+    public bool Dash { get => dash; set => dash = value; }
     public Vector2 LookAxis { get => lookAxis; set => lookAxis = value; }
     public bool Summon { get => summon; set => summon = value; }
     public bool RadialMenu { get => radialMenu; set => radialMenu = value; }
@@ -47,6 +48,7 @@ public class PlayerInputInterface : MonoBehaviour
         Movement();
         Actions();
         laser = inputs.GetButton("FireLaser");
+        dash = inputs.GetButton("Dash");
     }
 
     private void RobotSelection()
@@ -75,6 +77,7 @@ public class PlayerInputInterface : MonoBehaviour
         lookAxis = new Vector2(0, 0);
         laser = false;
         summon = false;
+        dash = false;
     }
 
     void ControllerLookAxis()
