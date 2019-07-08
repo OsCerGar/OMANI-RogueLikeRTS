@@ -45,6 +45,7 @@ public class Robot : NPC
 
     public virtual void Awake()
     {
+        base.Awake();
         workerSM = GetComponentInChildren<WorkerSM>();
         workerSM.transform.parent = null;
         data.robotType = boyType;

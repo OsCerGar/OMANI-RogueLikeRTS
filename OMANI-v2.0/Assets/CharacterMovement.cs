@@ -66,9 +66,14 @@ public class CharacterMovement : MonoBehaviour
     //Function in charge of the Main Character movement. Sends commands to the animator and allows the character to rotate.
     void MovementController()
     {
-        if (inputs.Laser)
+        if (inputs.Laser || Army.army.currentFighter != null)
         {
             anim.SetBool("Laser", true);
+            if (!onMovement)
+            {
+                anim.SetFloat("Z", (LookDirection.miradaposition - transform.position).magnitude);
+                Rotate((LookDirection.miradaposition - transform.position).normalized);
+            }
         }
         else
         {
@@ -79,9 +84,10 @@ public class CharacterMovement : MonoBehaviour
         {
             onNoMovementTime = 0;
             anim.SetBool("OnMovement", true);
-
-            if (inputs.Laser || powers.connected)
+            if (inputs.Laser || Army.army.currentFighter != null)
             {
+                Debug.Log(Army.army.currentFighter);
+
                 //if (controller.isGrounded)
                 //{
                 onMovement = true;
@@ -135,41 +141,34 @@ public class CharacterMovement : MonoBehaviour
                 float angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
                 if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
                 {
-                    if (angleDesiredDirection > 80 && angleDesiredDirection < 150)
-                    {
-                        anim.SetBool("TurnLeft", true);
-                    }
-                    else if (angleDesiredDirection > 150)
+
+                    if (angleDesiredDirection > 150)
                     {
                         anim.SetBool("TurnLeft180", true);
                     }
-                    else if (angleDesiredDirection < -80 && angleDesiredDirection > -150)
-                    {
-                        anim.SetBool("TurnRight", true);
-                    }
-                    else if (angleDesiredDirection < -150)
+
+                    if (angleDesiredDirection < -150)
                     {
                         anim.SetBool("TurnRight180", true);
                     }
 
                     else
                     {
-                        anim.SetBool("TurnRight", false);
                         anim.SetBool("TurnRight180", false);
-                        anim.SetBool("TurnLeft", false);
                         anim.SetBool("TurnLeft180", false);
-                        //x = Mathf.Lerp(x, finalDirection.x, 1f);
-                        y = Mathf.Lerp(y, finalDirection.z, 0.5f);
-                        anim.SetFloat("X", finalDirection.x);
-                        anim.SetFloat("Y", y);
-
                     }
+                    //x = Mathf.Lerp(x, finalDirection.x, 1f);
+                    y = Mathf.Lerp(y, finalDirection.z, 0.5f);
+                    anim.SetFloat("X", finalDirection.x);
+                    anim.SetFloat("Y", y);
+
                 }
-
-
-
             }
+
+
+
         }
+
 
         // If the axis has any sort of input on Joystick.
         else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
