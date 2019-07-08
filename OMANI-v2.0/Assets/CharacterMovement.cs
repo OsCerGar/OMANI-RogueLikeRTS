@@ -26,6 +26,7 @@ public class CharacterMovement : MonoBehaviour
     public static event Stopped OnStopping;
 
     PlayerInputInterface inputs;
+    Powers powers;
 
     //Animator 
     [SerializeField]
@@ -38,6 +39,7 @@ public class CharacterMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         LookDirection = FindObjectOfType<LookDirectionsAndOrder>();
         inputs = FindObjectOfType<PlayerInputInterface>();
+        powers = FindObjectOfType<Powers>();
     }
 
     private void Update()
@@ -78,7 +80,7 @@ public class CharacterMovement : MonoBehaviour
             onNoMovementTime = 0;
             anim.SetBool("OnMovement", true);
 
-            if (inputs.Laser)
+            if (inputs.Laser || powers.connected)
             {
                 //if (controller.isGrounded)
                 //{

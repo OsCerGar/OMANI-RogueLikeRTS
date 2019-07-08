@@ -35,7 +35,6 @@ public class Powers : MonoBehaviour
     private void Awake()
     {
         Initializer();
-        //controls.PLAYER.HEARTHSTONE.performed += context => HearthstoneValue();
     }
     void Initializer()
     {
