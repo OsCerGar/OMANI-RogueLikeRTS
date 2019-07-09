@@ -6,7 +6,6 @@ public class DisablePlayerControls : MonoBehaviour
     public CharacterMovement movement;
     public PointerEnabler pointer;
     public Powers powers;
-    public Army army;
     float originalspeed;
 
     public List<Canvas> canvas;
@@ -18,13 +17,11 @@ public class DisablePlayerControls : MonoBehaviour
     {
         pointer = FindObjectOfType<PointerEnabler>();
         //!!!!!!!!!!!
-        if (army == null)
+        movement = FindObjectOfType<CharacterMovement>();
+        powers = FindObjectOfType<Powers>();
+        if (Army.army.enabled == true)
         {
-            army = FindObjectOfType<Army>();
-        }
-        if (army.enabled == true)
-        {
-            if (army.currentFighter != null) { army.SummonRobot(); }
+            if (Army.army.currentFighter != null) { Army.army.SummonRobot(); }
         }
 
         originalspeed = movement.speed;

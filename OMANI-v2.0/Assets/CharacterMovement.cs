@@ -86,8 +86,6 @@ public class CharacterMovement : MonoBehaviour
             anim.SetBool("OnMovement", true);
             if (inputs.Laser || Army.army.currentFighter != null)
             {
-                Debug.Log(Army.army.currentFighter);
-
                 //if (controller.isGrounded)
                 //{
                 onMovement = true;
@@ -139,30 +137,29 @@ public class CharacterMovement : MonoBehaviour
                 Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
 
                 float angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
-                if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
+                Debug.Log(angle);
+
+                if (angleDesiredDirection > 150)
                 {
-
-                    if (angleDesiredDirection > 150)
-                    {
-                        anim.SetBool("TurnLeft180", true);
-                    }
-
-                    if (angleDesiredDirection < -150)
-                    {
-                        anim.SetBool("TurnRight180", true);
-                    }
-
-                    else
-                    {
-                        anim.SetBool("TurnRight180", false);
-                        anim.SetBool("TurnLeft180", false);
-                    }
-                    //x = Mathf.Lerp(x, finalDirection.x, 1f);
-                    y = Mathf.Lerp(y, finalDirection.z, 0.5f);
-                    anim.SetFloat("X", finalDirection.x);
-                    anim.SetFloat("Y", y);
-
+                    anim.SetBool("TurnLeft180", true);
                 }
+
+                if (angleDesiredDirection < -150)
+                {
+                    anim.SetBool("TurnRight180", true);
+                }
+
+                else
+                {
+                    anim.SetBool("TurnRight180", false);
+                    anim.SetBool("TurnLeft180", false);
+                }
+                //x = Mathf.Lerp(x, finalDirection.x, 1f);
+                y = Mathf.Lerp(y, finalDirection.z, 0.5f);
+                anim.SetFloat("X", finalDirection.x);
+                anim.SetFloat("Y", y);
+
+
             }
 
 
@@ -176,7 +173,7 @@ public class CharacterMovement : MonoBehaviour
             onNoMovementTime = 0;
             anim.SetBool("OnMovement", true);
 
-            if (inputs.Laser)
+            if (inputs.Laser || Army.army.currentFighter != null)
             {
 
 
@@ -195,18 +192,68 @@ public class CharacterMovement : MonoBehaviour
                 //}
                 desiredDirection.y -= 1 * Time.deltaTime;
 
+                float angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
+                Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
+
                 //controller.Move(desiredDirection * speed * Time.deltaTime);
-                anim.SetFloat("X", desiredDirection.x);
-                anim.SetFloat("Y", desiredDirection.z);
+                anim.SetFloat("X", finalDirection.x);
+                anim.SetFloat("Y", finalDirection.z);
                 LookDirection.LookAtWhileMoving(inputs.MovementAxisController.x, inputs.MovementAxisController.y);
-                Rotate(desiredDirection);
+                Rotate((LookDirection.miradaposition - transform.position).normalized);
+            }
+            else
+            {
+                //if (controller.isGrounded)
+                //{
+                onMovement = true;
+
+                desiredDirection = new Vector3(inputs.MovementAxisController.x, 0f, inputs.MovementAxisController.y);
+                //In case the player moves diagonally, it's normalized so that the speed is the same.
+                if (desiredDirection.magnitude > 1)
+                {
+                    desiredDirection = desiredDirection.normalized;
+                }
+                //}
+
+                desiredDirection.y -= 1 * Time.deltaTime;
+
+
+                float angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
+                Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
+
+                float angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
+                {
+
+                    if (angleDesiredDirection > 150)
+                    {
+                        anim.SetBool("TurnLeft180", true);
+                    }
+
+                    if (angleDesiredDirection < -150)
+                    {
+                        anim.SetBool("TurnRight180", true);
+                    }
+
+                    else
+                    {
+                        anim.SetBool("TurnRight180", false);
+                        anim.SetBool("TurnLeft180", false);
+                    }
+
+                }
+
+                //x = Mathf.Lerp(x, finalDirection.x, 1f);
+                y = Mathf.Lerp(y, finalDirection.z, 0.5f);
+                anim.SetFloat("X", finalDirection.x);
+                anim.SetFloat("Y", y);
+
             }
         }
 
         else
         {
-            desiredDirection = new Vector3(0, 0, 0);
-            //controller.Move(desiredDirection * speed);
+            desiredDirection = Vector3.zero;
 
             anim.SetBool("OnMovement", false);
         }
@@ -215,9 +262,6 @@ public class CharacterMovement : MonoBehaviour
         {
             if (inputs.MovementAxis.x == 0f && inputs.MovementAxis.y == 0f)
             {
-                anim.SetFloat("X", 0);
-                anim.SetFloat("Y", 0);
-
                 anim.SetBool("TurnRight", false);
                 anim.SetBool("TurnRight180", false);
                 anim.SetBool("TurnLeft", false);
@@ -236,6 +280,9 @@ public class CharacterMovement : MonoBehaviour
         else
         {
             onNoMovementTime += Time.deltaTime;
+
+            anim.SetFloat("X", Mathf.Lerp(anim.GetFloat("X"), 0, 0.25f));
+            anim.SetFloat("Y", Mathf.Lerp(anim.GetFloat("Y"), 0, 0.25f));
 
             if (onNoMovementTime > 5)
             {
