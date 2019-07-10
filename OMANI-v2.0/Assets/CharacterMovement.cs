@@ -6,7 +6,7 @@ public class CharacterMovement : MonoBehaviour
     Rigidbody rb;
     LookDirectionsAndOrder LookDirection;
 
-    public float speed = 0.073f, originalSpeed = 6f, smooth = 5f;
+    public float speed = 1f, originalSpeed = 6f, smooth = 5f;
 
     public float dashCooldown;
 

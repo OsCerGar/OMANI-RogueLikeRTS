@@ -5,7 +5,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
 {
     public CharacterMovement movement;
 
-    [SerializeField] private InverseKinematics leg1, leg2, leg3, leg4;
     int releasedLegs = 0;
     bool cameraChanged, surkaSpawned;
     TIMELINE_INTERFACE timeline_interface;
@@ -58,22 +57,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     public void LegRelease(int _leg)
     {
-        switch (_leg)
-        {
-            case 1:
-                //Activate Leg
-                leg1.enabled = true;
-                break;
-            case 2:
-                leg2.enabled = true;
-                break;
-            case 3:
-                leg3.enabled = true;
-                break;
-            case 4:
-                leg4.enabled = true;
-                break;
-        }
+
         releasedLegs++;
 
         if (!surkaSpawned)
