@@ -138,14 +138,19 @@ public class CharacterMovement : MonoBehaviour
 
                 float angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
 
-                if (angleDesiredDirection > 150)
+                if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
                 {
-                    anim.SetBool("TurnLeft180", true);
-                }
 
-                if (angleDesiredDirection < -150)
-                {
-                    anim.SetBool("TurnRight180", true);
+                    if (angleDesiredDirection > 150)
+                    {
+                        anim.SetBool("TurnLeft180", true);
+                    }
+
+                    if (angleDesiredDirection < -150)
+                    {
+                        anim.SetBool("TurnRight180", true);
+                    }
+
                 }
 
                 else
@@ -233,14 +238,14 @@ public class CharacterMovement : MonoBehaviour
                     {
                         anim.SetBool("TurnRight180", true);
                     }
-
-                    else
-                    {
-                        anim.SetBool("TurnRight180", false);
-                        anim.SetBool("TurnLeft180", false);
-                    }
-
                 }
+
+                else
+                {
+                    anim.SetBool("TurnRight180", false);
+                    anim.SetBool("TurnLeft180", false);
+                }
+
 
                 //x = Mathf.Lerp(x, finalDirection.x, 1f);
                 y = Mathf.Lerp(y, finalDirection.z, 0.5f);
