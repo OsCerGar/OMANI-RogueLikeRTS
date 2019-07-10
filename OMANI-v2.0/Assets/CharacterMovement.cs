@@ -137,7 +137,6 @@ public class CharacterMovement : MonoBehaviour
                 Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
 
                 float angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
-                Debug.Log(angle);
 
                 if (angleDesiredDirection > 150)
                 {
