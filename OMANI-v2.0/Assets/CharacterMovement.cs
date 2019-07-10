@@ -71,8 +71,13 @@ public class CharacterMovement : MonoBehaviour
             anim.SetBool("Laser", true);
             if (!onMovement)
             {
-                anim.SetFloat("Z", (LookDirection.miradaposition - transform.position).magnitude);
-                Rotate((LookDirection.miradaposition - transform.position).normalized);
+                float angle = Vector3.SignedAngle(LookDirection.miradaposition, transform.position, Vector3.up);
+                angle = angle / 160;
+
+
+                anim.SetFloat("Z", angle);
+                //Rotate((LookDirection.miradaposition - transform.position).normalized);
+
             }
         }
         else
