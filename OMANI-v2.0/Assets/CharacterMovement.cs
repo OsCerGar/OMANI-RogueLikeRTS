@@ -17,6 +17,7 @@ public class CharacterMovement : MonoBehaviour
 
     //audio
     AudioSource _sand;
+    [SerializeField]
     bool onMovement = false, ableToMove = true;
     public float onMovementTime, onNoMovementTime = 0;
 
