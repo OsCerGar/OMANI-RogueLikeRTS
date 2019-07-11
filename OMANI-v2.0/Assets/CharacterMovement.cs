@@ -45,25 +45,25 @@ public class CharacterMovement : MonoBehaviour
     {
         if (ableToMove)
         {
-            //This function controls the movement.
-            MovementController();
 
             dashCooldown += Time.deltaTime;
             if (inputs.Dash)
             {
                 if (dashCooldown > 3f)
                 {
-                    if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend") && !anim.GetBool("TurnLeft180") && !anim.GetBool("TurnRight180"))
+                    if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
                     {
-
-                        if (inputs.MovementAxis.x != 0f || inputs.MovementAxis.y != 0f)
-                        {
-                            DirectRotate(desiredDirection);
-                        }
-                        else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
-                        {
-                            DirectRotate(desiredDirection);
-                        }
+                        //if (!anim.GetBool("TurnLeft180") && !anim.GetBool("TurnRight180"))
+                        //{
+                            if (inputs.MovementAxis.x != 0f || inputs.MovementAxis.y != 0f)
+                            {
+                                DirectRotate(desiredDirection);
+                            }
+                            else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
+                            {
+                                DirectRotate(desiredDirection);
+                            }
+                        //}
 
                         anim.SetBool("Dash", true);
                         dashCooldown = 0;
@@ -73,6 +73,12 @@ public class CharacterMovement : MonoBehaviour
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("ANIM_DASH"))
             {
                 anim.SetBool("Dash", false);
+            }
+
+            //If not dashing it moves
+            if (!anim.GetBool("Dash"))
+            {
+                MovementController();
             }
         }
 
