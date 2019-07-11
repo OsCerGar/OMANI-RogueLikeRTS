@@ -3,7 +3,7 @@
 	Properties
 	{
 		//Main
-		[Enum(BlendMode)] _Mode ("BlendMode", int) = 0
+		[Enum(BlendStyle)] _Mode ("BlendStyle", int) = 0
 		[Enum(UnityEngine.Rendering.CullMode)] _CullMode ("Culling", int) = 2
 		_Blend0 ("Blend mode 0", int) = 1
 		_Blend1 ("Blend mode 1", int) = 0
@@ -26,7 +26,7 @@
 		_BumpScale("Scale", Float) = 1
 
 		//Light
-		[Enum(LightType)] _LightType ("Type", int) = 1
+		[Enum(LightStyle)] _LightType ("Type", int) = 1
 		[Enum(LightModel)] _LightModel ("Model", int) = 1
 		_Ramp ("Ramp (RGB)", 2D) = "white" {}
 		_LightCuts("LightCuts", Range (1.0, 6)) = 3

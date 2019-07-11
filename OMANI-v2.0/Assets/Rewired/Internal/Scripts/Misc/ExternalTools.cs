@@ -83,6 +83,60 @@ namespace Rewired.Utils {
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public class ExternalTools : IExternalTools {
 
+        public ExternalTools() {
+#if UNITY_EDITOR
+#if UNITY_2018_PLUS
+            UnityEditor.EditorApplication.pauseStateChanged += OnEditorPauseStateChanged;
+#else
+            UnityEditor.EditorApplication.update += OnEditorUpdate;            
+#endif
+            _isEditorPaused = UnityEditor.EditorApplication.isPaused; // get initial state
+#endif
+        }
+
+        public void Destroy() {
+#if UNITY_EDITOR
+#if UNITY_2018_PLUS
+            UnityEditor.EditorApplication.pauseStateChanged -= OnEditorPauseStateChanged;
+#else
+            UnityEditor.EditorApplication.update -= OnEditorUpdate;
+#endif
+#endif
+        }
+
+        private bool _isEditorPaused;
+        public bool isEditorPaused {
+            get {
+                return _isEditorPaused;
+            }
+        }
+
+        private System.Action<bool> _EditorPausedStateChangedEvent;
+        public event System.Action<bool> EditorPausedStateChangedEvent {
+            add { _EditorPausedStateChangedEvent += value; }
+            remove { _EditorPausedStateChangedEvent -= value; }
+        }
+
+#if UNITY_EDITOR
+#if UNITY_2018_PLUS
+        private void OnEditorPauseStateChanged(UnityEditor.PauseState state) {
+            _isEditorPaused = state == UnityEditor.PauseState.Paused;
+            var evt = _EditorPausedStateChangedEvent;
+            if (evt != null) evt(_isEditorPaused);
+        }
+#else
+        private void OnEditorUpdate() {
+            // Watch EditorApplication.isPaused state
+            bool isPaused = UnityEditor.EditorApplication.isPaused;
+            if(isPaused != _isEditorPaused) {
+                _isEditorPaused = isPaused;
+                var evt = _EditorPausedStateChangedEvent;
+                if (evt != null) evt(_isEditorPaused);
+            }
+        }
+#endif
+#endif
+
         public object GetPlatformInitializer() {
 #if UNITY_5_PLUS
 #if (!UNITY_EDITOR && UNITY_STANDALONE_WIN) || UNITY_EDITOR_WIN

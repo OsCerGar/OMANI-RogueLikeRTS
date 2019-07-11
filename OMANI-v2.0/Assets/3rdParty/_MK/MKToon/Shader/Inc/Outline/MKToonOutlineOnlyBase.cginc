@@ -81,7 +81,7 @@
 
 		#if _MK_DISSOLVE_RAMP
 			//apply color for dissolving
-			oColor.rgb = DissolveRamp(sg, _DissolveRamp, _DissolveColor, _DissolveRampSize, _DissolveAmount, o.uv, o.color);
+			oColor.rgb = DissolveRamp(sg, _DissolveRamp, _DissolveColor, _DissolveRampSize, _DissolveAmount, o.uv, oColor);
 		#endif
 
 		UNITY_APPLY_FOG(o.fogCoord, oColor);

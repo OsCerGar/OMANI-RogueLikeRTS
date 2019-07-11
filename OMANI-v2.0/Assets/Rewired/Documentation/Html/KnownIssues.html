@@ -80,9 +80,11 @@
               <li><a href="InputBehaviors.html">Input Behaviors</a></li>
               <li><a href="Controllers.html">Controllers</a></li>
               <li><a href="ControllerMaps.html">Controller Maps</a></li>
+              <li><a href="ControllerTemplates.html">Controller Templates</a></li>
               <li><a href="MapCategories.html">Map Categories</a></li>
               <li><a href="Layouts.html">Layouts</a></li>
-              <li><a href="ControllerTemplates.html">Controller Templates</a></li>
+              <li><a href="LayoutManager.html">Layout Manager</a></li>
+              <li><a href="MapEnabler.html">Map Enabler</a></li>
               <li><a href="CustomControllers.html">Custom Controllers</a></li>
             </ul>
             <strong>Extras:</strong>
@@ -135,12 +137,12 @@
     	<div class="main-body">
 	        <div class="logo"><a href="http://guavaman.com/projects/rewired" title="Rewired"><img src="files/images/rewired-logo.png" width="173" height="139" alt="Rewired" /></a></div>
                      
-            <h1>
+          <h1>
             <!-- InstanceBeginEditable name="PageHeader" -->Known Issues
       <!-- InstanceEndEditable -->
             </h1>
             
-			<!-- InstanceBeginEditable name="MainBody" -->
+		  <!-- InstanceBeginEditable name="MainBody" -->
 
     <p><strong>Topics:</strong></p>
     <h3><a href="#general">General</a></h3>
@@ -188,6 +190,8 @@
 <h3><a href="#unity-editor">Unity Editor (all platforms):</a>    </h3>
 <ul>
   
+  <li><a href="#control-mapper-compiler-error-unity-2019-1-5f1">Compiler error in Unity 2019.1.5f1 when Control Mapper installed</a></li>
+  <li><a href="#assembly-errors-2019-2">Assembly errors in Unity 2019.2 beta and 2019.3 alpha</a></li>
   <li><a href="#increased-compile-play-time-editor">Rewired increases compile time and load time after pressing Play in the editor</a></li>
       <li><a href="#serialized-data-corruption-after-import">Serialized data corruption after importing Rewired</a></li>
       <li><a href="#serialized-data-corruption-after-upgrading-unity">Serialized data corruption after upgrading Unity</a></li>
@@ -516,6 +520,36 @@ Catastrophic failure while running rrw: Mono.Cecil.AssemblyResolutionException: 
 <p>&nbsp;</p>
 <h2><a name="unity-editor" id="unity-editor"></a>Unity Editor (all platforms):</h2>
 <p>&nbsp;</p>
+<h3><a name="control-mapper-compiler-error-unity-2019-1-5f1" id="control-mapper-compiler-error-unity-2019-1-5f1"></a>Compiler error in Unity 2019.1.5f1 when Control Mapper installed</h3>
+<p>Unity made a breaking API change in 2019.1.5f1 even though they are not supposed to make breaking API changes in a minor version update.</p>
+Change the line in Rewired/Extras/ControlMapper/Scripts/UISelectionUtility.cs that reads:
+<pre class="code">selectableCount = Selectable.AllSelectablesNoAlloc(ref s_reusableAllSelectables);</pre>
+to
+<pre class="code">selectableCount = Selectable.AllSelectablesNoAlloc(s_reusableAllSelectables);</pre>
+<p>All you have to do is remove the ref keyword.</p>
+<p>This will be changed in the next version of Rewired.</p>
+<p>For more information, <a href="https://forum.unity.com/threads/rewired-advanced-input-for-unity.270693/page-107#post-4611661">see this forum post</a>.</p>
+<p>&nbsp;</p>
+<hr />
+<h3><a name="assembly-errors-2019-2" id="assembly-errors-2019-2"></a>Assembly errors in 2019.2 beta and 2019.3 alpha</h3>
+<p>First, <a href="Troubleshooting.html#unity-alpha-beta-preview-experimental">alpha, beta, preview, and experimental, versions and features of Unity are not suppored</a>.</p>
+<p>Rewired is not compatible with Unity 2019.2 beta or 2019.3 alpha. If you install Rewired you will see the following errors:<br />
+</p>
+<pre class="code">Assembly 'Assets/Rewired/Internal/Libraries/Editor/Rewired_Editor.dll' will not be loaded due to errors:
+Unable to resolve reference 'UnityEngine.UI'. Is the assembly missing or incompatible with the current platform?
+Reference validation can be disabled in the Plugin Inspector.
+ 
+Assembly 'Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll' will not be loaded due to errors:
+Unable to resolve reference 'UnityEngine.UI'. Is the assembly missing or incompatible with the current platform?
+Reference validation can be disabled in the Plugin Inspector.
+ 
+Assembly 'Assets/Rewired/Internal/Libraries/Runtime/Rewired_Windows.dll' will not be loaded due to errors:
+Reference has errors 'Rewired_Core'.</pre>
+<p>Unity has made a major breaking change. The Unity UI library has been moved from UnityEngine.UI.dll as part of the core Unity installation to Unity.ugui.dll as an optional install through the Package Manager. This change to the DLL name which breaks all assembly references in Rewired's DLLs. This issue affects all DLLs that reference Unity UI, not just Rewired, including many of the most popular assets on the Unity Asset Store. There is no possible workaround to this issue.</p>
+<p>Unity has acknowledged these changes as a mistake and will be making changes to allow DLLs to work again in a later alpha/beta release. <a href="https://forum.unity.com/threads/ui.673504/">See this forum thread for more details</a>.</p>
+<p>The solution is to use a stable release of Unity and not an alpha/beta version.</p>
+<p>&nbsp;</p>
+<hr />
 <h3><a name="increased-compile-play-time-editor" id="increased-compile-play-time-editor"></a>Rewired increases compile time and load time after pressing Play in the editor</h3>
 <p>The additional load time can be attributed entirely to Unity loading the serialized data from Rewired's <a href="SupportedControllers.html">many controller definitions</a> which are used to recognize, map, and calibrate known controllers. The simple fact that the controller data files are linked from an object field in the Rewired Input Manager GameObject's component causes Unity to load those objects regardless of whether the GameObject is enabled or not. Unfortunately there's nothing that can be done to reduce it except to <a href="HowTos.html#excluding-controller-definitions">remove controller definitions</a> to reduce the number that have to be loaded. <br />
   <br />

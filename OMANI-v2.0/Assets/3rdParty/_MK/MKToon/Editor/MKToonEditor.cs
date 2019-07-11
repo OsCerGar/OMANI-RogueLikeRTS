@@ -9,6 +9,8 @@ using UnityEditorInternal;
 #if UNITY_EDITOR
 namespace MK.Toon
 {
+    #pragma warning disable CS0612, CS0618, CS1692
+    
     public class MKToonEditor : ShaderGUI
     {
         public static class GuiStyles
@@ -108,7 +110,7 @@ namespace MK.Toon
             On = 1,
             Off = 0
         }
-        public enum LightType
+        public enum LightStyle
         {
             Default = 0,
             Cel_Shade_Simple = 1,
@@ -124,7 +126,7 @@ namespace MK.Toon
             Minneart = 4,
             Oren_Nayer = 5
         }
-        public enum BlendMode
+        public enum BlendStyle
         {
             Opaque = 0,
             Cutout = 1,
@@ -386,7 +388,7 @@ namespace MK.Toon
             useSketch = FindProperty(MKToonMaterialHelper.PropertyNames.USE_SKETCH, props);
         }
 
-        [MenuItem("CONTEXT/Material/Reset", false, 2100)]
+       //[MenuItem("CONTEXT/Material/Reset", false, 2100)]
         static void Reset(MenuCommand command)
         {
             try
@@ -449,20 +451,20 @@ namespace MK.Toon
             }
         }
 
-        internal static void SetMaterialTags(Material material, BlendMode blend)
+        internal static void SetMaterialTags(Material material, BlendStyle blend)
         {
             material.DisableKeyword(BLEND_MODE[0]);
             material.DisableKeyword(BLEND_MODE[1]);
             switch (blend)
             {
-                case BlendMode.Opaque:
+                case BlendStyle.Opaque:
                     material.SetOverrideTag("RenderType", "Opaque");
                     material.SetOverrideTag("Queue", "Geometry");
                     material.SetOverrideTag("IgnoreProjector", "false");
                     material.SetInt(MKToonMaterialHelper.PropertyNames.Z_WRITE, 1);
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Geometry;
                     break;
-                case BlendMode.Transparent:
+                case BlendStyle.Transparent:
                     material.SetOverrideTag("RenderType", "Transparent");
                     material.SetOverrideTag("Queue", "Transparent");
                     material.SetOverrideTag("IgnoreProjector", "true");
@@ -470,7 +472,7 @@ namespace MK.Toon
                     material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
                     material.EnableKeyword(BLEND_MODE[0]);
                     break;
-                case BlendMode.Cutout:
+                case BlendStyle.Cutout:
                     material.SetOverrideTag("RenderType", "TransparentCutout");
                     material.SetOverrideTag("Queue", "AlphaTest");
                     material.SetOverrideTag("IgnoreProjector", "true");
@@ -481,24 +483,24 @@ namespace MK.Toon
             }
         }
 
-        private static void SetBlendMode(Material material, BlendMode mode)
+        private static void SetBlendMode(Material material, BlendStyle mode)
         {
             switch (mode)
             {
-                case BlendMode.Opaque:
+                case BlendStyle.Opaque:
                     material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_0, (int)UnityEngine.Rendering.BlendMode.One);
                     material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_1, (int)UnityEngine.Rendering.BlendMode.Zero);
-                    material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_MODE, (int)BlendMode.Opaque);
+                    material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_MODE, (int)BlendStyle.Opaque);
                     break;
-                case BlendMode.Transparent:
+                case BlendStyle.Transparent:
                     material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_0, (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
                     material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_1, (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                    material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_MODE, (int)BlendMode.Transparent);
+                    material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_MODE, (int)BlendStyle.Transparent);
                     break;
-                case BlendMode.Cutout:
+                case BlendStyle.Cutout:
                     material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_0, (int)UnityEngine.Rendering.BlendMode.One);
                     material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_1, (int)UnityEngine.Rendering.BlendMode.Zero);
-                    material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_MODE, (int)BlendMode.Cutout);
+                    material.SetInt(MKToonMaterialHelper.PropertyNames.BLEND_MODE, (int)BlendStyle.Cutout);
                     break;
             }
             SetMaterialTags(material, mode);
@@ -534,14 +536,14 @@ namespace MK.Toon
             EditorGUI.showMixedValue = false;
         }
 
-        //LightType
+        //LightStyle
         private void LightTypePopup(MaterialEditor materialEditor)
         {
             EditorGUI.showMixedValue = lightType.hasMixedValue;
-            LightType lt = new LightType();
-            lt = (LightType)lightType.floatValue;
+            LightStyle lt = new LightStyle();
+            lt = (LightStyle)lightType.floatValue;
             EditorGUI.BeginChangeCheck();
-            lt = (LightType)EditorGUILayout.EnumPopup(GUIContentCollection.lightType, lt);
+            lt = (LightStyle)EditorGUILayout.EnumPopup(GUIContentCollection.lightType, lt);
             if (EditorGUI.EndChangeCheck())
             {
                 lightType.floatValue = (float)lt;
@@ -567,7 +569,7 @@ namespace MK.Toon
                 materialEditor.RegisterPropertyChangeUndo("Rendering Mode");
                 foreach (var obj in blendMode.targets)
                 {
-                    SetBlendMode((Material)obj, (BlendMode)blendMode.floatValue);
+                    SetBlendMode((Material)obj, (BlendStyle)blendMode.floatValue);
                 }
             }
             EditorGUI.showMixedValue = false;
@@ -579,18 +581,18 @@ namespace MK.Toon
             {
                 MKToonMaterialHelper.SetEmissionColor(material, material.GetColor(MKToonMaterialHelper.PropertyNames.EMISSION));
             }
-            BlendMode newBlend;
+            BlendStyle newBlend;
             if (material.renderQueue == (int)UnityEngine.Rendering.RenderQueue.AlphaTest)
             {
-                newBlend = BlendMode.Cutout;
+                newBlend = BlendStyle.Cutout;
             }
             else if (material.renderQueue == (int)UnityEngine.Rendering.RenderQueue.Transparent)
             {
-                newBlend = BlendMode.Transparent;
+                newBlend = BlendStyle.Transparent;
             }
             else
             {
-                newBlend = BlendMode.Opaque;
+                newBlend = BlendStyle.Opaque;
             }
             base.AssignNewShaderToMaterial(material, oldShader, newShader);
 
@@ -740,7 +742,7 @@ namespace MK.Toon
             {
                 EditorGUI.BeginChangeCheck();
 
-                if (blendMode.floatValue == (int)BlendMode.Opaque)
+                if (blendMode.floatValue == (int)BlendStyle.Opaque)
                     ColorProperty(mainColor, false, false, GUIContentCollection.mainColor);
                 else
                     ColorProperty(mainColor, true, false, GUIContentCollection.mainColor);
@@ -752,7 +754,7 @@ namespace MK.Toon
                     UpdateKeywords(KeywordsToManage.COLOR_SOURCE);
                 }
 
-                if (blendMode.floatValue == (int)BlendMode.Cutout)
+                if (blendMode.floatValue == (int)BlendStyle.Cutout)
                     materialEditor.ShaderProperty(cutoff, GUIContentCollection.alphaCutoff);
 
                 EditorGUI.BeginChangeCheck();
@@ -827,20 +829,20 @@ namespace MK.Toon
                 if (lightModel.floatValue != (int)(LightModel.Unlit))
                 {
                     LightTypePopup(materialEditor);
-                    if (lightType.floatValue == (int)(LightType.Cel_Shade_Simple))
+                    if (lightType.floatValue == (int)(LightStyle.Cel_Shade_Simple))
                         materialEditor.ShaderProperty(lTreshold, GUIContentCollection.threshold);
-                    if (lightType.floatValue == (int)(LightType.Cel_Shade_Multi))
+                    if (lightType.floatValue == (int)(LightStyle.Cel_Shade_Multi))
                     {
                         materialEditor.ShaderProperty(lightLevels, GUIContentCollection.lightLevels);
                         materialEditor.ShaderProperty(lTreshold, GUIContentCollection.threshold);
                     }
-                    if (lightType.floatValue == (int)(LightType.Ramp))
+                    if (lightType.floatValue == (int)(LightStyle.Ramp))
                     {
                         materialEditor.TexturePropertySingleLine(GUIContentCollection.rampTex, rampTex);
                     }
                     if (lightModel.floatValue == (int)(LightModel.Minneart) || lightModel.floatValue == (int)(LightModel.Oren_Nayer))
                         materialEditor.ShaderProperty(roughness, GUIContentCollection.roughness);
-                    if (lightType.floatValue != (int)(LightType.Ramp))
+                    if (lightType.floatValue != (int)(LightStyle.Ramp))
                         materialEditor.ShaderProperty(lightSmoothness, GUIContentCollection.lightSmoothness);
                     EditorGUI.BeginChangeCheck();
                     if (occlusionMap.textureValue == null)
@@ -1001,7 +1003,7 @@ namespace MK.Toon
             EditorGUI.BeginChangeCheck();
             if (HandleBehavior("Outline", ref showOutlineBehavior, ref useOutline, materialEditor, MKToonMaterialHelper.PropertyNames.USE_OUTLINE))
             {
-                if (blendMode.floatValue == (int)BlendMode.Opaque)
+                if (blendMode.floatValue == (int)BlendStyle.Opaque)
                     ColorProperty(outlineColor, false, false, GUIContentCollection.outlineColor);
                 else
                     ColorProperty(outlineColor, true, false, GUIContentCollection.outlineColor);

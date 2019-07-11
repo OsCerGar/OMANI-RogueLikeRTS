@@ -82,9 +82,11 @@
               <li><a href="InputBehaviors.html">Input Behaviors</a></li>
               <li><a href="Controllers.html">Controllers</a></li>
               <li><a href="ControllerMaps.html">Controller Maps</a></li>
+              <li><a href="ControllerTemplates.html">Controller Templates</a></li>
               <li><a href="MapCategories.html">Map Categories</a></li>
               <li><a href="Layouts.html">Layouts</a></li>
-              <li><a href="ControllerTemplates.html">Controller Templates</a></li>
+              <li><a href="LayoutManager.html">Layout Manager</a></li>
+              <li><a href="MapEnabler.html">Map Enabler</a></li>
               <li><a href="CustomControllers.html">Custom Controllers</a></li>
             </ul>
             <strong>Extras:</strong>
@@ -146,7 +148,7 @@
 			<p>Rewired supports most USB and Bluetooth controllers available, many with extended support. <span style="vertical-align: super; font-size: 65%;">[<a href="#clarifications">1</a>]</span></p>
 			<h3>Controllers with Extended Support</h3>
 			<p>Controllers with hardware definitions are recognized on each platform and are fully mappable by element name, have standardized axis directions, and may be compatible with a <a href="ControllerTemplates.html">Controller Template</a> for easy mapping. For all other controllers that do not appear in the following tables, <a href="#controllers-without-definitions">please see this important note</a>.</p>
-			<p><strong>Rewired currently includes extended support for the following game controllers as of version 1.1.20.0:</strong></p>
+			<p><strong>Rewired currently includes extended support for the following game controllers as of version 1.1.25.0:</strong></p>
 			<table width="100%" border="0" class="supported-controllers-table">
               <tr>
                 <td valign="top">&nbsp;</td>
@@ -1907,7 +1909,7 @@ OSX: <span class="no">No</span></td>
               </tr>
               <tr>
                 <td valign="top"><a href="#template-legend" class="template-icon template-icon-gamepad" title="Compatible with the Gamepad Template"></a></td>
-                <td valign="top">Nintendo Switch Pro Controller <span class="note">(wireless only)</span> <strong><span style="vertical-align: super; font-size: 65%;">[<a href="#clarifications-24">24</a>]</span></strong></td>
+                <td valign="top"><a name="nintendo-switch-pro-controller" id="nintendo-switch-pro-controller"></a>Nintendo Switch Pro Controller <span class="note">(wireless only)</span> <strong><span style="vertical-align: super; font-size: 65%;">[<a href="#clarifications-24">24</a>]</span></strong></td>
                 <td align="center" valign="top"><span class="yes">Yes <strong><span style="vertical-align: super; font-size: 65%;">[<a href="#clarifications-21">21</a>]</span></strong></span></td>
                 <td align="center" valign="top"><span class="yes">Yes <strong><span style="vertical-align: super; font-size: 65%;">[<a href="#clarifications-21">21</a>]</span></strong></span></td>
                 <td align="center" valign="top"><span class="no">No</span></td>
@@ -2781,7 +2783,8 @@ OSX:<span class="note"> Not Mapped Yet</span></td>
               </tr>
               <tr>
                 <td valign="top"><a href="#template-legend" class="template-icon template-icon-racing-wheel" title="Compatible with the Racing Wheel Template"></a></td>
-                <td valign="top"><a name="Logitech-G29-platforms" id="Logitech-G29-platforms"></a>Logitech G29 Driving Force Racing Wheel</td>
+                <td valign="top"><a name="Logitech-G29-platforms" id="Logitech-G29-platforms"></a>Logitech G29 Driving Force Racing Wheel<br />
+                <span class="note">(<a href="#Logitech-G29">important notes</a>)</span></td>
                 <td align="center" valign="top"><span class="yes">Yes</span></td>
                 <td align="center" valign="top"><span class="partial">Partial</span><br />
                 <span class="note">(<a href="#Logitech-G29">See notes</a>)</span></td>
@@ -3079,6 +3082,23 @@ OSX: <span class="yes">Yes</span></td>
                   OSX:<span class="note"> Not Mapped Yet</span></td>
               </tr>
               <tr>
+                <td valign="top"><a href="#template-legend" class="template-icon template-icon-racing-wheel" title="Compatible with the Racing Wheel Template"></a></td>
+                <td valign="top">XInput Wheel</td>
+                <td align="center" valign="top"><span class="yes">Yes</span><br />
+                <span class="note">(XInput)</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="yes">Yes</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top">Windows:<span class="no"> No</span><br />
+                  OSX: <span class="no">No</span></td>
+              </tr>
+              <tr>
               	<td colspan="13">&nbsp;</td>
               </tr>
               <tr>
@@ -3352,6 +3372,23 @@ OSX: <span class="no">No</span></td>
                 <td align="center" valign="top"><span class="no">No</span></td>
                 <td align="center" valign="top">Windows: <span class="yes">Yes</span><br />
 OSX: <span class="no">No</span></td>
+              </tr>
+              <tr>
+                <td valign="top">&nbsp;</td>
+                <td valign="top">XInput Guitar</td>
+                <td align="center" valign="top"><span class="yes">Yes</span><br />
+                  <span class="note">(XInput)</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="yes">Yes</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top"><span class="no">No</span></td>
+                <td align="center" valign="top">Windows:<span class="no"> No</span><br />
+                  OSX: <span class="no">No</span></td>
               </tr>
               <tr>
               	<td colspan="13">&nbsp;</td>

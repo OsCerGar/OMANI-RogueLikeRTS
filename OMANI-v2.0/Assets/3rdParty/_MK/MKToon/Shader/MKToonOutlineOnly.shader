@@ -4,7 +4,7 @@ Shader "Hidden/MK/Toon/OutlineOnly"
 	Properties
 	{
 		//Main
-		[KeywordEnum(Opaque, Cutout, Transparent)] _Mode ("BlendMode", int) = 0
+		[KeywordEnum(Opaque, Cutout, Transparent)] _Mode ("BlendStyle", int) = 0
 
 		//Outline
 		_OutlineColor ("Outline Color", Color) = (0,0,0,1.0)

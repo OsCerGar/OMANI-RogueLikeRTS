@@ -80,9 +80,11 @@
               <li><a href="InputBehaviors.html">Input Behaviors</a></li>
               <li><a href="Controllers.html">Controllers</a></li>
               <li><a href="ControllerMaps.html">Controller Maps</a></li>
+              <li><a href="ControllerTemplates.html">Controller Templates</a></li>
               <li><a href="MapCategories.html">Map Categories</a></li>
               <li><a href="Layouts.html">Layouts</a></li>
-              <li><a href="ControllerTemplates.html">Controller Templates</a></li>
+              <li><a href="LayoutManager.html">Layout Manager</a></li>
+              <li><a href="MapEnabler.html">Map Enabler</a></li>
               <li><a href="CustomControllers.html">Custom Controllers</a></li>
             </ul>
             <strong>Extras:</strong>
@@ -140,7 +142,7 @@
       <!-- InstanceEndEditable -->
             </h1>
             
-		  <!-- InstanceBeginEditable name="MainBody" -->
+			<!-- InstanceBeginEditable name="MainBody" -->
 
     <p>The following information was written under the assumption that you have already completely read and understood all documentation topics under Essentials and Concepts in the <a href="Documentation.html">Documentation</a>. If you have not done so, please do before continuing.</p>
     <p><strong>Topics:</strong></p>
@@ -482,8 +484,8 @@ public MyClass : MonoBehaviour {
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_ContainsController.htm">player.controllers.ContainsController</a></li>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_ClearControllersOfType.htm">player.controllers.ClearControllersOfType</a></li>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_ClearAllControllers.htm">player.controllers.ClearAllControllers</a></li>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_ControllerAddedEvent.htm">player.controllers.ControllerAddedEvent</a></li>
-      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/M_Rewired_Player_ControllerHelper_ControllerRemovedEvent.htm">player.controllers.ControllerRemovedEvent</a></li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/E_Rewired_Player_ControllerHelper_ControllerAddedEvent.htm">player.controllers.ControllerAddedEvent</a></li>
+      <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/E_Rewired_Player_ControllerHelper_ControllerRemovedEvent.htm">player.controllers.ControllerRemovedEvent</a></li>
     </ul>
     <p><strong>ReInput class:</strong></p>
     <ul>
@@ -562,7 +564,13 @@ void AssignJoystickToNextOpenPlayer(Joystick j) {
 <hr />
     <h3><a name="enabling-disabling-controller-maps" id="enabling-disabling-controller-maps"></a>Enabling and disabling Controller Maps</h3>
     <p><a href="ControllerMaps.html">Controller Maps</a> can be enabled or disabled at will via scripting. This can be useful if you want to change game modes and have a different set of controls become active. For example, opening a menu screen. Disabled <a href="ControllerMaps.html">Controller Maps</a> will not return any value when the <a href="Players.html">Player</a> is queried for an <a href="Actions.html">Action's</a> input value. <a href="ControllerMaps.html">Controller Maps</a> are stored in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/?topic=html/T_Rewired_Player.htm">Player</a> class.</p>
-    <p>The easiest way to enable and disable maps in a <a href="Players.html">Player</a> is to use the following methods:</p>
+    <p>There are two approaches of working with Controller Map enabled states:</p>
+    <ol>
+      <li><strong>Direct</strong> - Individual Controller Map objects are enabled or disabled by setting the ControllerMap.enabled property or through one of the convenience methods in the Player such as <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_SetAllMapsEnabled.htm">player.controllers.maps.SetAllMapsEnabled</a>. The enabled state changes are only applied to the specific Controller Map instances at the time the state is changed. If, for example, a new Joystick is assigned to the Player, the new Joystick's Controller Maps will not automatically inherit enabled state settings from other Controller Maps. You are in complete control of how and when Controller Maps are enabled and/or disabled and must manage this depending on the specific needs of your game.</li>
+      <li><strong>Managed</strong> - A system is responsible for maintaining persistent Controller Map enabled states by Map Category and Layout based on user-defined settings. Controller Map enabled states can be synchronized under a variety of circumstances that could otherwise cause issues such as when assigning a new Joystick to a Player. The manager is responsible for keeping  Controller Map enabled states in sync with the current settings when Controller Maps change. If you are using Controller Maps in multiple Map Categories to handle different gameplay modes such as &quot;Gameplay&quot;, &quot;UI&quot;, etc., a managed system would be beneficial. You can build your own state management system or you can use the built-in <a href="MapEnabler.html">Map Enabler</a> system.</li>
+    </ol>
+    <p><strong>Direct Method:</strong></p>
+    <p>The easiest way to directly enable and disable maps in a <a href="Players.html">Player</a> is to use the following methods:</p>
     <ul>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_SetAllMapsEnabled.htm">player.controllers.maps.SetAllMapsEnabled</a> - Set enabled state on all maps owned by the <a href="Players.html">Player</a> or all maps for a specific <a href="Controllers.html">Controller</a> type.</li>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_SetMapsEnabled.htm">player.controllers.maps.SetMapsEnabled</a> - Set enabled state on a group of maps owned by the <a href="Players.html">Player</a> by <a href="Controllers.html">Controller</a> type, <a href="MapCategories.html">Map Category</a>, and <a href="Layouts.html">Layout</a>.</li>
@@ -611,6 +619,7 @@ foreach(ControllerMap map in player.controllers.maps.GetAllMaps()) {
     }
 }  </pre>
 <p><strong><a name="persistent-current-controller-map-category" id="persistent-current-controller-map-category"></a>Persistent currently enabled Controller Map Category</strong></p>
+<p><strong><em>Note:</em></strong><em> As of Rewired 1.1.25.0, the  <a href="MapEnabler.html">Map Enabler</a> system is available in the Player to assist in persistent Controller Map enabled state management. Map Enabler is an easier solution to Controller Map enabled state managment, but may not be suitable for all use-cases. You can use the following information to build your own state managment system.</em></p>
 <p>All functions to enable and disable Controller Maps act only on the Controller Maps currently existing in the Player and will not affect Controller Maps loaded after these functions are called. The Rewired Player does not contain or track a &quot;current Map Category&quot; for Controller Maps that will force certain maps to be enabled and others disabled persistently (an isssue when assigning new Controllers to a Player). Management of Controller Maps and what is and isn't loaded, enabled, or disabled at any particular time is completely up to the developer to determine. However, such functionality may be useful to maintain different control sets for different mutually-exclusive modes -- Gameplay and Menu, for example.</p>
 <p>When a Joystick is assigned to a Player, Controller Maps for that Joystick will be loaded from the pre-defined defaults set up in the Rewired Input Manager if any can be found for that particular Player based on your settings on the Player page of the Rewired Editor. If you are using different Controller Maps for different game modes, the newly-loaded Controller Maps may be loaded with the wrong Controller Maps enabled for the current game mode. (For example, you change to Menu mode, then connect a Joystick.) To handle this, you must manage what Controller Maps are enabled on a Joystick not only when changing game modes, but also when a new Joystick is connected and assigned to a Player.</p>
 <p>For example, when changing from Gameplay mode to Menu mode, you will need to set the state based on some variable in your script that tracks the current game mode. Controller Maps must be enabled/disabled to match the current state both at the moment you change game modes and when a new Joystick is connected (or more specifically, when a Joystick is assigned to a Player if you are manually assigning Joysticks). </p>
@@ -670,7 +679,7 @@ public class PlayerControllerMapGameModeSync : MonoBehaviour {
 <p>&nbsp;</p>
     <hr />
     <h3><a name="managing-controller-maps-runtime" id="enabling-disabling-controller-maps2"></a>Managing Controller Maps at runtime</h3>
-    <p><a href="ControllerMaps.html">Controller Maps</a> can be added, removed, cleared, and reloaded during gameplay via scripting. This can be useful if you want to load the default <a href="ControllerMaps.html">Controller Maps</a> as defined in the Rewired Editor after having made changes, or to load a <a href="ControllerMaps.html">Controller Map</a> in a different <a href="Layouts.html">Layout</a>. <a href="ControllerMaps.html">Controller Maps</a> are stored in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/?topic=html/T_Rewired_Player.htm">Player</a> class.</p>
+    <p><a href="ControllerMaps.html">Controller Maps</a> can be added, removed, cleared, and reloaded during gameplay via scripting. This can be useful if you want to load the default <a href="ControllerMaps.html">Controller Maps</a> as defined in the Rewired Editor after having made changes, or to load a <a href="ControllerMaps.html">Controller Map</a> in a different <a href="Layouts.html">Layout</a>. (Also see <a href="LayoutManager.html">Layout Manager</a> for managing Controller Maps by Layout.) <a href="ControllerMaps.html">Controller Maps</a> are stored in the <a href="http://guavaman.com/projects/rewired/docs/api-reference/?topic=html/T_Rewired_Player.htm">Player</a> class.</p>
     <p>Methods:</p>
     <ul>
       <li><a href="http://guavaman.com/projects/rewired/docs/api-reference/html/Overload_Rewired_Player_ControllerHelper_MapHelper_AddMap.htm">player.controllers.maps.AddMap</a></li>
@@ -2488,10 +2497,10 @@ class DS4Test {
   }
 }</pre>
 <p><strong>Common Interface<br />
-</strong><a name="dualshock-4-special-features-common-interface" id="dualshock-4-special-features-common-interface"></a>You can use the ControllerExtensions.IDualShock4CommonExtension interface instead if you want to run the same code on the PS4 platform and a desktop platform. The controller does not support all the same features on both the desktop and PS4 platforms, but the common features between the two platforms are supported through the interface. Cast to the concrete extension class if you need access to features that are only supported on that version.</p>
+</strong><a name="dualshock-4-special-features-common-interface" id="dualshock-4-special-features-common-interface"></a>You can use the <a href="http://guavaman.com/projects/rewired/docs/api-reference/html/T_Rewired_ControllerExtensions_IDualShock4Extension.htm">ControllerExtensions.IDualShock4Extension</a> interface instead if you want to run the same code on the PS4 platform and a desktop platform. The controller does not support all the same features on both the desktop and PS4 platforms, but the common features between the two platforms are supported through the interface. Cast to the concrete extension class if you need access to features that are only supported on that version.</p>
 <pre class="code">
-<span class="comment">// Get the Dual Shock 4 Common Extension interface from the Joystick</span>
-var ds4 = joystick.GetExtension&lt;IDualShock4CommonExtension&gt;();
+<span class="comment">// Get the Dual Shock 4 Extension interface from the Joystick</span>
+var ds4 = joystick.GetExtension&lt;IDualShock4Extension&gt;();
 if(ds4 == null) return;
 
 <span class="comment">// Features that are available on all platforms are accessible through the interface</span>

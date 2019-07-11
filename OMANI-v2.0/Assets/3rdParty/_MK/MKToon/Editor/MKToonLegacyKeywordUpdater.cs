@@ -151,7 +151,7 @@ namespace MK.Toon
                     SetKeyword(false, SPECULAR_MAP_LEGACY, mat);
 
                     //Blend
-                    MKToonEditor.SetMaterialTags(mat, (MKToonEditor.BlendMode)mat.GetFloat(MKToonMaterialHelper.PropertyNames.BLEND_MODE));
+                    MKToonEditor.SetMaterialTags(mat, (MKToonEditor.BlendStyle)mat.GetFloat(MKToonMaterialHelper.PropertyNames.BLEND_MODE));
 
                     //colorsource
                     SetKeyword(MKToonMaterialHelper.GetMainTexture(mat), MKToonEditor.ALBEDO_MAP, mat);

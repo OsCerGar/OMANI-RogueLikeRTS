@@ -85,13 +85,17 @@
 			#endif
 		#endif
 
-		#if MKTOON_LIT
-			//vertex shadow
-			UNITY_TRANSFER_SHADOW(o,v.texcoord0.xy); 
+		//vertex shadow
+		#if UNITY_VERSION >= 201810
+			UNITY_TRANSFER_LIGHTING(o, v.texcoord0);
+		#else
+			UNITY_TRANSFER_SHADOW(o, v.texcoord0);
 		#endif
 
-		//vertex fog
-		UNITY_TRANSFER_FOG(o,o.pos);
+		#if SHADER_TARGET >= 30
+			//vertex fog
+			UNITY_TRANSFER_FOG(o,o.pos);
+		#endif
 
 		#if MKTOON_SKETCH
 			float4 uvScreen = 0;
