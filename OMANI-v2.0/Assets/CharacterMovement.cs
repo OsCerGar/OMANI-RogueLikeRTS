@@ -17,7 +17,7 @@ public class CharacterMovement : MonoBehaviour
 
     //audio
     AudioSource _sand;
-    bool onMovement = false, ableToMove;
+    bool onMovement = false, ableToMove = true;
     public float onMovementTime, onNoMovementTime = 0;
 
     //Sound events
