@@ -147,6 +147,7 @@ public class Power_Laser : MonoBehaviour
 
     public void setSphereWidth(float _Scale)
     {
+        /*
         if (_Scale > scaleToSend)
         {
             scaleToSend += Time.unscaledDeltaTime / 2;
@@ -157,7 +158,7 @@ public class Power_Laser : MonoBehaviour
         }
         scaleToSend = Mathf.Clamp(scaleToSend, 0.01f, 0.33f);
         Sphere.localScale = new Vector3(scaleToSend, scaleToSend, scaleToSend);
-
+        */
     }
 
 

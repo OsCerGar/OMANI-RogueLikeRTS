@@ -17,7 +17,7 @@ public class CharacterMovement : MonoBehaviour
 
     //audio
     AudioSource _sand;
-    bool onMovement = false;
+    bool onMovement = false, ableToMove;
     public float onMovementTime, onNoMovementTime = 0;
 
     //Sound events
@@ -44,23 +44,25 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        //This function controls the movement.
-        MovementController();
-
-        dashCooldown += Time.deltaTime;
-        if (inputs.Dash)
+        if (ableToMove)
         {
-            if (dashCooldown > 3f)
+            //This function controls the movement.
+            MovementController();
+
+            dashCooldown += Time.deltaTime;
+            if (inputs.Dash)
             {
-                anim.SetBool("Dash", true);
-                dashCooldown = 0;
+                if (dashCooldown > 3f)
+                {
+                    anim.SetBool("Dash", true);
+                    dashCooldown = 0;
+                }
+            }
+            else
+            {
+                anim.SetBool("Dash", false);
             }
         }
-        else
-        {
-            anim.SetBool("Dash", false);
-        }
-
     }
 
     //Function in charge of the Main Character movement. Sends commands to the animator and allows the character to rotate.
@@ -111,11 +113,11 @@ public class CharacterMovement : MonoBehaviour
                 float angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
                 Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
 
-                x = Mathf.Lerp(x, finalDirection.x, 0.5f);
-                y = Mathf.Lerp(y, finalDirection.z, 0.5f);
+                //x = Mathf.Lerp(x, finalDirection.x, 0.5f);
+                //y = Mathf.Lerp(y, finalDirection.z, 0.5f);
 
-                anim.SetFloat("X", x);
-                anim.SetFloat("Y", y);
+                anim.SetFloat("X", finalDirection.x);
+                anim.SetFloat("Y", finalDirection.z);
 
                 Rotate((LookDirection.miradaposition - transform.position).normalized);
             }
@@ -164,9 +166,9 @@ public class CharacterMovement : MonoBehaviour
                     anim.SetBool("TurnLeft180", false);
                 }
                 //x = Mathf.Lerp(x, finalDirection.x, 1f);
-                y = Mathf.Lerp(y, finalDirection.z, 0.5f);
+                //y = Mathf.Lerp(y, finalDirection.z, 0.5f);
                 anim.SetFloat("X", finalDirection.x);
-                anim.SetFloat("Y", y);
+                anim.SetFloat("Y", finalDirection.z);
 
 
             }
@@ -253,9 +255,9 @@ public class CharacterMovement : MonoBehaviour
 
 
                 //x = Mathf.Lerp(x, finalDirection.x, 1f);
-                y = Mathf.Lerp(y, finalDirection.z, 0.5f);
+                //y = Mathf.Lerp(y, finalDirection.z, 0.5f);
                 anim.SetFloat("X", finalDirection.x);
-                anim.SetFloat("Y", y);
+                anim.SetFloat("Y", finalDirection.z);
 
             }
         }
@@ -315,6 +317,16 @@ public class CharacterMovement : MonoBehaviour
         // Uses the rigidbody function  "MoveRotation" which sets the new rotation of the Rigidbody. 
         transform.rotation = smoothedRotation;
 
+    }
+
+
+    public void StopMovement()
+    {
+        ableToMove = false;
+    }
+    public void AbleToMove()
+    {
+        ableToMove = true;
     }
 }
 

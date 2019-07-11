@@ -21,19 +21,15 @@ public class Tutorial_PlayerLock : MonoBehaviour
     [SerializeField]
     GameObject tutorials, tutorialMovement;
 
-    private void Awake()
+    private void Start()
     {
         timeline_interface = GetComponent<TIMELINE_INTERFACE>();
         tutorials = transform.Find("Tutorials").gameObject;
         disablePlayer.SetActive(true);
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
         StartRestrictions();
+
     }
+
 
     private void Update()
     {
@@ -50,7 +46,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
     }
     private void StartRestrictions()
     {
-        movement.speed = 0;
         //controls.PLAYER.OrderLaser.Enable();
         //controls.PLAYER.LASERZONERELEASE.Enable();
     }
@@ -71,7 +66,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
         if (releasedLegs > 3)
         {
-            movement.speed = movement.originalSpeed;
             doorLock.SetActive(false);
             tutorialMovement.SetActive(true);
         }

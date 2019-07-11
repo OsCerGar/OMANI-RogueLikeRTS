@@ -24,8 +24,8 @@ public class DisablePlayerControls : MonoBehaviour
             if (Army.army.currentFighter != null) { Army.army.SummonRobot(); }
         }
 
-        originalspeed = movement.speed;
-        movement.speed = 0;
+        movement.StopMovement();
+
         pointer.disablePlayerControl = true;
 
         if (powers != null)
@@ -53,7 +53,7 @@ public class DisablePlayerControls : MonoBehaviour
     private void OnDisable()
     {
 
-        movementSpeedBack();
+        movement.AbleToMove();
         pointer.disablePlayerControl = false;
 
 
@@ -82,8 +82,4 @@ public class DisablePlayerControls : MonoBehaviour
 
     }
 
-    public void movementSpeedBack()
-    {
-        movement.speed = originalspeed;
-    }
 }
