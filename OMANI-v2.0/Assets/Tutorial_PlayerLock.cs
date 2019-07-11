@@ -16,23 +16,27 @@ public class Tutorial_PlayerLock : MonoBehaviour
     [SerializeField]
     float finalVolume;
     float currentLerpTime, lerpTime = 1f;
-    bool windDown;
+    bool windDown, disabling;
 
     [SerializeField]
     GameObject tutorials, tutorialMovement;
+
+    [SerializeField]
+    GameObject TextIntro, TextSurka, TextSurkaEscapes;
 
     private void Start()
     {
         timeline_interface = GetComponent<TIMELINE_INTERFACE>();
         tutorials = transform.Find("Tutorials").gameObject;
         disablePlayer.SetActive(true);
-        StartRestrictions();
         movement.anim.SetTrigger("LayDown");
     }
 
 
     private void Update()
     {
+        movement.StopMovement();
+
         if (Input.anyKeyDown) { CameraChange(); }
 
         if (windDown)
@@ -43,14 +47,17 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
             wind.volume = Mathf.Lerp(wind.volume, finalVolume, t);
         }
-        movement.StopMovement();
+        if (disabling)
+        {
+            if (movement.anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
+            {
+                movement.AbleToMove();
+                enabled = false;
+            }
+        }
 
     }
-    private void StartRestrictions()
-    {
-        //controls.PLAYER.OrderLaser.Enable();
-        //controls.PLAYER.LASERZONERELEASE.Enable();
-    }
+
 
     public void LegRelease(int _leg)
     {
@@ -60,6 +67,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
         if (!surkaSpawned)
         {
             if (releasedLegs > 0) { tutorials.SetActive(false); }
+            if (releasedLegs > 1) { TextSurka.SetActive(true); disablePlayer.SetActive(true); }
             if (releasedLegs > 2)
             {
                 SurkaEntersTheShow();
@@ -70,9 +78,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
         {
             doorLock.SetActive(false);
             tutorialMovement.SetActive(true);
-            movement.AbleToMove();
-            enabled = false;
             movement.anim.SetTrigger("Free");
+            disabling = true;
 
         }
     }
@@ -103,9 +110,16 @@ public class Tutorial_PlayerLock : MonoBehaviour
         yield return new WaitForSeconds(8f);
         windDown = false;
         currentLerpTime = 0;
-        disablePlayer.SetActive(false);
+        TextIntro.SetActive(true);
+
     }
 
+    IEnumerator surkaEscapesEnabler()
+    {
+        yield return new WaitForSeconds(13f);
+        TextSurkaEscapes.SetActive(true);
+
+    }
     private void SurkaEntersTheShow()
     {
         if (!surkaSpawned)
@@ -114,6 +128,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
             /* TIMELINE*/
             timeline_interface.TPlay();
+            StartCoroutine("surkaEscapesEnabler");
+
         }
     }
 }

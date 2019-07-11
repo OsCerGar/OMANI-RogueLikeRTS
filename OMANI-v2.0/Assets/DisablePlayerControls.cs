@@ -22,11 +22,12 @@ public class DisablePlayerControls : MonoBehaviour
         //!!!!!!!!!!!
         movement = FindObjectOfType<CharacterMovement>();
         powers = FindObjectOfType<Powers>();
+        if (Army.army != null) { 
         if (Army.army.enabled == true)
         {
             if (Army.army.currentFighter != null) { Army.army.SummonRobot(); }
         }
-
+        }
 
         pointer.disablePlayerControl = true;
 
