@@ -27,7 +27,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
         tutorials = transform.Find("Tutorials").gameObject;
         disablePlayer.SetActive(true);
         StartRestrictions();
-
+        movement.anim.SetTrigger("LayDown");
     }
 
 
@@ -43,6 +43,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
             wind.volume = Mathf.Lerp(wind.volume, finalVolume, t);
         }
+        movement.StopMovement();
+
     }
     private void StartRestrictions()
     {
@@ -68,6 +70,10 @@ public class Tutorial_PlayerLock : MonoBehaviour
         {
             doorLock.SetActive(false);
             tutorialMovement.SetActive(true);
+            movement.AbleToMove();
+            enabled = false;
+            movement.anim.SetTrigger("Free");
+
         }
     }
 
@@ -98,7 +104,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
         windDown = false;
         currentLerpTime = 0;
         disablePlayer.SetActive(false);
-        movement.speed = 0;
     }
 
     private void SurkaEntersTheShow()

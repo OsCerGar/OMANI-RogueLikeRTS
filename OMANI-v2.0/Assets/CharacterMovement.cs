@@ -29,8 +29,7 @@ public class CharacterMovement : MonoBehaviour
     Powers powers;
 
     //Animator 
-    [SerializeField]
-    Animator anim;
+    public Animator anim;
 
     float x, y;
     // Use this for initialization
@@ -62,6 +61,17 @@ public class CharacterMovement : MonoBehaviour
             {
                 anim.SetBool("Dash", false);
             }
+        }
+
+        ///This should stop the character when not able to move
+        else
+        {
+            onNoMovementTime += Time.deltaTime;
+            anim.SetBool("OnMovement", false);
+
+            anim.SetFloat("X", Mathf.Lerp(anim.GetFloat("X"), 0, 0.25f));
+            anim.SetFloat("Y", Mathf.Lerp(anim.GetFloat("Y"), 0, 0.25f));
+
         }
     }
 

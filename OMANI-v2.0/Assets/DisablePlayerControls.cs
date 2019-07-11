@@ -13,6 +13,9 @@ public class DisablePlayerControls : MonoBehaviour
     [SerializeField]
     GameObject extras;
 
+    [SerializeField]
+    bool alsoMovement;
+
     private void OnEnable()
     {
         pointer = FindObjectOfType<PointerEnabler>();
@@ -24,7 +27,6 @@ public class DisablePlayerControls : MonoBehaviour
             if (Army.army.currentFighter != null) { Army.army.SummonRobot(); }
         }
 
-        movement.StopMovement();
 
         pointer.disablePlayerControl = true;
 
@@ -48,14 +50,18 @@ public class DisablePlayerControls : MonoBehaviour
             }
         }
         if (extras != null) { extras.SetActive(false); }
+
+
+        if (alsoMovement)
+        {
+            movement.StopMovement();
+
+        }
     }
 
     private void OnDisable()
     {
-
-        movement.AbleToMove();
         pointer.disablePlayerControl = false;
-
 
         //enablesspowers
         if (powers != null)
@@ -80,6 +86,10 @@ public class DisablePlayerControls : MonoBehaviour
         }
         if (extras != null) { extras.SetActive(true); }
 
+        if (alsoMovement)
+        {
+            movement.AbleToMove();
+        }
     }
 
 }
