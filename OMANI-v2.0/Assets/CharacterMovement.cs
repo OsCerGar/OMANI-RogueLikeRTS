@@ -53,11 +53,24 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (dashCooldown > 3f)
                 {
-                    anim.SetBool("Dash", true);
-                    dashCooldown = 0;
+                    if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend") && !anim.GetBool("TurnLeft180") && !anim.GetBool("TurnRight180"))
+                    {
+
+                        if (inputs.MovementAxis.x != 0f || inputs.MovementAxis.y != 0f)
+                        {
+                            DirectRotate(desiredDirection);
+                        }
+                        else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
+                        {
+                            DirectRotate(desiredDirection);
+                        }
+
+                        anim.SetBool("Dash", true);
+                        dashCooldown = 0;
+                    }
                 }
             }
-            else
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("ANIM_DASH"))
             {
                 anim.SetBool("Dash", false);
             }
@@ -175,14 +188,11 @@ public class CharacterMovement : MonoBehaviour
                     anim.SetBool("TurnRight180", false);
                     anim.SetBool("TurnLeft180", false);
                 }
-                //x = Mathf.Lerp(x, finalDirection.x, 1f);
-                //y = Mathf.Lerp(y, finalDirection.z, 0.5f);
                 anim.SetFloat("X", finalDirection.x);
                 anim.SetFloat("Y", finalDirection.z);
 
 
             }
-
 
 
         }
@@ -243,16 +253,19 @@ public class CharacterMovement : MonoBehaviour
                 Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
 
                 float angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
+
                 if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
                 {
 
-                    if (angleDesiredDirection > 145)
+
+                    if (angleDesiredDirection > 150)
                     {
                         anim.SetBool("TurnLeft180", true);
                     }
 
-                    if (angleDesiredDirection < -145)
+                    if (angleDesiredDirection < -150)
                     {
+
                         anim.SetBool("TurnRight180", true);
                     }
                 }
@@ -262,10 +275,6 @@ public class CharacterMovement : MonoBehaviour
                     anim.SetBool("TurnRight180", false);
                     anim.SetBool("TurnLeft180", false);
                 }
-
-
-                //x = Mathf.Lerp(x, finalDirection.x, 1f);
-                //y = Mathf.Lerp(y, finalDirection.z, 0.5f);
                 anim.SetFloat("X", finalDirection.x);
                 anim.SetFloat("Y", finalDirection.z);
 
@@ -281,7 +290,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (onMovement)
         {
-            if (inputs.MovementAxis.x == 0f && inputs.MovementAxis.y == 0f)
+            if (inputs.MovementAxis.x == 0f && inputs.MovementAxis.y == 0f && inputs.MovementAxisController.x == 0 && inputs.MovementAxisController.y == 0)
             {
                 anim.SetBool("TurnRight", false);
                 anim.SetBool("TurnRight180", false);
@@ -329,7 +338,20 @@ public class CharacterMovement : MonoBehaviour
 
     }
 
+    // Function that makes the rotation of the character look good.
+    /* This rotate function is called upon each frame. The rotation is smoothed.*/
+    void DirectRotate(Vector3 desiredDirection)
+    {
+        desiredDirection.y = 0.0f;
 
+        // Calculates the rotation at which the character is directed.
+        Quaternion desiredRotation = Quaternion.LookRotation(desiredDirection, Vector3.up);
+
+
+        // Uses the rigidbody function  "MoveRotation" which sets the new rotation of the Rigidbody. 
+        transform.rotation = desiredRotation;
+
+    }
     public void StopMovement()
     {
         ableToMove = false;
