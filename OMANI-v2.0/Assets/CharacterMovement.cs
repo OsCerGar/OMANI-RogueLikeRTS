@@ -246,12 +246,12 @@ public class CharacterMovement : MonoBehaviour
                 if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
                 {
 
-                    if (angleDesiredDirection > 150)
+                    if (angleDesiredDirection > 145)
                     {
                         anim.SetBool("TurnLeft180", true);
                     }
 
-                    if (angleDesiredDirection < -150)
+                    if (angleDesiredDirection < -145)
                     {
                         anim.SetBool("TurnRight180", true);
                     }
