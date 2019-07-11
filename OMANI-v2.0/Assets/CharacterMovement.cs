@@ -55,14 +55,14 @@ public class CharacterMovement : MonoBehaviour
                     {
                         //if (!anim.GetBool("TurnLeft180") && !anim.GetBool("TurnRight180"))
                         //{
-                            if (inputs.MovementAxis.x != 0f || inputs.MovementAxis.y != 0f)
-                            {
-                                DirectRotate(desiredDirection);
-                            }
-                            else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
-                            {
-                                DirectRotate(desiredDirection);
-                            }
+                        if (inputs.MovementAxis.x != 0f || inputs.MovementAxis.y != 0f)
+                        {
+                            DirectRotate(desiredDirection);
+                        }
+                        else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
+                        {
+                            DirectRotate(desiredDirection);
+                        }
                         //}
 
                         anim.SetBool("Dash", true);
@@ -102,12 +102,23 @@ public class CharacterMovement : MonoBehaviour
             anim.SetBool("Laser", true);
             if (!onMovement)
             {
-                float angle = Vector3.SignedAngle(LookDirection.miradaposition, transform.position, Vector3.up);
-                angle = angle / 160;
+                Vector3 heading = (LookDirection.miradaposition - transform.position).normalized;
+                Vector3 perp = Vector3.Cross(transform.forward, heading);
+                float dir = Vector3.Dot(perp, transform.up);
 
-
-                anim.SetFloat("Z", angle);
-                //Rotate((LookDirection.miradaposition - transform.position).normalized);
+                
+                if (dir > 0.2f)
+                {
+                    anim.SetFloat("Z", Mathf.Lerp(anim.GetFloat("Z"), 1, 0.25f));
+                }
+                else if (dir < -0.2f)
+                {
+                    anim.SetFloat("Z", Mathf.Lerp(anim.GetFloat("Z"), -1, 0.25f));
+                }
+                else
+                {
+                    anim.SetFloat("Z", Mathf.Lerp(anim.GetFloat("Z"), 0, 0.25f));
+                }
 
             }
         }
@@ -147,6 +158,7 @@ public class CharacterMovement : MonoBehaviour
 
                 anim.SetFloat("X", x);
                 anim.SetFloat("Y", y);
+                anim.SetFloat("Z", 0);
 
                 Rotate((LookDirection.miradaposition - transform.position).normalized);
             }
