@@ -21,7 +21,8 @@ public class Tutorials_Robot : MonoBehaviour
 
         if (!robot.activeInHierarchy && summoned) { summonTutorial.SetActive(true); //disablePlayer.SetActive(true);
         }
-        if (robot.activeInHierarchy && summoned && summonTutorial.activeSelf) { spinTutorial.SetActive(true); //disablePlayer.SetActive(true); 
+        if (robot.activeInHierarchy && summoned && summonTutorial.activeSelf) {
+            summonTutorial.SetActive(false);  spinTutorial.SetActive(true); //disablePlayer.SetActive(true); 
         }
 
     }

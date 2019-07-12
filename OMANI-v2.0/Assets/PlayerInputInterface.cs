@@ -33,7 +33,11 @@ public class PlayerInputInterface : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        inputs = ReInput.players.GetPlayer(playerId);
+        if (inputs == null)
+        {
+            inputs = ReInput.players.GetPlayer(playerId);
+        }
+        else { enabled = false; }
         if (inputs.controllers.Joysticks.Count > 0)
         {
             ds4 = inputs.controllers.Joysticks[0].GetExtension<IDualShock4Extension>();

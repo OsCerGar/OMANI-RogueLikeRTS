@@ -6,7 +6,7 @@ public class CharacterMovement : MonoBehaviour
     Rigidbody rb;
     LookDirectionsAndOrder LookDirection;
 
-    public float speed = 1f, originalSpeed = 6f, smooth = 5f;
+    public float speed = 1f, originalSpeed = 1f, smooth = 5f;
 
     public float dashCooldown;
 
@@ -46,7 +46,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (ableToMove)
         {
-
+            anim.SetFloat("Speed", speed);
             dashCooldown += Time.deltaTime;
             if (inputs.Dash)
             {
@@ -107,7 +107,7 @@ public class CharacterMovement : MonoBehaviour
                 Vector3 perp = Vector3.Cross(transform.forward, heading);
                 float dir = Vector3.Dot(perp, transform.up);
 
-                
+
                 if (dir > 0.2f)
                 {
                     anim.SetFloat("Z", Mathf.Lerp(anim.GetFloat("Z"), 1, 0.25f));
