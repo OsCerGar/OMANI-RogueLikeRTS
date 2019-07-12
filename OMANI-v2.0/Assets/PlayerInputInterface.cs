@@ -47,6 +47,8 @@ public class PlayerInputInterface : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        inputs = ReInput.players.GetPlayer(playerId);
+
         RestartControllerAxis();
         ControllerLookAxis();
         Movement();

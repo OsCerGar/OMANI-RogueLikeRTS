@@ -403,7 +403,6 @@ public class NPC : MonoBehaviour
             foreach (var item in AllBehaviour)
             {
                 item.DisableBehavior(false);
-                Debug.Break();
             }
         }
         life = 0;
