@@ -35,6 +35,8 @@ public class DeathRoom : MonoBehaviour
                 {
                     animi.SetBool("Dissapear", true);
                 }
+                MusicManager.musicManager.roomClosed();
+
             }
             if (Time.time - timerSecureStop > 20f)
             {
