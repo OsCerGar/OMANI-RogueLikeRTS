@@ -10,6 +10,7 @@ public class EnemyPooler : MonoBehaviour
     // Use this for initialization
     GameObject Spawned;
 
+    [SerializeField]
     List<string> enemiesAvailable = new List<string>();
     void Start()
     {
@@ -18,10 +19,10 @@ public class EnemyPooler : MonoBehaviour
 
         foreach (EZObjectPool item in AllPoolers)
         {
-            if (item.PoolName == "SurkaMelee")
+            if (item.PoolName == "SurkaMele")
             {
                 SurkaMele = item;
-                enemiesAvailable.Add("SurkaMelee");
+                enemiesAvailable.Add("SurkaMele");
             }
             if (item.PoolName == "SurkaRanged")
             {

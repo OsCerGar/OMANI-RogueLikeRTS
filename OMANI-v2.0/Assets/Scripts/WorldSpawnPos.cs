@@ -32,7 +32,7 @@ public class WorldSpawnPos : MonoBehaviour
                 {
                     EPool.SpawnEnemy(NameOfEnemyToSpawn, transform);
                     FoundPlayer = true;
-                    OnSummon();
+                    //OnSummon();
                 }
                 yield return new WaitForSeconds(1f);
             }

@@ -1,40 +1,26 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class MusicManager : MonoBehaviour
 {
     AudioSource combatMusic, combatStop, mainTheme;
     bool isPlaying;
-    int numberOfEnemies = 0;
     float timeToStop;
 
     float lerpTime = 12f;
     float currentLerpTime;
 
-
-    void OnEnable()
+    public static MusicManager musicManager;
+    //Room closed
+    public void roomClosed()
     {
-        Enemy.OnDie += enemyDied;
-        WorldSpawnPos.OnSummon += enemySummoned;
-    }
-
-
-    void OnDisable()
-    {
-        Enemy.OnDie -= enemyDied;
-        WorldSpawnPos.OnSummon -= enemySummoned;
-    }
-
-    void enemyDied(Enemy died)
-    {
-        numberOfEnemies--;
         timeToStop = Time.time;
         StartCoroutine("stopMusic");
 
     }
 
-    void enemySummoned()
+    //room open
+    public void roomStart()
     {
         if (!isPlaying)
         {
@@ -42,7 +28,14 @@ public class MusicManager : MonoBehaviour
             combatMusic.Play(); mainTheme.volume = 0;
             isPlaying = true;
         }
-        numberOfEnemies++;
+    }
+
+    private void Start()
+    {
+        if (musicManager == null)
+        {
+            musicManager = this;
+        }
     }
 
     void Update()
@@ -74,7 +67,6 @@ public class MusicManager : MonoBehaviour
             {
                 combatMusic.Stop();
                 combatStop.Play();
-                numberOfEnemies = 0;
                 currentLerpTime = 0f;
             }
         }
@@ -95,11 +87,9 @@ public class MusicManager : MonoBehaviour
 
     private IEnumerator stopMusic()
     {
-        if (numberOfEnemies == 0)
-        {
-            yield return new WaitForSeconds(4.5f);
-            StopCombatMusic();
-        }
+        yield return new WaitForSeconds(4.5f);
+        StopCombatMusic();
+
     }
 
 }

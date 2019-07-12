@@ -41,6 +41,8 @@ public class DeathRoom : MonoBehaviour
                 foreach (Animator animi in anim)
                 {
                     animi.SetBool("Dissapear", true);
+                    MusicManager.musicManager.roomClosed();
+
                 }
             }
         }
@@ -63,6 +65,7 @@ public class DeathRoom : MonoBehaviour
                 foreach (GameObject doorT in door)
                 {
                     doorT.gameObject.SetActive(true);
+                    MusicManager.musicManager.roomStart();
                 }
             }
         }
