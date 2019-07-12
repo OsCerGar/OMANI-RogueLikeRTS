@@ -10,7 +10,7 @@ Material:
   m_Name: robot guerrero diffuse
   m_Shader: {fileID: 4800000, guid: 881c73b45dda42d4ba29f8c7742329be, type: 3}
   m_ShaderKeywords: _MK_ALBEDO_MAP _MK_DISSOLVE_RAMP _MK_LIGHTMODEL_BLINN_PHONG _MK_LIGHTTYPE_CEL_SHADE_MULTI
-    _MK_OCCLUSION _MK_SPECULAR_MAP
+    _MK_OCCLUSION _MK_SPECULAR_MAP _USEDISSOLVE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -115,13 +115,13 @@ Material:
     - _LightThreshold: 0.3
     - _LightType: 2
     - _MKEditorShowDetailBehavior: 0
-    - _MKEditorShowDissolveBehavior: 1
+    - _MKEditorShowDissolveBehavior: 0
     - _MKEditorShowLightBehavior: 1
     - _MKEditorShowMainBehavior: 1
     - _MKEditorShowOutlineBehavior: 0
     - _MKEditorShowReflectionBehavior: 0
     - _MKEditorShowRenderBehavior: 1
-    - _MKEditorShowRimBehavior: 0
+    - _MKEditorShowRimBehavior: 1
     - _MKEditorShowShadowBehavior: 0
     - _MKEditorShowSketchBehavior: 0
     - _MKEditorShowSpecularBehavior: 1
@@ -129,13 +129,13 @@ Material:
     - _Metallic: 0.3
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _OutlineSize: 0.02
+    - _OutlineSize: 0.01
     - _Parallax: 0.02
     - _ReflectIntensity: 0.5
     - _ReflectSmoothness: 0
-    - _RimIntensity: 0.5
-    - _RimSize: 1.5
-    - _RimSmoothness: 0.5
+    - _RimIntensity: 1
+    - _RimSize: 3
+    - _RimSmoothness: 0
     - _Roughness: 1
     - _Saturation: 1.84
     - _ShadowIntensity: 1
@@ -165,9 +165,9 @@ Material:
     - _DissolveColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 1, g: 0, b: 0.009897232, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 1, g: 0.54908407, b: 0, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.6724954, g: 1, b: 0.6556604, a: 0.5}
+    - _SpecColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _TranslucentColor: {r: 1, g: 1, b: 1, a: 0.5}

@@ -13,8 +13,8 @@ public class Worker : Robot
 
     public override void AttackHit()
     {
-        base.AttackHit();
-        RollDisableCheck();
+        Attackzone.SetActive(true);
+        //RollDisableCheck();
         TrailEffect.Stop();
     }
     public override void FighterAttack(GameObject _position)
@@ -74,7 +74,6 @@ public class Worker : Robot
     public void RollCollision()
     {
         anim.SetTrigger("AttackCollision");
-        Fired();
     }
 
     public override void CoolDown()
