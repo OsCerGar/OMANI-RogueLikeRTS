@@ -19,7 +19,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
     bool windDown, disabling;
 
     [SerializeField]
-    GameObject tutorials, tutorialMovement;
+    GameObject tutorials;
 
     [SerializeField]
     GameObject TextIntro, TextSurka, TextSurkaEscapes;
@@ -77,7 +77,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
         if (releasedLegs > 3)
         {
             doorLock.SetActive(false);
-            tutorialMovement.SetActive(true);
             movement.anim.SetTrigger("Free");
             disabling = true;
 
