@@ -19,8 +19,7 @@ public class Worker : Robot
     }
     public override void FighterAttack(GameObject _position)
     {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("react"))
-        {
+        
             if (anim.GetBool("Roll"))
             {
                 RollAttackFinished();
@@ -31,15 +30,14 @@ public class Worker : Robot
                 StartRollAttack();
                 enableTree("Attack");
             }
-        }
     }
-    public void DisableStearing()
+    public void DisableStearing(GameObject look)
     {
-        TPC.Rotate = false;
+        SetAttackTreeVariable(Instantiate(new GameObject(), new Vector3(transform.position.x, transform.position.y, transform.position.z) + (transform.forward * 10), Quaternion.identity), "Enemy");
     }
     public void EnableStearing()
     {
-        TPC.Rotate = true;
+        SetAttackTreeVariable(LookDAO.pointerDirection.gameObject, "Enemy");
     }
     public override void Awake()
     {

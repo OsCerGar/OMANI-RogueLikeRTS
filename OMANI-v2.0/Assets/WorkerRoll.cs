@@ -15,6 +15,7 @@ public class WorkerRoll : MonoBehaviour {
         {
             thisNpcScript.RollCollision();
             thisNpcScript.AttackHit();
+            thisNpcScript.DisableStearing(other.gameObject);
 
         }
     }
