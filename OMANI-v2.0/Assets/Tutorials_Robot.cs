@@ -11,19 +11,31 @@ public class Tutorials_Robot : MonoBehaviour
     GameObject robot;
     bool summoned, tutorialStart;
 
-    public bool version2;
-
-
+    public bool sumonTutorialDone;
+    PlayerInputInterface input;
+    private void Start()
+    {
+        input = FindObjectOfType<PlayerInputInterface>();
+    }
     void Update()
     {
 
         if (robot.activeInHierarchy) { summoned = true; }
 
-        if (!robot.activeInHierarchy && summoned) { summonTutorial.SetActive(true); //disablePlayer.SetActive(true);
+        if (!robot.activeInHierarchy && summoned && !sumonTutorialDone)
+        {
+            summonTutorial.SetActive(true); //disablePlayer.SetActive(true);
         }
-        if (robot.activeInHierarchy && summoned && summonTutorial.activeSelf) {
-            summonTutorial.SetActive(false);  spinTutorial.SetActive(true); //disablePlayer.SetActive(true); 
+        if (robot.activeInHierarchy && summoned && sumonTutorialDone)
+        {
+            summonTutorial.SetActive(false); spinTutorial.SetActive(true); //disablePlayer.SetActive(true); 
         }
 
+        if (input.Summon) { SumonTutorialDone(); }
+    }
+
+    public void SumonTutorialDone()
+    {
+        sumonTutorialDone = true;
     }
 }
