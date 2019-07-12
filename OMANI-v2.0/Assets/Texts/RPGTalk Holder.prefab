@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8634336365488775078
 Transform:
   m_ObjectHideFlags: 0
@@ -57,11 +57,22 @@ MonoBehaviour:
   billboard: 1
   mainCamera: 1
   otherCamera: {fileID: 0}
-  txtToParse: {fileID: 4900000, guid: 6a11b6497ec764431a12e4bbe117d551, type: 3}
+  txtToParse: {fileID: 4900000, guid: 4f59296b14bcd49448d3280d000f3fe3, type: 3}
   enableQuickSkip: 1
   callback:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   animatorWhenTalking: {fileID: 8634336366327361075}
@@ -76,10 +87,6 @@ MonoBehaviour:
     variableValue: 
   shouldUsePhotos: 1
   characters:
-  - character: {fileID: 11400000, guid: 209c7f70d52014f42a096bed78e21a52, type: 2}
-    follow: {fileID: 0}
-    followOffset: {x: 0, y: 0, z: 0}
-    animatorOverwrite: {fileID: 0}
   - character: {fileID: 11400000, guid: 70743892abc1144a8be0bd4ca5efa3e9, type: 2}
     follow: {fileID: 0}
     followOffset: {x: 0, y: 0, z: 0}
@@ -98,12 +105,26 @@ MonoBehaviour:
   enablePass: 1
   autoPass: 0
   secondsAutoPass: 3
-  lineToStart: 10
-  lineToBreak: 13
+  lineToStart: 2
+  lineToBreak: 9
   wordWrap: 1
   maxCharInWidth: 40
   maxCharInHeight: 4
-  sprites: []
+  sprites:
+  - sprite: {fileID: 21300000, guid: 1db8620dead6e0d4f8b0f0bfa7a10a14, type: 3}
+    lineWithSprite: 0
+    spritePosition: 0
+    width: 1
+    height: 1
+    alreadyInPlace: 0
+    animator: {fileID: 0}
+  - sprite: {fileID: 21300000, guid: 36301f8673a6c134b873469e49dde6c0, type: 3}
+    lineWithSprite: 0
+    spritePosition: 0
+    width: 0
+    height: 0
+    alreadyInPlace: 0
+    animator: {fileID: 0}
   spritesUsed: []
   tmpSpriteAtlas: Default Sprite Asset
   actualTextSpeed: 50
