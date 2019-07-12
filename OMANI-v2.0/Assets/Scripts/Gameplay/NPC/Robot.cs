@@ -49,6 +49,7 @@ public class Robot : NPC
         workerSM = GetComponentInChildren<WorkerSM>();
         workerSM.transform.parent = null;
         data.robotType = boyType;
+        
     }
 
     public override void Start()
@@ -68,6 +69,7 @@ public class Robot : NPC
             TakeDamage(Mathf.RoundToInt(1f), Color.yellow, transform);
             CoolDown();
         }
+        
 
         //Read saved Data about the robot
 
@@ -85,8 +87,7 @@ public class Robot : NPC
                 }
             }
         }
-
-
+        
     }
 
     public override void AttackHit()
@@ -128,6 +129,7 @@ public class Robot : NPC
         {
             slowPowerpoolHeal(0.01f);
         }
+        GetComponent<Rigidbody>().isKinematic = true;
     }
 
     public virtual void Dematerialize()
