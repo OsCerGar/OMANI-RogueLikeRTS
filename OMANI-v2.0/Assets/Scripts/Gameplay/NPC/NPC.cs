@@ -165,7 +165,7 @@ public class NPC : MonoBehaviour
         Debug.Log("Disabled by that");
     }
 
-    public void Awake()
+    public virtual void Awake()
     {
         SetTrees();
     }

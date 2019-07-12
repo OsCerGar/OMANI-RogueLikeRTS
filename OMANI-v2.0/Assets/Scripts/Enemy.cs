@@ -5,16 +5,14 @@ public class Enemy : NPC
 {
     public delegate void DieEvent(Enemy _robot);
     public static event DieEvent OnDie;
-    private Collider col;
+    public Collider col;
     public EnnuiSpawnerManager ennuis;
     public Transform laserTarget;
 
     private void Awake()
     {
-        col = GetComponent<Collider>();
         laserTarget = transform.FindDeepChild("LaserObjective");
         laserTarget.gameObject.SetActive(true);
-        ennuis = FindObjectOfType<EnnuiSpawnerManager>();
 
     }
 
@@ -46,7 +44,10 @@ public class Enemy : NPC
         {
             laserTarget.gameObject.SetActive(true);
         }
-
+        else
+        {
+            laserTarget = transform.FindDeepChild("LaserObjective");
+        }
         if (col != null) { col.enabled = true; }
 
     }
@@ -68,7 +69,7 @@ public class Enemy : NPC
 
         if (random < 3)
         {
-            ennuis.SpawnEnnui(laserTarget);
+            EnnuiSpawnerManager.EnnuiSpawner.SpawnEnnui(laserTarget);
         }
 
 

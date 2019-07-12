@@ -74,6 +74,9 @@ public class Corruption : Enemy
         {
             laserTarget.gameObject.SetActive(true);
         }
+        else {
+
+        }
     }
 
     private IEnumerator DieTempo()
