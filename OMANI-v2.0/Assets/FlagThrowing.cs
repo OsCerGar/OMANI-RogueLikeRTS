@@ -5,8 +5,6 @@ public class FlagThrowing : MonoBehaviour
 {
 
     LookDirectionsAndOrder lookDAO;
-    Army army;
-    PlayerInputInterface player;
     Animator anim;
     [SerializeField]
     List<Flag> flags = new List<Flag>();
@@ -32,8 +30,6 @@ public class FlagThrowing : MonoBehaviour
     void Start()
     {
         lookDAO = FindObjectOfType<LookDirectionsAndOrder>();
-        army = FindObjectOfType<Army>();
-        player = FindObjectOfType<PlayerInputInterface>();
         radialMenu = FindObjectOfType<RadialMenu_GUI>();
         anim = GetComponentInChildren<Animator>();
         originalViewRadius = lookDAO.viewRadius;
@@ -43,7 +39,7 @@ public class FlagThrowing : MonoBehaviour
     void Update()
     {
 
-        if (player.inputs.GetButtonDown("Throw") && army.getCells()[army.ArmyCellSelected] != null && army.getCells()[army.ArmyCellSelected].getRobotType() != null)
+        if (PlayerInputInterface.inputs.GetButtonDown("Throw") && Army.army.getCells()[Army.army.ArmyCellSelected] != null && Army.army.getCells()[Army.army.ArmyCellSelected].getRobotType() != null)
         {
             ThrowDown();
             throwing = true;
@@ -53,7 +49,7 @@ public class FlagThrowing : MonoBehaviour
         {
             ThrowingDown();
         }
-        if (player.inputs.GetButtonUp("Throw") && robotToThrow != null)
+        if (PlayerInputInterface.inputs.GetButtonUp("Throw") && robotToThrow != null)
         {
             ThrowUp();
             throwing = false;
@@ -89,8 +85,8 @@ public class FlagThrowing : MonoBehaviour
 
     private void ThrowDown()
     {
-        if (army.getCells()[army.ArmyCellSelected].getRobotType() != null) { }
-        robotToThrow = army.getCells()[army.ArmyCellSelected].GetRobot();
+        if (Army.army.getCells()[Army.army.ArmyCellSelected].getRobotType() != null) { }
+        robotToThrow = Army.army.getCells()[Army.army.ArmyCellSelected].GetRobot();
         robotToThrow.Fired();
         robotToThrow.Dematerialize();
         radialMenu.UpdateState();
@@ -118,7 +114,7 @@ public class FlagThrowing : MonoBehaviour
         if (!sweetSpot)
         {
             sweetSpot = true;
-            player.SetVibration(2, 1f, 0.1f, false);
+            PlayerInputInterface.inputs.SetVibration(2, 1f, 0.1f, false);
         }
         else if (sweetSpot)
         {

@@ -20,7 +20,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     private float lookTimer;
 
     //Inputs
-    PlayerInputInterface player;
     bool controllerLookModel = true;
 
     //Gameplay
@@ -57,7 +56,6 @@ public class LookDirectionsAndOrder : MonoBehaviour
     void Awake()
     {
         commander = FindObjectOfType<Army>();
-        player = FindObjectOfType<PlayerInputInterface>();
         reclute = GetComponent<AudioSource>();
         StartCoroutine("FindTargetsWithDelay", .05f);
         pointerOrder = transform.Find("OrderDirection").gameObject;
@@ -72,7 +70,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
 
         LookAt();
 
-        if (player.inputs.GetButtonDown("SecondaryLookMode")) { ControllerFreeMode(); }
+        if (PlayerInputInterface.inputs.GetButtonDown("SecondaryLookMode")) { ControllerFreeMode(); }
     }
 
     public void ControllerFreeMode()
@@ -401,9 +399,9 @@ public class LookDirectionsAndOrder : MonoBehaviour
                 }
             }
 
-            if (player.LookAxis.x != 0 || player.LookAxis.y != 0)
+            if (PlayerInputInterface.player.LookAxis.x != 0 || PlayerInputInterface.player.LookAxis.y != 0)
             {
-                Vector3 tdirection = new Vector3(player.LookAxis.x, 0, player.LookAxis.y);
+                Vector3 tdirection = new Vector3(PlayerInputInterface.player.LookAxis.x, 0, PlayerInputInterface.player.LookAxis.y);
                 if (tdirection.magnitude < (tdirection.normalized / 4).magnitude) { tdirection = tdirection.normalized / 4; }
 
                 if (!controllerLookModel)
@@ -456,7 +454,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
         if (!controllerLookModel)
         {
 
-            if (player.LookAxis.x == 0 && player.LookAxis.y == 0)
+            if (PlayerInputInterface.player.LookAxis.x == 0 && PlayerInputInterface.player.LookAxis.y == 0)
             {
                 lookTimer += Time.deltaTime;
                 if (lookTimer > 1.5f)

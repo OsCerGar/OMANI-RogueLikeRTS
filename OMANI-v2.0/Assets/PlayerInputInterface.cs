@@ -6,7 +6,8 @@ public class PlayerInputInterface : MonoBehaviour
 {
 
     //Rewired
-    public Rewired.Player inputs; // The Rewired Player
+    public static Rewired.Player inputs; // The Rewired Player
+    public static PlayerInputInterface player; // The Rewired Player
     public int playerId = 0;
     public IDualShock4Extension ds4;
 
@@ -38,6 +39,13 @@ public class PlayerInputInterface : MonoBehaviour
             inputs = ReInput.players.GetPlayer(playerId);
         }
         else { enabled = false; }
+        if (player == null)
+        {
+            player = this;
+        }
+        else { enabled = false; }
+
+
         if (inputs.controllers.Joysticks.Count > 0)
         {
             ds4 = inputs.controllers.Joysticks[0].GetExtension<IDualShock4Extension>();
@@ -47,7 +55,7 @@ public class PlayerInputInterface : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inputs = ReInput.players.GetPlayer(playerId);
+        //inputs = ReInput.players.GetPlayer(playerId);
 
         RestartControllerAxis();
         ControllerLookAxis();

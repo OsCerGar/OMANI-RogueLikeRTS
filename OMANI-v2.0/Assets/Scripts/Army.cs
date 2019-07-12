@@ -95,12 +95,12 @@ public class Army : MonoBehaviour
     {
         if (radialMenuEnabled)
         {
-            if (player.inputs.GetButtonDown("Radial Menu")) { if (!pressedL2) { radialMenuPopUp(); pressedL2 = true; } }
-            if (player.inputs.GetButtonUp("Radial Menu")) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
+            if (PlayerInputInterface.inputs.GetButtonDown("Radial Menu")) { if (!pressedL2) { radialMenuPopUp(); pressedL2 = true; } }
+            if (PlayerInputInterface.inputs.GetButtonUp("Radial Menu")) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
 
             //Esto tiene que ser la flechita de la opción seleccionada, sino, selecciona otra cosa del menu radial.
             //if (player.inputs.GetButtonUp("IndexUp")) { if (pressedL2) { IndexUp(); } }
-            if (player.inputs.GetButtonDown("FireLaser")) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
+            if (PlayerInputInterface.inputs.GetButtonDown("FireLaser")) { if (pressedL2) { radialMenuPopDown(null); pressedL2 = false; } }
 
             if (player.RobotQuickSelection.x == 1)
             {
@@ -132,7 +132,7 @@ public class Army : MonoBehaviour
             }
         }
 
-        if (player.inputs.GetButtonDown("Summon")) { SummonRobot(); }
+        if (PlayerInputInterface.inputs.GetButtonDown("Summon")) { SummonRobot(); }
 
     }
 

@@ -8,7 +8,16 @@ public class SceneLoad : MonoBehaviour
     [SerializeField] ParticleSystem TPEffect;
     [SerializeField] AudioSource TeleportSFX;
 
-    [SerializeField]  GameObject DisablePlayer;
+    [SerializeField] GameObject DisablePlayer;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            LoadNextScene();
+        }
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
