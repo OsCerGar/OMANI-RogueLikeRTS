@@ -29,7 +29,6 @@ public class NPC : MonoBehaviour
     float acumulatedDamage;
 
     //Required for run animations synced with NevMesh
-    [HideInInspector]
     public Animator anim;
     [HideInInspector]
     public NavMeshAgent Nav;
@@ -165,7 +164,7 @@ public class NPC : MonoBehaviour
         Debug.Log("Disabled by that");
     }
 
-    public virtual void Awake()
+    public void Awake()
     {
         SetTrees();
     }
@@ -268,18 +267,21 @@ public class NPC : MonoBehaviour
 
 
         EnergyLifeCalc();
-        if (Nav != null)
-        {
-            if (Nav.remainingDistance > 0.6f)
-            {
+      
 
-                TPC.Move(Nav.desiredVelocity);
-            }
-            else
+            if (Nav != null && Nav.enabled == true)
             {
-                TPC.Move(transform.position);
+                if (Nav.remainingDistance > 0.6f)
+                {
+
+                    TPC.Move(Nav.desiredVelocity);
+                }
+                else
+                {
+                    TPC.Move(transform.position);
+                }
             }
-        }
+        
 
     }
 
@@ -401,6 +403,7 @@ public class NPC : MonoBehaviour
             foreach (var item in AllBehaviour)
             {
                 item.DisableBehavior(false);
+                Debug.Break();
             }
         }
         life = 0;

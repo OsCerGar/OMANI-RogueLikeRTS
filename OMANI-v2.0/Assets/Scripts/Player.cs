@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.AI;
+using UnityStandardAssets.Characters.ThirdPerson;
 public class Player : NPC
 {
     /*
@@ -15,6 +17,42 @@ public class Player : NPC
 
     //Inputs
     PlayerInputInterface inputController;
+    public override void Start()
+    {
+        TPC = GetComponent<ThirdPersonCharacter>();
+        SM = GetComponentInChildren<SoundsManager>();
+        peopl = LayerMask.NameToLayer("People");
+        //We get all behaviourTrees
+        anim = transform.parent.gameObject.GetComponent<Animator>();
+        Nav = gameObject.GetComponent<NavMeshAgent>();
+        circle = gameObject.GetComponentInChildren<SpriteRenderer>();
+        if (transform.Find("UI") != null)
+        {
+            numbersTransform = transform.Find("UI").Find("Numbers");
+
+            if (transform.Find("UI/SelectionAnimationParent") != null)
+            {
+                GUI = transform.Find("UI/SelectionAnimationParent").gameObject;
+                GUI_Script = transform.Find("UI/SelectionAnimationParent").GetComponent<UI_PointerSelection>();
+            }
+            ui_information = transform.Find("UI").gameObject;
+
+        }
+        //Get AttackZone child Somewhere 
+
+        startLife = life;
+        if (Nav != null)
+        {
+            Nav.updateRotation = false;
+            // Nav.updatePosition = false;
+        }
+        numberPool = FindObjectOfType<NumberPool>();
+        UI_Attack = GetComponentInChildren<UI_RobotAttack>();
+
+        quarter = Mathf.RoundToInt(maxpowerPool * 0.25f);
+        half = Mathf.RoundToInt(maxpowerPool * 0.5f);
+        quarterAndHalf = Mathf.RoundToInt(maxpowerPool * 0.75f);
+    }
     void Awake()
     {
         boyType = "Swordsman";
@@ -39,7 +77,7 @@ public class Player : NPC
             if (powers.armor > 0)
             {
                 StartCoroutine(gotHit());
-
+                anim.SetTrigger("GetHit");
                 powers.reduceAsMuchPower(damage);
                 inputController.SetVibration(0, 1f, 0.25f, false);
                 inputController.SetVibration(1, 1f, 0.25f, false);

@@ -143,7 +143,7 @@ public class LaserColisionStandard : MonoBehaviour
 
                 }
             }
-
+            /*
             else if (other.CompareTag("Enemy"))
             {
                 enemy = other.GetComponent<Enemy>();
@@ -160,6 +160,7 @@ public class LaserColisionStandard : MonoBehaviour
                     }
                 }
             }
+            */
 
             else if (other.CompareTag("People"))
             {

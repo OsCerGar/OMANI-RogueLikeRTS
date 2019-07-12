@@ -8,7 +8,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 	[RequireComponent(typeof(Animator))]
 	public class ThirdPersonCharacter : MonoBehaviour
     {
-        [SerializeField] bool Rotate = false;
+        public  bool Rotate = false;
         [SerializeField] float m_MovingTurnSpeed = 360;
 		[SerializeField] float m_StationaryTurnSpeed = 180;
 		[SerializeField] float m_MoveSpeedMultiplier = 1f;

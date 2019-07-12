@@ -19,19 +19,28 @@ public class Worker : Robot
     }
     public override void FighterAttack(GameObject _position)
     {
-        if (anim.GetBool("Roll"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("react"))
         {
-            RollAttackFinished();
-
-        }
-        else
-        {
-            base.FighterAttack(_position);
-            StartRollAttack();
-            //enableTree("Attack");
+            if (anim.GetBool("Roll"))
+            {
+                RollAttackFinished();
+            }
+            else
+            {
+                base.FighterAttack(_position);
+                StartRollAttack();
+                enableTree("Attack");
+            }
         }
     }
-
+    public void DisableStearing()
+    {
+        TPC.Rotate = false;
+    }
+    public void EnableStearing()
+    {
+        TPC.Rotate = true;
+    }
     public override void Awake()
     {
         base.Awake();
