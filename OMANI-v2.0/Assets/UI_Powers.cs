@@ -8,6 +8,7 @@ public class UI_Powers : MonoBehaviour
 
     public List<Image> dyingEffect = new List<Image>();
     bool dying;
+    [SerializeField]
     Powers powers;
     float startingPoint;
     [SerializeField]
@@ -16,8 +17,7 @@ public class UI_Powers : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        powers = transform.root.GetComponentInChildren<Powers>();
-        startingPoint = powers.maxArmor / 2f;
+        startingPoint = powers.maxArmor / 4f;
     }
 
     // Update is called once per frame

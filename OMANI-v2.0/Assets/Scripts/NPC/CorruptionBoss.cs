@@ -9,8 +9,9 @@ public class CorruptionBoss : Enemy
     float playerspeed;
     CharacterMovement CM;
     bool dead = false;
-    Collider coll;
-    [SerializeField]CleanCorruption Clean;
+    [SerializeField]
+    Collider coll, coll2;
+    [SerializeField] CleanCorruption Clean;
     RimEffect rim;
     public override void Update()
     {
@@ -23,7 +24,7 @@ public class CorruptionBoss : Enemy
     public override void Start()
     {
         CM = FindObjectOfType<CharacterMovement>();
-        coll = GetComponent<Collider>();
+        //coll = GetComponent<Collider>();
         if (CM != null)
         {
             playerspeed = CM.originalSpeed;
@@ -61,10 +62,9 @@ public class CorruptionBoss : Enemy
         laserTarget.gameObject.SetActive(false);
         //collider reset
         coll.enabled = false;
-
+        coll2.enabled = false;
         //audio
         SM.Die();
-
         CM.speed = playerspeed;
         anim.SetTrigger("Die");
         Clean.enabled = true;
@@ -74,7 +74,7 @@ public class CorruptionBoss : Enemy
 
     }
 
-    
+
 
     public override IEnumerator gotHit()
     {

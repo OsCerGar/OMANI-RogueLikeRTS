@@ -79,6 +79,8 @@ public class Tutorial_PlayerLock : MonoBehaviour
             doorLock.SetActive(false);
             movement.anim.SetTrigger("Free");
             disabling = true;
+            TextSurkaEscapes.SetActive(true);
+
 
         }
     }
@@ -113,12 +115,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
     }
 
-    IEnumerator surkaEscapesEnabler()
-    {
-        yield return new WaitForSeconds(13f);
-        TextSurkaEscapes.SetActive(true);
-
-    }
     private void SurkaEntersTheShow()
     {
         if (!surkaSpawned)
@@ -127,8 +123,6 @@ public class Tutorial_PlayerLock : MonoBehaviour
 
             /* TIMELINE*/
             timeline_interface.TPlay();
-            StartCoroutine("surkaEscapesEnabler");
-
         }
     }
 }

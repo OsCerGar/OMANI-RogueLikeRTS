@@ -2,16 +2,15 @@
 using UnityEngine.UI;
 public class CanvasPower : MonoBehaviour
 {
-
-    [SerializeField]
-    Powers power;
-
     [SerializeField]
     Text currentLife, quarter;
 
     // Update is called once per frame
     void Update()
     {
-        currentLife.text = ((int)power.armor).ToString();
+        if (Powers.powers != null)
+        {
+            currentLife.text = ((int)Powers.powers.armor).ToString();
+        }
     }
 }

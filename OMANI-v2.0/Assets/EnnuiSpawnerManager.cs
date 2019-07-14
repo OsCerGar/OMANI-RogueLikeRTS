@@ -10,8 +10,6 @@ public class EnnuiSpawnerManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (EnnuiSpawner == null) { EnnuiSpawner = this; }
-        else { enabled = false; }
         var AllPoolers = FindObjectsOfType<EZObjectPool>();
         foreach (EZObjectPool item in AllPoolers)
         {
@@ -23,6 +21,13 @@ public class EnnuiSpawnerManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (EnnuiSpawner == null) { EnnuiSpawner = this; }
+        else { enabled = false; }
+
+    }
+
     public void SpawnEnnuiParabola(Transform tr)
     {
         Ennui.TryGetNextObject(tr.position, tr.rotation, out Spawned);
@@ -31,6 +36,7 @@ public class EnnuiSpawnerManager : MonoBehaviour
     public void SpawnEnnui(Transform tr)
     {
         Debug.Log("Spawned");
-        Ennui.TryGetNextObject(tr.position, Quaternion.identity, out Spawned);
+        
+        //Ennui.TryGetNextObject(tr.position, Quaternion.identity, out Spawned);
     }
 }

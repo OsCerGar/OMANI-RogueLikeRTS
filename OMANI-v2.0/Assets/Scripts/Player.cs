@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.AI;
+using UnityEngine.Playables;
 using UnityStandardAssets.Characters.ThirdPerson;
 public class Player : NPC
 {
@@ -10,20 +10,17 @@ public class Player : NPC
     public static event OnDeath playerDead;
     */
 
-    Powers powers;
-    CharacterMovement characterMovement;
     [SerializeField] PlayableDirector Director;
     bool protection;
 
     //Inputs
-    PlayerInputInterface inputController;
     public override void Start()
     {
         TPC = GetComponent<ThirdPersonCharacter>();
         SM = GetComponentInChildren<SoundsManager>();
         peopl = LayerMask.NameToLayer("People");
         //We get all behaviourTrees
-        anim = transform.parent.gameObject.GetComponent<Animator>();
+        anim = transform.gameObject.GetComponent<Animator>();
         Nav = gameObject.GetComponent<NavMeshAgent>();
         circle = gameObject.GetComponentInChildren<SpriteRenderer>();
         if (transform.Find("UI") != null)
@@ -56,9 +53,6 @@ public class Player : NPC
     void Awake()
     {
         boyType = "Swordsman";
-        powers = GetComponent<Powers>();
-        characterMovement = GetComponent<CharacterMovement>();
-        inputController = FindObjectOfType<PlayerInputInterface>();
 
     }
 
@@ -74,15 +68,15 @@ public class Player : NPC
 
         if (!protection)
         {
-            if (powers.armor > 0)
+            if (Powers.powers.armor > 0)
             {
                 StartCoroutine(gotHit());
                 anim.SetTrigger("GetHit");
-                powers.reduceAsMuchPower(damage);
-                inputController.SetVibration(0, 1f, 0.25f, false);
-                inputController.SetVibration(1, 1f, 0.25f, false);
+                Powers.powers.reduceAsMuchPower(damage);
+                PlayerInputInterface.player.SetVibration(0, 1f, 0.25f, false);
+                PlayerInputInterface.player.SetVibration(1, 1f, 0.25f, false);
 
-                if (powers.armor < 1)
+                if (Powers.powers.armor < 1)
                 {
                     StartCoroutine(DamageProtection());
                     StartCoroutine(CoolDown());
@@ -103,18 +97,18 @@ public class Player : NPC
 
     IEnumerator CoolDown()
     {
-        inputController.SetVibration(0, 1f, 1f, false);
-        inputController.SetVibration(1, 1f, 1f, false);
-        inputController.SetDS4Lights(new Color(1f, 0f, 0.0f, 1f));
+        PlayerInputInterface.player.SetVibration(0, 1f, 1f, false);
+        PlayerInputInterface.player.SetVibration(1, 1f, 1f, false);
+        PlayerInputInterface.player.SetDS4Lights(new Color(1f, 0f, 0.0f, 1f));
 
-        powers.enabled = false;
-        characterMovement.speed = 0;
+        Powers.powers.enabled = false;
+        CharacterMovement.movement.speed = 0;
         yield return new WaitForSeconds(5f);
         if (state != "Dead")
         {
-            characterMovement.speed = characterMovement.originalSpeed;
-            powers.enabled = true;
-            powers.armor = 25;
+            CharacterMovement.movement.speed = CharacterMovement.movement.originalSpeed;
+            Powers.powers.enabled = true;
+            Powers.powers.armor = 25;
         }
 
     }

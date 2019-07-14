@@ -46,21 +46,22 @@ public class Robot : NPC
     public virtual void Awake()
     {
         base.Awake();
-        workerSM = GetComponentInChildren<WorkerSM>();
-        workerSM.transform.parent = null;
-        data.robotType = boyType;
         
     }
 
     public override void Start()
     {
         base.Start();
+        data.robotType = boyType;
+
         robot_energy = transform.GetComponent<Robot_Energy>();
         powerManager = FindObjectOfType<PowerManager>();
         powers = FindObjectOfType<Powers>();
         dissolveEffect = GetComponentInChildren<DissolveEffectController>();
         commander = FindObjectOfType<Army>();
         inputController = FindObjectOfType<PlayerInputInterface>();
+        workerSM = GetComponentInChildren<WorkerSM>();
+        workerSM.transform.parent = null;
 
         ball = transform.FindDeepChild("StartSphereMesh");
 

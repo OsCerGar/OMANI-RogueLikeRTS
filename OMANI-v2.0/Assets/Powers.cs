@@ -11,6 +11,7 @@ public class Powers : MonoBehaviour
     public Army army;
     #endregion
 
+    public static Powers powers;
     [SerializeField]
     public float maxArmor = 1000, armor = 1000, increaseAmount = 1, bigLazerAmount = 20, smallLazerAmount = 1, laserCooldown = 1, laserTime;
     //Test
@@ -52,7 +53,8 @@ public class Powers : MonoBehaviour
 
     public void Start()
     {
-
+        if (powers == null) { powers = this; }
+        else { enabled = false; }
         maxArmor = float.Parse(GamemasterController.GameMaster.getCsvValues("Omani")[1]);
 
     }
@@ -65,6 +67,13 @@ public class Powers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //CHEATS
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            addPower(50);
+        }
+
         if (army.currentFighter == null)
         {
             #region Inputs 

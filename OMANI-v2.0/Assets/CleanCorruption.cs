@@ -67,6 +67,7 @@ public class CleanCorruption : MonoBehaviour
     private IEnumerator Dematerialize(float DistanceGrower)
     {
         dissolveDistance = 8;
+        /*
         while (dissolveDistance < 35)
         {
             dissolveDistance += DistanceGrower;
@@ -101,11 +102,13 @@ public class CleanCorruption : MonoBehaviour
             {
                 Pointlight.intensity += 0.05f;
             }
-            yield return new WaitForSeconds(Time.deltaTime*2);
+            yield return new WaitForSeconds(Time.deltaTime);
 
            
             
         }
+        */
+        yield return new WaitForSeconds(0);
         transform.gameObject.SetActive(false);
 
 

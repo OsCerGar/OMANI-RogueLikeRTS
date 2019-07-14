@@ -26,7 +26,7 @@ public class LaserColisionStandard : MonoBehaviour
     //Inputs
     PlayerInputInterface inputController;
 
-    private void Awake()
+    private void Start()
     {
         powerLaser = FindObjectOfType<Power_Laser>();
         powers = FindObjectOfType<Powers>();

@@ -57,8 +57,11 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
                 if (robotSprite.name.Equals(_robotType))
                 {
                     found = true;
-                    Robot.enabled = true;
-                    Robot.sprite = robotSprite;
+                    if (Robot != null)
+                    {
+                        Robot.enabled = true;
+                        Robot.sprite = robotSprite;
+                    }
                 }
             }
 
@@ -69,7 +72,11 @@ public class RadialMenu_GUI_BASE : MonoBehaviour
         }
         else
         {
-            Robot.enabled = false;
+            if (Robot != null)
+            {
+
+                Robot.enabled = false;
+            }
         }
     }
 

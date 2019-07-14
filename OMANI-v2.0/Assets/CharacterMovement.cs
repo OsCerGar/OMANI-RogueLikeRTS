@@ -2,6 +2,7 @@
 
 public class CharacterMovement : MonoBehaviour
 {
+    public static CharacterMovement movement;
 
     Rigidbody rb;
     LookDirectionsAndOrder LookDirection;
@@ -36,6 +37,8 @@ public class CharacterMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (movement == null) { movement = this; }
+        else { enabled = false; }
         rb = GetComponent<Rigidbody>();
         LookDirection = FindObjectOfType<LookDirectionsAndOrder>();
         inputs = FindObjectOfType<PlayerInputInterface>();

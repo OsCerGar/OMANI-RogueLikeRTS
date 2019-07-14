@@ -4,6 +4,13 @@ public class SceneLoadBasic : MonoBehaviour
 
     [SerializeField] string sceneToLoad;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            LoadNextScene();
+        }
+    }
     public void LoadNextScene()
     {
         Initiate.Fade(sceneToLoad, Color.white, 0.5f);

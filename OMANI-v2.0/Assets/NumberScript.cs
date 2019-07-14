@@ -16,7 +16,6 @@ public class NumberScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        mainCamera = Camera.main;
         number = GetComponentInChildren<Text>();
         anim = GetComponentInParent<Animator>();
         pool = FindObjectOfType<NumberPool>();
@@ -24,6 +23,7 @@ public class NumberScript : MonoBehaviour
 
     private void OnEnable()
     {
+        mainCamera = Camera.main;
         transform.LookAt(mainCamera.transform);
     }
 

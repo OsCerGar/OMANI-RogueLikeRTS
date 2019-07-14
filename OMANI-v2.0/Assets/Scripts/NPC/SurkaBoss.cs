@@ -1,5 +1,4 @@
 ﻿using BehaviorDesigner.Runtime;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -13,6 +12,9 @@ public class SurkaBoss : Enemy
     [SerializeField] PlayableDirector Director;
 
     bool fase1, fase2, fase3;
+
+    [SerializeField]
+    RPGTalk dieDialog;
 
     public void SetMaster(GameObject master)
     {
@@ -82,15 +84,9 @@ public class SurkaBoss : Enemy
     {
         base.Die();
 
+        dieDialog.variables[0].variableValue = GamemasterController.GameMaster.Money.ToString();
         Director.Play();
-        StartCoroutine("LoadScene");
     }
 
-    private IEnumerator LoadScene()
-    {
-        yield return new WaitForSeconds(8f);
-        Initiate.Fade("Tutorial", Color.black, 0.5f);
-
-    }
 
 }

@@ -13,7 +13,6 @@ public class NumberPool : MonoBehaviour
     void Awake()
     {
         var AllPoolers = FindObjectsOfType<EZObjectPool>();
-        camera = Camera.main.transform;
         foreach (EZObjectPool item in AllPoolers)
         {
             if (item.PoolName == "DamageNumber")
@@ -45,7 +44,8 @@ public class NumberPool : MonoBehaviour
             text = Spawned.transform.GetComponentInChildren<NumberScript>();
             text.SetNumberOwner(numberOwner);
             text.numberUpdate(damage_value, _type, _restoring);
-
+            //PERFORMANCE MIS HUEVOS
+            camera = Camera.main.transform;
             text.transform.forward = -camera.transform.forward;
             texts.Add(text);
         }

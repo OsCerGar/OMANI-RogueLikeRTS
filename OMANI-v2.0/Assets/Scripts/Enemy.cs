@@ -84,8 +84,6 @@ public class Enemy : NPC
         GamemasterController.GameMaster.Money += 1;
         GamemasterController.GameMaster.Save();
 
-        Debug.Log(GamemasterController.GameMaster.Money);
-
 
 
         if (OnDie != null)

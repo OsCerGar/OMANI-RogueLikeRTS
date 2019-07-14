@@ -32,7 +32,7 @@ public class Robot_Energy : Interactible
         {
             startTime = Time.time;
 
-            if (powers.reducePower(0))
+            if (Powers.powers.reducePower(0))
             {
                 float reduceamount = currentLinkPrice * Time.unscaledDeltaTime;
                 _robot.powerPool += reduceamount;
@@ -51,9 +51,9 @@ public class Robot_Energy : Interactible
 
     public override void FullAction()
     {
-        _robot.powerPool = powers.reduceAsMuchPower(_robot.maxpowerPool);
+        _robot.powerPool = Powers.powers.reduceAsMuchPower(_robot.maxpowerPool);
 
-        numberPool.NumberSpawn(_robot.numbersTransform, powers.reduceAsMuchPower(_robot.maxpowerPool), Color.cyan, gameObject, true);
+        numberPool.NumberSpawn(_robot.numbersTransform, Powers.powers.reduceAsMuchPower(_robot.maxpowerPool), Color.cyan, gameObject, true);
 
         laserAudio.energyTransmisionSound(currentLinkPrice);
     }
@@ -76,7 +76,10 @@ public class Robot_Energy : Interactible
 
     public override void ActionCompleted()
     {
-        workerSM.selectionRobot();
+        if (workerSM != null)
+        {
+            workerSM.selectionRobot();
+        }
 
         startTime = Time.time;
         ready = true;
