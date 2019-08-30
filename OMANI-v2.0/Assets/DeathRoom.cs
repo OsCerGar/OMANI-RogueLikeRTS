@@ -57,7 +57,6 @@ public class DeathRoom : MonoBehaviour
                 timeText.enabled = false;
                 starImage.enabled = false;
                 AddPoints();
-                enabled = false;
             }
 
             //UI STUFF

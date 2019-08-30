@@ -81,7 +81,6 @@ public class ArmyCell : MonoBehaviour
     {
         if (robots.Remove(_robot))
         {
-            Debug.Log("removed");
             //SaveGame robot list
             GamemasterController.GameMaster.RemoveRobot(_robot);
         }

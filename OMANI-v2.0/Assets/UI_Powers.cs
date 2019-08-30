@@ -7,14 +7,19 @@ public class UI_Powers : MonoBehaviour
 {
 
     public List<Image> dyingEffect = new List<Image>();
-    public Image dashImage;
     bool dying;
     [SerializeField]
     Powers powers;
     float startingPoint;
     [SerializeField]
     AudioMixer musicMixer;
+
+    //DASH
     public Animator DashAnim;
+    public Image dashImage;
+
+    //POINTS
+    public Text pointsText;
 
     // Use this for initialization
     void Start()
@@ -25,6 +30,12 @@ public class UI_Powers : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        if (GamemasterController.GameMaster.Money > 0)
+        {
+            pointsText.enabled = true;
+            pointsText.text = GamemasterController.GameMaster.Money.ToString();
+        }
+
         if (CharacterMovement.movement.dashCooldown > 2.9f)
         {
             DashAnim.SetBool("Dash", false);

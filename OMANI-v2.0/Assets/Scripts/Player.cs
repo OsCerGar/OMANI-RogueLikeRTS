@@ -12,7 +12,6 @@ public class Player : NPC
 
     [SerializeField] PlayableDirector Director;
     bool protection;
-
     //Inputs
     public override void Start()
     {
@@ -20,13 +19,10 @@ public class Player : NPC
         SM = GetComponentInChildren<SoundsManager>();
         peopl = LayerMask.NameToLayer("People");
         //We get all behaviourTrees
-        anim = transform.gameObject.GetComponent<Animator>();
         Nav = gameObject.GetComponent<NavMeshAgent>();
         circle = gameObject.GetComponentInChildren<SpriteRenderer>();
         if (transform.Find("UI") != null)
         {
-            numbersTransform = transform.Find("UI").Find("Numbers");
-
             if (transform.Find("UI/SelectionAnimationParent") != null)
             {
                 GUI = transform.Find("UI/SelectionAnimationParent").gameObject;

@@ -66,7 +66,7 @@ public class NPC : MonoBehaviour
     //UI
     [HideInInspector]
     public NumberPool numberPool;
-    [HideInInspector]
+    
     public Transform numbersTransform;
     #endregion
 

@@ -35,7 +35,6 @@ public class EnnuiSpawnerManager : MonoBehaviour
     }
     public void SpawnEnnui(Transform tr)
     {
-        Debug.Log("Spawned");
         
         //Ennui.TryGetNextObject(tr.position, Quaternion.identity, out Spawned);
     }
