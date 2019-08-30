@@ -7,12 +7,14 @@ public class UI_Powers : MonoBehaviour
 {
 
     public List<Image> dyingEffect = new List<Image>();
+    public Image dashImage;
     bool dying;
     [SerializeField]
     Powers powers;
     float startingPoint;
     [SerializeField]
     AudioMixer musicMixer;
+    public Animator DashAnim;
 
     // Use this for initialization
     void Start()
@@ -23,6 +25,15 @@ public class UI_Powers : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        if (CharacterMovement.movement.dashCooldown > 2.9f)
+        {
+            DashAnim.SetBool("Dash", false);
+        }
+        else
+        {
+            DashAnim.SetBool("Dash", true);
+        }
+
         if (powers.armor < startingPoint)
         {
             dying = false;
@@ -53,8 +64,8 @@ public class UI_Powers : MonoBehaviour
 
         if (!dying)
         {
-            dyingEffect[0].transform.Rotate(0,0,0.25f, Space.Self);
-            dyingEffect[1].transform.Rotate(0,0,-0.15f, Space.Self);
+            dyingEffect[0].transform.Rotate(0, 0, 0.25f, Space.Self);
+            dyingEffect[1].transform.Rotate(0, 0, -0.15f, Space.Self);
             dyingEffect[2].transform.Rotate(0, 0, 0.15f, Space.Self);
 
         }

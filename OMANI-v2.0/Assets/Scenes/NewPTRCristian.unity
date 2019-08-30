@@ -329,10 +329,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SurkaMele
       objectReference: {fileID: 0}
-    - target: {fileID: 451989211, guid: fc463987516aa774da87334bea8f2728, type: 3}
-      propertyPath: pauseWhenDisabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 451989209, guid: fc463987516aa774da87334bea8f2728, type: 3}
       propertyPath: m_LocalPosition.x
       value: 69.29645
@@ -375,6 +371,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 451989209, guid: fc463987516aa774da87334bea8f2728, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 451989211, guid: fc463987516aa774da87334bea8f2728, type: 3}
+      propertyPath: pauseWhenDisabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -622,7 +622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a09cea8105fd8743a8aa7988521dea6, type: 3}
---- !u!84 &1010577980
+--- !u!84 &694933777
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -635,8 +635,42 @@ RenderTexture:
   m_ForcedFallbackFormat: 4
   m_DownscaleFallback: 0
   serializedVersion: 3
-  m_Width: 528
-  m_Height: 565
+  m_Width: 900
+  m_Height: 506
+  m_AntiAliasing: 1
+  m_DepthFormat: 1
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+--- !u!84 &723476704
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 900
+  m_Height: 506
   m_AntiAliasing: 1
   m_DepthFormat: 1
   m_ColorFormat: 4
@@ -799,40 +833,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ed4a9ffc37206741b4326c6c8e5307b, type: 3}
---- !u!84 &1735352934
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 528
-  m_Height: 565
-  m_AntiAliasing: 1
-  m_DepthFormat: 1
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &2124115711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,7 +1011,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 1010577980}
+      objectReference: {fileID: 723476704}
     - target: {fileID: 20718659739656310, guid: 01bb454464aba844c9ecfea4bad6d924,
         type: 3}
       propertyPath: field of view
@@ -9571,7 +9571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ee3c466b8946f4d8d122273f135317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: {fileID: 7588635555747178120}
   currentLife: {fileID: 7549612535102513354}
   quarter: {fileID: 7549612534317033280}
 --- !u!223 &4462945892685092663
@@ -22731,6 +22730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1cf8d67b1db494f834bd523375ffbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: 
 --- !u!114 &7549612535518667250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25168,7 +25168,10 @@ MonoBehaviour:
   - {fileID: 4462945893088672405}
   - {fileID: 4462945893536381875}
   - {fileID: 4462945893295747838}
+  dashImage: {fileID: 0}
+  powers: {fileID: 0}
   musicMixer: {fileID: 24100000, guid: cb37c6749aed6334c820d613dbcacd5a, type: 2}
+  DashAnim: {fileID: 0}
 --- !u!114 &7592373122758328332
 MonoBehaviour:
   m_ObjectHideFlags: 0

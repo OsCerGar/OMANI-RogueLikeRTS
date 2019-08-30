@@ -10,6 +10,7 @@ public class SceneLoad : MonoBehaviour
 
     [SerializeField] GameObject DisablePlayer;
 
+    [SerializeField] GameObject destroy;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
@@ -33,12 +34,12 @@ public class SceneLoad : MonoBehaviour
     public void LoadNextScene()
     {
         Initiate.Fade(sceneToLoad, Color.white, 0.5f);
-
+        Destroy(destroy);
     }
 
     public void LoadNextScene(string _sceneToLoad)
     {
         Initiate.Fade(_sceneToLoad, Color.white, 0.5f);
-
+        Destroy(destroy);
     }
 }

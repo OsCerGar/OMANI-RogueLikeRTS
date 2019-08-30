@@ -8,9 +8,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Meca Omani
-  m_Shader: {fileID: 4800000, guid: 881c73b45dda42d4ba29f8c7742329be, type: 3}
-  m_ShaderKeywords: _MK_ALBEDO_MAP _MK_BUMP_MAP _MK_EMISSION_MAP _MK_LIGHTMODEL_BLINN_PHONG
-    _MK_LIGHTTYPE_CEL_SHADE_MULTI _MK_OCCLUSION _USEOUTLINE_ON
+  m_Shader: {fileID: 4800000, guid: 6ee274c501732384d9c8bb02a4576937, type: 3}
+  m_ShaderKeywords: _MK_ALBEDO_MAP _MK_BUMP_MAP _MK_DETAIL_MAP _MK_EMISSION_MAP _MK_LIGHTMODEL_BLINN_PHONG
+    _MK_LIGHTTYPE_CEL_SHADE_MULTI _MK_MODE_TRANSPARENT _MK_OCCLUSION _MK_SPECULAR_MAP
+    _USEOUTLINE_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -28,11 +29,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: d490c7e2765818046962cc93e22de1c1, type: 3}
+        m_Texture: {fileID: 2800000, guid: e77429a8405260a4385b87862000939b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: fc8d03491f508634f95912c8583d3a4e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
@@ -52,11 +53,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: ec3c4ebde921820439491336a5828e42, type: 3}
+        m_Texture: {fileID: 2800000, guid: a78abdcbfb9c1de4ebb1bb0111de3868, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 34a9457d80945bd40b83787090e7ce2c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 67ff7eae9a9914c4fba3e072bb301424, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 20035c456aa38f3468f58137d2760ceb, type: 3}
+        m_Texture: {fileID: 2800000, guid: e36cfd1af61229a48931cdd5dbce7280, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -76,7 +77,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ReflectMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: fc8d03491f508634f95912c8583d3a4e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SketchMap:
@@ -94,15 +95,15 @@ Material:
     m_Floats:
     - _AlbedoMap: 0
     - _AnisoOffset: -0.2
-    - _Blend0: 1
-    - _Blend1: 0
+    - _Blend0: 5
+    - _Blend1: 10
     - _Brightness: 1
-    - _BumpScale: 0.4
+    - _BumpScale: 0.5
     - _Contrast: 1
     - _CullMode: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DetailTint: 0.5
+    - _DetailTint: 0
     - _DissolveAmount: 0.5
     - _DissolveRampSize: 0.25
     - _DstBlend: 0
@@ -118,7 +119,7 @@ Material:
     - _MKEditorShowDissolveBehavior: 0
     - _MKEditorShowLightBehavior: 1
     - _MKEditorShowMainBehavior: 1
-    - _MKEditorShowOutlineBehavior: 1
+    - _MKEditorShowOutlineBehavior: 0
     - _MKEditorShowReflectionBehavior: 0
     - _MKEditorShowRenderBehavior: 1
     - _MKEditorShowRimBehavior: 0
@@ -127,18 +128,18 @@ Material:
     - _MKEditorShowSpecularBehavior: 0
     - _MKEditorShowTranslucentBehavior: 0
     - _Metallic: 0
-    - _Mode: 0
+    - _Mode: 2
     - _OcclusionStrength: 0.032
-    - _OutlineSize: 0.02
+    - _OutlineSize: 0.01
     - _Parallax: 0.02
-    - _ReflectIntensity: 0.5
+    - _ReflectIntensity: 0
     - _ReflectSmoothness: 0
     - _RimIntensity: 0.5
     - _RimSize: 1.5
     - _RimSmoothness: 0.5
     - _Roughness: 1.19
     - _Saturation: 1
-    - _ShadowIntensity: 0.97
+    - _ShadowIntensity: 0.8
     - _Shininess: 0.275
     - _SketchScale: 16
     - _SketchToneMax: 1
@@ -165,9 +166,9 @@ Material:
     - _DissolveColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _EmissionColor: {r: 0.14126328, g: 1, b: 0.14126328, a: 1}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0.27358484, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0, g: 0.6981132, b: 0.085105546, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShadowColor: {r: 0.17434669, g: 0.052331775, b: 0.22641507, a: 1}
+    - _ShadowColor: {r: 0.031286933, g: 0.1792453, b: 0, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _TranslucentColor: {r: 1, g: 1, b: 1, a: 0.5}
