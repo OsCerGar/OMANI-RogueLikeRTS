@@ -22,6 +22,11 @@ public class SurkaMelee : Enemy
         thisTarget.Value = master;
 
     }
+    public override void Die()
+    {
+        GamemasterController.GameMaster.Money += int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[3]);
+        base.Die();
+    }
     public void StartAttackTrail()
     {
         AttackTrail.Play();

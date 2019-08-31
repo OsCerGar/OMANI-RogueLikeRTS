@@ -13,7 +13,7 @@ public class UI_Powers : MonoBehaviour
     float startingPoint;
     [SerializeField]
     AudioMixer musicMixer;
-
+    float currentMoney = 0;
     //DASH
     public Animator DashAnim;
     public Image dashImage;
@@ -33,7 +33,12 @@ public class UI_Powers : MonoBehaviour
         if (GamemasterController.GameMaster.Money > 0)
         {
             pointsText.enabled = true;
-            pointsText.text = GamemasterController.GameMaster.Money.ToString();
+            if (currentMoney != GamemasterController.GameMaster.Money)
+            {
+
+                currentMoney = Mathf.Lerp(currentMoney, GamemasterController.GameMaster.Money, Time.deltaTime);
+                pointsText.text = Mathf.RoundToInt(currentMoney).ToString();
+            }
         }
 
         if (CharacterMovement.movement.dashCooldown > 2.9f)

@@ -9,6 +9,8 @@ public class SceneLoad : MonoBehaviour
     [SerializeField] AudioSource TeleportSFX;
 
     [SerializeField] GameObject DisablePlayer;
+    [SerializeField] string hexColor;
+    Color myColor;
 
     [SerializeField] GameObject destroy;
     private void Update()
@@ -33,11 +35,17 @@ public class SceneLoad : MonoBehaviour
 
     public void LoadNextScene()
     {
-        Initiate.Fade(sceneToLoad, Color.white, 0.5f);
+        myColor = new Color();
+        ColorUtility.TryParseHtmlString(hexColor, out myColor);
+
+        Initiate.Fade(sceneToLoad, myColor, 0.5f);
     }
 
     public void LoadNextScene(string _sceneToLoad)
     {
-        Initiate.Fade(_sceneToLoad, Color.white, 0.5f);
+        myColor = new Color();
+        ColorUtility.TryParseHtmlString(hexColor, out myColor);
+
+        Initiate.Fade(_sceneToLoad, myColor, 0.5f);
     }
 }

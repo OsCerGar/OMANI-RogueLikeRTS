@@ -6,7 +6,7 @@ public class NumberPool : MonoBehaviour
     EZObjectPool damagenumber;
     GameObject Spawned; // list
     NumberScript text;
-
+    Vector3 RandomPos;
     List<NumberScript> texts = new List<NumberScript>();
     Transform camera;
     // Start is called before the first frame update
@@ -27,6 +27,7 @@ public class NumberPool : MonoBehaviour
     {
         bool alreadyOwned = false;
 
+        if (_restoring) { 
         foreach (NumberScript txt in texts)
         {
             if (txt.GetNumberOwner() == numberOwner)
@@ -38,9 +39,12 @@ public class NumberPool : MonoBehaviour
             }
 
         }
+        }
         if (alreadyOwned == false)
         {
-            damagenumber.TryGetNextObject(tr.position, damagenumber.gameObject.transform.rotation, out Spawned);
+            RandomPos = new Vector3(Random.Range(tr.position.x - 0.5f, tr.position.x + 0.5f), Random.Range(tr.position.y - 0.5f, tr.position.y + 0.5f), numberOwner.transform.position.z);
+
+            damagenumber.TryGetNextObject(RandomPos, damagenumber.gameObject.transform.rotation, out Spawned);
             text = Spawned.transform.GetComponentInChildren<NumberScript>();
             text.SetNumberOwner(numberOwner);
             text.numberUpdate(damage_value, _type, _restoring);

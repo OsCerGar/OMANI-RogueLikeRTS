@@ -278,6 +278,7 @@ public class CharacterMovement : MonoBehaviour
 
                 //if (anim.GetCurrentAnimatorStateInfo(0).IsName("StraightBlend") || anim.GetCurrentAnimatorStateInfo(0).IsName("ANIM_IDDLE"))
                 //{
+                /*
                 Debug.Log(angleDesiredDirection);
                 if (angleDesiredDirection > 45 && angleDesiredDirection < 90)
                 {
@@ -302,13 +303,13 @@ public class CharacterMovement : MonoBehaviour
                     anim.SetBool("TurnLeft180", false);
                     anim.SetBool("TurnLeft", false);
                     anim.SetBool("TurnRight", false);
-                }
+                }*/
                 x = Mathf.Lerp(x, finalDirection.x, 0.25f);
                 y = Mathf.Lerp(y, finalDirection.z, 0.25f);
 
                 anim.SetFloat("X", x);
                 anim.SetFloat("Y", y);
-
+                
             }
         }
 

@@ -15,13 +15,13 @@ public class SurkaRanged : Enemy
 
     public void Start()
     {
-        base.Start();        
-        
-            //damage
-            damage = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[2]);
-            damage = Mathf.RoundToInt(damage + (GamemasterController.GameMaster.Difficulty * 2));
-            //life
-            life = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[1]);
+        base.Start();
+
+        //damage
+        damage = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[2]);
+        damage = Mathf.RoundToInt(damage + (GamemasterController.GameMaster.Difficulty * 2));
+        //life
+        life = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[1]);
     }
     public void SetMaster(GameObject master)
     {
@@ -33,7 +33,11 @@ public class SurkaRanged : Enemy
     {
         AttackTrail.Play();
     }
-
+    public override void Die()
+    {
+        GamemasterController.GameMaster.Money += int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[3]);
+        base.Die();
+    }
     public override void AttackHit()
     {
         Shoot.Emit(1);

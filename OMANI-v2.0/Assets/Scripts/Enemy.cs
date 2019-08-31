@@ -81,7 +81,7 @@ public class Enemy : NPC
 
         col.enabled = false;
         laserTarget.gameObject.SetActive(false);
-        GamemasterController.GameMaster.Money += 1;
+        //GamemasterController.GameMaster.Money += 1;
         GamemasterController.GameMaster.Save();
 
 

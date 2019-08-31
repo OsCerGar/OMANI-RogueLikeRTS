@@ -78,7 +78,7 @@ public class GamemasterController : MonoBehaviour
             Destroy(gameObject);
         }
         Debug.Log(Application.persistentDataPath);
-        Load();
+        //Load();
     }
 
     public void AddRobot(Robot _robot)

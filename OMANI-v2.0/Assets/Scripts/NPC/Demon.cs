@@ -23,7 +23,11 @@ public class Demon : Enemy {
         thisTarget.Value = master;
 
     }
-
+    public override void Die()
+    {
+        GamemasterController.GameMaster.Money += int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[3]);
+        base.Die();
+    }
     public override void AttackHit()
     {
         Attackzone.SetActive(true);
