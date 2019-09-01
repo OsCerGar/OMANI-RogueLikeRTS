@@ -35,7 +35,7 @@ public class SurkaRanged : Enemy
     }
     public override void Die()
     {
-        GamemasterController.GameMaster.Money += int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[3]);
+        GamemasterController.GameMaster.AddMoney(int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[3]));
         base.Die();
     }
     public override void AttackHit()

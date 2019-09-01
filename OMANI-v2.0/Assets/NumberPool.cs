@@ -9,6 +9,8 @@ public class NumberPool : MonoBehaviour
     Vector3 RandomPos;
     List<NumberScript> texts = new List<NumberScript>();
     Transform camera;
+    
+
     // Start is called before the first frame update
     void Awake()
     {

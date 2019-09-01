@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using BehaviorDesigner.Runtime;
 using UnityEngine;
-using BehaviorDesigner.Runtime.Tasks;
-using BehaviorDesigner.Runtime;
 
-public class Demon : Enemy {
+public class Demon : Enemy
+{
 
     public override void Start()
     {
@@ -25,7 +23,7 @@ public class Demon : Enemy {
     }
     public override void Die()
     {
-        GamemasterController.GameMaster.Money += int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[3]);
+        GamemasterController.GameMaster.AddMoney(int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[3]));
         base.Die();
     }
     public override void AttackHit()

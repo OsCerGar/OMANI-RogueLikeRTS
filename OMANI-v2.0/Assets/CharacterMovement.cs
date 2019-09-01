@@ -34,6 +34,7 @@ public class CharacterMovement : MonoBehaviour
     public Animator anim;
 
     float x, y;
+    float angleDesiredDirection;
     // Use this for initialization
     void Start()
     {
@@ -47,6 +48,9 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
+        angleDesiredDirection = 0;
+        anim.SetFloat("AngleObjective", angleDesiredDirection);
+
         if (ableToMove)
         {
             anim.SetFloat("Speed", speed);
@@ -188,28 +192,12 @@ public class CharacterMovement : MonoBehaviour
                 float angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
                 Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
 
-                float angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
+                angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
 
-                if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
-                {
 
-                    if (angleDesiredDirection > 150)
-                    {
-                        anim.SetBool("TurnLeft180", true);
-                    }
+                DirectRotate(desiredDirection);
 
-                    if (angleDesiredDirection < -150)
-                    {
-                        anim.SetBool("TurnRight180", true);
-                    }
 
-                }
-
-                else
-                {
-                    anim.SetBool("TurnRight180", false);
-                    anim.SetBool("TurnLeft180", false);
-                }
                 anim.SetFloat("X", finalDirection.x);
                 anim.SetFloat("Y", finalDirection.z);
 
@@ -274,42 +262,18 @@ public class CharacterMovement : MonoBehaviour
                 float angle = Vector3.SignedAngle(Vector3.forward, transform.forward, Vector3.up);
                 Vector3 finalDirection = Quaternion.Euler(0, -angle, 0) * desiredDirection;
 
-                float angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
+                angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
 
-                //if (anim.GetCurrentAnimatorStateInfo(0).IsName("StraightBlend") || anim.GetCurrentAnimatorStateInfo(0).IsName("ANIM_IDDLE"))
-                //{
-                /*
-                Debug.Log(angleDesiredDirection);
-                if (angleDesiredDirection > 45 && angleDesiredDirection < 90)
-                {
-                    anim.SetBool("TurnLeft", true);
-                }
-                if (angleDesiredDirection > 150)
-                {
-                    anim.SetBool("TurnLeft180", true);
-                }
-                if (angleDesiredDirection < -45 && angleDesiredDirection > -90)
-                {
-                    anim.SetBool("TurnRight", true);
-                }
-                if (angleDesiredDirection < -150)
-                {
-                    anim.SetBool("TurnRight180", true);
-                }
-                //}
-                if (angleDesiredDirection < 45 && angleDesiredDirection > -45)
-                {
-                    anim.SetBool("TurnRight180", false);
-                    anim.SetBool("TurnLeft180", false);
-                    anim.SetBool("TurnLeft", false);
-                    anim.SetBool("TurnRight", false);
-                }*/
+                anim.SetFloat("AngleObjective", angleDesiredDirection);
+
+                DirectRotate(desiredDirection);
+
                 x = Mathf.Lerp(x, finalDirection.x, 0.25f);
                 y = Mathf.Lerp(y, finalDirection.z, 0.25f);
 
                 anim.SetFloat("X", x);
                 anim.SetFloat("Y", y);
-                
+                angleDesiredDirection = 0;
             }
         }
 
@@ -324,10 +288,6 @@ public class CharacterMovement : MonoBehaviour
         {
             if (inputs.MovementAxis.x == 0f && inputs.MovementAxis.y == 0f && inputs.MovementAxisController.x == 0 && inputs.MovementAxisController.y == 0)
             {
-                anim.SetBool("TurnRight", false);
-                anim.SetBool("TurnRight180", false);
-                anim.SetBool("TurnLeft", false);
-                anim.SetBool("TurnLeft180", false);
 
                 onMovement = false;
 

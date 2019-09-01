@@ -15,12 +15,12 @@ public class UI_Powers : MonoBehaviour
     AudioMixer musicMixer;
     float currentMoney = 0;
     //DASH
-    public Animator DashAnim;
+    public Animator DashAnim, pointsAnim;
     public Image dashImage;
 
     //POINTS
-    public Text pointsText;
-
+    public Text pointsText, updatedPointsText;
+    bool updatedPoints;
     // Use this for initialization
     void Start()
     {
@@ -33,11 +33,16 @@ public class UI_Powers : MonoBehaviour
         if (GamemasterController.GameMaster.Money > 0)
         {
             pointsText.enabled = true;
+            updatedPointsText.gameObject.SetActive(true);
             if (currentMoney != GamemasterController.GameMaster.Money)
             {
-
+                updatedPointsText.text = "+" + Mathf.RoundToInt(GamemasterController.GameMaster.Money - currentMoney);
                 currentMoney = Mathf.Lerp(currentMoney, GamemasterController.GameMaster.Money, Time.deltaTime);
                 pointsText.text = Mathf.RoundToInt(currentMoney).ToString();
+            }
+            else
+            {
+                updatedPoints = false;
             }
         }
 

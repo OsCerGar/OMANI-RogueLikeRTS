@@ -313,6 +313,10 @@ public class GamemasterController : MonoBehaviour
             }
         }
     }
+    public void AddMoney(int _moneyToAdd)
+    {
+        Money = _moneyToAdd;
+    }
 
     public string[] getCsvValues(String _statName, int _level)
     {

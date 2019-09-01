@@ -135,19 +135,19 @@ public class DeathRoom : MonoBehaviour
         int pointsAdded = 0;
         if (stars == 1)
         { //add 10% of the pointsToAdd
-            pointsAdded = Mathf.RoundToInt(pointsToAdd * 0.1f);
+            pointsAdded = Mathf.RoundToInt(pointsToAdd * 0.25f);
         }
         if (stars == 2)
         { //add 20% of the pointsToAdd
-            pointsAdded = Mathf.RoundToInt(pointsToAdd * 0.2f);
+            pointsAdded = Mathf.RoundToInt(pointsToAdd * 0.5f);
 
         }
         if (stars == 3)
         { //add 30% of the pointsToAdd
-            pointsAdded = Mathf.RoundToInt(pointsToAdd * 0.3f);
+            pointsAdded = Mathf.RoundToInt(pointsToAdd * 0.75f);
 
         }
-        //add points
-        Debug.Log("points added " + pointsAdded);
+
+        GamemasterController.GameMaster.AddMoney(pointsAdded);
     }
 }
