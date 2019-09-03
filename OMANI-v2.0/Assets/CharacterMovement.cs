@@ -207,7 +207,6 @@ public class CharacterMovement : MonoBehaviour
 
         }
 
-
         // If the axis has any sort of input on Joystick.
         else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
         {
