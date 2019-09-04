@@ -64,24 +64,24 @@ public class Player : NPC
 
         if (!protection)
         {
-            if (Powers.powers.armor > 0)
+            if (Powers.powers.armor >= 1)
             {
                 StartCoroutine(gotHit());
                 anim.SetTrigger("GetHit");
                 Powers.powers.reduceAsMuchPower(damage);
                 PlayerInputInterface.player.SetVibration(0, 1f, 0.25f, false);
                 PlayerInputInterface.player.SetVibration(1, 1f, 0.25f, false);
-
-                if (Powers.powers.armor < 1)
-                {
-                    StartCoroutine(DamageProtection());
-                    StartCoroutine(CoolDown());
-                }
-
             }
 
             else
             {
+                PlayerInputInterface.player.SetVibration(0, 1f, 1f, false);
+                PlayerInputInterface.player.SetVibration(1, 1f, 1f, false);
+                PlayerInputInterface.player.SetDS4Lights(new Color(1f, 0f, 0.0f, 1f));
+
+                Powers.powers.enabled = false;
+                CharacterMovement.movement.speed = 0;
+
                 //provisional :D
                 Die();
                 state = "Dead";
