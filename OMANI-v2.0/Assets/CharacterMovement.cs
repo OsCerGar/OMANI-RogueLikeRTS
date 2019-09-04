@@ -32,6 +32,7 @@ public class CharacterMovement : MonoBehaviour
 
     //Animator 
     public Animator anim;
+    public GameObject dashAttack;
 
     float x, y;
     float angleDesiredDirection;
@@ -348,6 +349,11 @@ public class CharacterMovement : MonoBehaviour
     public void AbleToMove()
     {
         ableToMove = true;
+    }
+
+    public void DashAttack()
+    {
+        dashAttack.SetActive(true);
     }
 }
 
