@@ -7,10 +7,11 @@ public class LoadSceneOnEnable : MonoBehaviour
     string sceneName;
     private void OnEnable()
     {
-        if (sceneName == null)
+        if (sceneName == "this")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
         }
+
         else
         {
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);

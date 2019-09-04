@@ -80,7 +80,9 @@ public class Player : NPC
                 PlayerInputInterface.player.SetDS4Lights(new Color(1f, 0f, 0.0f, 1f));
 
                 Powers.powers.enabled = false;
-                CharacterMovement.movement.speed = 0;
+                CharacterMovement.movement.anim.SetBool("Iddle", true);
+                CharacterMovement.movement.anim.SetBool("OnMovement", false);
+                CharacterMovement.movement.enabled = false;
 
                 //provisional :D
                 Die();
