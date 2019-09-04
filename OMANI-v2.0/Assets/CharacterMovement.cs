@@ -7,7 +7,7 @@ public class CharacterMovement : MonoBehaviour
     Rigidbody rb;
     LookDirectionsAndOrder LookDirection;
 
-    public float speed = 1f, originalSpeed = 1f, smooth = 5f;
+    public float speed = 1f, originalSpeed = 1f, smooth = 1f;
 
     public float dashCooldown;
 
@@ -59,23 +59,21 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (dashCooldown > 3f)
                 {
-                    if (anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
+                    //if (!anim.GetBool("TurnLeft180") && !anim.GetBool("TurnRight180"))
+                    //{
+                    if (inputs.MovementAxis.x != 0f || inputs.MovementAxis.y != 0f)
                     {
-                        //if (!anim.GetBool("TurnLeft180") && !anim.GetBool("TurnRight180"))
-                        //{
-                        if (inputs.MovementAxis.x != 0f || inputs.MovementAxis.y != 0f)
-                        {
-                            DirectRotate(desiredDirection);
-                        }
-                        else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
-                        {
-                            DirectRotate(desiredDirection);
-                        }
-                        //}
-
-                        anim.SetBool("Dash", true);
-                        dashCooldown = 0;
+                        DirectRotate(desiredDirection);
                     }
+                    else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
+                    {
+                        DirectRotate(desiredDirection);
+                    }
+                    //}
+
+                    anim.SetBool("Dash", true);
+                    dashCooldown = 0;
+
                 }
             }
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("ANIM_DASH"))
@@ -195,7 +193,7 @@ public class CharacterMovement : MonoBehaviour
                 angleDesiredDirection = Vector3.SignedAngle(desiredDirection, transform.forward, Vector3.up);
 
 
-                DirectRotate(desiredDirection);
+                Rotate(desiredDirection);
 
 
                 anim.SetFloat("X", finalDirection.x);
@@ -265,7 +263,7 @@ public class CharacterMovement : MonoBehaviour
 
                 anim.SetFloat("AngleObjective", angleDesiredDirection);
 
-                DirectRotate(desiredDirection);
+                Rotate(desiredDirection);
 
                 x = Mathf.Lerp(x, finalDirection.x, 0.25f);
                 y = Mathf.Lerp(y, finalDirection.z, 0.25f);
