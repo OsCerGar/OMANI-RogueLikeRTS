@@ -9,10 +9,10 @@ public class SurkaMelee : Enemy
     {
         base.Start();
         //damage
-        damage = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[2]);
-        damage = Mathf.RoundToInt(damage + (GamemasterController.GameMaster.Difficulty * 2));
+        //damage = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[2]);
+        //damage = Mathf.RoundToInt(damage + (GamemasterController.GameMaster.Difficulty * 2));
         //life
-        life = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[1]);
+        //life = int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[1]);
 
     }
 
@@ -24,7 +24,8 @@ public class SurkaMelee : Enemy
     }
     public override void Die()
     {
-        GamemasterController.GameMaster.AddMoney(int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[3]));
+        // GamemasterController.GameMaster.AddMoney(int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[3]));
+        GamemasterController.GameMaster.AddMoney(100);
         base.Die();
     }
     public void StartAttackTrail()

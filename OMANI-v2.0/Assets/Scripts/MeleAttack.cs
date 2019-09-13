@@ -23,7 +23,7 @@ public class MeleAttack : MonoBehaviour
 
     private void Start()
     {
-        criticalChance = Mathf.RoundToInt(criticalChance + (criticalChance * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotCriticalChanceLevel", GamemasterController.GameMaster.RobotCriticalChanceLevel)[2]) / 100)));
+        //criticalChance = Mathf.RoundToInt(criticalChance + (criticalChance * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotCriticalChanceLevel", GamemasterController.GameMaster.RobotCriticalChanceLevel)[2]) / 100)));
     }
 
     // Use this for initialization

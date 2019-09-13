@@ -16,7 +16,7 @@ public class UI_Powers : MonoBehaviour
     float currentMoney = 0;
     //DASH
     public Animator DashAnim, pointsAnim;
-    public Image dashImage;
+    public Image dashImage, lifeImage1, lifeImage2;
 
     //POINTS
     public Text pointsText, updatedPointsText;
@@ -33,16 +33,11 @@ public class UI_Powers : MonoBehaviour
         if (GamemasterController.GameMaster.Money > 0)
         {
             pointsText.enabled = true;
-            updatedPointsText.gameObject.SetActive(true);
+
             if (currentMoney != GamemasterController.GameMaster.Money)
             {
-                updatedPointsText.text = "+" + Mathf.RoundToInt(GamemasterController.GameMaster.Money - currentMoney);
                 currentMoney = Mathf.Lerp(currentMoney, GamemasterController.GameMaster.Money, Time.deltaTime);
                 pointsText.text = Mathf.RoundToInt(currentMoney).ToString();
-            }
-            else
-            {
-                updatedPoints = false;
             }
         }
 

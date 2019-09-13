@@ -34,11 +34,11 @@ public class PlayerInputInterface : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        if (inputs == null)
-        {
+        //if (inputs == null)
+        //{
             inputs = ReInput.players.GetPlayer(playerId);
-        }
-        else { enabled = false; }
+        //}
+        //else { enabled = false; }
         if (player == null)
         {
             player = this;

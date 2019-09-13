@@ -13,6 +13,7 @@ public class CorruptionBoss : Enemy
     Collider coll, coll2;
     [SerializeField] CleanCorruption Clean;
     RimEffect rim;
+    [SerializeField] Animator dissolve;
     public override void Update()
     {
 
@@ -60,9 +61,11 @@ public class CorruptionBoss : Enemy
     {
         dead = true;
         laserTarget.gameObject.SetActive(false);
+        if (coll!= null && coll2 !=null) { 
         //collider reset
         coll.enabled = false;
         coll2.enabled = false;
+        }
         //audio
         SM.Die();
         CM.speed = playerspeed;
@@ -71,7 +74,7 @@ public class CorruptionBoss : Enemy
         rim = GetComponentInChildren<RimEffect>();
         rim.setRimToZero();
         rim.enabled = false;
-
+        if (dissolve != null) { dissolve.SetBool("Dissolve", true); }
     }
 
 

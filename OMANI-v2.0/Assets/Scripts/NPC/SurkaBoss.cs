@@ -1,7 +1,7 @@
 ﻿using BehaviorDesigner.Runtime;
 using UnityEngine;
 using UnityEngine.Playables;
-
+using UnityEngine.UI;
 public class SurkaBoss : Enemy
 {
     [SerializeField] ParticleSystem AttackTrail;
@@ -15,6 +15,8 @@ public class SurkaBoss : Enemy
 
     [SerializeField]
     RPGTalk dieDialog;
+    [SerializeField] Canvas canvasLife;
+    [SerializeField] Image imageLife;
 
     public void SetMaster(GameObject master)
     {
@@ -51,6 +53,7 @@ public class SurkaBoss : Enemy
     public override void Update()
     {
         base.Update();
+        imageLife.fillAmount =  startLife/ life;
         if (!fase1)
         {
             if (life > startLife / 3 * 2)
@@ -83,9 +86,10 @@ public class SurkaBoss : Enemy
     public override void Die()
     {
         base.Die();
-
+        GamemasterController.GameMaster.AddMoney(1000);
         dieDialog.variables[0].variableValue = GamemasterController.GameMaster.Money.ToString();
         Director.Play();
+        canvasLife.gameObject.SetActive(false);
     }
 
 

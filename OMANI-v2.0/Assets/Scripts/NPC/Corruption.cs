@@ -7,7 +7,6 @@ public class Corruption : Enemy
 
     [SerializeField] LayerMask LayerMasktoAttack;
     float playerspeed;
-    CharacterMovement CM;
     bool dead = false;
     Collider coll;
     public override void Update()
@@ -20,12 +19,7 @@ public class Corruption : Enemy
     }
     public override void Start()
     {
-        CM = FindObjectOfType<CharacterMovement>();
         coll = GetComponent<Collider>();
-        if (CM != null)
-        {
-            playerspeed = CM.originalSpeed;
-        }
 
         SM = GetComponentInChildren<SoundsManager>();
         anim = gameObject.GetComponent<Animator>();
@@ -62,7 +56,7 @@ public class Corruption : Enemy
         //audio
         SM.Die();
 
-        CM.speed = playerspeed;
+        CharacterMovement.movement.anim.SetFloat("Speed", 1f);
         anim.SetTrigger("Die");
         StartCoroutine("DieTempo");
 
@@ -74,9 +68,7 @@ public class Corruption : Enemy
         {
             laserTarget.gameObject.SetActive(true);
         }
-        else {
 
-        }
     }
 
     private IEnumerator DieTempo()
@@ -90,6 +82,7 @@ public class Corruption : Enemy
         State = "Alive";
         anim.SetTrigger("Resurrect");
         coll.enabled = true;
+        laserTarget.gameObject.SetActive(true);
 
         MK.Toon.MKToonMaterialHelper.SetSaturation(Renderer.material, 1);
     }
@@ -105,9 +98,7 @@ public class Corruption : Enemy
 
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-    }
+
     private bool IsInLayerMask(GameObject obj, LayerMask layerMask)
     {
         // Convert the object's layer to a bitfield for comparison
@@ -127,14 +118,8 @@ public class Corruption : Enemy
         {
             if (IsInLayerMask(other.gameObject, LayerMasktoAttack))
             {
-                if (CM != null)
-                {
-                    CM.speed = CM.originalSpeed;
-                }
-                else
-                {
-                    CM = FindObjectOfType<CharacterMovement>();
-                }
+                CharacterMovement.movement.anim.SetFloat("Speed", 1f);
+
             }
 
         }
@@ -159,19 +144,8 @@ public class Corruption : Enemy
                 //check for player and robot
                 if (other.CompareTag("Player"))
                 {
-                    if (CM != null)
-                    {
-                        CM.speed = CM.originalSpeed  / 2;
-                        ;
-                    }
-                    else
-                    {
-                        CM = FindObjectOfType<CharacterMovement>();
-                        if (CM.speed > 0.5f)
-                        {
-                            playerspeed = CM.originalSpeed;
-                        }
-                    }
+                    CharacterMovement.movement.anim.SetFloat("Speed", 0.6f);
+
                 }
             }
 

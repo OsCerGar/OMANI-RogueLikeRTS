@@ -44,7 +44,7 @@ public class NumberPool : MonoBehaviour
         }
         if (alreadyOwned == false)
         {
-            RandomPos = new Vector3(Random.Range(tr.position.x - 0.5f, tr.position.x + 0.5f), Random.Range(tr.position.y - 0.5f, tr.position.y + 0.5f), numberOwner.transform.position.z);
+            RandomPos = new Vector3(Random.Range(tr.position.x - 0.5f, tr.position.x + 0.5f), Random.Range(tr.position.y +1.5f, tr.position.y + 2f), numberOwner.transform.position.z);
 
             damagenumber.TryGetNextObject(RandomPos, damagenumber.gameObject.transform.rotation, out Spawned);
             text = Spawned.transform.GetComponentInChildren<NumberScript>();

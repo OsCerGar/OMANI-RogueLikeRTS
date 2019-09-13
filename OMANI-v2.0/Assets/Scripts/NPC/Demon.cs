@@ -8,10 +8,10 @@ public class Demon : Enemy
     {
         base.Start();
         //damage
-        damage = int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[2]);
-        damage = Mathf.RoundToInt(damage + (GamemasterController.GameMaster.Difficulty * 2));
+        //damage = int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[2]);
+        //damage = Mathf.RoundToInt(damage + (GamemasterController.GameMaster.Difficulty * 2));
         //life
-        life = int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[1]);
+        //life = int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[1]);
 
     }
 
@@ -23,7 +23,8 @@ public class Demon : Enemy
     }
     public override void Die()
     {
-        GamemasterController.GameMaster.AddMoney(int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[3]));
+        //GamemasterController.GameMaster.AddMoney(int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[3]));
+        GamemasterController.GameMaster.AddMoney(25);
         base.Die();
     }
     public override void AttackHit()

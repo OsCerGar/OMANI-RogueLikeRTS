@@ -36,6 +36,11 @@ public class CharacterMovement : MonoBehaviour
 
     float x, y;
     float angleDesiredDirection;
+
+    #region Steps
+    [SerializeField] AudioClip step1, step2;
+    [SerializeField] AudioSource stepSource, dashSource;
+    #endregion
     // Use this for initialization
     void Start()
     {
@@ -54,7 +59,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (ableToMove)
         {
-            anim.SetFloat("Speed", speed);
+            //anim.SetFloat("Speed", speed);
             dashCooldown += Time.deltaTime;
             if (inputs.Dash)
             {
@@ -136,6 +141,7 @@ public class CharacterMovement : MonoBehaviour
         // If the axis has any sort of input on WASD.
         if (inputs.MovementAxis.x != 0f || inputs.MovementAxis.y != 0f)
         {
+
             onNoMovementTime = 0;
             anim.SetBool("OnMovement", true);
             if (inputs.Laser || Army.army.currentFighter != null)
@@ -209,6 +215,7 @@ public class CharacterMovement : MonoBehaviour
         // If the axis has any sort of input on Joystick.
         else if (inputs.MovementAxisController.x > 0.2f || inputs.MovementAxisController.x < -0.2f || inputs.MovementAxisController.y > 0.2f || inputs.MovementAxisController.y < -0.2f)
         {
+
             onNoMovementTime = 0;
             anim.SetBool("OnMovement", true);
 
@@ -286,7 +293,6 @@ public class CharacterMovement : MonoBehaviour
         {
             if (inputs.MovementAxis.x == 0f && inputs.MovementAxis.y == 0f && inputs.MovementAxisController.x == 0 && inputs.MovementAxisController.y == 0)
             {
-
                 onMovement = false;
 
                 //sound 
@@ -354,6 +360,37 @@ public class CharacterMovement : MonoBehaviour
     public void DashAttack()
     {
         dashAttack.SetActive(true);
+    }
+    public void DashSound()
+    {
+        dashSource.Play();
+    }
+
+    public void Step()
+    {
+        if (!stepSource.isPlaying)
+        {
+            float pitch = Random.Range(0.90f, 1.10f);
+            stepSource.pitch = pitch;
+            stepSource.clip = step1;
+
+            stepSource.Play();
+        }
+
+    }
+
+    public void Step2()
+    {
+        if (!stepSource.isPlaying)
+        {
+            float pitch = Random.Range(0.90f, 1.10f);
+            stepSource.pitch = pitch;
+
+            stepSource.clip = step2;
+
+            stepSource.Play();
+        }
+
     }
 }
 

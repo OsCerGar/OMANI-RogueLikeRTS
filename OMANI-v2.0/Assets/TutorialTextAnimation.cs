@@ -16,9 +16,9 @@ public class TutorialTextAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dyingEffect[0].transform.Rotate(0, 0, 0.15f, Space.Self);
-        dyingEffect[1].transform.Rotate(0, 0, -0.05f, Space.Self);
-        dyingEffect[2].transform.Rotate(0, 0, 0.05f, Space.Self);
+        dyingEffect[0].transform.Rotate(0, 0, 2f * Time.deltaTime, Space.Self);
+        dyingEffect[1].transform.Rotate(0, 0, -2f * Time.deltaTime, Space.Self);
+        dyingEffect[2].transform.Rotate(0, 0, 2f * Time.deltaTime, Space.Self);
 
     }
 }

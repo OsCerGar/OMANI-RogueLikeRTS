@@ -52,11 +52,11 @@ public class DeathRoom : MonoBehaviour
                     animi.SetBool("Dissapear", true);
                 }
                 entered = false;
-                MusicManager.musicManager.roomClosed();
                 Enemy.OnDie -= enemyDied;
                 timeText.enabled = false;
                 starImage.enabled = false;
                 AddPoints();
+                MusicManager.musicManager.LowerMusic("combatMusic", 1f);
             }
 
             //UI STUFF
@@ -114,7 +114,6 @@ public class DeathRoom : MonoBehaviour
                 foreach (GameObject doorT in door)
                 {
                     doorT.gameObject.SetActive(true);
-                    MusicManager.musicManager.roomStart();
                 }
             }
             timeText.enabled = true;
@@ -125,9 +124,12 @@ public class DeathRoom : MonoBehaviour
     private void PointsCalc()
     {
         pointsToAdd = 0;
-        pointsToAdd += surkaMeleeKilled * int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[3]);
-        pointsToAdd += surkaRangedKilled * int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[3]);
-        pointsToAdd += corruptedDemonKilled * int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[3]);
+        //pointsToAdd += surkaMeleeKilled * int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaMelee")[3]);
+        pointsToAdd += surkaMeleeKilled * 100;
+        //pointsToAdd += surkaRangedKilled * int.Parse(GamemasterController.GameMaster.getCsvValues("SurkaRanged")[3]);
+        pointsToAdd += surkaRangedKilled * 75;
+        //pointsToAdd += corruptedDemonKilled * int.Parse(GamemasterController.GameMaster.getCsvValues("CorruptedDemon")[3]);
+        pointsToAdd += corruptedDemonKilled * 25;
     }
 
     private void AddPoints()

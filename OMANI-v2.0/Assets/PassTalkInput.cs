@@ -7,6 +7,15 @@ public class PassTalkInput : MonoBehaviour
     void Start()
     {
         rpgTalk = GetComponent<RPGTalk>();
-        if (PlayerInputInterface.inputs.GetButtonDown("PassTalk")) { Debug.Log("PassTAlk"); rpgTalk.PlayNext(); }
+    }
+    private void Update()
+    {
+        if (PlayerInputInterface.inputs.GetButtonDown("PassTalk"))
+        {
+            if (rpgTalk.isPlaying)
+            {
+                rpgTalk.PlayNext();
+            }
+        }
     }
 }

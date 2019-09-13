@@ -45,7 +45,7 @@ public class Army : MonoBehaviour
         if (army == null) { army = this; }
 
         //Reclute the robots you have bought and adds their data
-        /*
+
         if (GamemasterController.GameMaster.GetRobots().Count > 0)
         {
             for (int i = 0; i < GamemasterController.GameMaster.GetRobots().Count; i++)
@@ -54,10 +54,10 @@ public class Army : MonoBehaviour
                 Robot spawnedRobot = spawned.GetComponent<Robot>();
                 spawnedRobot.level = GamemasterController.GameMaster.GetRobots()[i].level;
                 spawnedRobot.exp = GamemasterController.GameMaster.GetRobots()[i].exp;
-                //Reclute(spawnedRobot);
+                Reclute(spawnedRobot);
             }
         }
-        */
+
 
     }
 
@@ -133,6 +133,9 @@ public class Army : MonoBehaviour
         }
 
         if (PlayerInputInterface.inputs.GetButtonDown("Summon")) { SummonRobot(); }
+        if (PlayerInputInterface.inputs.GetButtonDown("LeaveRobot")) { if (currentFighter != null) { currentFighter.TakeDamage(999, Color.yellow, transform);
+            }
+        }
 
     }
 
@@ -347,12 +350,12 @@ public class Army : MonoBehaviour
 
     public void Remove(Robot _robot)
     {
+
         if (_robot == currentFighter)
         {
             currentFighter = null;
             look.AlternativeCenter(null);
             //here
-            armyCell[ArmyCellSelected].Transaction();
         }
 
         foreach (ArmyCell cell in armyCell)
@@ -361,6 +364,8 @@ public class Army : MonoBehaviour
             GamemasterController.GameMaster.RemoveRobot(_robot);
             cell.removeRobot(_robot);
         }
+        radialMenu.UpdateState();
+
     }
     public void RemoveWithoutFighter(Robot _robot)
     {
@@ -370,6 +375,7 @@ public class Army : MonoBehaviour
         }
         //SaveGame robot list
         GamemasterController.GameMaster.RemoveRobot(_robot);
+        radialMenu.UpdateState();
 
     }
 }

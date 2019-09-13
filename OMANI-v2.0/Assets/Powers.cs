@@ -31,8 +31,6 @@ public class Powers : MonoBehaviour
     #endregion
     #region Initializers
 
-    //input
-    PlayerInputInterface player;
     private void Awake()
     {
         Initializer();
@@ -44,7 +42,6 @@ public class Powers : MonoBehaviour
         lookDirection = FindObjectOfType<LookDirectionsAndOrder>();
         army = FindObjectOfType<Army>();
         powerManager = FindObjectOfType<PowerManager>();
-        player = FindObjectOfType<PlayerInputInterface>();
         dash = FindObjectOfType<PW_Dash>();
         lasers = FindObjectOfType<Power_Laser>();
 
@@ -55,7 +52,8 @@ public class Powers : MonoBehaviour
     {
         if (powers == null) { powers = this; }
         else { enabled = false; }
-        maxArmor = float.Parse(GamemasterController.GameMaster.getCsvValues("Omani")[1]);
+        //maxArmor = float.Parse(GamemasterController.GameMaster.getCsvValues("Omani")[1]);
+        maxArmor = 500f;
 
     }
     public void ConnectedValue(bool _connectedValue, Transform _connectedObject)
@@ -77,9 +75,9 @@ public class Powers : MonoBehaviour
         if (army.currentFighter == null)
         {
             #region Inputs 
-            if (player.Laser) { if (!pressed) { lasers.StartEffects(); pressed = true; } }
-            if (player.Laser) { ZoneLaser(); }
-            if (!player.Laser)
+            if (PlayerInputInterface.player.Laser) { if (!pressed) { lasers.StartEffects(); pressed = true; } }
+            if (PlayerInputInterface.player.Laser) { ZoneLaser(); }
+            if (!PlayerInputInterface.player.Laser)
             {
                 if (pressed)
                 {
@@ -102,9 +100,9 @@ public class Powers : MonoBehaviour
         lasers.setSphereWidth((armor / maxArmor) / 2);
 
         //ds4light
-        if (player.ds4 != null)
+        if (PlayerInputInterface.player.ds4 != null)
         {
-            player.SetDS4Lights(new Color(0, 0.75f, 0.0f, (armor / maxArmor)));
+            PlayerInputInterface.player.SetDS4Lights(new Color(0, 0.75f, 0.0f, (armor / maxArmor)));
         }
 
 
@@ -112,7 +110,7 @@ public class Powers : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        FindEnnuis();
+        //FindEnnuis();
     }
 
     #region InputRelated

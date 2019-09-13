@@ -409,7 +409,7 @@ public class LookDirectionsAndOrder : MonoBehaviour
                     tdirection = tdirection.normalized;
                 }
 
-                miradaposition = transform.position + (tdirection) * viewRadius / 1.25f + new Vector3(0, -1f, 0);
+                miradaposition = transform.position + (tdirection) * viewRadius / 1.25f + new Vector3(0, 1f, 0);
                 transform.LookAt(miradaposition);
                 playingOnController = true;
             }

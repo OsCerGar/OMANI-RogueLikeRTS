@@ -49,7 +49,7 @@ public class Tutorial_PlayerLock : MonoBehaviour
         }
         if (disabling)
         {
-            if (movement.anim.GetCurrentAnimatorStateInfo(0).IsName("DownBlend"))
+            if (movement.anim.GetCurrentAnimatorStateInfo(0).IsName("ANIM_IDDLE_4_patas"))
             {
                 movement.AbleToMove();
                 enabled = false;

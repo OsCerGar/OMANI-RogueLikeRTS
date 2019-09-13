@@ -5,6 +5,7 @@ public class PeoplePool : MonoBehaviour
 {
 
     EZObjectPool Worker, Warrior, Shooter;
+    EZObjectPool WorkerSupreme, WarriorSupreme, ShooterSupreme;
     GameObject Spawned;
 
     public static PeoplePool peoplePool;
@@ -28,6 +29,18 @@ public class PeoplePool : MonoBehaviour
             {
                 Shooter = item;
             }
+            if (item.PoolName == "WorkerSupreme")
+            {
+                WorkerSupreme = item;
+            }
+            if (item.PoolName == "WarriorSupreme")
+            {
+                WarriorSupreme = item;
+            }
+            if (item.PoolName == "ShooterSupreme")
+            {
+                ShooterSupreme = item;
+            }
         }
     }
 
@@ -45,6 +58,18 @@ public class PeoplePool : MonoBehaviour
         {
             return ShooterSpawn(tr);
         }
+        if (_name == "WorkerSupreme" || _name == "workersupreme")
+        {
+            return WorkerSupremeSpawn(tr);
+        }
+        if (_name == "WarriorSupreme" || _name == "warriorsupreme")
+        {
+            return WarriorSupremeSpawn(tr);
+        }
+        if (_name == "ShooterSupreme" || _name == "shooterSupreme")
+        {
+            return ShooterSupremeSpawn(tr);
+        }
         return null;
     }
 
@@ -53,12 +78,27 @@ public class PeoplePool : MonoBehaviour
         Worker.TryGetNextObject(ps, tr.rotation, out Spawned);
         return Spawned;
     }
+    public GameObject WorkerSupremeSpawn(Transform tr)
+    {
+        WorkerSupreme.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+        return Spawned;
+    }
 
     public GameObject WarriorSpawn(Transform tr)
     {
         Warrior.TryGetNextObject(tr.position, tr.rotation, out Spawned);
         return Spawned;
 
+    }
+    public GameObject WarriorSupremeSpawn(Transform tr)
+    {
+        WarriorSupreme.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+        return Spawned;
+    }
+    public GameObject ShooterSupremeSpawn(Transform tr)
+    {
+        ShooterSupreme.TryGetNextObject(tr.position, tr.rotation, out Spawned);
+        return Spawned;
     }
     public GameObject ShooterSpawn(Transform tr)
     {

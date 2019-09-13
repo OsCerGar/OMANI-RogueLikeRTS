@@ -32,52 +32,6 @@ Transform:
   m_Father: {fileID: 8586339132762925493}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 9.938001, y: -92.89101, z: 11.292001}
---- !u!1 &422319440
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 422319441}
-  - component: {fileID: 422319442}
-  m_Layer: 0
-  m_Name: SpawnerDemon (12)
-  m_TagString: Untagged
-  m_Icon: {fileID: 2800000, guid: 669b39a307a5ac247a9577723d99ef17, type: 3}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &422319441
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 422319440}
-  m_LocalRotation: {x: -0.07673286, y: 0.1004913, z: -0.10558874, w: 0.98633903}
-  m_LocalPosition: {x: 27.6, y: 5.9, z: 59.4}
-  m_LocalScale: {x: 1.0578735, y: 1.0578734, z: 1.0578732}
-  m_Children: []
-  m_Father: {fileID: 2024140247}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &422319442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 422319440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 876c9b7c85e70a74d98b20de691f4698, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NameOfEnemyToSpawn: SurkaMele
-  posToSpawn: {fileID: 422319441}
-  numberToSpawn: 1
 --- !u!1 &578949537
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +61,7 @@ Transform:
   m_LocalScale: {x: 1.0578736, y: 1.0578731, z: 1.0578736}
   m_Children: []
   m_Father: {fileID: 2024140247}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &578949539
 MonoBehaviour:
@@ -583,7 +537,7 @@ Transform:
   m_LocalScale: {x: 1.0578735, y: 1.0578734, z: 1.0578732}
   m_Children: []
   m_Father: {fileID: 2024140247}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1991422764
 MonoBehaviour:
@@ -629,10 +583,8 @@ Transform:
   m_Children:
   - {fileID: 2048397758}
   - {fileID: 1596934053}
-  - {fileID: 2139381578}
   - {fileID: 578949538}
   - {fileID: 1991422763}
-  - {fileID: 422319441}
   m_Father: {fileID: 1285943692}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -681,52 +633,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NameOfEnemyToSpawn: CorruptedDemon
   posToSpawn: {fileID: 2048397758}
-  numberToSpawn: 2
---- !u!1 &2139381577
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2139381578}
-  - component: {fileID: 2139381579}
-  m_Layer: 0
-  m_Name: SpawnerDemon (9)
-  m_TagString: Untagged
-  m_Icon: {fileID: 2800000, guid: 669b39a307a5ac247a9577723d99ef17, type: 3}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2139381578
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139381577}
-  m_LocalRotation: {x: -0.07673286, y: 0.1004913, z: -0.10558874, w: 0.98633903}
-  m_LocalPosition: {x: 40.82, y: 2.92, z: 57.6}
-  m_LocalScale: {x: 1.0578736, y: 1.0578731, z: 1.0578736}
-  m_Children: []
-  m_Father: {fileID: 2024140247}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2139381579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139381577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 876c9b7c85e70a74d98b20de691f4698, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NameOfEnemyToSpawn: CorruptedDemon
-  posToSpawn: {fileID: 2139381578}
   numberToSpawn: 2
 --- !u!1 &1154472992308437953
 GameObject:
@@ -804,8 +710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fb2c533d5c4c543a2b9eed71bf49ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesKilled: 0
-  numberOfEnemies: 5
   door:
   - {fileID: 1285943693}
   - {fileID: 270664097}
@@ -815,10 +719,18 @@ MonoBehaviour:
   enemySpawners:
   - {fileID: 2048397757}
   - {fileID: 1596934052}
-  - {fileID: 2139381577}
+  - {fileID: 0}
   - {fileID: 578949537}
   - {fileID: 1991422762}
-  - {fileID: 422319440}
+  - {fileID: 0}
+  timeToStop: 0
+  enemiesToKillFor3Stars: 0
+  timeText: {fileID: 0}
+  starImage: {fileID: 0}
+  Stars0: {fileID: 0}
+  Stars1: {fileID: 0}
+  Stars2: {fileID: 0}
+  Stars3: {fileID: 0}
 --- !u!65 &5182061540201032650
 BoxCollider:
   m_ObjectHideFlags: 0

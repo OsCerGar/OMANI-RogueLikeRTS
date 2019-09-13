@@ -19,11 +19,11 @@ public class Shooter : Robot
     {
         base.Start();
 
-        damage = int.Parse(GamemasterController.GameMaster.getCsvValues("Shooter")[2]);
-        damage = Mathf.RoundToInt(damage + (damage * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotBaseDamageLevel", GamemasterController.GameMaster.RobotBaseDamageLevel)[2]) / 100)));
+        //damage = int.Parse(GamemasterController.GameMaster.getCsvValues("Shooter")[2]);
+        //damage = Mathf.RoundToInt(damage + (damage * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotBaseDamageLevel", GamemasterController.GameMaster.RobotBaseDamageLevel)[2]) / 100)));
 
-        maxpowerPool = float.Parse(GamemasterController.GameMaster.getCsvValues("Shooter")[1]);
-        maxpowerPool = Mathf.RoundToInt(maxpowerPool + (maxpowerPool * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotMaxLifeLevel", GamemasterController.GameMaster.RobotMaxLifeLevel)[2]) / 100)));
+        //maxpowerPool = float.Parse(GamemasterController.GameMaster.getCsvValues("Shooter")[1]);
+        //maxpowerPool = Mathf.RoundToInt(maxpowerPool + (maxpowerPool * (float.Parse(GamemasterController.GameMaster.getCsvValues("RobotMaxLifeLevel", GamemasterController.GameMaster.RobotMaxLifeLevel)[2]) / 100)));
     }
 
 

@@ -2,26 +2,13 @@
 
 public class QueenHandCollisionManager : MonoBehaviour
 {
-    QueenLegs _queenLegs;
-    AudioSource step, legMovement;
-
-    private void Start()
-    {
-        _queenLegs = FindObjectOfType<QueenLegs>();
-
-        step = GetComponents<AudioSource>()[0];
-        legMovement = GetComponents<AudioSource>()[1];
-    }
-
-
+    [SerializeField] bool frontLeg;
     private void OnTriggerEnter(Collider other)
     {
-        _queenLegs.Collision(other, step, transform);
-
+        if (other.CompareTag("Sand"))
+        {
+            QueenLegs.queenLegs.Collision(other, transform, frontLeg);
+        }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        _queenLegs.CollisionOut(other, legMovement);
 
-    }
 }
