@@ -11,7 +11,7 @@ public class SurkaBoss : Enemy
     [SerializeField] string TreeToEnable;
     [SerializeField] PlayableDirector Director;
 
-    bool fase1, fase2, fase3;
+    bool fase1 = false, fase2 = false, fase3 = false;
 
     [SerializeField]
     RPGTalk dieDialog;
@@ -53,13 +53,16 @@ public class SurkaBoss : Enemy
     public override void Update()
     {
         base.Update();
-        imageLife.fillAmount =  startLife/ life;
+        if (life != 0)
+        {
+            imageLife.fillAmount = startLife / life;
+        }
         if (!fase1)
         {
             if (life > startLife / 3 * 2)
             {
                 enableTree("Idle");
-                fase1 = true;
+               // fase1 = true;
             }
         }
         else
